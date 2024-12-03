@@ -40,8 +40,8 @@ function Clients() {
       <Container>
         <FadeIn className="flex items-center gap-x-8">
           <h2 className="text-center font-display text-sm font-semibold tracking-wider text-white sm:text-left">
-            We’ve partnered with Australian companies unlocking the power of
-            Generative AI
+            The future of work is here: it's just not evenly distributed.
+            Partnering with Australian companies to democratise Generative AI.
           </h2>
           <div className="h-px flex-auto bg-neutral-800" />
         </FadeIn>
@@ -73,7 +73,7 @@ function CaseStudies({ caseStudies }) {
       >
         <p>
           We combine deep technical expertise with innovative thinking to help 
-          Australian businesses stay ahead in the rapidly evolving digital landscape. 
+          Australian businesses stay ahead in the rapidly evolving AI landscape. 
           Our commitment to excellence drives everything we do.
         </p>
       </SectionIntro>
@@ -170,7 +170,7 @@ function Services() {
 export const metadata = {
   title: 'Embeddings: Generative AI for Enterprise',
   description:
-    'Helping Australian businesses 10x their productivity through embedding Generative AI into their business processes.',
+    'Helping Australian businesses 10x their productivity with generative AI solutions. Offices in Perth and Melbourne.',
 }
 
 export default async function Home() {
@@ -184,11 +184,10 @@ export default async function Home() {
             Embeddings: Generative AI for Enterprise
           </h1>
           <p className="mt-6 text-xl text-neutral-600">
-            Helping Australian businesses 10x their productivity through embedding
-            Generative AI into their business processes.
+            Leverage the power of Generative AI to radically accelerate your businesses’ productivity.
           </p>
           <div className="mt-8 flex gap-4">
-            <Button href="/contact">Contact us</Button>
+            <Button href="/contact">Let’s talk</Button>
           </div>
         </FadeIn>
       </Container>

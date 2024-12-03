@@ -49,7 +49,7 @@ function ContactForm() {
     <FadeIn className="lg:order-last">
       <form>
         <h2 className="font-display text-base font-semibold text-neutral-950">
-          AI Solution Enquiries
+          Business Enquiries
         </h2>
         <div className="isolate mt-6 -space-y-px rounded-2xl bg-white/50">
           <TextInput label="Name" name="name" autoComplete="name" />
@@ -70,16 +70,16 @@ function ContactForm() {
             <fieldset>
               <legend className="text-base/6 text-neutral-500">Budget</legend>
               <div className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2">
-                <RadioInput label="$25K – $50K" name="budget" value="25" />
-                <RadioInput label="$50K – $100K" name="budget" value="50" />
-                <RadioInput label="$100K – $150K" name="budget" value="100" />
-                <RadioInput label="More than $150K" name="budget" value="150" />
+                <RadioInput label="Less than $25K (PoW)" name="budget" value="25" />
+                <RadioInput label="$25K – $100K" name="budget" value="50" />
+                <RadioInput label="$100K – $250K" name="budget" value="100" />
+                <RadioInput label="More than $250K" name="budget" value="150" />
               </div>
             </fieldset>
           </div>
         </div>
         <Button type="submit" className="mt-10">
-          Start your AI journey
+          Send message
         </Button>
       </form>
     </FadeIn>

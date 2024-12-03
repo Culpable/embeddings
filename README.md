@@ -1,6 +1,6 @@
-# Studio
+# Embeddings
 
-Studio is a [Tailwind UI](https://tailwindui.com) site template built using [Tailwind CSS](https://tailwindcss.com) and [Next.js](https://nextjs.org).
+Built using [Tailwind CSS](https://tailwindcss.com) and [Next.js](https://nextjs.org).
 
 ## Getting started
 
@@ -18,13 +18,24 @@ npm run dev
 
 Finally, open [http://localhost:3000](http://localhost:3000) in your browser to view the website.
 
-## Customizing
+## Customising
 
 You can start editing this template by modifying the files in the `/src` folder. The site will auto-update as you edit these files.
 
-## License
+## Deployment
 
-This site template is a commercial product and is licensed under the [Tailwind UI license](https://tailwindui.com/license).
+This site automatically deploys to GitHub Pages whenever changes are pushed to the main branch. To trigger a deployment, use the following command:
+
+```bash
+git push origin main
+```
+
+The deployment process:
+1. Builds the site using `npm run build`
+2. Deploys the built files to the gh-pages branch
+3. Makes the site available at [https://embeddings.au](https://embeddings.au)
+
+No manual deployment steps are required - just push your changes to the main branch.
 
 ## Learn more
 
