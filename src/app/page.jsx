@@ -41,7 +41,7 @@ function Clients() {
         <FadeIn className="flex items-center gap-x-8">
           <h2 className="text-center font-display text-sm font-semibold tracking-wider text-white sm:text-left">
             The future of work is here: it's just not evenly distributed.
-            Partnering with Australian companies to democratise Generative AI.
+            We partner with Australian companies to democratise Generative AI.
           </h2>
           <div className="h-px flex-auto bg-neutral-800" />
         </FadeIn>
