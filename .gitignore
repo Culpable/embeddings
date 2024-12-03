@@ -17,3 +17,6 @@ yarn-error.log*
 # macOS
 .DS_Store
 */.DS_Store
+
+# This is handled by gh-pages
+/out
