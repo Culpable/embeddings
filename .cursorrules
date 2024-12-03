@@ -2,6 +2,6 @@
 - All text must be in British English
 - Use ’ instead of ' as an apostrophe on any frontend words (words that display to the user). e.g. Let’s, not Let's
 - Project homepage is https://embeddings.au
-- Using Next.js 14 with Tailwind CSS
-- Package requires gh-pages for deployment and follows GitHub Pages deployment structure
+- Using Next.js 14 with Tailwind CSS, requiring Node.js v22.11.0
+- Package requires gh-pages for deployment and follow2s GitHub Pages deployment structure
 </rules>
