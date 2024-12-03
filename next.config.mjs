@@ -15,6 +15,10 @@ import { unifiedConditional } from 'unified-conditional'
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
   output: 'export',
+  distDir: 'out',
+  images: {
+    unoptimized: true,
+  },
 }
 
 function remarkMDXLayout(source, metaName) {
