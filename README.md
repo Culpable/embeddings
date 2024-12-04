@@ -1,47 +1,112 @@
 # embeddings
 
-Built using [Tailwind CSS](https://tailwindcss.com) and [Next.js](https://nextjs.org).
+Next.js 14 website with App Router and Tailwind CSS, deployed at [embeddings.au](https://embeddings.au).
+
+## Prerequisites
+
+### Node Version Manager (nvm)
+Node Version Manager (nvm) is recommended for installing and managing multiple Node.js versions.
+
+Installation on macOS:
+```bash
+brew install nvm
+```
+
+Add to shell configuration (~/.zshrc or ~/.bash_profile):
+```bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+```
+
+Restart the terminal or run:
+```bash
+source ~/.zshrc  # or source ~/.bash_profile
+```
+
+### Node.js
+Required version: v22.11.0
+- Version specified in `.nvmrc`
+- While in project directory, install correct version: `nvm install` and switch to installed version: `nvm use`
 
 ## Getting started
 
-To get started with this template, first install the npm dependencies:
+1. Clone the repository
+2. Set Node version:
+   ```bash
+   nvm use
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start development server:
+   ```bash
+   npm run dev
+   ```
+5. Access [http://localhost:3000](http://localhost:3000)
 
-```bash
-npm install
+## Project structure
+
+Key files and directories:
+
+```
+src/
+├── components/           # Reusable components
+│   ├── RootLayout.jsx   # Main navigation and site structure
+│   ├── Footer.jsx       # Footer structure and links
+│   ├── Logo.jsx         # Site logo and hover states
+│   └── Offices.jsx      # Office location information
+├── app/                 # Next.js 14 App Router pages
+│   ├── page.jsx         # Homepage
+│   ├── about/           # About section
+│   ├── process/         # Process section
+│   └── contact/         # Contact form
+└── images/              # Static assets
+    ├── clients/         # Client logos
+    └── team/            # Team photos
 ```
 
-Next, run the development server:
+### Temporarily disabled sections
+Currently disabled but preserved in `src/app/_disabled_pages/`:
+- `/work`: Case studies and portfolio
+- `/blog`: Blog posts and articles
 
-```bash
-npm run dev
-```
+## Development
 
-Finally, open [http://localhost:3000](http://localhost:3000) in your browser to view the website.
+The site auto-updates when files in `/src` are modified.
 
-## Customising
-
-You can start editing this template by modifying the files in the `/src` folder. The site will auto-update as you edit these files.
+### Key component locations
+- Navigation: `src/components/RootLayout.jsx`
+- Footer: `src/components/Footer.jsx`
+- Social links: `src/components/SocialMedia.jsx`
+- Office locations: `src/components/Offices.jsx`
 
 ## Deployment
 
-This site automatically deploys to GitHub Pages whenever changes are pushed to the main branch. To trigger a deployment, use the following command:
+Deployment occurs automatically via GitHub Actions (defined in `.github/workflows/deploy.yml`). No manual deployment steps required.
 
+To trigger automatic deployment, simply push to the main branch:
 ```bash
 git push origin main
 ```
 
-The deployment process:
-1. Builds the site using `npm run build`
-2. Deploys the built files to the gh-pages branch
-3. Makes the site available at [https://embeddings.au](https://embeddings.au)
+**Automated deployment process:**
+1. GitHub Actions runner starts on Ubuntu latest
+2. Sets up Node.js environment (v20.10.0)
+3. Installs dependencies using `npm ci`
+4. Builds static site using `npm run build`
+5. Deploys built files to `gh-pages` branch using `peaceiris/actions-gh-pages`
+6. Configures custom domain (embeddings.au) via CNAME
 
-No manual deployment steps are required - just push your changes to the main branch.
+**Important notes:**
+- The `gh-pages` branch is managed automatically - DO NOT modify it directly
+- All changes should be made to the main branch only
+- Deployment status and logs available in the repository's Actions tab
 
-## Learn more
+## Documentation
 
-To learn more about the technologies used in this site template, see the following resources:
-
-- [Tailwind CSS](https://tailwindcss.com/docs) - the official Tailwind CSS documentation
-- [Next.js](https://nextjs.org/docs) - the official Next.js documentation
-- [Framer Motion](https://www.framer.com/docs/) - the official Framer Motion documentation
-- [MDX](https://mdxjs.com/) - the official MDX documentation
+- [Next.js 14](https://nextjs.org/docs) - App Router and features
+- [Tailwind CSS](https://tailwindcss.com/docs) - Styling utilities
+- [Framer Motion](https://www.framer.com/docs/) - Animations
+- [MDX](https://mdxjs.com) - Blog and case study content
