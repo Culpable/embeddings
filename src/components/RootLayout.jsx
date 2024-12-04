@@ -126,13 +126,13 @@ function NavigationItem({ href, children }) {
 function Navigation() {
   return (
     <nav className="mt-px font-display text-5xl font-medium tracking-tight text-white">
-      <NavigationRow>
+      {/* <NavigationRow>
         <NavigationItem href="/work">our work</NavigationItem>
         <NavigationItem href="/about">about us</NavigationItem>
-      </NavigationRow>
+      </NavigationRow> */}
       <NavigationRow>
         <NavigationItem href="/process">our process</NavigationItem>
-        <NavigationItem href="/blog">blog</NavigationItem>
+        <NavigationItem href="/about">about us</NavigationItem>
       </NavigationRow>
     </nav>
   )
