@@ -7,35 +7,36 @@ import { socialMediaProfiles } from '@/components/SocialMedia'
 import { Offices } from '@/components/Offices'
 
 const navigation = [
-  {
-    title: 'work',
-    links: [
-      { title: 'familyfund', href: '/work/family-fund' },
-      { title: 'unseal', href: '/work/unseal' },
-      { title: 'phobia', href: '/work/phobia' },
-      {
-        title: (
-          <>
-            see all <span aria-hidden="true">&rarr;</span>
-          </>
-        ),
-        href: '/work',
-      },
-    ],
-  },
+  // ! Work in footer
+  // {
+  //   title: 'work',
+  //   links: [
+  //     { title: 'familyfund', href: '/work/family-fund' },
+  //     { title: 'unseal', href: '/work/unseal' },
+  //     { title: 'phobia', href: '/work/phobia' },
+  //     {
+  //       title: (
+  //         <>
+  //           see all <span aria-hidden="true">&rarr;</span>
+  //         </>
+  //       ),
+  //       href: '/work',
+  //     },
+  //   ],
+  // },
   {
     title: 'company',
     links: [
       { title: 'about us', href: '/about' },
       { title: 'process', href: '/process' },
-      { title: 'blog', href: '/blog' },
       { title: 'contact us', href: '/contact' },
     ],
   },
-  {
-    title: 'connect',
-    links: socialMediaProfiles,
-  },
+  // ! Social links in footer
+  // {
+  //   title: 'connect',
+  //   links: socialMediaProfiles,
+  // },
 ]
 
 function Navigation() {

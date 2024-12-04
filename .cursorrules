@@ -1,7 +1,46 @@
+<project_details>
+
+<description>
+These rules apply specifically to this repository and should be used for all code within this project scope.
+</description>
+
 <rules>
 - All text must be in British English
-- Use ’ instead of ' as an apostrophe on any frontend words (words that display to the user). e.g. Let’s, not Let's
+- Use ' instead of ' as an apostrophe on any frontend words (words that display to the user). e.g. Let's, not Let's
 - Project homepage is https://embeddings.au
 - Using Next.js 14 with Tailwind CSS, requiring Node.js v22.11.0
-- Package requires gh-pages for deployment and follow2s GitHub Pages deployment structure
+- Package requires gh-pages for deployment and follows GitHub Pages deployment structure
 </rules>
+
+<key_templates>
+src/
+├── components/
+│   ├── RootLayout.jsx: Main navigation and site structure
+│   │   └── Navigation(): Main nav items
+│   │   └── Header(): Contact button and mobile menu
+│   ├── Footer.jsx: Footer structure and links
+│   │   └── navigation[]: Footer sections and links
+│   ├── Logo.jsx: Site logo and hover states
+│   │   └── socialMediaProfiles[]: Social platform links
+│   └── Offices.jsx: Office location information
+├── app/
+│   ├── page.jsx: Homepage content and hero section
+│   ├── about/
+│   │   └── page.jsx: About page content and team info
+│   ├── process/
+│   │   └── page.jsx: Process page methodology
+│   └── contact/
+│       └── page.jsx: Contact form and info
+└── images/
+    ├── clients/: Client logos and case studies
+    └── team/: Team member photos
+
+<disabled_pages>
+src/app/_disabled_pages/
+├── work/: Case studies and portfolio (currently disabled)
+└── blog/: Blog posts and articles (currently disabled)
+</disabled_pages>
+
+</key_templates>
+
+</project_details>
