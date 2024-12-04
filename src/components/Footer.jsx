@@ -8,15 +8,15 @@ import { Offices } from '@/components/Offices'
 
 const navigation = [
   {
-    title: 'Work',
+    title: 'work',
     links: [
-      { title: 'FamilyFund', href: '/work/family-fund' },
-      { title: 'Unseal', href: '/work/unseal' },
-      { title: 'Phobia', href: '/work/phobia' },
+      { title: 'familyfund', href: '/work/family-fund' },
+      { title: 'unseal', href: '/work/unseal' },
+      { title: 'phobia', href: '/work/phobia' },
       {
         title: (
           <>
-            See all <span aria-hidden="true">&rarr;</span>
+            see all <span aria-hidden="true">&rarr;</span>
           </>
         ),
         href: '/work',
@@ -24,16 +24,16 @@ const navigation = [
     ],
   },
   {
-    title: 'Company',
+    title: 'company',
     links: [
-      { title: 'About', href: '/about' },
-      { title: 'Process', href: '/process' },
-      { title: 'Blog', href: '/blog' },
-      { title: 'Contact us', href: '/contact' },
+      { title: 'about us', href: '/about' },
+      { title: 'process', href: '/process' },
+      { title: 'blog', href: '/blog' },
+      { title: 'contact us', href: '/contact' },
     ],
   },
   {
-    title: 'Connect',
+    title: 'connect',
     links: socialMediaProfiles,
   },
 ]
@@ -75,7 +75,7 @@ export function Footer() {
           <div className="flex lg:justify-end">
             <div className="max-w-sm">
               <h2 className="font-display text-base font-semibold text-neutral-950">
-                Our offices
+                our offices
               </h2>
               <Offices className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2" />
             </div>
@@ -86,7 +86,7 @@ export function Footer() {
             <Logo className="h-8" fillOnHover />
           </Link>
           <p className="text-sm text-neutral-700">
-            © Embeddings {new Date().getFullYear()}
+            © embeddings {new Date().getFullYear()}
           </p>
         </div>
       </FadeIn>

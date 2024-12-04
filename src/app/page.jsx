@@ -41,7 +41,7 @@ function Clients() {
         <FadeIn className="flex items-center gap-x-8">
           <h2 className="text-center font-display text-sm font-semibold tracking-wider text-white sm:text-left">
             The future of work is here: it's just not evenly distributed.
-            We partner with Australian companies to democratise Generative AI.
+            We partner with Australian companies to democratise generative AI.
           </h2>
           <div className="h-px flex-auto bg-neutral-800" />
         </FadeIn>
@@ -124,8 +124,8 @@ function Services() {
   return (
     <>
       <SectionIntro
-        eyebrow="Services"
-        title="Experience the future of work with Generative AI"
+        eyebrow="services"
+        title="Experience the future of work with generative AI"
       >
         <p>
           We deliver tangible business value by embedding cutting-edge AI technologies 
@@ -168,7 +168,7 @@ function Services() {
 }
 
 export const metadata = {
-  title: 'Embeddings: Generative AI for Enterprise',
+  title: 'embeddings: Generative AI for Australian Businesses',
   description:
     'Helping Australian businesses 10x their productivity with generative AI solutions. Offices in Perth and Melbourne.',
 }
@@ -181,10 +181,10 @@ export default async function Home() {
       <Container className="mt-24 sm:mt-32 md:mt-56">
         <FadeIn className="max-w-3xl">
           <h1 className="font-display text-5xl font-medium tracking-tight text-neutral-950 [text-wrap:balance] sm:text-7xl">
-            Embeddings: Generative AI for Enterprise
+            embeddings: generative AI for enterprise
           </h1>
           <p className="mt-6 text-xl text-neutral-600">
-            Leverage the power of Generative AI to radically accelerate your businesses’ productivity.
+            Leverage the power of generative AI to radically accelerate your businesses’ productivity.
           </p>
           <div className="mt-8 flex gap-4">
             <Button href="/contact">Let’s talk</Button>

@@ -49,7 +49,7 @@ function ContactForm() {
     <FadeIn className="lg:order-last">
       <form>
         <h2 className="font-display text-base font-semibold text-neutral-950">
-          Business Enquiries
+          business enquiries
         </h2>
         <div className="isolate mt-6 -space-y-px rounded-2xl bg-white/50">
           <TextInput label="Name" name="name" autoComplete="name" />
@@ -90,7 +90,7 @@ function ContactDetails() {
   return (
     <FadeIn>
       <h2 className="font-display text-base font-semibold text-neutral-950">
-        Our offices
+        our offices
       </h2>
       <p className="mt-6 text-base text-neutral-600">
         We have offices in Perth and Melbourne, ready to help transform your business with Generative AI.
@@ -100,11 +100,11 @@ function ContactDetails() {
 
       <Border className="mt-16 pt-16">
         <h2 className="font-display text-base font-semibold text-neutral-950">
-          Email us
+          email us
         </h2>
         <dl className="mt-6 grid grid-cols-1 gap-8 text-sm sm:grid-cols-2">
           {[
-            ['Solutions', 'solutions@embeddings.au'],
+            ['business enquiries', 'solutions@embeddings.au'],
           ].map(([label, email]) => (
             <div key={email}>
               <dt className="font-semibold text-neutral-950">{label}</dt>
@@ -123,7 +123,7 @@ function ContactDetails() {
 
       <Border className="mt-16 pt-16">
         <h2 className="font-display text-base font-semibold text-neutral-950">
-          Follow us
+          follow us
         </h2>
         <SocialMedia className="mt-6" />
       </Border>
@@ -139,7 +139,7 @@ export const metadata = {
 export default function Contact() {
   return (
     <>
-      <PageIntro eyebrow="Contact us" title="Let’s transform your business with AI">
+      <PageIntro eyebrow="contact us" title="Transform your business with AI">
         <p>Ready to experience the future of work? Get in touch with our team of AI experts.</p>
       </PageIntro>
 

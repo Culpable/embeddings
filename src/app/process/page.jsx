@@ -180,7 +180,7 @@ function Values() {
       </div>
 
       <SectionIntro
-        eyebrow="Our values"
+        eyebrow="our values"
         title="Harnessing technology for a brighter future"
       >
         <p>
@@ -231,7 +231,7 @@ export const metadata = {
 export default function Process() {
   return (
     <>
-      <PageIntro eyebrow="Our process" title="How we work">
+      <PageIntro eyebrow="our process" title="How we work">
         <p>
           We take a systematic approach to AI implementation, ensuring each solution 
           is tailored to your specific needs while maximising efficiency and return 
