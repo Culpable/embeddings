@@ -4,13 +4,18 @@
 These rules apply specifically to this repository and should be used for all code within this project scope.
 </description>
 
-<rules>
+<content_rules>
 - All text must be in British English
-- Use ' instead of ' as an apostrophe on any frontend words (words that display to the user). e.g. Let's, not Let's
+- Use ’ instead of ' as an apostrophe on any frontend words (words that display to the user). e.g. Let’s, not Let's, business’, not business'
 - Project homepage is https://embeddings.au
-- Using Next.js 14 with Tailwind CSS, requiring Node.js v22.11.0
-- Package requires gh-pages for deployment and follows GitHub Pages deployment structure
-</rules>
+</content_rules>
+
+<technical_requirements>
+- Next.js 14 with App Router
+- Tailwind CSS for styling
+- Node.js v22.11.0 required
+- Automatic deployment via GitHub Actions on push to main branch
+</technical_requirements>
 
 <key_templates>
 src/
