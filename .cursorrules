@@ -6,7 +6,7 @@ These rules apply specifically to this repository and should be used for all cod
 
 <content_rules>
 - All text must be in British English
-- Use ’ instead of ' as an apostrophe on any frontend words (words that display to the user). e.g. Let’s, not Let's, business’, not business'
+- Use ’ instead of ' as an apostrophe on any frontend words (words that display to the user). e.g. Let’s, not Let's, businesses’, not businesses'
 - Project homepage is https://embeddings.au
 </content_rules>
 
