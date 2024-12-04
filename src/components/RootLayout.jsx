@@ -223,10 +223,10 @@ function RootLayoutInner({ children }) {
                     />
                   </div>
                   <div className="sm:border-l sm:border-transparent sm:pl-16">
-                    <h2 className="font-display text-base font-semibold text-white">
+                    {/* <h2 className="font-display text-base font-semibold text-white">
                       follow us
                     </h2>
-                    <SocialMedia className="mt-6" invert />
+                    <SocialMedia className="mt-6" invert /> */}
                   </div>
                 </div>
               </Container>

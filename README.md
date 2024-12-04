@@ -46,6 +46,29 @@ Required version: v22.11.0
    ```
 5. Access [http://localhost:3000](http://localhost:3000)
 
+
+## Deployment
+
+Deployment occurs automatically via GitHub Actions (defined in `.github/workflows/deploy.yml`). No manual deployment steps required.
+
+To trigger automatic deployment, simply push to the main branch:
+```bash
+git push origin main
+```
+
+**Automated deployment process:**
+1. GitHub Actions runner starts on Ubuntu latest
+2. Sets up Node.js environment (v20.10.0)
+3. Installs dependencies using `npm ci`
+4. Builds static site using `npm run build`
+5. Deploys built files to `gh-pages` branch using `peaceiris/actions-gh-pages`
+6. Configures custom domain (embeddings.au) via CNAME
+
+**Important notes:**
+- The `gh-pages` branch is managed automatically - DO NOT modify it directly
+- All changes should be made to the main branch only
+- Deployment status and logs available in the repository's Actions tab
+
 ## Project structure
 
 Key files and directories:
@@ -81,28 +104,6 @@ The site auto-updates when files in `/src` are modified.
 - Footer: `src/components/Footer.jsx`
 - Social links: `src/components/SocialMedia.jsx`
 - Office locations: `src/components/Offices.jsx`
-
-## Deployment
-
-Deployment occurs automatically via GitHub Actions (defined in `.github/workflows/deploy.yml`). No manual deployment steps required.
-
-To trigger automatic deployment, simply push to the main branch:
-```bash
-git push origin main
-```
-
-**Automated deployment process:**
-1. GitHub Actions runner starts on Ubuntu latest
-2. Sets up Node.js environment (v20.10.0)
-3. Installs dependencies using `npm ci`
-4. Builds static site using `npm run build`
-5. Deploys built files to `gh-pages` branch using `peaceiris/actions-gh-pages`
-6. Configures custom domain (embeddings.au) via CNAME
-
-**Important notes:**
-- The `gh-pages` branch is managed automatically - DO NOT modify it directly
-- All changes should be made to the main branch only
-- Deployment status and logs available in the repository's Actions tab
 
 ## Documentation
 
