@@ -7,7 +7,6 @@ These rules apply specifically to this repository and should be used for all cod
 <content_rules>
 - All text must be in British English
 - Use ’ instead of ' as an apostrophe on any frontend words (words that display to the user). e.g. Let’s, not Let's, businesses’, not businesses'
-- Project homepage is https://embeddings.au
 </content_rules>
 
 <technical_requirements>
@@ -15,6 +14,21 @@ These rules apply specifically to this repository and should be used for all cod
 - Tailwind CSS for styling
 - Node.js v22.11.0 required
 - Automatic deployment via GitHub Actions on push to main branch
+- Static site deployment to GitHub Pages:
+  - Builds to `/out` directory
+  - Deploys to `gh-pages` branch
+  - Custom domain: embeddings.au
+  - No server-side functionality available
+  - All API endpoints must be external services
+- Component Architecture:
+  - Use Server Components by default (no 'use client' directive)
+  - Only use Client Components when needed for:
+    - React hooks (useState, useEffect, etc.)
+    - Browser APIs
+    - Interactive features
+    - Event listeners
+  - Split interactive components into separate files
+  - Mark Client Components with 'use client' directive
 </technical_requirements>
 
 <key_templates>

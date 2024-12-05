@@ -105,6 +105,23 @@ The site auto-updates when files in `/src` are modified.
 - Social links: `src/components/SocialMedia.jsx`
 - Office locations: `src/components/Offices.jsx`
 
+### Component Architecture
+- Server Components are the default (no 'use client' directive needed)
+- Client Components should be used only when necessary for:
+  - React hooks (useState, useEffect)
+  - Browser APIs
+  - Interactive features
+  - Event listeners
+- Interactive components should be split into separate files
+- Client Components must be marked with 'use client' directive
+- Example structure:
+  ```
+  contact/
+  ├── page.jsx           # Server Component (layout & static content)
+  ├── ContactForm.jsx    # Client Component (interactive form)
+  └── ContactDetails.jsx # Server Component (static content)
+  ```
+
 ## Documentation
 
 - [Next.js 14](https://nextjs.org/docs) - App Router and features
