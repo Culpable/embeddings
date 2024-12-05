@@ -187,7 +187,7 @@ export default async function Home() {
             Leverage the power of generative AI to radically accelerate your businesses’ productivity.
           </p>
           <div className="mt-8 flex gap-4">
-            <Button href="/contact">Let’s talk</Button>
+            <Button href="/contact">Contact us</Button>
           </div>
         </FadeIn>
       </Container>
