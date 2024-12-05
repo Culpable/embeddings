@@ -62,11 +62,11 @@ function RadioInput({ label, ...props }) {
 const getErrorMessage = (status) => {
   switch (status) {
     case 400:
-      return 'Please check your form details and try again.'
+      return 'Oops, one of the fields in the form was invalid. Please check your form details and try again. Please email us directly at solutions@embeddings.au if the issue persists.'
     case 429:
-      return 'Too many submissions. Please try again later.'
+      return 'Sorry, there were too many submissions. Please email us directly at solutions@embeddings.au'
     default:
-      return 'Failed to send message. Please try again.'
+      return 'Sorry, your message failed to send. Please email us directly at solutions@embeddings.au'
   }
 }
 
@@ -81,7 +81,7 @@ export function ContactForm() {
 
     try {
       const formData = new FormData(event.target)
-      const response = await fetch('https://formspree.io/f/mgveqwjy', {
+      const response = await fetch('https://formspree.io/f/xrbgdgwq', {
         method: 'POST',
         body: formData,
         headers: {
@@ -169,7 +169,7 @@ export function ContactForm() {
         )}
 
         {submitStatus.success && (
-          <div className="mt-4 text-green-500">Message sent successfully!</div>
+          <div className="mt-4 text-green-500">Message sent successfully. We’ll get back to you soon.</div>
         )}
 
         <Button 
