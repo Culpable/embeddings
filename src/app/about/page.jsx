@@ -187,21 +187,14 @@ export default async function About() {
     <>
       <PageIntro eyebrow="about us" title="Our strength is collaboration">
         <p>
-          We believe that our strength lies in our collaborative approach, which
-          puts our clients at the center of everything we do.
+          We believe that our strength lies in our implementation-first approach, focusing on delivering real, measurable value through production-ready AI solutions. Unlike traditional consultancies that focus on strategy decks and demos, we specialise in the crucial implementation phase where genuine business transformation occurs.
         </p>
         <div className="mt-10 max-w-2xl space-y-6 text-base">
           <p>
-            Studio was started by three friends who noticed that developer
-            studios were charging clients double what an in-house team would
-            cost. Since the beginning, we have been committed to doing things
-            differently by charging triple instead.
+            Embeddings was founded by action-oriented technologists who recognised that while many consultancies talked about AI’s potential, few could deliver practical, production-ready solutions. From day one, we’ve been committed to helping Australian businesses achieve exponential productivity gains through the practical application of Generative AI.
           </p>
           <p>
-            At Studio, we’re more than just colleagues — we’re a family. This
-            means we pay very little and expect people to work late. We want our
-            employees to bring their whole selves to work. In return, we just
-            ask that they keep themselves there until at least 6:30pm.
+            At Embeddings, we’re more than just consultants—we’re partners in your organisation’s AI transformation journey. Our team combines deep technical expertise with hands-on implementation experience, ensuring that every solution we deliver is robust, secure, and scalable. We’re passionate about helping businesses do less and achieve more through the power of Generative AI.
           </p>
         </div>
       </PageIntro>
