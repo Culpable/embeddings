@@ -45,7 +45,7 @@ function Navigation() {
       <ul role="list" className="grid grid-cols-2 gap-8 sm:grid-cols-3">
         {navigation.map((section, sectionIndex) => (
           <li key={sectionIndex}>
-            <div className="font-display text-sm font-semibold tracking-wider text-neutral-950">
+            <div className="font-display text-base font-semibold tracking-wider text-neutral-950">
               {section.title}
             </div>
             <ul role="list" className="mt-4 text-sm text-neutral-700">

@@ -48,31 +48,17 @@ function Discover() {
     <Section title="Discover" image={{ src: imageWhiteboard }}>
       <div className="space-y-6 text-base text-neutral-600">
         <p>
-          We work closely with our clients to understand their{' '}
-          <strong className="font-semibold text-neutral-950">needs</strong> and
-          goals, embedding ourselves in their every day operations to understand
-          what makes their business tick.
+          Through detailed process mapping and data analysis, we identify{' '}
+          <strong className="font-semibold text-neutral-950">key opportunities</strong>{' '}
+          where AI can drive the most significant productivity gains. This includes 
+          evaluating your knowledge management systems, document workflows, and 
+          production environments.
         </p>
         <p>
-          Our team of AI experts begins by thoroughly analysing your current processes and workflows. 
-          We identify opportunities for automation and optimisation, evaluate your data infrastructure, 
-          and design tailored AI solutions that integrate seamlessly with your existing systems. 
-          Throughout implementation, we ensure your team is equipped to leverage these new capabilities 
-          effectively.
-        </p>
-        <p>
-          Our team of private investigators shadow the company director’s for
-          several weeks while our account managers focus on going through their
-          trash. Our senior security experts then perform social engineering
-          hacks to gain access to their{' '}
-          <strong className="font-semibold text-neutral-950">business</strong>{' '}
-          accounts — handing that information over to our forensic accounting
-          team.
-        </p>
-        <p>
-          Once the full audit is complete, we report back with a comprehensive{' '}
-          <strong className="font-semibold text-neutral-950">plan</strong> and,
-          more importantly, a budget.
+          Following our discovery phase, we deliver a comprehensive{' '}
+          <strong className="font-semibold text-neutral-950">implementation roadmap</strong>{' '}
+          that outlines specific AI solutions, expected efficiency gains, and 
+          clear ROI metrics for each proposed solution.
         </p>
       </div>
 
@@ -80,12 +66,12 @@ function Discover() {
         Included in this phase
       </h3>
       <TagList className="mt-4">
-        <TagListItem>Process Analysis</TagListItem>
-        <TagListItem>Technical Assessment</TagListItem>
-        <TagListItem>Data Evaluation</TagListItem>
+        <TagListItem>Production System Analysis</TagListItem>
+        <TagListItem>Integration Requirements</TagListItem>
         <TagListItem>Solution Design</TagListItem>
-        <TagListItem>Implementation Strategy</TagListItem>
-        <TagListItem>Performance Monitoring</TagListItem>
+        <TagListItem>Security Assessment</TagListItem>
+        <TagListItem>Implementation Planning</TagListItem>
+        <TagListItem>Deployment Strategy</TagListItem>
       </TagList>
     </Section>
   )
@@ -103,7 +89,7 @@ function Build() {
         <p>
           Each client is assigned a dedicated AI transformation specialist who ensures 
           clear communication and smooth implementation. They work closely with our technical 
-          team to customise solutions that maximise your organisation's potential.
+          team to customise solutions that maximise your organisation’s potential.
         </p>
         <p>
           We maintain transparent communication throughout the process, providing regular 
@@ -113,11 +99,12 @@ function Build() {
       </div>
 
       <Blockquote
-        author={{ name: 'Sarah Mitchell', role: 'CTO of TechForward' }}
+        author={{ name: 'Sarah Mitchell', role: 'Operations Director at ResourceCo' }}
         className="mt-12"
       >
-        Embeddings' systematic approach to AI implementation helped us achieve 
-        results we didn't think possible in such a short timeframe.
+        Embeddings transformed our maintenance workflows within weeks. Their systematic 
+        approach to AI implementation helped us achieve a 70% reduction in document 
+        processing time.
       </Blockquote>
     </Section>
   )
@@ -128,23 +115,23 @@ function Deliver() {
     <Section title="Deliver" image={{ src: imageMeeting, shape: 2 }}>
       <div className="space-y-6 text-base text-neutral-600">
         <p>
-          We ensure seamless integration of AI solutions while maintaining your existing 
-          workflows, focusing on minimal disruption and maximum{' '}
-          <strong className="font-semibold text-neutral-950">efficiency gains</strong>.
+          We don't stop at strategy decks. We focus on the crucial{' '}
+          <strong className="font-semibold text-neutral-950">implementation phase</strong>{' '}
+          where real value is created. Our focus is on production-ready solutions that 
+          work in the real world.
         </p>
         <p>
           Our team provides comprehensive{' '}
-          <strong className="font-semibold text-neutral-950">training</strong>{' '}
-          to ensure your staff can effectively leverage the new AI capabilities, 
-          maximising adoption and return on investment.
+          <strong className="font-semibold text-neutral-950">hands-on support</strong>{' '}
+          throughout deployment, ensuring successful adoption and measurable productivity 
+          gains from day one.
         </p>
         <p>
-          We maintain ongoing support and optimisation to ensure your AI solutions 
-          continue to deliver{' '}
+          We maintain ongoing technical support to ensure your AI solutions{' '}
           <strong className="font-semibold text-neutral-950">
-            measurable value
+            perform at scale
           </strong>{' '}
-          as your business evolves and grows.
+          in production, evolving with your business needs.
         </p>
       </div>
 
@@ -152,17 +139,17 @@ function Deliver() {
         Included in this phase
       </h3>
       <List className="mt-8">
-        <ListItem title="Comprehensive Testing">
-          Rigorous testing ensures your AI solutions perform reliably and securely 
-          in your specific business context.
+        <ListItem title="Production Deployment">
+          We handle the complex technical work of deploying AI solutions into your 
+          live business environment, ensuring security, reliability, and performance.
         </ListItem>
-        <ListItem title="Robust Infrastructure">
-          We implement enterprise-grade infrastructure to ensure high availability 
-          and scalability of your AI solutions.
+        <ListItem title="System Integration">
+          Our team manages the integration with your existing enterprise systems, 
+          delivering a seamless experience for your users.
         </ListItem>
-        <ListItem title="Ongoing Support">
-          Our team provides continuous support and optimisation to ensure your AI 
-          solutions evolve with your business needs.
+        <ListItem title="Production Support">
+          We provide ongoing technical support and optimisation, ensuring your 
+          solutions continue delivering value at enterprise scale.
         </ListItem>
       </List>
     </Section>
@@ -181,40 +168,40 @@ function Values() {
 
       <SectionIntro
         eyebrow="our values"
-        title="Harnessing technology for a brighter future"
+        title="Transforming work through AI innovation"
       >
         <p>
-          We combine deep technical expertise with innovative thinking to help 
-          Australian businesses stay ahead in the rapidly evolving digital landscape. 
-          Our commitment to excellence drives everything we do.
+          We combine deep technical expertise with practical business acumen to help 
+          Australian organisations harness the power of generative AI. Our commitment 
+          to delivering measurable results drives everything we do.
         </p>
       </SectionIntro>
 
       <Container className="mt-24">
         <GridList>
           <GridListItem title="Technical Excellence">
-            Our team stays at the forefront of AI advancements, ensuring our clients 
-            benefit from the latest innovations in machine learning and automation.
+            Our team stays at the forefront of generative AI advancements, ensuring our 
+            clients benefit from cutting-edge solutions that deliver real business value.
           </GridListItem>
-          <GridListItem title="Client Success">
-            We measure our success through our clients' achievements, focusing on 
-            delivering tangible business value and measurable results.
+          <GridListItem title="Measurable Impact">
+            We focus on delivering quantifiable productivity gains and efficiency 
+            improvements that directly impact your bottom line.
           </GridListItem>
-          <GridListItem title="Innovation">
-            We continuously explore new ways to apply AI technology to solve complex 
-            business challenges and drive efficiency.
+          <GridListItem title="Practical Innovation">
+            We transform complex AI capabilities into practical business solutions that 
+            solve real operational challenges.
           </GridListItem>
-          <GridListItem title="Transparency">
-            We maintain open communication throughout the transformation process, 
-            ensuring clarity and alignment at every step.
+          <GridListItem title="Clear Communication">
+            We maintain transparent dialogue throughout the transformation process, 
+            ensuring alignment and understanding at every step.
           </GridListItem>
-          <GridListItem title="Partnership">
-            We build long-term relationships with our clients, supporting their 
-            ongoing AI journey and evolution.
+          <GridListItem title="Strategic Partnership">
+            We build lasting relationships with our clients, supporting their ongoing 
+            AI transformation journey and evolution.
           </GridListItem>
-          <GridListItem title="Expertise">
-            Our team combines deep technical knowledge with practical business 
-            experience to deliver optimal solutions.
+          <GridListItem title="Deep Expertise">
+            Our team combines advanced AI knowledge with extensive business experience 
+            to deliver solutions that work in the real world.
           </GridListItem>
         </GridList>
       </Container>
@@ -225,7 +212,7 @@ function Values() {
 export const metadata = {
   title: 'Our Process',
   description:
-    'We help Australian businesses transform through strategic AI implementation, combining technical expertise with practical business solutions.',
+    'We help Australian businesses achieve radical productivity gains through strategic AI implementation, combining technical expertise with practical business solutions.',
 }
 
 export default function Process() {
@@ -234,8 +221,8 @@ export default function Process() {
       <PageIntro eyebrow="our process" title="How we work">
         <p>
           We take a systematic approach to AI implementation, ensuring each solution 
-          is tailored to your specific needs while maximising efficiency and return 
-          on investment.
+          delivers immediate value while building a foundation for long-term 
+          transformation and sustained productivity gains.
         </p>
       </PageIntro>
 

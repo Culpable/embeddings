@@ -85,6 +85,8 @@ src/
 │   ├── about/           # About section
 │   ├── process/         # Process section
 │   └── contact/         # Contact form
+├── lib/
+│   └── images.ts        # Site-wide image configuration (featured image for social sharing)
 └── images/              # Static assets
     ├── clients/         # Client logos
     └── team/            # Team photos

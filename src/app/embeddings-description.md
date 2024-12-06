@@ -16,11 +16,11 @@ Embeddings is dedicated to bringing the latest AI advancements directly to enter
 
 ### Who They Are
 
-Embeddings is a leading consulting firm focused on delivering Generative AI solutions tailored to enterprise needs. With a team of experts combining deep technical knowledge and a passion for innovation, Embeddings helps businesses unlock unprecedented efficiency and productivity gains. Working within ASX20 companies helping them scale their AI initiatives, the team has a proven track record of success.
+Embeddings is a hands-on consulting firm that specialises in the practical implementation of Generative AI solutions in enterprise environments. Unlike consultancies that focus on strategy decks and demos, Embeddings delivers working solutions that create real business value. With a team that combines deep technical expertise and production deployment experience, they handle the complex challenges of integrating AI into existing business processes and systems.
 
 ### Mission
 
-The mission of Embeddings is straightforward: **To help Australian businesses 10x their productivity by embedding Generative AI into their business processes**. By empowering organisations with AI, they enable them to **do less and achieve more**.
+The mission of Embeddings is clear: **To help Australian businesses 10x their productivity by successfully implementing and embedding Generative AI into their business processes**. They focus on bridging the gap between AI's potential and practical business outcomes through robust, production-ready solutions.
 
 ## Services Offered
 
@@ -116,6 +116,24 @@ This motto reflects Embeddings' commitment to simplifying work processes while i
 - **Future-Proof Businesses**: Prepare organisations for the evolving digital landscape.
 
 ## Why Choose Embeddings
+
+### Implementation-First Approach
+
+While many consultancies focus on strategic roadmaps and proof-of-concepts, Embeddings specialises in the crucial implementation phase where real value is created.
+
+- **Production Focus**: Expertise in deploying and scaling AI solutions in live business environments
+- **System Integration**: Deep experience connecting AI solutions with existing enterprise systems
+- **Change Management**: Hands-on support for successful adoption and user acceptance
+- **Production-Ready Solutions**: Emphasis on security, reliability, and maintainability in real-world deployments
+
+### Technical Excellence
+
+The team combines deep technical knowledge with practical implementation experience.
+
+- **End-to-End Delivery**: From initial concept through to production deployment and ongoing support
+- **Enterprise Architecture**: Understanding of complex system landscapes and integration requirements
+- **Security and Compliance**: Rigorous approach to enterprise security standards and regulatory requirements
+- **Performance at Scale**: Solutions designed and tested for enterprise-scale operations
 
 ### Expertise in Generative AI
 

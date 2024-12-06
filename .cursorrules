@@ -42,6 +42,8 @@ src/
 │   ├── Logo.jsx: Site logo and hover states
 │   │   └── socialMediaProfiles[]: Social platform links
 │   └── Offices.jsx: Office location information
+├── lib/
+│   └── images.ts: Featured image configuration for social sharing/meta tags
 ├── app/
 │   ├── page.jsx: Homepage content and hero section
 │   ├── about/

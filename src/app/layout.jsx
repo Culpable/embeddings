@@ -1,12 +1,35 @@
 import { RootLayout } from '@/components/RootLayout'
+import { siteMetadata } from '@/lib/metadata'
 
 import '@/styles/tailwind.css'
 
 export const metadata = {
   title: {
     template: '%s / Embeddings',
-    default: 'Embeddings: Generative AI for Australian Businesses'
-  }
+    default: siteMetadata.title
+  },
+  description: siteMetadata.description,
+  openGraph: {
+    title: siteMetadata.title,
+    description: siteMetadata.description,
+    url: siteMetadata.siteUrl,
+    siteName: 'Embeddings',
+    images: [
+      {
+        url: siteMetadata.ogImage,
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: 'en-AU',
+    type: 'website',
+  },
+  twitter: {
+    card: siteMetadata.twitter.cardType,
+    title: siteMetadata.title,
+    description: siteMetadata.description,
+    images: [siteMetadata.ogImage],
+  },
 }
 
 export default function Layout({ children }) {
