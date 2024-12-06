@@ -168,7 +168,7 @@ function Services() {
 }
 
 export const metadata = {
-  title: 'embeddings: Generative AI for Australian Businesses',
+  title: 'Embeddings: Generative AI for Australian Businesses',
   description:
     'Helping Australian businesses 10x their productivity with generative AI solutions. Offices in Perth and Melbourne.',
 }
