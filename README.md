@@ -130,3 +130,21 @@ The site auto-updates when files in `/src` are modified.
 - [Tailwind CSS](https://tailwindcss.com/docs) - Styling utilities
 - [Framer Motion](https://www.framer.com/docs/) - Animations
 - [MDX](https://mdxjs.com) - Blog and case study content
+
+## Image Handling
+
+### Featured Image
+The site's featured image (used for social sharing and meta tags) is handled differently from other images:
+- Location: `public/images/embeddings-generative-ai-consulting-australia.png`
+- Configuration: `src/lib/images.ts`
+- URL Structure: Maps directly to `https://embeddings.au/images/...`
+- No optimization: Pre-optimized image bypasses Next.js image processing
+
+### Other Images
+All other images should be placed in `src/images/` to benefit from Next.js optimization:
+- Client logos: `src/images/clients/`
+- Team photos: `src/images/team/`
+- General images: `src/images/`
+
+These images are automatically optimized and will have URLs like:
+`https://embeddings.au/_next/static/media/[name].[hash].[ext]`

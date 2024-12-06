@@ -20,6 +20,11 @@ These rules apply specifically to this repository and should be used for all cod
   - Custom domain: embeddings.au
   - No server-side functionality available
   - All API endpoints must be external services
+- Image Handling:
+  - Featured image must be in public/images/ for direct URL mapping
+  - All other images must be in src/images/ for optimization
+  - Featured image configuration in src/lib/images.ts
+  - Image paths must use forward slashes (/)
 - Component Architecture:
   - Use Server Components by default (no 'use client' directive)
   - Only use Client Components when needed for:
