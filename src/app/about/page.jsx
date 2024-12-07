@@ -185,9 +185,12 @@ export default async function About() {
 
   return (
     <>
-      <PageIntro eyebrow="about us" title="Our strength is collaboration">
+      <PageIntro eyebrow="about us" title="Solutions, not slideshows">
         <p>
-          We believe that our strength lies in our implementation-first approach, focusing on delivering real, measurable value through production-ready AI solutions. Unlike traditional consultancies that focus on strategy decks and demos, we specialise in the crucial implementation phase where genuine business transformation occurs.
+          Our strength lies in our implementation-first approach, focusing on delivering real, measurable value through production-ready AI solutions.
+        </p>
+        <p style={{ marginTop: '1rem' }}>
+            You won’t just get a strategy deck and a demo—we specialise in the crucial implementation phase where genuine business transformation occurs.
         </p>
         <div className="mt-10 max-w-2xl space-y-6 text-base">
           <p>
