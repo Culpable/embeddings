@@ -68,13 +68,13 @@ function CaseStudies({ caseStudies }) {
   return (
     <>
       <SectionIntro
-        title="Harnessing technology for a brighter future"
+        title="Experience tomorrow’s productivity, today"
         className="mt-24 sm:mt-32 lg:mt-40"
       >
         <p>
           We combine deep technical expertise with innovative thinking to help 
           Australian businesses stay ahead in the rapidly evolving AI landscape. 
-          Our commitment to excellence drives everything we do.
+          We focus on delivering real solutions, not theoretical roadmaps.
         </p>
       </SectionIntro>
       <Container className="mt-16">
