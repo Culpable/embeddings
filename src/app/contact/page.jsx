@@ -14,8 +14,8 @@ export const metadata = {
 export default function Contact() {
   return (
     <>
-      <PageIntro eyebrow="contact us" title="Transform your business with AI">
-        <p>Ready to experience the future of work? Find out how we can integrate AI into your business.</p>
+      <PageIntro eyebrow="contact us" title="Your AI advantage starts here">
+        <p>Ready to experience the future of work? Contact us to see how we can integrate AI into your business.</p>
       </PageIntro>
 
       <Container className="mt-24 sm:mt-32 lg:mt-40">

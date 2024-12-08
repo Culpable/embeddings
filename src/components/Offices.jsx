@@ -23,8 +23,8 @@ function Office({ name, children, invert = false }) {
 export function Offices({ invert = false, ...props }) {
   return (
     <div {...props}>
-      <Office name="Perth" invert={invert} />
-      <Office name="Melbourne" invert={invert} />
+      <Office name="perth" invert={invert} />
+      <Office name="melbourne" invert={invert} />
     </div>
   )
 }

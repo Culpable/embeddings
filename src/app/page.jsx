@@ -41,7 +41,7 @@ function Clients() {
         <FadeIn className="flex items-center gap-x-8">
           <h2 className="text-center font-display text-sm font-semibold tracking-wider text-white sm:text-left">
             The future of work is here: it's just not evenly distributed.
-            We partner with Australian companies to democratise generative AI.
+            We partner with Australian businesses to democratise generative AI.
           </h2>
           <div className="h-px flex-auto bg-neutral-800" />
         </FadeIn>
@@ -72,8 +72,7 @@ function CaseStudies({ caseStudies }) {
         className="mt-24 sm:mt-32 lg:mt-40"
       >
         <p>
-          We combine deep technical expertise with innovative thinking to help 
-          Australian businesses stay ahead in the rapidly evolving AI landscape. 
+          We combine deep technical expertise with innovative thinking to help you lead the AI revolution in your market.
           We focus on delivering real solutions, not theoretical roadmaps.
         </p>
       </SectionIntro>

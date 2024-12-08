@@ -56,7 +56,9 @@ src/
 │   ├── process/
 │   │   └── page.jsx: Process page methodology
 │   └── contact/
-│       └── page.jsx: Contact form and info
+│       ├── page.jsx: Contact page layout and static content
+│       ├── ContactForm.jsx: Interactive contact form (Client Component)
+│       └── ContactDetails.jsx: Office locations and contact info
 └── images/
     ├── clients/: Client logos and case studies
     └── team/: Team member photos
