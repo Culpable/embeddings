@@ -155,10 +155,10 @@ export function ContactForm() {
             <fieldset>
               <legend className="text-base/6 text-neutral-500">Budget</legend>
               <div className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2">
-                <RadioInput label="$25K" name="budget" value="25" required />
-                <RadioInput label="$25K – $100K" name="budget" value="50" />
-                <RadioInput label="$100K – $250K" name="budget" value="100" />
-                <RadioInput label="More than $250K" name="budget" value="150" />
+                <RadioInput label="$50K" name="budget" value="50" required />
+                <RadioInput label="$50K – $250K" name="budget" value="150" />
+                <RadioInput label="$250K – $500K" name="budget" value="375" />
+                <RadioInput label="More than $500K" name="budget" value="500" />
               </div>
             </fieldset>
           </div>
