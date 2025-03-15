@@ -148,3 +148,28 @@ All other images should be placed in `src/images/` to benefit from Next.js optim
 
 These images are automatically optimized and will have URLs like:
 `https://embeddings.au/_next/static/media/[name].[hash].[ext]`
+
+## Sitemap Generation
+
+The site includes an automated sitemap generation system that creates `sitemap.xml` during the build process:
+
+### Process Overview
+- **Script location:** `src/scripts/generate-sitemap.js`
+- **Output:** `public/sitemap.xml`
+- **Execution:** Automatically runs during `npm run build` and `npm run deploy`
+- **Manual generation:** `npm run generate-sitemap`
+
+### Configuration
+The sitemap generation script:
+- Uses the App Router file structure to discover pages
+- Configures URLs with proper metadata (priority, change frequency)
+- Includes core routes (`/`, `/about`, `/process`, `/contact`)
+- Excludes special Next.js files and disabled pages
+- Ensures consistent URL formatting without trailing slashes
+
+### Dependencies
+The script uses:
+- Node.js native `fs` module
+- `fast-glob` package (included in project dependencies)
+
+When adding new pages to the site, they will automatically be included in the sitemap on the next build, with no manual intervention required.
