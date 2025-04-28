@@ -42,7 +42,7 @@ function Clients() {
       <Container>
         <FadeIn className="flex items-center gap-x-8">
           <h2 className="text-center font-display text-sm font-semibold tracking-wider text-white sm:text-left">
-            The future of work is here: it's just not evenly distributed.
+            The future of work is here: it’s just not evenly distributed.
             We partner with Australian businesses to democratise generative AI.
           </h2>
           <div className="h-px flex-auto bg-neutral-800" />
@@ -70,7 +70,7 @@ function CaseStudies({ caseStudies }) {
   return (
     <>
       <SectionIntro
-        title="Experience tomorrow's productivity, today"
+        title="Experience tomorrow’s productivity, today"
         className="mt-24 sm:mt-32 lg:mt-40"
       >
         <p>
@@ -192,7 +192,7 @@ export default async function Home() {
             embeddings: generative AI for enterprise
           </h1>
           <p className="mt-6 text-xl text-neutral-600">
-            Leverage the power of generative AI to radically accelerate your businesses' productivity.
+            Leverage the power of generative AI to radically accelerate your businesses’ productivity.
           </p>
           <div className="mt-8 flex gap-4">
             <Button href="/contact">Contact us</Button>
