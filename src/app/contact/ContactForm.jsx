@@ -3,6 +3,7 @@
 import { useId, useState } from 'react'
 import { Button } from '@/components/Button'
 import { FadeIn } from '@/components/FadeIn'
+import { track } from '@/lib/mixpanelClient'
 
 function TextInput({ label, multiline = false, rows = 3, ...props }) {
   let id = useId()
@@ -79,8 +80,26 @@ export function ContactForm() {
     setIsSubmitting(true)
     setSubmitStatus({ success: false, error: null })
 
+    // Track form submission attempt
+    track('Contact Form Submit Attempted', {
+      form_type: 'business_enquiry',
+      timestamp: new Date().toISOString()
+    })
+
     try {
       const formData = new FormData(event.target)
+      
+      // Extract form data for tracking
+      const formDataObject = {
+        has_name: !!formData.get('name'),
+        has_email: !!formData.get('email'),
+        has_company: !!formData.get('company'),
+        has_phone: !!formData.get('phone'),
+        has_message: !!formData.get('message'),
+        budget_range: formData.get('budget'),
+        form_fields_completed: Array.from(formData.keys()).filter(key => key !== '_gotcha' && key !== '_subject' && key !== '_next').length
+      }
+      
       const response = await fetch('https://formspree.io/f/xrbgdgwq', {
         method: 'POST',
         body: formData,
@@ -92,28 +111,36 @@ export function ContactForm() {
       if (response.ok) {
         setSubmitStatus({ success: true, error: null })
         event.target.reset()
-        // Track successful submission
-        if (typeof window !== 'undefined' && window.gtag) {
-          window.gtag('event', 'form_submission', {
-            event_category: 'Contact',
-            event_label: 'Success',
-          })
-        }
+        
+        // Track successful submission with form details
+        track('Contact Form Submitted Successfully', {
+          form_type: 'business_enquiry',
+          ...formDataObject,
+          timestamp: new Date().toISOString()
+        })
       } else {
         throw new Error(getErrorMessage(response.status))
       }
     } catch (error) {
       setSubmitStatus({ success: false, error: error.message })
+      
       // Track failed submission
-      if (typeof window !== 'undefined' && window.gtag) {
-        window.gtag('event', 'form_submission', {
-          event_category: 'Contact',
-          event_label: 'Failed',
-        })
-      }
+      track('Contact Form Submission Failed', {
+        form_type: 'business_enquiry',
+        error_message: error.message,
+        timestamp: new Date().toISOString()
+      })
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  // Track form focus events
+  const handleFieldFocus = (fieldName) => {
+    track('Contact Form Field Focused', {
+      field_name: fieldName,
+      form_type: 'business_enquiry'
+    })
   }
 
   return (
@@ -129,36 +156,73 @@ export function ContactForm() {
         <input type="text" name="_gotcha" style={{ display: 'none' }} />
 
         <div className="isolate mt-6 -space-y-px rounded-2xl bg-white/50">
-          <TextInput label="Name" name="name" autoComplete="name" required />
+          <TextInput 
+            label="Name" 
+            name="name" 
+            autoComplete="name" 
+            required 
+            onFocus={() => handleFieldFocus('name')}
+          />
           <TextInput
             label="Email"
             type="email"
             name="email"
             autoComplete="email"
             required
+            onFocus={() => handleFieldFocus('email')}
           />
           <TextInput
             label="Company"
             name="company"
             autoComplete="organization"
             required
+            onFocus={() => handleFieldFocus('company')}
           />
-          <TextInput label="Phone" type="tel" name="phone" autoComplete="tel" required />
+          <TextInput 
+            label="Phone" 
+            type="tel" 
+            name="phone" 
+            autoComplete="tel" 
+            required 
+            onFocus={() => handleFieldFocus('phone')}
+          />
           <TextInput 
             label="Message" 
             name="message" 
             required 
             multiline={true}
             rows={3}
+            onFocus={() => handleFieldFocus('message')}
           />
           <div className="border border-neutral-300 px-6 py-8 first:rounded-t-2xl last:rounded-b-2xl">
             <fieldset>
               <legend className="text-base/6 text-neutral-500">Budget</legend>
               <div className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2">
-                <RadioInput label="$0 – $100K" name="budget" value="100" required />
-                <RadioInput label="$100K – $500K" name="budget" value="500" />
-                <RadioInput label="$500K – $1M" name="budget" value="1000" />
-                <RadioInput label="More than $1M" name="budget" value="1500" />
+                <RadioInput 
+                  label="$0 – $100K" 
+                  name="budget" 
+                  value="100" 
+                  required 
+                  onChange={() => track('Contact Form Budget Selected', { budget_range: '0-100k' })}
+                />
+                <RadioInput 
+                  label="$100K – $500K" 
+                  name="budget" 
+                  value="500" 
+                  onChange={() => track('Contact Form Budget Selected', { budget_range: '100k-500k' })}
+                />
+                <RadioInput 
+                  label="$500K – $1M" 
+                  name="budget" 
+                  value="1000" 
+                  onChange={() => track('Contact Form Budget Selected', { budget_range: '500k-1m' })}
+                />
+                <RadioInput 
+                  label="More than $1M" 
+                  name="budget" 
+                  value="1500" 
+                  onChange={() => track('Contact Form Budget Selected', { budget_range: '1m+' })}
+                />
               </div>
             </fieldset>
           </div>
@@ -169,7 +233,7 @@ export function ContactForm() {
         )}
 
         {submitStatus.success && (
-          <div className="mt-4 text-green-500">Message sent successfully. We’ll get back to you soon.</div>
+          <div className="mt-4 text-green-500">Message sent successfully. We'll get back to you soon.</div>
         )}
 
         <Button 
