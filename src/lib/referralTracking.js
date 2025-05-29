@@ -1,7 +1,7 @@
 import { track, isMixpanelReady } from './mixpanelClient.js';
 
 /**
- * Referral Tracking System for Legal Genie
+ * Referral Tracking System for Legal Genie and Embeddings Domains
  * 
  * This module implements sophisticated referral source detection with the same
  * sequencing pattern as the original example, ensuring Mixpanel is fully loaded
@@ -11,6 +11,7 @@ import { track, isMixpanelReady } from './mixpanelClient.js';
  * - Robust polling mechanism to ensure proper load sequencing
  * - Multi-layered detection (URL params, referrer analysis, user agent)
  * - Legal Genie specific source tracking
+ * - Embeddings domain cross-referral tracking
  * - Performance optimised with minimal DOM queries
  */
 
@@ -133,6 +134,26 @@ function getLegalGenieSource(referringDomain) {
 }
 
 /**
+ * Detect Embeddings domains as referral sources
+ * @param {string} referringDomain - The referring domain
+ * @returns {string|null} Specific Embeddings domain or null if not Embeddings
+ */
+function getEmbeddingsSource(referringDomain) {
+  if (!referringDomain) return null;
+  
+  // Check for exact domain matches (order matters for specificity)
+  if (referringDomain === 'embeddings.com.au' || referringDomain === 'www.embeddings.com.au') {
+    return 'embeddings.com.au';
+  } else if (referringDomain === 'embedding.au' || referringDomain === 'www.embedding.au') {
+    return 'embedding.au';
+  } else if (referringDomain === 'embeddings.au' || referringDomain === 'www.embeddings.au') {
+    return 'embeddings.au';
+  }
+  
+  return null;
+}
+
+/**
  * Comprehensive referral source detection with priority hierarchy
  * @returns {string} The identified referral source
  */
@@ -156,34 +177,52 @@ function determineReferralSource() {
     
     // Map specific UTM sources to readable names
     switch (normalisedUtmSource) {
+      // AI Platforms
       case 'chatgpt.com':
         return 'ChatGPT';
       case 'perplexity.ai':
         return 'Perplexity';
       case 'deepseek.com':
         return 'DeepSeek';
+      
+      // Legal Genie domains
       case 'app.legalgenie.com.au':
         return 'Legal Genie App';
       case 'legalgenie.com.au':
         return 'Legal Genie';
+      
+      // Embeddings domains
+      case 'embeddings.com.au':
+        return 'embeddings.com.au';
+      case 'embedding.au':
+        return 'embedding.au';
+      case 'embeddings.au':
+        return 'embeddings.au';
+      
       default:
         // For any other UTM source, classify as Direct or Other
         return 'Direct or Other';
     }
   }
   
-  // Priority 3: Legal Genie domain detection (before other domains)
+  // Priority 3: Embeddings domain detection (before other domains)
+  const embeddingsSource = getEmbeddingsSource(referringDomain);
+  if (embeddingsSource) {
+    return embeddingsSource;
+  }
+  
+  // Priority 4: Legal Genie domain detection
   const legalGenieSource = getLegalGenieSource(referringDomain);
   if (legalGenieSource) {
     return legalGenieSource;
   }
   
-  // Priority 4: Facebook detection via referrer or user agent
+  // Priority 5: Facebook detection via referrer or user agent
   if (isFacebookSource(referringDomain)) {
     return 'Facebook';
   }
   
-  // Priority 5: AI platform detection
+  // Priority 6: AI platform detection
   if (isChatGPTSource(referringDomain)) {
     return 'ChatGPT';
   }
@@ -196,7 +235,7 @@ function determineReferralSource() {
     return 'DeepSeek';
   }
   
-  // Priority 6: Search engine detection
+  // Priority 7: Search engine detection
   if (isGoogleSource(referringDomain)) {
     return 'Google';
   }
