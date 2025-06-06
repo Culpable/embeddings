@@ -1,7 +1,7 @@
 import { track, isMixpanelReady } from './mixpanelClient.js';
 
 /**
- * Referral Tracking System for Legal Genie and Embeddings Domains
+ * Referral Tracking System for Legal Genie and All Owned Domains
  * 
  * This module implements sophisticated referral source detection with the same
  * sequencing pattern as the original example, ensuring Mixpanel is fully loaded
@@ -11,7 +11,7 @@ import { track, isMixpanelReady } from './mixpanelClient.js';
  * - Robust polling mechanism to ensure proper load sequencing
  * - Multi-layered detection (URL params, referrer analysis, user agent)
  * - Legal Genie specific source tracking
- * - Embeddings domain cross-referral tracking
+ * - All owned domain cross-referral tracking
  * - Performance optimised with minimal DOM queries
  */
 
@@ -134,20 +134,32 @@ function getLegalGenieSource(referringDomain) {
 }
 
 /**
- * Detect Embeddings domains as referral sources
+ * Detect owned domains as referral sources
  * @param {string} referringDomain - The referring domain
- * @returns {string|null} Specific Embeddings domain or null if not Embeddings
+ * @returns {string|null} Specific owned domain or null if not owned
  */
-function getEmbeddingsSource(referringDomain) {
+function getOwnedDomainSource(referringDomain) {
   if (!referringDomain) return null;
   
   // Check for exact domain matches (order matters for specificity)
+  // Embeddings domains
   if (referringDomain === 'embeddings.com.au' || referringDomain === 'www.embeddings.com.au') {
     return 'embeddings.com.au';
   } else if (referringDomain === 'embedding.au' || referringDomain === 'www.embedding.au') {
     return 'embedding.au';
   } else if (referringDomain === 'embeddings.au' || referringDomain === 'www.embeddings.au') {
     return 'embeddings.au';
+  }
+  
+  // Additional owned domains
+  else if (referringDomain === 'process.au' || referringDomain === 'www.process.au') {
+    return 'process.au';
+  } else if (referringDomain === 'performant.com.au' || referringDomain === 'www.performant.com.au') {
+    return 'performant.com.au';
+  } else if (referringDomain === 'performant.au' || referringDomain === 'www.performant.au') {
+    return 'performant.au';
+  } else if (referringDomain === 'document.au' || referringDomain === 'www.document.au') {
+    return 'document.au';
   }
   
   return null;
@@ -199,16 +211,26 @@ function determineReferralSource() {
       case 'embeddings.au':
         return 'embeddings.au';
       
+      // Additional owned domains
+      case 'process.au':
+        return 'process.au';
+      case 'performant.com.au':
+        return 'performant.com.au';
+      case 'performant.au':
+        return 'performant.au';
+      case 'document.au':
+        return 'document.au';
+      
       default:
         // For any other UTM source, classify as Direct or Other
         return 'Direct or Other';
     }
   }
   
-  // Priority 3: Embeddings domain detection (before other domains)
-  const embeddingsSource = getEmbeddingsSource(referringDomain);
-  if (embeddingsSource) {
-    return embeddingsSource;
+  // Priority 3: Owned domain detection (before other domains)
+  const ownedDomainSource = getOwnedDomainSource(referringDomain);
+  if (ownedDomainSource) {
+    return ownedDomainSource;
   }
   
   // Priority 4: Legal Genie domain detection

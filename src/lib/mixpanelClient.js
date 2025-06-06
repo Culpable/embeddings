@@ -17,16 +17,16 @@ export const initMixpanel = () => {
   }
 
   try {
-    mixpanel.init(MIXPANEL_TOKEN, {
-      // Automatically track page views
-      track_pageview: true,
-      
+  mixpanel.init(MIXPANEL_TOKEN, {
+    // Automatically track page views
+    track_pageview: true,
+    
       // Storage configuration - using localStorage for better performance
       persistence: 'localStorage',
       
       // Cross-subdomain tracking (uncomment if needed)
       // cross_subdomain_cookie: true,
-      
+    
       // Session Replay settings optimised for performance
       record_sessions_percent: 100,                    // Record 100% of sessions
       record_block_selector: "",                       // CSS selector for elements to block from recording
@@ -50,14 +50,14 @@ export const initMixpanel = () => {
         
         console.log('Mixpanel fully loaded and ready for tracking');
       }
-    });
-    
+  });
+  
     // Make mixpanel available globally for backward compatibility
-    window.mixpanel = mixpanel;
-    
+  window.mixpanel = mixpanel;
+  
     console.log('Mixpanel initialization started...');
     return true;
-    
+  
   } catch (error) {
     console.error('Failed to initialize Mixpanel:', error);
     return false;
