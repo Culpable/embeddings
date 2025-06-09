@@ -192,6 +192,36 @@ If you encounter any issues with the integration:
 2. Verify your environment variables are set correctly
 3. Ensure you're using the correct Mixpanel project token
 
+## Session Replay Feature
+
+Session Replay has been configured with:
+- 100% session recording (configurable via `record_sessions_percent`)
+- Privacy masking for elements with `.sensitive-data` class
+- 10-minute idle timeout
+- Minimum 3-second session length
+
+To mask sensitive content from recordings, add the `.sensitive-data` class to any element.
+
+## Troubleshooting
+
+### CORS Errors in Console
+
+If you see CORS errors like:
+```
+Access to fetch at 'https://api-js.mixpanel.com/record/...' from origin 'https://embeddings.au' has been blocked by CORS policy
+```
+
+This is **not** an error with your implementation. Common causes:
+- Ad blockers (uBlock Origin, AdBlock Plus, etc.)
+- Privacy extensions (Privacy Badger, Ghostery, etc.)
+- Brave browser's shields
+- Strict browser privacy settings
+- Corporate firewalls
+
+These errors mean Mixpanel is working but being blocked by the user's browser/network. This is expected behaviour and doesn't affect users without these blockers.
+
+### Verifying Mixpanel is Loaded
+
 ---
 
 **Ready to Go**: Once you add your Mixpanel project token, the analytics will be fully operational and you'll start seeing data in your Mixpanel dashboard immediately! 

@@ -1,7 +1,7 @@
 import mixpanel from 'mixpanel-browser';
 
-// Replace with your Mixpanel project token
-const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN || '48ebd83acf333df6efcfe970cfde6c5c';
+// Mixpanel project token - hardcoded for reliability
+const MIXPANEL_TOKEN = '48ebd83acf333df6efcfe970cfde6c5c';
 
 /**
  * Initialize Mixpanel with Session Replay configuration
