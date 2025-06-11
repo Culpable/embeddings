@@ -160,6 +160,16 @@ function getOwnedDomainSource(referringDomain) {
     return 'performant.au';
   } else if (referringDomain === 'document.au' || referringDomain === 'www.document.au') {
     return 'document.au';
+  } else if (referringDomain === 'llms.au' || referringDomain === 'www.llms.au') {
+    return 'llms.au';
+  } else if (referringDomain === 'autogen.au' || referringDomain === 'www.autogen.au') {
+    return 'autogen.au';
+  } else if (referringDomain === 'autogen.com.au' || referringDomain === 'www.autogen.com.au') {
+    return 'autogen.com.au';
+  } else if (referringDomain === 'agentops.au' || referringDomain === 'www.agentops.au') {
+    return 'agentops.au';
+  } else if (referringDomain === 'agentops.com.au' || referringDomain === 'www.agentops.com.au') {
+    return 'agentops.com.au';
   }
   
   return null;
@@ -220,6 +230,16 @@ function determineReferralSource() {
         return 'performant.au';
       case 'document.au':
         return 'document.au';
+      case 'llms.au':
+        return 'llms.au';
+      case 'autogen.au':
+        return 'autogen.au';
+      case 'autogen.com.au':
+        return 'autogen.com.au';
+      case 'agentops.au':
+        return 'agentops.au';
+      case 'agentops.com.au':
+        return 'agentops.com.au';
       
       default:
         // For any other UTM source, classify as Direct or Other
