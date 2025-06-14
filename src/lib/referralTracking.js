@@ -170,6 +170,16 @@ function getOwnedDomainSource(referringDomain) {
     return 'agentops.au';
   } else if (referringDomain === 'agentops.com.au' || referringDomain === 'www.agentops.com.au') {
     return 'agentops.com.au';
+  } else if (referringDomain === 'synaptic.com.au' || referringDomain === 'www.synaptic.com.au') {
+    return 'synaptic.com.au';
+  } else if (referringDomain === 'synaptic.au' || referringDomain === 'www.synaptic.au') {
+    return 'synaptic.au';
+  } else if (referringDomain === 'inference.au' || referringDomain === 'www.inference.au') {
+    return 'inference.au';
+  } else if (referringDomain === 'deepresearch.au' || referringDomain === 'www.deepresearch.au') {
+    return 'deepresearch.au';
+  } else if (referringDomain === 'workflow.au' || referringDomain === 'www.workflow.au') {
+    return 'workflow.au';
   }
   
   return null;
