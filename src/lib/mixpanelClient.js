@@ -29,6 +29,7 @@ export const initMixpanel = () => {
     
       // Session Replay settings optimised for performance
       record_sessions_percent: 100,                    // Record 100% of sessions
+      record_heatmap_data: true,                       // Enable heatmap data collection for click tracking
       record_block_selector: "",                       // CSS selector for elements to block from recording
       record_mask_text_selector: ".sensitive-data",   // Mask sensitive data elements
       record_collect_fonts: true,                      // Include font information for accurate playback
