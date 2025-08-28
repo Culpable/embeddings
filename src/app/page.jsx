@@ -14,6 +14,7 @@ import { Testimonial } from '@/components/Testimonial'
 import imageLaptop from '@/images/laptop.jpg'
 import { loadCaseStudies } from '@/lib/mdx'
 import { Button } from '@/components/Button'
+import { Pickaxe, Briefcase, Banknote, Stethoscope, Factory, ShoppingBag } from 'lucide-react'
 
 const industries = [
   ['Mining', 'Optimise mining operations, streamline data processing and resource planning'],
@@ -24,13 +25,22 @@ const industries = [
   ['Retail', 'Personalise customer experience and inventory management'],
 ]
 
+const industryIcons = {
+  Mining: Pickaxe,
+  'Professional Services': Briefcase,
+  'Financial Services': Banknote,
+  Healthcare: Stethoscope,
+  Manufacturing: Factory,
+  Retail: ShoppingBag,
+}
+
 function Industries() {
   return (
     <div className="mt-24 rounded-4xl bg-neutral-950 py-20 sm:mt-32 sm:py-32 lg:mt-56">
       <Container>
         <FadeIn className="flex items-center gap-x-8">
           <h2 className="text-center font-display text-sm font-semibold tracking-wider text-white sm:text-left">
-            The future of work is here: it's just not evenly distributed.
+            The future of work is here: it’s just not evenly distributed.
             We partner with Australian businesses to democratise generative AI.
           </h2>
           <div className="h-px flex-auto bg-neutral-800" />
@@ -40,16 +50,24 @@ function Industries() {
             role="list"
             className="mt-10 grid grid-cols-1 gap-x-8 gap-y-8 lg:grid-cols-2"
           >
-            {industries.map(([industry, description]) => (
-              <li key={industry}>
-                <FadeIn>
-                  <div className="text-white">
-                    <h3 className="font-display text-lg font-semibold">{industry}</h3>
-                    <p className="mt-2 text-sm text-neutral-300">{description}</p>
-                  </div>
-                </FadeIn>
-              </li>
-            ))}
+            {industries.map(([industry, description]) => {
+              const Icon = industryIcons[industry]
+              return (
+                <li key={industry}>
+                  <FadeIn>
+                    <div className="text-white flex items-start gap-x-4">
+                      {Icon ? (
+                        <Icon className="mt-1 h-6 w-6 flex-none text-white/90" aria-hidden="true" />
+                      ) : null}
+                      <div>
+                        <h3 className="font-display text-lg font-semibold">{industry}</h3>
+                        <p className="mt-2 text-sm text-neutral-300">{description}</p>
+                      </div>
+                    </div>
+                  </FadeIn>
+                </li>
+              )
+            })}
           </ul>
         </FadeInStagger>
       </Container>
