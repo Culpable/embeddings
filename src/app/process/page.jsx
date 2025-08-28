@@ -99,11 +99,10 @@ function Build() {
       </div>
 
       <Blockquote
-        author={{ name: 'Sarah Mitchell', role: 'Operations Director at ResourceCo' }}
         className="mt-12"
       >
-        Embeddings transformed our maintenance workflows within weeks. Their systematic 
-        approach to AI implementation helped us achieve a 70% reduction in document 
+        Embeddings transformed our maintenance workflows within weeks. Their systematic
+        approach to AI implementation helped us achieve a 70% reduction in document
         processing time.
       </Blockquote>
     </Section>

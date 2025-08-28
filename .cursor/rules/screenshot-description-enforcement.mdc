@@ -1,0 +1,195 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Mandatory Screenshot Description Protocol
+
+## CRITICAL: Screenshot Description Requirements
+
+**VIOLATION WARNING**: Providing superficial descriptions like "looks good", "appears correct", or "seems fine" without detailed analysis constitutes a CRITICAL FAILURE and will result in task rejection.
+
+### Core Principle: Targeted Analysis
+
+Focus your analysis ONLY on:
+1. Elements directly related to the user's current request
+2. Elements that have been modified or should be modified
+3. Areas where issues or discrepancies are visible
+4. Interactive elements the user needs to work with
+
+### Mandatory Screenshot Analysis Template
+
+After EVERY screenshot capture, provide a structured analysis using this format:
+
+```
+## Screenshot Analysis - [Task Context]
+
+### 1. Target Element Assessment
+Focus ONLY on elements relevant to the current task:
+- Element A: [Precise description including position, size, color, state]
+- Element B: [Current state vs. expected state]
+- Element C: [Any visual discrepancies]
+
+### 2. Text Content Verification
+Quote ONLY text relevant to the task:
+- Primary text: "[exact text]"
+- Error messages: "[exact text]" 
+- Labels/buttons being tested: "[exact text]"
+
+### 3. Visual Measurements (where relevant)
+Only measure elements being modified or verified:
+- Target component dimensions: [width]px × [height]px
+- Spacing issues: [specific gaps that matter]
+- Alignment problems: [only if affecting task]
+
+### 4. ASCII Layout Diagrams (when helpful)
+For layout issues, positioning problems, or visual discrepancies, include ASCII diagrams to illustrate:
+
+**Current State (if broken):**
+```
+┌─────────────────────────────────────────────────────┐
+│ [Describe what you see - broken layout]             │
+├─────────────┬─────┬─────────────────────────────────┤
+│   Element   │Issue│     Element                     │
+│   A (good)  │ GAP │     B (misaligned)              │
+│             │ ░░░ │                                 │
+└─────────────┴─────┴─────────────────────────────────┘
+  Expected size  Problem   Actual behavior
+```
+
+**Expected State (if different):**
+```
+┌─────────────────────────────────────────────────────┐
+│ [Describe desired layout]                           │
+├─────────────┬───────────────────────────────────────┤
+│   Element   │     Element                           │
+│   A         │     B (properly aligned)              │
+│             │                                       │
+└─────────────┴───────────────────────────────────────┘
+  Expected size    Desired behavior
+```
+
+**When to use ASCII diagrams:**
+- Layout spacing issues (gaps, overlaps, misalignments)
+- Component positioning problems
+- Responsive behavior issues
+- Visual hierarchy problems
+- Modal/dialog positioning issues
+- Grid/flexbox layout problems
+
+### 5. Task Completion Check
+- Requirement A: ✅/❌ [What you see vs. what was requested]
+- Requirement B: ✅/❌ [Specific evidence from screenshot]
+- Requirement C: ✅/❌ [Clear pass/fail assessment]
+
+### 6. Issues Found
+⚠️ Issue 1: [Specific problem with exact location]
+⚠️ Issue 2: [Another problem if applicable]
+(If no issues: "Target elements match requirements - [specific evidence]")
+
+### 7. Next Steps
+- [ ] Action 1: [Specific fix needed, if any]
+- [ ] Action 2: [File and component to modify]
+(If complete: "Implementation verified - no further changes needed")
+```
+
+### Unacceptable Responses (AUTOMATIC FAILURE)
+
+These responses are STRICTLY FORBIDDEN:
+- "The screenshot looks good"
+- "Everything appears correct"
+- "Seems to be working"
+- "No issues" (without explaining what you checked)
+- Any response under 150 words when describing issues
+- Generic confirmations without specific evidence
+
+### Focused Analysis Requirements
+
+1. **Relevance**: ONLY describe elements related to the current task
+2. **Specificity**: Include exact values (pixels, colors, text) for relevant elements
+3. **Evidence**: Quote specific text or measurements that prove success/failure
+4. **Comparison**: Always compare visible state to expected state
+5. **Clarity**: State clearly whether requirements are met with evidence
+
+### Example of PROPER Focused Analysis
+
+```
+## Screenshot Analysis - Sidebar Layout Gap Issue
+
+### 1. Target Element Assessment
+- Sidebar: White background (#ffffff), 256px width, positioned left edge
+- Main content: White background (#ffffff), positioned after sidebar
+- Gap area: Light gray background (#f5f7fa), approximately 8px wide
+- Sidebar navigation: All menu items visible and functional
+
+### 2. Text Content Verification
+- Navigation items: "Dashboard", "Properties", "Documents", "Reports"
+- Property selector: "City Beach" at sidebar bottom
+- Main content header: "Property Portfolio Dashboard"
+
+### 3. Visual Measurements
+- Sidebar width: 256px (correct)
+- Gap width: ~8px (unexpected)
+- Content area starts at: ~264px from left edge
+- No content overlap detected
+
+### 4. ASCII Layout Diagrams
+**Current State (broken):**
+```
+┌─────────────────────────────────────────────────────┐
+│ Search Bar + Header                                 │
+├─────────────┬─────┬─────────────────────────────────┤
+│             │     │                                 │
+│   WHITE     │GRAY │        WHITE                    │
+│  SIDEBAR    │ GAP │     MAIN CONTENT                │
+│             │     │                                 │
+│ • Dashboard │ ░░░ │ Property Portfolio Dashboard    │
+│ • Properties│ ░░░ │                                 │
+│ • Documents │ ░░░ │ [Dashboard content]             │
+│             │     │                                 │
+└─────────────┴─────┴─────────────────────────────────┘
+   ~256px      ~8px      Rest of viewport
+```
+
+**Expected State:**
+```
+┌─────────────────────────────────────────────────────┐
+│ Search Bar + Header                                 │
+├─────────────┬───────────────────────────────────────┤
+│             │                                     │
+│   WHITE     │        WHITE                        │
+│  SIDEBAR    │     MAIN CONTENT                    │
+│             │                                     │
+│ • Dashboard │ Property Portfolio Dashboard        │
+│ • Properties│                                     │
+│ • Documents │ [Dashboard content]                 │
+│             │                                     │
+└─────────────┴───────────────────────────────────────┘
+   ~256px        Rest of viewport (seamless)
+```
+
+### 5. Task Completion Check
+- Sidebar positioning: ✅ Correctly positioned at left edge
+- Navigation functionality: ✅ All menu items clickable
+- Content positioning: ✅ No overlap with sidebar
+- Visual continuity: ❌ Gray gap breaks sidebar-to-content flow
+- Professional appearance: ❌ Gap creates "double sidebar" effect
+
+### 6. Issues Found
+⚠️ Issue 1: Gray vertical gap (~8px) between white sidebar and white content area shows body background color (#f5f7fa)
+⚠️ Issue 2: Creates visual "double sidebar" effect that confuses users about navigation structure
+
+### 7. Next Steps
+- [ ] Investigate spacer div in shadcn/ui sidebar implementation
+- [ ] Check CSS background inheritance between sidebar components
+- [ ] Test with modified body background color to confirm gap source
+- [ ] Consider alternative layout approach without spacer mechanism
+```
+
+### Remember
+
+- Focus ONLY on what matters for the current task
+- Provide specific evidence for your conclusions
+- Skip irrelevant UI elements entirely
+- Be thorough about task-relevant elements
+- "It looks fine" is NEVER acceptable - explain WHY it's fine with evidence

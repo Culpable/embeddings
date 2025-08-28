@@ -1,0 +1,76 @@
+---
+description: 
+globs:
+alwaysApply: false
+---
+<task_description>
+## Execution Steps (non-interactive)
+1. Show current branch and status
+```bash
+git rev-parse --abbrev-ref HEAD | cat
+git status -sb | cat
+```
+
+2. List changed files
+```bash
+git diff --name-only | cat      # unstaged
+git diff --staged --name-only | cat
+```
+
+IMPORTANT: you are only looking at staged and unstaged changes.
+
+3. **MANDATORY: INSPECT ACTUAL CODE CHANGES**
+You MUST examine what was actually modified in each file:
+```bash
+git diff | cat                  # review ALL unstaged changes line-by-line
+git diff --staged | cat         # review ALL staged changes line-by-line
+```
+**DO NOT PROCEED WITHOUT READING THE DIFFS.** You cannot write an accurate commit message without understanding the specific code changes. File names alone are insufficient.
+
+4. Stage everything
+```bash
+git add -A
+```
+
+5. Create a multi-line commit message using multiple -m flags (DO NOT use \n)
+Base your commit message on the ACTUAL CHANGES you observed in step 3.
+
+Correct:
+```bash
+git commit -m "Summary line" -m "" -m "1. 'path/file.tsx' (Updated): Description" -m "    - Detail line"
+```
+
+Incorrect (do not do this):
+```bash
+git commit -m "Summary line\n\n1. 'path/file.tsx' (Updated): Description\n    - Detail line"
+```
+
+6. Verify the commit message formatting
+```bash
+git log -1 --pretty=%B | cat
+```
+If you see literal \n, amend using multiple -m flags:
+```bash
+git commit --amend -m "Summary line" -m "" -m "1. 'path/file.tsx' (Updated): Description" -m "    - Detail line"
+```
+
+7. Push to origin
+```bash
+git push origin $(git rev-parse --abbrev-ref HEAD)
+```
+
+Notes:
+- Never include backticks or additional double quotes inside the commit message content.
+- Follow the content/structure rules in [@git-commit-message-format.mdc](mdc:.cursor/rules/@git-commit-message-format.mdc) exactly; this section covers only shell execution details.
+</task_description>
+
+<task>
+When the user mentions this file, you MUST:
+1. Run git status to see what files have changed
+2. **CRITICALLY: Run `git diff` and `git diff --staged` to READ THE ACTUAL CODE CHANGES in detail**
+3. Only after understanding what was specifically modified/added/removed in the code, stage all changes with git add
+4. Write a commit message based on the ACTUAL CODE CHANGES you observed (not just file names)
+5. Commit everything into a single commit message as per the guidelines outlined in [@git-commit-message-format.mdc](mdc:.cursor/rules/@git-commit-message-format.mdc)
+
+**You cannot write an accurate commit message without examining the actual diffs. File names alone are not sufficient.**
+</task>

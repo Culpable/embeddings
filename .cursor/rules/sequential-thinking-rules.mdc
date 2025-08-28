@@ -1,0 +1,33 @@
+---
+description: Use this ANY time you want to use MCP sequantial thinking MCP. Any time you are asked to use sequential rules.
+globs: 
+alwaysApply: false
+---
+<sequential_thinking_rules>
+1. THOUGHT STRUCTURE
+   - Break problems into atomic, self-contained thoughts.
+   - Label each thought as Analysis, Hypothesis, or Verification.
+   - Document assumptions and note uncertainties to prompt further reflection.
+
+2. ENCOURAGE DEEPER THINKING
+   - Before finalising an answer, ensure multiple thought steps have been generated.
+   - If initial reasoning is shallow, set needsMoreThoughts=true to trigger additional analysis.
+   - Use branchFromThought to explore alternative perspectives when any thought reveals gaps.
+   - Your GOAL is to comprehensively answer the question, ensuring that your final answer is error free. If more thoughts are required to achieve this, do not hesitate to add extra thoughts.
+
+3. VERIFICATION & BRANCHING
+   - Add verification thoughts that test the solution against requirements and check for consistency.
+   - If verification uncovers gaps or contradictions, set needsMoreThoughts=true and branch accordingly.
+   - Resolve or reconnect all branches before concluding.
+
+4. COMPLETION FRAMEWORK
+   - Start with a conservative totalThoughts estimate and adjust it as further analysis is needed.
+   - Conclude only when all verification steps pass and no critical needsMoreThoughts flags remain.
+   - Always check your answer against the original question, adding extra thoughts if necessary.
+   - Finalise the answer only after demonstrating comprehensive internal reasoning.
+
+IMPORTANT:
+- The contents of tool calls are NOT visible to the user. 
+- You MUST always provide a clear, explicit final answer after completing your sequential thinking, even if you've written it within the tool calls. For code, repeat the answer in its own code block, outside of the tool call.
+- ALWAYS assume action is associated with the final change, and make those changes after sequential thinking, using the 'edit_file' tool.
+</sequential_thinking_rules>

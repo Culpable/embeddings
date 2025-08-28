@@ -10,39 +10,27 @@ import { List, ListItem } from '@/components/List'
 import { SectionIntro } from '@/components/SectionIntro'
 import { StylizedImage } from '@/components/StylizedImage'
 import { Testimonial } from '@/components/Testimonial'
-import logoBrightPath from '@/images/clients/bright-path/logo-light.svg'
-import logoFamilyFund from '@/images/clients/family-fund/logo-light.svg'
-import logoGreenLife from '@/images/clients/green-life/logo-light.svg'
-import logoHomeWork from '@/images/clients/home-work/logo-light.svg'
-import logoMailSmirk from '@/images/clients/mail-smirk/logo-light.svg'
-import logoNorthAdventures from '@/images/clients/north-adventures/logo-light.svg'
-import logoPhobiaDark from '@/images/clients/phobia/logo-dark.svg'
-import logoPhobiaLight from '@/images/clients/phobia/logo-light.svg'
-import logoLangChain from '@/images/clients/langchain/logo-dark.svg'
-import logoUnseal from '@/images/clients/unseal/logo-light.svg'
+
 import imageLaptop from '@/images/laptop.jpg'
 import { loadCaseStudies } from '@/lib/mdx'
 import { Button } from '@/components/Button'
 
-const clients = [
-  ['Phobia', logoPhobiaLight],
-  // ['LangChain', logoLangChain],
-  ['Family Fund', logoFamilyFund],
-  ['Unseal', logoUnseal],
-  ['Mail Smirk', logoMailSmirk],
-  ['Home Work', logoHomeWork],
-  ['Green Life', logoGreenLife],
-  ['Bright Path', logoBrightPath],
-  ['North Adventures', logoNorthAdventures],
+const industries = [
+  ['Mining', 'Optimise mining operations, streamline data processing and resource planning'],
+  ['Professional Services', 'Accelerate document processing, client management, and reporting'],
+  ['Financial Services', 'Automate compliance, risk assessment, and client communications'],
+  ['Healthcare', 'Streamline patient data, scheduling, and administrative workflows'],
+  ['Manufacturing', 'Enhance quality control, supply chain, and production planning'],
+  ['Retail', 'Personalise customer experience and inventory management'],
 ]
 
-function Clients() {
+function Industries() {
   return (
     <div className="mt-24 rounded-4xl bg-neutral-950 py-20 sm:mt-32 sm:py-32 lg:mt-56">
       <Container>
         <FadeIn className="flex items-center gap-x-8">
           <h2 className="text-center font-display text-sm font-semibold tracking-wider text-white sm:text-left">
-            The future of work is here: it’s just not evenly distributed.
+            The future of work is here: it's just not evenly distributed.
             We partner with Australian businesses to democratise generative AI.
           </h2>
           <div className="h-px flex-auto bg-neutral-800" />
@@ -50,12 +38,15 @@ function Clients() {
         <FadeInStagger faster>
           <ul
             role="list"
-            className="mt-10 grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-4"
+            className="mt-10 grid grid-cols-1 gap-x-8 gap-y-8 lg:grid-cols-2"
           >
-            {clients.map(([client, logo]) => (
-              <li key={client}>
+            {industries.map(([industry, description]) => (
+              <li key={industry}>
                 <FadeIn>
-                  <Image src={logo} alt={client} unoptimized />
+                  <div className="text-white">
+                    <h3 className="font-display text-lg font-semibold">{industry}</h3>
+                    <p className="mt-2 text-sm text-neutral-300">{description}</p>
+                  </div>
                 </FadeIn>
               </li>
             ))}
@@ -200,13 +191,13 @@ export default async function Home() {
         </FadeIn>
       </Container>
 
-      <Clients />
+      <Industries />
 
       <CaseStudies caseStudies={caseStudies} />
 
       <Testimonial
         className="mt-24 sm:mt-32 lg:mt-40"
-        client={{ name: 'TechForward', logo: logoPhobiaDark }}
+        client={{ name: 'TechForward' }}
       >
         Working with Embeddings transformed our business processes. Their deep technical expertise 
         in AI implementation helped us achieve unprecedented efficiency gains, enabling our team to 
