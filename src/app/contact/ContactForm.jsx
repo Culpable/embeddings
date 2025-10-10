@@ -198,8 +198,8 @@ export function ContactForm() {
             <fieldset>
               <legend className="text-base/6 text-neutral-500">Budget</legend>
               <div className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2">
-                <RadioInput 
-                  label="$0 – $100K" 
+                <RadioInput
+                  label="Less than 100k"
                   name="budget" 
                   value="100" 
                   required 
