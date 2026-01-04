@@ -15,4 +15,12 @@ export const siteMetadata = {
   twitter: {
     cardType: 'summary_large_image'
   }
-} 
+}
+
+export const pageMetadata = {
+  home: {
+    title: siteMetadata.title,
+    description:
+      'Helping Australian businesses 10x their productivity with generative AI solutions. Offices in Perth and Melbourne.',
+  },
+}

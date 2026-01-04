@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
 import { organizationSchema } from '@/schemas/organization-schema'
+import { pageMetadata } from '@/lib/metadata'
 
 import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
@@ -178,9 +179,10 @@ function Services() {
 }
 
 export const metadata = {
-  title: 'Embeddings: Generative AI for Australian Businesses',
-  description:
-    'Helping Australian businesses 10x their productivity with generative AI solutions. Offices in Perth and Melbourne.',
+  title: {
+    absolute: pageMetadata.home.title,
+  },
+  description: pageMetadata.home.description,
 }
 
 export default async function Home() {
