@@ -5,6 +5,8 @@ import { usePathname } from 'next/navigation';
 import { initMixpanel, track } from '@/lib/mixpanelClient';
 import { initReferralTracking } from '@/lib/referralTracking';
 
+const isDevelopment = process.env.NODE_ENV === 'development';
+
 /**
  * Enhanced Analytics Provider Component
  * 
@@ -35,6 +37,10 @@ export default function MixpanelProvider() {
         if (typeof window === 'undefined') {
           return;
         }
+        if (isDevelopment) {
+          initMixpanel();
+          return;
+        }
 
         // Step 1: Initialize Mixpanel
         // This sets up the Mixpanel client and will trigger the 'loaded' callback
@@ -63,6 +69,9 @@ export default function MixpanelProvider() {
 
   // Track page views when pathname changes (existing functionality)
   useEffect(() => {
+    if (isDevelopment) {
+      return;
+    }
     if (pathname) {
       // Use the safe track function which handles Mixpanel readiness
       track('Page View', { 

@@ -2,6 +2,13 @@
 
 This document explains the Mixpanel analytics integration that has been implemented in your Next.js project.
 
+## ✅ Current Implementation Notes (This Repo)
+
+- The Mixpanel token is hardcoded in `src/lib/mixpanelClient.js`.
+- Environment variables are not used by the current implementation.
+- Mixpanel is disabled in development - it only initializes in production builds.
+- A `window.mixpanelDisabled` flag is set in development for visibility.
+
 ## 🚀 What's Been Implemented
 
 ### ✅ Core Integration
@@ -37,31 +44,11 @@ To complete the setup, you need to provide the following from your Mixpanel acco
 1. Log in to your [Mixpanel account](https://mixpanel.com)
 2. Go to **Settings** → **Project Settings**
 3. Copy your **Project Token**
-4. Add it to your environment variables (see Environment Setup below)
+4. Update the hardcoded token in `src/lib/mixpanelClient.js`.
 
-### 2. Set Up Environment Variables
+### Optional: Use Environment Variables Instead
 
-Add this to your `.env.local` file:
-
-```bash
-NEXT_PUBLIC_MIXPANEL_TOKEN=your_mixpanel_project_token_here
-```
-
-⚠️ **Important**: The `NEXT_PUBLIC_` prefix is required for Next.js client-side access.
-
-## 🛠️ Environment Setup
-
-### Development Setup
-```bash
-# .env.local (for development)
-NEXT_PUBLIC_MIXPANEL_TOKEN=your_development_token_here
-```
-
-### Production Setup
-```bash
-# Add to your deployment environment variables
-NEXT_PUBLIC_MIXPANEL_TOKEN=your_production_token_here
-```
+The current code does not read environment variables. If you want to switch to env-based tokens, update `src/lib/mixpanelClient.js` to read `process.env.NEXT_PUBLIC_MIXPANEL_TOKEN` and add values in `.env.local` and your deployment environment.
 
 ## 🔒 Privacy & Security Considerations
 
@@ -182,8 +169,8 @@ setPeopleProperties({
    - Check that the session replay feature is enabled in your Mixpanel project
    - Verify the `record_sessions_percent` setting
 
-### Debug Mode
-For development debugging, the integration automatically enables debug mode which logs all events to the browser console.
+### Debug Logging
+The current implementation logs initialization and tracking errors to the browser console. Mixpanel debug mode is not enabled by default.
 
 ## 📞 Support
 

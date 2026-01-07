@@ -2,6 +2,7 @@ import mixpanel from 'mixpanel-browser';
 
 // Mixpanel project token - hardcoded for reliability
 const MIXPANEL_TOKEN = '48ebd83acf333df6efcfe970cfde6c5c';
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 /**
  * Initialize Mixpanel with Session Replay configuration
@@ -13,6 +14,13 @@ export const initMixpanel = () => {
   // Only initialize in browser environment and if token is provided
   if (typeof window === 'undefined' || !MIXPANEL_TOKEN) {
     console.warn('Mixpanel not initialized: Missing token or not in browser environment');
+    return false;
+  }
+
+  if (isDevelopment) {
+    window.mixpanelLoaded = false;
+    window.mixpanelDisabled = true;
+    console.info('Mixpanel disabled in development environment.');
     return false;
   }
 
@@ -73,6 +81,9 @@ export const initMixpanel = () => {
  */
 export const track = (eventName, properties = {}, callback = null) => {
   try {
+    if (isDevelopment) {
+      return;
+    }
     // Ensure Mixpanel is initialized and has a distinct ID
     if (mixpanel && mixpanel.get_distinct_id && mixpanel.get_distinct_id()) {
       mixpanel.track(eventName, properties);
@@ -94,6 +105,9 @@ export const track = (eventName, properties = {}, callback = null) => {
  */
 export const identify = (userId) => {
   try {
+    if (isDevelopment) {
+      return;
+    }
     if (mixpanel && mixpanel.get_distinct_id && mixpanel.get_distinct_id()) {
       mixpanel.identify(userId);
     }
@@ -108,6 +122,9 @@ export const identify = (userId) => {
  */
 export const setPeopleProperties = (properties) => {
   try {
+    if (isDevelopment) {
+      return;
+    }
     if (mixpanel && mixpanel.people && mixpanel.get_distinct_id && mixpanel.get_distinct_id()) {
       mixpanel.people.set(properties);
     }
@@ -121,6 +138,9 @@ export const setPeopleProperties = (properties) => {
  * @returns {boolean} True if Mixpanel is ready, false otherwise
  */
 export const isMixpanelReady = () => {
+  if (isDevelopment || typeof window === 'undefined') {
+    return false;
+  }
   return !!(
     window.mixpanelLoaded && 
     mixpanel && 
