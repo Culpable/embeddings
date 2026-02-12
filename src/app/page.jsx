@@ -10,6 +10,11 @@ import { SectionIntro } from '@/components/SectionIntro'
 import { Testimonial } from '@/components/Testimonial'
 import { HeroDataFlow } from '@/components/HeroDataFlow'
 import { CatalogueTransformation } from '@/components/CatalogueTransformation'
+import { AuditXRayScanner } from '@/components/AuditXRayScanner'
+import { FreshnessPipelineFlow } from '@/components/FreshnessPipelineFlow'
+import { EnrichmentTypewriter } from '@/components/EnrichmentTypewriter'
+import { OptimisationSeismograph } from '@/components/OptimisationSeismograph'
+import { OptimisationRipple } from '@/components/OptimisationRipple'
 import { AnimatedStat } from '@/components/AnimatedStat'
 import { NoiseOverlay } from '@/components/NoiseOverlay'
 
@@ -290,6 +295,125 @@ function Services() {
 }
 
 // ---------------------------------------------------------------------------
+// Service 1: Catalogue Audit — X-Ray Scanner with amber/red highlights
+// ---------------------------------------------------------------------------
+
+function CatalogueAudit() {
+  return (
+    <>
+      <SectionIntro
+        eyebrow="catalogue audit"
+        title="See every gap before your competitors exploit it"
+        className="mt-24 sm:mt-32 lg:mt-40"
+      >
+        <p>
+          We analyse your entire product catalogue against Google Merchant Centre specifications
+          and agentic commerce standards. The audit identifies missing descriptions, malformed
+          GTINs, inconsistent taxonomy, and thin data &mdash; then produces a prioritised
+          remediation plan ranked by revenue impact.
+        </p>
+      </SectionIntro>
+      <Container className="mt-16">
+        <FadeIn>
+          <AuditXRayScanner />
+        </FadeIn>
+      </Container>
+    </>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Service 2: Catalogue Freshness — Real-time pipeline flow
+// ---------------------------------------------------------------------------
+
+function CatalogueFreshness() {
+  return (
+    <>
+      <SectionIntro
+        eyebrow="catalogue freshness"
+        title="Stale data is invisible data"
+        className="mt-24 sm:mt-32 lg:mt-40"
+      >
+        <p>
+          AI agents penalise outdated catalogues. We build real-time integrations from your ERP,
+          POS, and inventory systems so stock levels, pricing, and product status are always
+          current. A fresh catalogue means your products stay in the recommendation set.
+        </p>
+      </SectionIntro>
+      <Container className="mt-16">
+        <FadeIn>
+          <FreshnessPipelineFlow />
+        </FadeIn>
+      </Container>
+    </>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Service 3: Catalogue Enrichment — Typewriter enrichment
+// ---------------------------------------------------------------------------
+
+function CatalogueEnrichment() {
+  return (
+    <>
+      <SectionIntro
+        eyebrow="catalogue enrichment"
+        title="From thin listings to rich, AI-readable content"
+        className="mt-24 sm:mt-32 lg:mt-40"
+      >
+        <p>
+          Our LLM pipelines transform sparse product data into rich, brand-aligned descriptions,
+          categories, and attributes. Thousands of SKUs enriched in hours, not months. If an AI
+          agent can&rsquo;t understand your product data, your products don&rsquo;t exist in
+          agentic commerce.
+        </p>
+      </SectionIntro>
+      <Container className="mt-16">
+        <FadeIn>
+          <EnrichmentTypewriter />
+        </FadeIn>
+      </Container>
+    </>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Service 4: Contextual Catalogue Optimisation — Seismograph + Ripple
+// ---------------------------------------------------------------------------
+
+function ContextualOptimisation() {
+  return (
+    <>
+      <SectionIntro
+        eyebrow="contextual optimisation"
+        title="A living catalogue that captures demand as it shifts"
+        className="mt-24 sm:mt-32 lg:mt-40"
+      >
+        <p>
+          We connect your catalogue to live trend signals &mdash; Google Trends, social platforms,
+          news cycles &mdash; so product descriptions evolve with what consumers are searching
+          for right now. When cultural moments create demand spikes, your products are positioned
+          to capture that intent before competitors.
+        </p>
+      </SectionIntro>
+      <Container className="mt-16">
+        <FadeInStagger>
+          {/* Seismograph — intentionally commented out; kept for future use */}
+          {/* <FadeIn>
+            <OptimisationSeismograph />
+          </FadeIn> */}
+
+          {/* Ripple — trend drops creating concentric ripples to product cards */}
+          <FadeIn>
+            <OptimisationRipple />
+          </FadeIn>
+        </FadeInStagger>
+      </Container>
+    </>
+  )
+}
+
+// ---------------------------------------------------------------------------
 // Page metadata & default export
 // ---------------------------------------------------------------------------
 
@@ -372,6 +496,18 @@ export default async function Home() {
 
       {/* Services — before/after catalogue transformation */}
       <Services />
+
+      {/* Service 1: Catalogue Audit — three animation variants */}
+      <CatalogueAudit />
+
+      {/* Service 2: Catalogue Freshness — three animation variants */}
+      <CatalogueFreshness />
+
+      {/* Service 3: Catalogue Enrichment — three animation variants */}
+      <CatalogueEnrichment />
+
+      {/* Service 4: Contextual Catalogue Optimisation — three animation variants */}
+      <ContextualOptimisation />
 
       {/* Contact CTA — dark section with floating catalogue data */}
       <ContactSection />

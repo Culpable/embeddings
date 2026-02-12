@@ -37,33 +37,6 @@ Split distinct functionalities into separate modules and files, keeping code mod
 
 </code_standards>
 
-<technical_requirements>
-- Next.js 14 with App Router
-- Tailwind CSS for styling
-- Node.js v22.11.0 required
-- Automatic deployment via GitHub Actions on push to main branch
-- Static site deployment to GitHub Pages:
-  - Builds to `/out` directory
-  - Deploys to `gh-pages` branch
-  - Custom domain: embeddings.au
-  - No server-side functionality available
-  - All API endpoints must be external services
-- Image Handling:
-  - Featured image must be in public/images/ for direct URL mapping
-  - All other images must be in src/images/ for optimization
-  - Featured image configuration in src/lib/images.ts
-  - Image paths must use forward slashes (/)
-- Component Architecture:
-  - Use Server Components by default (no 'use client' directive)
-  - Only use Client Components when needed for:
-    - React hooks (useState, useEffect, etc.)
-    - Browser APIs
-    - Interactive features
-    - Event listeners
-  - Split interactive components into separate files
-  - Mark Client Components with 'use client' directive
-</technical_requirements>
-
 <key_templates>
 src/
 ├── components/
@@ -104,5 +77,86 @@ src/app/_disabled_pages/
 </disabled_pages>
 
 </key_templates>
+
+<technical_requirements>
+- Next.js 14 with App Router
+- Tailwind CSS for styling
+- Node.js v22.11.0 required
+- Automatic deployment via GitHub Actions on push to main branch
+- Static site deployment to GitHub Pages:
+  - Builds to `/out` directory
+  - Deploys to `gh-pages` branch
+  - Custom domain: embeddings.au
+  - No server-side functionality available
+  - All API endpoints must be external services
+- Image Handling:
+  - Featured image must be in public/images/ for direct URL mapping
+  - All other images must be in src/images/ for optimization
+  - Featured image configuration in src/lib/images.ts
+  - Image paths must use forward slashes (/)
+- Component Architecture:
+  - Use Server Components by default (no 'use client' directive)
+  - Only use Client Components when needed for:
+    - React hooks (useState, useEffect, etc.)
+    - Browser APIs
+    - Interactive features
+    - Event listeners
+  - Split interactive components into separate files
+  - Mark Client Components with 'use client' directive
+</technical_requirements>
+
+<environments>
+- Development: Next.js App Router via `npm run dev` on the default local port `3002` (loads `.env.local`)
+  - Dev URL: `http://localhost:3002` (for `dev-browser` and `agent-browser`)
+  - Runtime: Local Next.js server only (no internal database or backend service)
+  - Build output: `npm run build` generates the static export in `out/`
+- Production: GitHub Pages deployment at `embeddings.au`, built from pushes to `main`
+  - Hosting: GitHub Actions workflow `/.github/workflows/deploy.yml`
+  - Publish target: `out/` deployed to `gh-pages` using `peaceiris/actions-gh-pages`
+  - Domain: `embeddings.au` (configured via workflow `cname`)
+  - Runtime: Static export only (no server-side runtime)
+</environments>
+
+System architecture documentation (IMPORTANT):
+<system_architecture_documentation>
+
+These are the only system documentation files for this repository. Read the relevant file when working in that area.
+
+- `documents/service-section-animations.md`: Technical reference for how the service section animations work (timing, triggers, and implementation behaviour).
+- `documents/agentic-shopping-positioning.md`: Marketing positioning reference for the agentic shopping narrative and messaging direction.
+
+Documentation update rules:
+- Update `documents/service-section-animations.md` whenever code changes affect the service section animations.
+- Do not update `documents/agentic-shopping-positioning.md` based on code changes; it is marketing/positioning documentation only.
+
+</system_architecture_documentation>
+
+<testing_rules>
+
+Here is how to run UI checks and tests:
+<playwright_testing>
+LOCAL DEV SERVER POLICY (CRITICAL):
+- Assume the app is already running on `http://localhost:3002`.
+- Always verify port `3002` before any `dev-browser`, `agent-browser`, or manual browser testing.
+- If it is not running, start it exactly like `.vscode/launch.json`: run `npm run dev` from the repo root.
+- Wait for `http://localhost:3002` to respond, then proceed.
+- For frontend UI verification, use `dev-browser` by default. Use Playwright only if browser automation is explicitly requested.
+
+VALIDATION GATE (CRITICAL):
+- Frontend behaviour changes (rendering, animation, scroll, loading/error/empty states, interaction timing, conditional visibility) REQUIRE browser verification via `dev-browser` or `agent-browser`, unless the user explicitly says they will test UI themselves.
+- A task is not complete until required automated tests and required browser checks pass.
+- If a required browser check is skipped, the final response MUST state: skipped check, reason, and residual risk.
+- Final response MUST include a Validation Summary: automated checks run, browser scenarios run, and outcomes.
+
+Running tests:
+- `npm test` - run all Node.js tests in `test/*.test.mjs`
+- `node --test test/<file>.test.mjs` - run a specific test file
+
+IMPORTANT:
+- This project currently has no configured Playwright suite or Playwright npm script.
+- Keep browser verification focused on `http://localhost:3002` and document which pages and interactions were checked.
+</playwright_testing>
+
+</testing_rules>
 
 </project_details>

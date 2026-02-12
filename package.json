@@ -4,10 +4,11 @@
   "private": true,
   "homepage": "https://embeddings.au",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3002",
     "build": "next build && node src/scripts/generate-sitemap.js",
     "start": "next start",
     "lint": "next lint",
+    "test": "node --test",
     "deploy": "next build && node src/scripts/generate-sitemap.js && gh-pages -d out",
     "generate-sitemap": "node src/scripts/generate-sitemap.js"
   },

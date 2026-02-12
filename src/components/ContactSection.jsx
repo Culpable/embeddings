@@ -21,6 +21,12 @@ const floatingSnippets = [
   { text: 'price: $189.00 AUD', x: '80%', delay: '6s', duration: '20s', opacity: '0.12' },
 ]
 
+
+// Increase decorative snippet visibility while capping opacity to keep text subtle.
+const snippetOpacityBoost = 2.2
+const maxSnippetOpacity = 0.45
+
+
 export function ContactSection({ invert = false }) {
   return (
     <Container className="mt-24 sm:mt-32 lg:mt-40">
@@ -36,7 +42,7 @@ export function ContactSection({ invert = false }) {
               style={{
                 left: x,
                 bottom: '-2rem',
-                opacity,
+                opacity: Math.min(Number(opacity) * snippetOpacityBoost, maxSnippetOpacity),
                 animation: `floatUp ${duration} ${delay} linear infinite`,
               }}
             >
