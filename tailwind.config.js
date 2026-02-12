@@ -21,6 +21,15 @@ module.exports = {
       borderRadius: {
         '4xl': '2.5rem',
       },
+      keyframes: {
+        shimmerBorder: {
+          '0%': { backgroundPosition: '0% 50%' },
+          '100%': { backgroundPosition: '100% 50%' },
+        },
+      },
+      animation: {
+        shimmerBorder: 'shimmerBorder 1.5s ease-in-out infinite',
+      },
       fontFamily: {
         sans: ['Mona Sans', ...defaultTheme.fontFamily.sans],
         display: [

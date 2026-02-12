@@ -11,7 +11,7 @@ import {
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
-import { motion, MotionConfig, useReducedMotion } from 'framer-motion'
+import { motion, MotionConfig } from 'framer-motion'
 
 import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
@@ -144,8 +144,6 @@ function RootLayoutInner({ children }) {
   let openRef = useRef(null)
   let closeRef = useRef(null)
   let navRef = useRef(null)
-  let shouldReduceMotion = useReducedMotion()
-
   useEffect(() => {
     function onClick(event) {
       if (
@@ -164,7 +162,7 @@ function RootLayoutInner({ children }) {
   }, [])
 
   return (
-    <MotionConfig transition={shouldReduceMotion ? { duration: 0 } : undefined}>
+    <MotionConfig>
       <header>
         <div
           className="absolute left-0 right-0 top-2 z-40 pt-14"

@@ -23,30 +23,84 @@ import imageMichaelFoster from '@/images/team/michael-foster.jpg'
 import imageWhitneyFrancis from '@/images/team/whitney-francis.jpg'
 import { loadArticles } from '@/lib/mdx'
 
+const capabilities = [
+  {
+    index: '01',
+    title: 'LLM Pipeline Engineering',
+    body: 'We build and operate large language model pipelines that enrich product catalogs at scale — generating descriptions, categories, and attributes from raw product data and images. Thousands of SKUs processed in hours.',
+  },
+  {
+    index: '02',
+    title: 'Data Infrastructure',
+    body: 'We integrate directly with your ERP, PIM, and inventory systems to keep catalog data fresh and accurate. Real-time stock, pricing, and product status — because AI agents penalise stale data.',
+  },
+  {
+    index: '03',
+    title: 'Retail Domain Expertise',
+    body: (
+      <>
+        We understand Google Merchant Centre specifications, GTIN standards, product taxonomy, and
+        the emerging requirements of Google&rsquo;s Universal Commerce Protocol and OpenAI&rsquo;s
+        Instant Checkout.
+      </>
+    ),
+  },
+]
+
 function Culture() {
   return (
     <div className="mt-24 rounded-4xl bg-neutral-950 py-24 sm:mt-32 lg:mt-40 lg:py-32">
       <SectionIntro
-        eyebrow="our culture"
-        title="Driving innovation with expertise and passion"
+        eyebrow="our approach"
+        title="Built for catalogs, not generic AI consulting"
         invert
       >
         <p>
-          We are a team of experts combining deep technical knowledge and a passion for 
-          innovation, helping businesses unlock unprecedented efficiency.
+          Most AI consultancies offer broad capability across dozens of use cases. We chose a
+          different path — deep, vertical expertise in the one problem that determines whether
+          retailers survive the agentic shift: catalog data quality.
         </p>
       </SectionIntro>
       <Container className="mt-16">
-        <GridList>
-          <GridListItem title="Technical Excellence" invert>
-            Our specialists stay at the forefront of AI advancements, ensuring clients 
-            benefit from cutting-edge solutions.
-          </GridListItem>
-          <GridListItem title="Client Success" invert>
-            We work closely with clients to understand their unique challenges and deliver 
-            tailored solutions that drive real business value.
-          </GridListItem>
-        </GridList>
+        <FadeInStagger>
+          <ul
+            role="list"
+            className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3"
+          >
+            {capabilities.map(({ index, title, body }) => (
+              <li key={index} className="text-neutral-300">
+                <FadeIn>
+                  <div className="relative pl-8">
+                    {/* Left border — matches Border component pattern */}
+                    <div
+                      className="absolute left-0 top-0 h-6 w-px bg-white"
+                      aria-hidden="true"
+                    />
+                    <div
+                      className="absolute bottom-0 left-0 top-8 w-px bg-white/10"
+                      aria-hidden="true"
+                    />
+
+                    {/* Ordinal index */}
+                    <span className="block font-display text-sm font-semibold tracking-widest text-white/40">
+                      {index}
+                    </span>
+
+                    {/* Title */}
+                    <strong className="mt-4 block font-display text-lg font-semibold tracking-tight text-white">
+                      {title}.
+                    </strong>
+
+                    {/* Body */}
+                    <p className="mt-3 text-base leading-7 text-neutral-400">
+                      {body}
+                    </p>
+                  </div>
+                </FadeIn>
+              </li>
+            ))}
+          </ul>
+        </FadeInStagger>
       </Container>
     </div>
   )
@@ -177,7 +231,7 @@ function Team() {
 export const metadata = {
   title: 'About Us',
   description:
-    'We combine deep technical expertise with innovative solutions to help Australian businesses transform through Generative AI.',
+    'The only Australian consultancy combining LLM pipeline engineering and data infrastructure at scale — purpose-built to make retail catalogs agentic-ready.',
 }
 
 export default async function About() {
@@ -185,27 +239,41 @@ export default async function About() {
 
   return (
     <>
-      <PageIntro eyebrow="about us" title="Solutions, not slideshows">
+      <PageIntro eyebrow="about us" title="The team behind Australia&rsquo;s first agentic commerce consultancy">
         <p>
-          Our strength lies in our implementation-first approach, focusing on delivering real, measurable value through production-ready AI solutions.
+          Embeddings was founded on a single conviction: the retailers who win in agentic commerce
+          will be the ones with the best product data. We&rsquo;re the only Australian consultancy
+          that combines LLM pipeline engineering with data infrastructure at scale — purpose-built
+          for catalog readiness.
         </p>
         <p style={{ marginTop: '1rem' }}>
-            You won’t just get a strategy deck and a demo—we specialise in the crucial implementation phase where genuine business transformation occurs.
+          We don&rsquo;t hand you a strategy deck and wish you luck. We audit, enrich, and
+          operationalise your catalog so AI agents from Google and OpenAI recommend your products
+          first.
         </p>
         <div className="mt-10 max-w-2xl space-y-6 text-base">
           <p>
-            Embeddings was founded by action-oriented technologists who recognised that while many consultancies talked about AI’s potential, few could deliver practical, production-ready solutions. From day one, we’ve been committed to helping Australian businesses achieve exponential productivity gains through the practical application of Generative AI.
+            Embeddings was founded by engineers who spent years building large language model
+            pipelines and enterprise data systems. When agentic shopping emerged — AI agents
+            autonomously researching and purchasing on behalf of consumers — we saw the critical
+            gap: retailers had decades of product data locked in formats that AI agents couldn&rsquo;t
+            parse. Rich product knowledge trapped in PDFs, spreadsheets, and legacy ERPs. We built
+            Embeddings to solve that problem.
           </p>
           <p>
-            At Embeddings, we’re more than just consultants—we’re partners in your organisation’s AI transformation journey. Our team combines deep technical expertise with hands-on implementation experience, ensuring that every solution we deliver is robust, secure, and scalable. We’re passionate about helping businesses do less and achieve more through the power of Generative AI.
+            Our approach is engineering-led and outcome-driven. We measure success in catalog
+            completeness scores, enrichment coverage, and freshness latency — not slide counts.
+            Every engagement begins with a quantitative audit and ends with a catalog that&rsquo;s
+            ready for Google&rsquo;s Universal Commerce Protocol, OpenAI&rsquo;s Instant Checkout,
+            and whatever comes next.
           </p>
         </div>
       </PageIntro>
       <Container className="mt-16">
         <StatList>
-          <StatListItem value="10x" label="Productivity gains" />
-          <StatListItem value="80%" label="Task automation" />
-          <StatListItem value="ASX20" label="Client partnerships" />
+          <StatListItem value="758%" label="YoY growth in AI-driven e-commerce" />
+          <StatListItem value="$3–5T" label="Projected agentic commerce by 2030" />
+          <StatListItem value="81%" label="Of retail execs say AI will weaken brand loyalty" />
         </StatList>
       </Container>
 

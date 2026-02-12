@@ -93,7 +93,7 @@ function Build() {
         </p>
         <p>
           We maintain transparent communication throughout the process, providing regular 
-          updates on implementation progress and early results, ensuring you're always 
+          updates on implementation progress and early results, ensuring you’re always 
           informed about your AI transformation journey.
         </p>
       </div>
@@ -114,7 +114,7 @@ function Deliver() {
     <Section title="Deliver" image={{ src: imageMeeting, shape: 2 }}>
       <div className="space-y-6 text-base text-neutral-600">
         <p>
-          We don't stop at strategy decks. We focus on the crucial{' '}
+          We don’t stop at strategy decks. We focus on the crucial{' '}
           <strong className="font-semibold text-neutral-950">implementation phase</strong>{' '}
           where real value is created. Our focus is on production-ready solutions that 
           work in the real world.

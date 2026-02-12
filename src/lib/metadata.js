@@ -7,8 +7,8 @@ import { siteImages } from './images'
  * - Production: https://embeddings.au (from deployment)
  */
 export const siteMetadata = {
-  title: 'Embeddings: Generative AI for Australian Businesses',
-  description: 'Helping Australian businesses leverage the power of generative AI and large language models.',
+  title: 'Embeddings: Agentic Shopping Readiness for Australian Retailers',
+  description: 'Helping Australian retailers prepare their product catalogs for AI-driven commerce. Catalog audit, enrichment, and freshness services.',
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://embeddings.au',
   // Combine site URL with featured image path for absolute URL
   ogImage: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://embeddings.au'}${siteImages.featured}`,
@@ -21,6 +21,6 @@ export const pageMetadata = {
   home: {
     title: siteMetadata.title,
     description:
-      'Helping Australian businesses 10x their productivity with generative AI solutions. Offices in Perth and Melbourne.',
+      'We help Australian retailers become agentic-ready. Catalog audit, enrichment, freshness, and feedback services for the AI shopping revolution.',
   },
 }
