@@ -10,9 +10,9 @@ import { FadeIn, FadeInStagger } from '@/components/FadeIn'
 // Individual service step pill
 // ---------------------------------------------------------------------------
 
-function ServiceStep({ number, label }) {
+function ServiceStep({ number, label, className = '' }) {
   return (
-    <div className="flex items-center gap-3">
+    <div className={`flex items-center justify-center gap-3 md:justify-start ${className}`}>
       <span className="flex h-7 w-7 flex-none items-center justify-center rounded-full bg-neutral-950 text-xs font-semibold text-white">
         {number}
       </span>
@@ -181,23 +181,17 @@ export function CatalogueTransformation() {
 
           {/* Service steps — the transformation pipeline */}
           <FadeIn>
-            <div className="flex flex-row items-center gap-4 lg:flex-col lg:gap-5 lg:py-8">
+            <div className="-mx-1 flex flex-wrap items-start gap-y-3 md:mx-0 md:flex-nowrap md:items-center md:gap-x-6 lg:flex-col lg:items-start lg:gap-5 lg:py-8">
               {/* Arrow (horizontal on mobile, vertical on desktop) */}
               <div className="hidden h-6 w-px bg-gradient-to-b from-neutral-300 to-neutral-950/20 lg:block" aria-hidden="true" />
 
-              <ServiceStep number="1" label="Audit" />
+              <ServiceStep number="1" label="Audit" className="basis-1/2 px-1 md:basis-auto md:px-0" />
 
-              <div className="h-px w-4 bg-neutral-300 lg:h-4 lg:w-px" aria-hidden="true" />
+              <ServiceStep number="2" label="Freshness" className="basis-1/2 px-1 md:basis-auto md:px-0" />
 
-              <ServiceStep number="2" label="Freshness" />
+              <ServiceStep number="3" label="Enrichment" className="basis-1/2 px-1 md:basis-auto md:px-0" />
 
-              <div className="h-px w-4 bg-neutral-300 lg:h-4 lg:w-px" aria-hidden="true" />
-
-              <ServiceStep number="3" label="Enrichment" />
-
-              <div className="h-px w-4 bg-neutral-300 lg:h-4 lg:w-px" aria-hidden="true" />
-
-              <ServiceStep number="4" label="Optimisation" />
+              <ServiceStep number="4" label="Optimisation" className="basis-1/2 px-1 md:basis-auto md:px-0" />
 
               <div className="hidden h-6 w-px bg-gradient-to-b from-neutral-950/20 to-neutral-300 lg:block" aria-hidden="true" />
             </div>
