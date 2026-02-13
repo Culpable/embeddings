@@ -27,6 +27,11 @@ export function EnrichmentTypewriter() {
           <path id="enrichTypePath1" d="M 230 160 C 300 160, 340 150, 400 150" />
           <path id="enrichTypePath2" d="M 520 160 C 580 160, 610 150, 660 145" />
 
+          {/* Mobile connector paths — trim span near the centre node so
+              connectors stay clear of the LLM processor halo. */}
+          <path id="enrichTypePath1Mobile" d="M 230 160 C 285 160, 325 152, 380 152" />
+          <path id="enrichTypePath2Mobile" d="M 540 160 C 585 160, 615 152, 660 148" />
+
           {/* Clip for typewriter reveal — animates inset from right */}
           <clipPath id="enrichTypeClip">
             <rect x="680" y="60" width="240" height="240" className="enrich-type-clip-rect" />
@@ -36,7 +41,7 @@ export function EnrichmentTypewriter() {
         {/* ----------------------------------------------------------------- */}
         {/* Left: Sparse product card                                         */}
         {/* ----------------------------------------------------------------- */}
-        <g className="enrich-mobile-left-layer">
+        <g>
           <rect x="60" y="80" width="160" height="160" rx="10" fill="white" stroke="#e5e5e5" strokeWidth="1" />
 
           {/* Title — short */}
@@ -62,7 +67,7 @@ export function EnrichmentTypewriter() {
         {/* ----------------------------------------------------------------- */}
         {/* Connection: Sparse → Processor                                    */}
         {/* ----------------------------------------------------------------- */}
-        <g className="enrich-mobile-left-connectors">
+        <g className="enrich-connectors-desktop">
           <path d="M 230 160 C 300 160, 340 150, 400 150" stroke="url(#enrichTypeGrad)" strokeWidth="1.5" fill="none" />
 
           {/* Particles: Sparse → Processor */}
@@ -74,6 +79,22 @@ export function EnrichmentTypewriter() {
           <circle r="2" fill="#171717" opacity="0.3">
             <animateMotion dur="2.5s" repeatCount="indefinite" begin="1.2s">
               <mpath href="#enrichTypePath1" />
+            </animateMotion>
+          </circle>
+        </g>
+
+        <g className="enrich-connectors-mobile">
+          <path d="M 230 160 C 285 160, 325 152, 380 152" stroke="url(#enrichTypeGrad)" strokeWidth="1.5" fill="none" />
+
+          {/* Particles: Sparse → Processor (mobile connector span) */}
+          <circle r="2.5" fill="#171717" opacity="0.4">
+            <animateMotion dur="2.5s" repeatCount="indefinite" begin="0s">
+              <mpath href="#enrichTypePath1Mobile" />
+            </animateMotion>
+          </circle>
+          <circle r="2" fill="#171717" opacity="0.3">
+            <animateMotion dur="2.5s" repeatCount="indefinite" begin="1.2s">
+              <mpath href="#enrichTypePath1Mobile" />
             </animateMotion>
           </circle>
         </g>
@@ -101,7 +122,7 @@ export function EnrichmentTypewriter() {
         {/* ----------------------------------------------------------------- */}
         {/* Connection: Processor → Enriched                                  */}
         {/* ----------------------------------------------------------------- */}
-        <g className="enrich-mobile-right-connectors">
+        <g className="enrich-connectors-desktop">
           <path d="M 520 160 C 580 160, 610 150, 660 145" stroke="url(#enrichTypeGrad)" strokeWidth="1.5" fill="none" />
 
           {/* Particles: Processor → Enriched */}
@@ -117,10 +138,26 @@ export function EnrichmentTypewriter() {
           </circle>
         </g>
 
+        <g className="enrich-connectors-mobile">
+          <path d="M 540 160 C 585 160, 615 152, 660 148" stroke="url(#enrichTypeGrad)" strokeWidth="1.5" fill="none" />
+
+          {/* Particles: Processor → Enriched (mobile connector span) */}
+          <circle r="2.5" fill="#171717" opacity="0.4">
+            <animateMotion dur="2s" repeatCount="indefinite" begin="0.3s">
+              <mpath href="#enrichTypePath2Mobile" />
+            </animateMotion>
+          </circle>
+          <circle r="2" fill="#171717" opacity="0.3">
+            <animateMotion dur="2s" repeatCount="indefinite" begin="1s">
+              <mpath href="#enrichTypePath2Mobile" />
+            </animateMotion>
+          </circle>
+        </g>
+
         {/* ----------------------------------------------------------------- */}
         {/* Right: Enriched product card with typewriter reveal               */}
         {/* ----------------------------------------------------------------- */}
-        <g className="enrich-mobile-right-layer">
+        <g>
           <rect x="660" y="60" width="240" height="200" rx="10" fill="white" stroke="#e5e5e5" strokeWidth="1" />
 
           {/* Title — typed out with clip-path animation */}
@@ -183,29 +220,17 @@ export function EnrichmentTypewriter() {
         {/* CSS keyframes                                                     */}
         {/* ----------------------------------------------------------------- */}
         <style>{`
-          /* Keep cards and nodes at native proportions while compacting
-             left/right edge clusters on smaller viewports. */
-          @media (max-width: 1023px) {
-            .enrich-mobile-left-layer,
-            .enrich-mobile-left-connectors {
-              transform: translateX(34px);
-            }
-
-            .enrich-mobile-right-layer,
-            .enrich-mobile-right-connectors {
-              transform: translateX(-34px);
-            }
+          .enrich-connectors-mobile {
+            display: none;
           }
 
-          @media (max-width: 767px) {
-            .enrich-mobile-left-layer,
-            .enrich-mobile-left-connectors {
-              transform: translateX(48px);
+          @media (max-width: 1023px) {
+            .enrich-connectors-desktop {
+              display: none;
             }
 
-            .enrich-mobile-right-layer,
-            .enrich-mobile-right-connectors {
-              transform: translateX(-48px);
+            .enrich-connectors-mobile {
+              display: inline;
             }
           }
 

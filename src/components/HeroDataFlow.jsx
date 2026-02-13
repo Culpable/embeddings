@@ -84,12 +84,31 @@ export function HeroDataFlow() {
             id="pathAgentToConsumer2"
             d="M 540 155 C 620 150, 650 155, 700 152"
           />
+
+          {/* Mobile connector paths — trim span near the centre node so
+              edge-to-centre links stay clear of the AI agent cluster. */}
+          <path
+            id="pathCatalogueToAgentMobile"
+            d="M 260 160 C 325 160, 345 148, 400 148"
+          />
+          <path
+            id="pathCatalogueToAgent2Mobile"
+            d="M 260 170 C 325 178, 350 172, 400 168"
+          />
+          <path
+            id="pathAgentToConsumerMobile"
+            d="M 560 160 C 620 160, 640 160, 700 160"
+          />
+          <path
+            id="pathAgentToConsumer2Mobile"
+            d="M 560 156 C 620 151, 650 156, 700 154"
+          />
         </defs>
 
         {/* ----------------------------------------------------------------- */}
         {/* Layer 1: Retailer Catalogue (left)                                */}
         {/* ----------------------------------------------------------------- */}
-        <g className="hero-catalogue hero-mobile-left-layer">
+        <g className="hero-catalogue">
           {/* Label */}
           <text
             x="140"
@@ -159,7 +178,7 @@ export function HeroDataFlow() {
         {/* ----------------------------------------------------------------- */}
         {/* Connection paths: Catalogue → Agent                               */}
         {/* ----------------------------------------------------------------- */}
-        <g className="hero-mobile-left-connectors">
+        <g className="hero-connectors-desktop">
           <path d="M 260 160 C 340 160, 360 140, 420 140" stroke="url(#pathGrad)" strokeWidth="1.5" fill="none" />
           <path d="M 260 170 C 340 180, 370 170, 420 165" stroke="url(#pathGrad)" strokeWidth="1" fill="none" opacity="0.5" />
 
@@ -177,6 +196,28 @@ export function HeroDataFlow() {
           <circle r="2.5" fill="#3b82f6" opacity="0.25">
             <animateMotion dur="3.5s" repeatCount="indefinite" begin="0.5s">
               <mpath href="#pathCatalogueToAgent2" />
+            </animateMotion>
+          </circle>
+        </g>
+
+        <g className="hero-connectors-mobile">
+          <path d="M 260 160 C 325 160, 345 148, 400 148" stroke="url(#pathGrad)" strokeWidth="1.5" fill="none" />
+          <path d="M 260 170 C 325 178, 350 172, 400 168" stroke="url(#pathGrad)" strokeWidth="1" fill="none" opacity="0.5" />
+
+          {/* Flowing particles along mobile left connector paths */}
+          <circle r="3" fill="#171717" opacity="0.5">
+            <animateMotion dur="3s" repeatCount="indefinite" begin="0s">
+              <mpath href="#pathCatalogueToAgentMobile" />
+            </animateMotion>
+          </circle>
+          <circle r="2" fill="#171717" opacity="0.3">
+            <animateMotion dur="3s" repeatCount="indefinite" begin="1s">
+              <mpath href="#pathCatalogueToAgentMobile" />
+            </animateMotion>
+          </circle>
+          <circle r="2.5" fill="#171717" opacity="0.4">
+            <animateMotion dur="3.5s" repeatCount="indefinite" begin="0.5s">
+              <mpath href="#pathCatalogueToAgent2Mobile" />
             </animateMotion>
           </circle>
         </g>
@@ -424,7 +465,7 @@ export function HeroDataFlow() {
         {/* ----------------------------------------------------------------- */}
         {/* Connection paths: Agent → Consumer                                */}
         {/* ----------------------------------------------------------------- */}
-        <g className="hero-mobile-right-connectors">
+        <g className="hero-connectors-desktop">
           <path d="M 540 160 C 620 160, 640 160, 700 160" stroke="url(#pathGrad)" strokeWidth="1.5" fill="none" />
           <path d="M 540 155 C 620 150, 650 155, 700 152" stroke="url(#pathGrad)" strokeWidth="1" fill="none" opacity="0.5" />
 
@@ -446,10 +487,32 @@ export function HeroDataFlow() {
           </circle>
         </g>
 
+        <g className="hero-connectors-mobile">
+          <path d="M 560 160 C 620 160, 640 160, 700 160" stroke="url(#pathGrad)" strokeWidth="1.5" fill="none" />
+          <path d="M 560 156 C 620 151, 650 156, 700 154" stroke="url(#pathGrad)" strokeWidth="1" fill="none" opacity="0.5" />
+
+          {/* Flowing particles along mobile right connector paths */}
+          <circle r="3" fill="#171717" opacity="0.5">
+            <animateMotion dur="2.5s" repeatCount="indefinite" begin="0.3s">
+              <mpath href="#pathAgentToConsumerMobile" />
+            </animateMotion>
+          </circle>
+          <circle r="2" fill="#171717" opacity="0.3">
+            <animateMotion dur="2.5s" repeatCount="indefinite" begin="1.3s">
+              <mpath href="#pathAgentToConsumerMobile" />
+            </animateMotion>
+          </circle>
+          <circle r="2" fill="#171717" opacity="0.35">
+            <animateMotion dur="3s" repeatCount="indefinite" begin="0.8s">
+              <mpath href="#pathAgentToConsumer2Mobile" />
+            </animateMotion>
+          </circle>
+        </g>
+
         {/* ----------------------------------------------------------------- */}
         {/* Layer 3: Consumer chat interface (right)                          */}
         {/* ----------------------------------------------------------------- */}
-        <g className="hero-mobile-right-layer">
+        <g>
           {/* Label */}
           <text
             x="810"
@@ -491,12 +554,11 @@ export function HeroDataFlow() {
             shoes under $200
           </text>
 
-          {/* AI response — product recommendation.
-              Response bubble and text lines fade in sequentially to simulate
-              the response being "written", then hold, then reset. 8s cycle. */}
-          <rect x="732" y="152" width="140" height="48" rx="8" fill="#171717">
-            <animate attributeName="opacity" values="0.01;0.04;0.04;0.01" keyTimes="0;0.1875;0.8125;1" dur="8s" repeatCount="indefinite" begin="0s" />
-          </rect>
+          {/* AI response — product recommendation */}
+          {/* Fade response bubble and text lines in sequentially to simulate
+              the response being written, then hold, then reset on an 8s cycle. */}
+          <rect id="hero-response-bubble" x="732" y="152" width="140" height="48" rx="8" fill="#171717" opacity="0.01" />
+          <animate href="#hero-response-bubble" attributeName="opacity" values="0.01;0.04;0.04;0.01" keyTimes="0;0.1875;0.8125;1" dur="8s" repeatCount="indefinite" begin="0s" />
           <text
             x="742"
             y="161"
@@ -561,29 +623,17 @@ export function HeroDataFlow() {
         {/* CSS animations for hero elements                                  */}
         {/* ----------------------------------------------------------------- */}
         <style>{`
-          /* Reduce left/right connector spans on small viewports by moving the
-             edge clusters and their connector paths inward together. */
-          @media (max-width: 1023px) {
-            .hero-mobile-left-layer,
-            .hero-mobile-left-connectors {
-              transform: translateX(30px);
-            }
-
-            .hero-mobile-right-layer,
-            .hero-mobile-right-connectors {
-              transform: translateX(-30px);
-            }
+          .hero-connectors-mobile {
+            display: none;
           }
 
-          @media (max-width: 767px) {
-            .hero-mobile-left-layer,
-            .hero-mobile-left-connectors {
-              transform: translateX(42px);
+          @media (max-width: 1023px) {
+            .hero-connectors-desktop {
+              display: none;
             }
 
-            .hero-mobile-right-layer,
-            .hero-mobile-right-connectors {
-              transform: translateX(-42px);
+            .hero-connectors-mobile {
+              display: inline;
             }
           }
 
