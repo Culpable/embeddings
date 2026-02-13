@@ -32,8 +32,8 @@ function AttributeTag({ children, muted = false }) {
     <span
       className={
         muted
-          ? 'before-shimmer inline-block rounded-full border border-dashed border-neutral-300 px-2.5 py-0.5 text-xs text-neutral-400'
-          : 'inline-block rounded-full bg-neutral-950/[0.06] px-2.5 py-0.5 text-xs font-medium text-neutral-700'
+          ? 'before-shimmer inline-grid place-items-center rounded-full border border-dashed border-neutral-300 px-3 h-7 text-xs text-neutral-400'
+          : 'inline-grid place-items-center rounded-full bg-neutral-950/[0.06] px-3 h-7 text-xs font-medium text-neutral-700'
       }
     >
       {children}

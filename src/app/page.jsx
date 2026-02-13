@@ -237,8 +237,10 @@ function WhyNow() {
 
                 {/* Oversized stat — animated count-up for numeric values */}
                 <p className="font-display text-6xl font-medium tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-neutral-950 to-neutral-950/60 sm:text-7xl">
-                  {/* "0" stays static (already at target), "758%" and "81%" animate */}
-                  {stat === '758%' ? (
+                  {/* Animate all three numeric stats: $5T, 758%, 81% */}
+                  {stat === '$5T' ? (
+                    <AnimatedStat value={5} prefix="$" suffix="T" />
+                  ) : stat === '758%' ? (
                     <AnimatedStat value={758} suffix="%" />
                   ) : stat === '81%' ? (
                     <AnimatedStat value={81} suffix="%" />
