@@ -126,8 +126,8 @@ export function HeroDataFlow() {
               returns to resting opacity. 6s cycle with 0.8s stagger per field. */}
           <g className="hero-catalogue-card-enriched">
             <rect x="30" y="60" width="100" height="120" rx="8" fill="white" stroke="#e5e5e5" strokeWidth="1" />
-            {/* Image placeholder */}
-            <rect x="38" y="68" width="84" height="44" rx="4" fill="#f5f5f5" className="hero-enrich-fill">
+            {/* Image placeholder — blue-50 wash connects to blue data flow */}
+            <rect x="38" y="68" width="84" height="44" rx="4" fill="#eff6ff" className="hero-enrich-fill">
               <animate attributeName="opacity" values="0.95;1.0;0.95" dur="6s" repeatCount="indefinite" begin="0s" />
             </rect>
             {/* Title line */}
@@ -155,7 +155,7 @@ export function HeroDataFlow() {
           </g>
 
           {/* Card 2 (sparse — muted, represents incomplete data) */}
-          <g opacity="0.4" className="hero-catalogue-card-sparse">
+          <g opacity="0.55" className="hero-catalogue-card-sparse">
             <rect x="145" y="75" width="100" height="110" rx="8" fill="white" stroke="#e5e5e5" strokeWidth="1" />
             <rect x="153" y="83" width="84" height="40" rx="4" fill="#fafafa" />
             <rect x="153" y="131" width="50" height="6" rx="2" fill="#d4d4d4" />
@@ -167,8 +167,8 @@ export function HeroDataFlow() {
           </g>
 
           {/* Card 3 (very sparse — faded) */}
-          <g opacity="0.2" className="hero-catalogue-card-sparse-2">
-            <rect x="80" y="195" width="90" height="90" rx="8" fill="white" stroke="#e5e5e5" strokeWidth="1" />
+          <g opacity="0.40" className="hero-catalogue-card-sparse-2">
+            <rect x="80" y="195" width="90" height="90" rx="8" fill="white" stroke="#d4d4d4" strokeWidth="1" />
             <rect x="88" y="203" width="74" height="36" rx="4" fill="#fafafa" />
             <rect x="88" y="247" width="40" height="5" rx="2" fill="#e5e5e5" />
             <rect x="88" y="258" width="60" height="3" rx="1" fill="none" stroke="#e5e5e5" strokeWidth="1" strokeDasharray="3 3" />
@@ -530,13 +530,13 @@ export function HeroDataFlow() {
           {/* Chat header bar */}
           <rect x="720" y="60" width="180" height="30" rx="12" fill="#fafafa" />
           <rect x="720" y="78" width="180" height="12" fill="#fafafa" />
-          {/* Header dots */}
-          <circle cx="738" cy="75" r="3" fill="#e5e5e5" />
-          <circle cx="748" cy="75" r="3" fill="#e5e5e5" />
-          <circle cx="758" cy="75" r="3" fill="#e5e5e5" />
+          {/* Header dots — macOS-style traffic lights at low opacity */}
+          <circle cx="738" cy="75" r="3" fill="#ef4444" opacity="0.55" />
+          <circle cx="748" cy="75" r="3" fill="#f59e0b" opacity="0.55" />
+          <circle cx="758" cy="75" r="3" fill="#22c55e" opacity="0.55" />
 
-          {/* User message bubble */}
-          <rect x="760" y="100" width="128" height="40" rx="8" fill="#171717" opacity="0.06" />
+          {/* User message bubble — faint blue wash for raw input */}
+          <rect x="760" y="100" width="128" height="40" rx="8" fill="#3b82f6" opacity="0.04" />
           <text
             x="770"
             y="116"
@@ -557,7 +557,8 @@ export function HeroDataFlow() {
           {/* AI response — product recommendation */}
           {/* Fade response bubble and text lines in sequentially to simulate
               the response being written, then hold, then reset on an 8s cycle. */}
-          <rect id="hero-response-bubble" x="732" y="152" width="140" height="48" rx="8" fill="#171717" opacity="0.01" />
+          {/* AI response bubble — emerald tint to signal processed intelligence */}
+          <rect id="hero-response-bubble" x="732" y="152" width="140" height="48" rx="8" fill="#10b981" opacity="0.01" />
           <animate href="#hero-response-bubble" attributeName="opacity" values="0.01;0.04;0.04;0.01" keyTimes="0;0.1875;0.8125;1" dur="8s" repeatCount="indefinite" begin="0s" />
           <text
             x="742"
@@ -586,7 +587,7 @@ export function HeroDataFlow() {
             className="fill-neutral-950"
             style={{ fontSize: '7.5px', fontWeight: 400 }}
           >
-            41 — $189, in stock, 4.8★
+            41 — $189, in stock, 4.8<tspan fill="#10b981">★</tspan>
             <animate attributeName="opacity" values="0.15;0.5;0.5;0.15" keyTimes="0;0.125;0.75;1" dur="8s" repeatCount="indefinite" begin="1.0s" />
           </text>
 
@@ -607,14 +608,15 @@ export function HeroDataFlow() {
           <rect x="732" y="242" width="156" height="18" rx="9" fill="none" stroke="#e5e5e5" strokeWidth="1" />
           <text
             x="742"
-            y="254"
+            y="251"
+            dominantBaseline="middle"
             style={{ fontSize: '7px', opacity: 0.25 }}
             className="fill-neutral-500"
           >
-            Ask anything...
+            <tspan dx="3">Ask anything...</tspan>
           </text>
           {/* Blinking cursor inside the input bar */}
-          <rect x="745" y="247" width="1" height="10" rx="0.5" fill="#171717">
+          <rect x="741" y="247" width="1" height="8" rx="0.5" fill="#171717">
             <animate attributeName="opacity" values="0;0.3;0" dur="1.2s" repeatCount="indefinite" />
           </rect>
         </g>
