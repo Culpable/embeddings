@@ -137,31 +137,31 @@ export function EnrichmentTypewriter() {
           {/* Attribute tags — fade in with staggered delays */}
           <g className="enrich-type-tag-1">
             <rect x="680" y="160" width="70" height="16" rx="8" fill="#171717" opacity="0.06" />
-            <text x="715" y="172" textAnchor="middle" fill="#171717" style={{ fontSize: '8px', fontWeight: 500, opacity: 0.5 }}>
+            <text x="715" y="168" dy="0.15" textAnchor="middle" dominantBaseline="central" fill="#171717" style={{ fontSize: '8px', fontWeight: 500, opacity: 0.5 }}>
               Sapphire Blue
             </text>
           </g>
           <g className="enrich-type-tag-2">
             <rect x="756" y="160" width="44" height="16" rx="8" fill="#171717" opacity="0.06" />
-            <text x="778" y="172" textAnchor="middle" fill="#171717" style={{ fontSize: '8px', fontWeight: 500, opacity: 0.5 }}>
+            <text x="778" y="168" dy="0.15" textAnchor="middle" dominantBaseline="central" fill="#171717" style={{ fontSize: '8px', fontWeight: 500, opacity: 0.5 }}>
               A-Line
             </text>
           </g>
           <g className="enrich-type-tag-3">
             <rect x="806" y="160" width="50" height="16" rx="8" fill="#171717" opacity="0.06" />
-            <text x="831" y="172" textAnchor="middle" fill="#171717" style={{ fontSize: '8px', fontWeight: 500, opacity: 0.5 }}>
+            <text x="831" y="168" dy="0.15" textAnchor="middle" dominantBaseline="central" fill="#171717" style={{ fontSize: '8px', fontWeight: 500, opacity: 0.5 }}>
               Crepe
             </text>
           </g>
           <g className="enrich-type-tag-4">
             <rect x="680" y="182" width="80" height="16" rx="8" fill="#171717" opacity="0.06" />
-            <text x="720" y="194" textAnchor="middle" fill="#171717" style={{ fontSize: '8px', fontWeight: 500, opacity: 0.5 }}>
+            <text x="720" y="190" dy="0.15" textAnchor="middle" dominantBaseline="central" fill="#171717" style={{ fontSize: '8px', fontWeight: 500, opacity: 0.5 }}>
               Wedding Guest
             </text>
           </g>
           <g className="enrich-type-tag-5">
             <rect x="766" y="182" width="58" height="16" rx="8" fill="#171717" opacity="0.06" />
-            <text x="795" y="194" textAnchor="middle" fill="#171717" style={{ fontSize: '8px', fontWeight: 500, opacity: 0.5 }}>
+            <text x="795" y="190" dy="0.15" textAnchor="middle" dominantBaseline="central" fill="#171717" style={{ fontSize: '8px', fontWeight: 500, opacity: 0.5 }}>
               Sizes 6–18
             </text>
           </g>

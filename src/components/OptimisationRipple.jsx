@@ -42,7 +42,7 @@ export function OptimisationRipple() {
         {nodes.map(({ x, y, label }, i) => (
           <g key={label} className={`opt-ripple-node opt-ripple-node-${i}`}>
             <rect x={x - 48} y={y - 12} width="96" height="24" rx="6" fill="white" stroke="#e5e5e5" strokeWidth="0.5" />
-            <text x={x} y={y + 4} textAnchor="middle" fill="#171717" style={{ fontSize: '8px', fontWeight: 500, opacity: 0.5 }}>
+            <text x={x} y={y} textAnchor="middle" dominantBaseline="central" fill="#171717" style={{ fontSize: '8px', fontWeight: 500, opacity: 0.5 }}>
               {label}
             </text>
             {/* "+optimised" badge — fades in when the matching ripple reaches this node */}

@@ -98,6 +98,9 @@ All animations share these conventions:
 
 **Concept:** Left: sparse product card ("Blue Dress", one line). Centre: LLM processor node (concentric circles with orbital dots). Right: enriched card with text being "typed" via `clip-path` animation, attribute tags fading in with staggered delays. Flowing particles connect the three stages. Blinking cursor at the typing position.
 
+**Badge text alignment:**
+- Attribute tag labels use SVG `dominantBaseline="central"` with each label `y` set to the `rect` vertical centre and `dy="0.15"` for a tiny optical downward correction. This keeps pills visually balanced across browsers.
+
 **Key animations:**
 - `typeText`: clip-path inset from 100% to 0% on right edge using `steps(30)` over 5s
 - `blinkCursor`: opacity toggle with `steps(1)` at 0.8s
@@ -126,6 +129,9 @@ All animations share these conventions:
 | "heavy metals" | "Organic Chocolate", "Kids Lunchbox" |
 
 When a ripple ring reaches a product card node, that node flashes and receives a "+optimised" badge — demonstrating that the catalogue content has been updated in response to the trend signal.
+
+**Badge text alignment:**
+- Node label text uses SVG `dominantBaseline="central"` with label `y` anchored to the node `rect` centre (`y`), so labels remain vertically centred inside node badges.
 
 **Key animations:**
 - `rippleExpand`: scale 0 → 250, opacity 0.3 → 0 over 3s (3 concentric rings per drop, staggered 0.3s)
