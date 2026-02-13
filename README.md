@@ -135,7 +135,7 @@ The site auto-updates when files in `/src` are modified.
 
 ### Featured Image
 The site's featured image (used for social sharing and meta tags) is handled differently from other images:
-- Location: `public/images/embeddings-generative-ai-consulting-australia.png`
+- Location: `public/images/embeddings-agentic-shopping.png`
 - Configuration: `src/lib/images.ts`
 - URL Structure: Maps directly to `https://embeddings.au/images/...`
 - No optimization: Pre-optimized image bypasses Next.js image processing

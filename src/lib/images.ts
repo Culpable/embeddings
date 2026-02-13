@@ -11,7 +11,7 @@
 export const siteImages = {
   // Featured image path starts with / to reference from public directory
   // This creates a direct mapping to the production URL: https://embeddings.au/images/...
-  featured: '/images/embeddings-generative-ai-consulting-australia.png',
+  featured: '/images/embeddings-agentic-shopping.png',
 } as const
 
 export type SiteImages = typeof siteImages 

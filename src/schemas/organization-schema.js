@@ -11,7 +11,7 @@ export const organizationSchema = {
   "alternateName": "Embeddings: Generative AI for Australian Businesses",
   "url": "https://embeddings.au",
   "logo": "https://embeddings.au/images/embeddings-logo.png",
-  "image": "https://embeddings.au/images/embeddings-generative-ai-consulting-australia.png",
+  "image": "https://embeddings.au/images/embeddings-agentic-shopping.png",
   "description": "AI embeddings experts and consultants specialising in machine learning solutions.",
   "address": {
     "@type": "PostalAddress",

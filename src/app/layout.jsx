@@ -36,7 +36,8 @@ export const metadata = {
 export default function Layout({ children }) {
   return (
     <html lang="en" className="h-full bg-neutral-950 text-base antialiased">
-      <body className="flex min-h-full flex-col">
+      {/* Suppress hydration mismatch warnings when browser extensions inject transient body attributes. */}
+      <body suppressHydrationWarning className="flex min-h-full flex-col">
         <MixpanelProvider />
         <RootLayout>{children}</RootLayout>
       </body>
