@@ -2,6 +2,9 @@
 // HeroDataFlow — Animated SVG illustration showing the agentic shopping
 // pipeline: Retailer Catalogue → AI Agent → Consumer. Pure CSS animations
 // using offset-path for flowing particles. Server Component (no JS needed).
+//
+// The AI Agent centre section uses Variant A (Neural Mesh + Orbital Dots).
+// See documents/ai-agent-animation-variants.md for all variant designs.
 // ---------------------------------------------------------------------------
 
 export function HeroDataFlow() {
@@ -143,7 +146,7 @@ export function HeroDataFlow() {
         </circle>
 
         {/* ----------------------------------------------------------------- */}
-        {/* Layer 2: AI Agent (centre)                                        */}
+        {/* Layer 2: AI Agent (centre) — Variant A: Neural Mesh + Orbital Dots*/}
         {/* ----------------------------------------------------------------- */}
         <g>
           {/* Label */}
@@ -157,37 +160,230 @@ export function HeroDataFlow() {
             AI agent
           </text>
 
-          {/* Central node — scanning beam / neural network hub */}
-          {/* Outer ring with frosted glass blur */}
-          <circle cx="480" cy="160" r="50" fill="white" opacity="0.06" filter="url(#glassBlur)" />
-          <circle cx="480" cy="160" r="50" fill="#171717" opacity="0.04" />
-          <circle cx="480" cy="160" r="35" fill="#171717" opacity="0.06" />
-          <circle cx="480" cy="160" r="22" fill="#171717" opacity="0.10" className="hero-agent-pulse" />
+          {/* Ambient glow behind the mesh */}
+          <circle cx="480" cy="160" r="50" fill="white" opacity="0.05" filter="url(#glassBlur)" />
 
-          {/* Inner icon — stylised magnifier/scan symbol */}
-          <circle cx="476" cy="156" r="10" fill="none" stroke="#171717" strokeWidth="1.5" opacity="0.6" />
-          <line x1="483" y1="163" x2="490" y2="170" stroke="#171717" strokeWidth="1.5" opacity="0.6" strokeLinecap="round" />
+          {/* Central hub node — slightly larger with gentle pulse */}
+          <circle cx="480" cy="160" r="5" fill="#171717" opacity="0.35" className="hero-agent-pulse" />
+          <circle cx="480" cy="160" r="8" fill="#171717" opacity="0.06" className="hero-agent-pulse" />
 
-          {/* Orbital dots representing multi-source scanning */}
-          <circle cx="480" cy="160" r="0" fill="#171717">
-            <animate attributeName="r" values="30;32;30" dur="4s" repeatCount="indefinite" />
-            <animate attributeName="opacity" values="0.08;0.15;0.08" dur="4s" repeatCount="indefinite" />
+          {/* Mesh nodes — 8 points distributed around centre.
+              Each node pulses subtly with staggered timing to create
+              a living, breathing constellation effect. */}
+          {/* Node 1: top-left */}
+          <circle cx="452" cy="130" r="2.5" fill="#171717">
+            <animate attributeName="opacity" values="0.15;0.35;0.15" dur="3s" repeatCount="indefinite" begin="0s" />
+          </circle>
+          {/* Node 2: top */}
+          <circle cx="480" cy="118" r="2" fill="#171717">
+            <animate attributeName="opacity" values="0.12;0.30;0.12" dur="3.5s" repeatCount="indefinite" begin="0.4s" />
+          </circle>
+          {/* Node 3: top-right */}
+          <circle cx="510" cy="128" r="2.5" fill="#171717">
+            <animate attributeName="opacity" values="0.15;0.35;0.15" dur="3s" repeatCount="indefinite" begin="0.8s" />
+          </circle>
+          {/* Node 4: right */}
+          <circle cx="520" cy="158" r="2" fill="#171717">
+            <animate attributeName="opacity" values="0.12;0.28;0.12" dur="4s" repeatCount="indefinite" begin="1.2s" />
+          </circle>
+          {/* Node 5: bottom-right */}
+          <circle cx="508" cy="190" r="2.5" fill="#171717">
+            <animate attributeName="opacity" values="0.15;0.32;0.15" dur="3.2s" repeatCount="indefinite" begin="1.6s" />
+          </circle>
+          {/* Node 6: bottom */}
+          <circle cx="478" cy="200" r="2" fill="#171717">
+            <animate attributeName="opacity" values="0.12;0.30;0.12" dur="3.8s" repeatCount="indefinite" begin="2.0s" />
+          </circle>
+          {/* Node 7: bottom-left */}
+          <circle cx="450" cy="188" r="2.5" fill="#171717">
+            <animate attributeName="opacity" values="0.15;0.35;0.15" dur="3s" repeatCount="indefinite" begin="2.4s" />
+          </circle>
+          {/* Node 8: left */}
+          <circle cx="442" cy="158" r="2" fill="#171717">
+            <animate attributeName="opacity" values="0.12;0.28;0.12" dur="3.6s" repeatCount="indefinite" begin="2.8s" />
           </circle>
 
-          {/* Small satellite nodes */}
-          <g className="hero-satellite">
-            <circle cx="450" cy="130" r="3" fill="#171717" opacity="0.2" />
-            <circle cx="510" cy="135" r="2.5" fill="#171717" opacity="0.15" />
-            <circle cx="455" cy="190" r="2" fill="#171717" opacity="0.15" />
-            <circle cx="505" cy="185" r="3" fill="#171717" opacity="0.2" />
+          {/* Mesh connection lines — thin strokes linking nearby nodes */}
+          {/* Hub to each node */}
+          <line x1="480" y1="160" x2="452" y2="130" stroke="#171717" strokeWidth="0.5" opacity="0.10" />
+          <line x1="480" y1="160" x2="480" y2="118" stroke="#171717" strokeWidth="0.5" opacity="0.10" />
+          <line x1="480" y1="160" x2="510" y2="128" stroke="#171717" strokeWidth="0.5" opacity="0.10" />
+          <line x1="480" y1="160" x2="520" y2="158" stroke="#171717" strokeWidth="0.5" opacity="0.10" />
+          <line x1="480" y1="160" x2="508" y2="190" stroke="#171717" strokeWidth="0.5" opacity="0.10" />
+          <line x1="480" y1="160" x2="478" y2="200" stroke="#171717" strokeWidth="0.5" opacity="0.10" />
+          <line x1="480" y1="160" x2="450" y2="188" stroke="#171717" strokeWidth="0.5" opacity="0.10" />
+          <line x1="480" y1="160" x2="442" y2="158" stroke="#171717" strokeWidth="0.5" opacity="0.10" />
+          {/* Perimeter connections between adjacent nodes */}
+          <line x1="452" y1="130" x2="480" y2="118" stroke="#171717" strokeWidth="0.4" opacity="0.07" />
+          <line x1="480" y1="118" x2="510" y2="128" stroke="#171717" strokeWidth="0.4" opacity="0.07" />
+          <line x1="510" y1="128" x2="520" y2="158" stroke="#171717" strokeWidth="0.4" opacity="0.07" />
+          <line x1="520" y1="158" x2="508" y2="190" stroke="#171717" strokeWidth="0.4" opacity="0.07" />
+          <line x1="508" y1="190" x2="478" y2="200" stroke="#171717" strokeWidth="0.4" opacity="0.07" />
+          <line x1="478" y1="200" x2="450" y2="188" stroke="#171717" strokeWidth="0.4" opacity="0.07" />
+          <line x1="450" y1="188" x2="442" y2="158" stroke="#171717" strokeWidth="0.4" opacity="0.07" />
+          <line x1="442" y1="158" x2="452" y2="130" stroke="#171717" strokeWidth="0.4" opacity="0.07" />
+          {/* Cross-mesh diagonals for density */}
+          <line x1="452" y1="130" x2="510" y2="128" stroke="#171717" strokeWidth="0.3" opacity="0.05" />
+          <line x1="510" y1="128" x2="508" y2="190" stroke="#171717" strokeWidth="0.3" opacity="0.05" />
+          <line x1="442" y1="158" x2="520" y2="158" stroke="#171717" strokeWidth="0.3" opacity="0.05" />
+          <line x1="450" y1="188" x2="510" y2="128" stroke="#171717" strokeWidth="0.3" opacity="0.05" />
+          <line x1="452" y1="130" x2="478" y2="200" stroke="#171717" strokeWidth="0.3" opacity="0.05" />
+
+          {/* Orbital data dots — travel along mesh paths via animateMotion */}
+          {/* Dot 1: hub → node 3 → node 4 → node 5 → hub */}
+          <circle r="2" fill="#171717" opacity="0.45">
+            <animateMotion
+              dur="4s"
+              repeatCount="indefinite"
+              begin="0s"
+              path="M 480,160 L 510,128 L 520,158 L 508,190 L 480,160"
+            />
+          </circle>
+          {/* Dot 2: hub → node 7 → node 8 → node 1 → hub */}
+          <circle r="1.5" fill="#171717" opacity="0.35">
+            <animateMotion
+              dur="5s"
+              repeatCount="indefinite"
+              begin="1.5s"
+              path="M 480,160 L 450,188 L 442,158 L 452,130 L 480,160"
+            />
+          </circle>
+          {/* Dot 3: hub → node 2 → node 6 → hub (cross path) */}
+          <circle r="1.8" fill="#171717" opacity="0.40">
+            <animateMotion
+              dur="3.5s"
+              repeatCount="indefinite"
+              begin="0.8s"
+              path="M 480,160 L 480,118 L 478,200 L 480,160"
+            />
+          </circle>
+        </g>
+
+        {/* ================================================================= */}
+        {/* VARIANT B (commented out for reference)                           */}
+        {/* Scanning Beam + Neural Mesh — radar-sweep line rotates around     */}
+        {/* the centre over a mesh of nodes that brighten as the beam passes. */}
+        {/* See documents/ai-agent-animation-variants.md for full details.    */}
+        {/* ================================================================= */}
+        {/*
+        <g>
+          <text x="480" y="42" textAnchor="middle" className="fill-neutral-950 font-display text-[11px] font-semibold tracking-wider uppercase" style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.05em' }}>AI agent</text>
+
+          <circle cx="480" cy="160" r="50" fill="white" opacity="0.05" filter="url(#glassBlur)" />
+          <circle cx="480" cy="160" r="48" fill="none" stroke="#171717" strokeWidth="0.3" opacity="0.06" />
+
+          <!-- Mesh connection lines -->
+          <line x1="480" y1="160" x2="452" y2="130" stroke="#171717" strokeWidth="0.5" opacity="0.08" />
+          <line x1="480" y1="160" x2="480" y2="118" stroke="#171717" strokeWidth="0.5" opacity="0.08" />
+          <line x1="480" y1="160" x2="510" y2="128" stroke="#171717" strokeWidth="0.5" opacity="0.08" />
+          <line x1="480" y1="160" x2="520" y2="158" stroke="#171717" strokeWidth="0.5" opacity="0.08" />
+          <line x1="480" y1="160" x2="508" y2="190" stroke="#171717" strokeWidth="0.5" opacity="0.08" />
+          <line x1="480" y1="160" x2="478" y2="200" stroke="#171717" strokeWidth="0.5" opacity="0.08" />
+          <line x1="480" y1="160" x2="450" y2="188" stroke="#171717" strokeWidth="0.5" opacity="0.08" />
+          <line x1="480" y1="160" x2="442" y2="158" stroke="#171717" strokeWidth="0.5" opacity="0.08" />
+          <line x1="452" y1="130" x2="480" y2="118" stroke="#171717" strokeWidth="0.4" opacity="0.06" />
+          <line x1="480" y1="118" x2="510" y2="128" stroke="#171717" strokeWidth="0.4" opacity="0.06" />
+          <line x1="510" y1="128" x2="520" y2="158" stroke="#171717" strokeWidth="0.4" opacity="0.06" />
+          <line x1="520" y1="158" x2="508" y2="190" stroke="#171717" strokeWidth="0.4" opacity="0.06" />
+          <line x1="508" y1="190" x2="478" y2="200" stroke="#171717" strokeWidth="0.4" opacity="0.06" />
+          <line x1="478" y1="200" x2="450" y2="188" stroke="#171717" strokeWidth="0.4" opacity="0.06" />
+          <line x1="450" y1="188" x2="442" y2="158" stroke="#171717" strokeWidth="0.4" opacity="0.06" />
+          <line x1="442" y1="158" x2="452" y2="130" stroke="#171717" strokeWidth="0.4" opacity="0.06" />
+          <line x1="452" y1="130" x2="508" y2="190" stroke="#171717" strokeWidth="0.3" opacity="0.04" />
+          <line x1="442" y1="158" x2="520" y2="158" stroke="#171717" strokeWidth="0.3" opacity="0.04" />
+          <line x1="450" y1="188" x2="510" y2="128" stroke="#171717" strokeWidth="0.3" opacity="0.04" />
+
+          <!-- Mesh nodes with beam-synchronised flash classes -->
+          <circle cx="452" cy="130" r="2.5" fill="#171717" className="hero-beam-node-1" />
+          <circle cx="480" cy="118" r="2" fill="#171717" className="hero-beam-node-2" />
+          <circle cx="510" cy="128" r="2.5" fill="#171717" className="hero-beam-node-3" />
+          <circle cx="520" cy="158" r="2" fill="#171717" className="hero-beam-node-4" />
+          <circle cx="508" cy="190" r="2.5" fill="#171717" className="hero-beam-node-5" />
+          <circle cx="478" cy="200" r="2" fill="#171717" className="hero-beam-node-6" />
+          <circle cx="450" cy="188" r="2.5" fill="#171717" className="hero-beam-node-7" />
+          <circle cx="442" cy="158" r="2" fill="#171717" className="hero-beam-node-8" />
+
+          <circle cx="480" cy="160" r="4" fill="#171717" opacity="0.30" className="hero-agent-pulse" />
+
+          <!-- Rotating scanning beam (requires beamFade gradient in defs) -->
+          <g>
+            <line x1="480" y1="160" x2="480" y2="112" stroke="url(#beamFade)" strokeWidth="1.2" strokeLinecap="round">
+              <animateTransform attributeName="transform" type="rotate" from="0 480 160" to="360 480 160" dur="4s" repeatCount="indefinite" />
+            </line>
           </g>
 
-          {/* Thin connecting lines to satellites */}
-          <line x1="465" y1="145" x2="450" y2="130" stroke="#171717" strokeWidth="0.5" opacity="0.1" />
-          <line x1="495" y1="148" x2="510" y2="135" stroke="#171717" strokeWidth="0.5" opacity="0.1" />
-          <line x1="468" y1="178" x2="455" y2="190" stroke="#171717" strokeWidth="0.5" opacity="0.1" />
-          <line x1="497" y1="175" x2="505" y2="185" stroke="#171717" strokeWidth="0.5" opacity="0.1" />
+          <!-- Required defs addition for Variant B:
+          <linearGradient id="beamFade" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stopColor="#171717" stopOpacity="0.30" />
+            <stop offset="100%" stopColor="#171717" stopOpacity="0" />
+          </linearGradient>
+          -->
+
+          <!-- Required CSS for Variant B:
+          @keyframes beamFlash {
+            0%, 8%   { opacity: 0.10; }
+            4%       { opacity: 0.50; }
+            12%, 100% { opacity: 0.10; }
+          }
+          .hero-beam-node-1 { animation: beamFlash 4s ease-in-out infinite 3.5s; opacity: 0.10; }
+          .hero-beam-node-2 { animation: beamFlash 4s ease-in-out infinite 0.0s; opacity: 0.10; }
+          .hero-beam-node-3 { animation: beamFlash 4s ease-in-out infinite 0.5s; opacity: 0.10; }
+          .hero-beam-node-4 { animation: beamFlash 4s ease-in-out infinite 1.0s; opacity: 0.10; }
+          .hero-beam-node-5 { animation: beamFlash 4s ease-in-out infinite 1.5s; opacity: 0.10; }
+          .hero-beam-node-6 { animation: beamFlash 4s ease-in-out infinite 2.0s; opacity: 0.10; }
+          .hero-beam-node-7 { animation: beamFlash 4s ease-in-out infinite 2.5s; opacity: 0.10; }
+          .hero-beam-node-8 { animation: beamFlash 4s ease-in-out infinite 3.0s; opacity: 0.10; }
+          -->
         </g>
+        */}
+
+        {/* ================================================================= */}
+        {/* VARIANT C (commented out for reference)                           */}
+        {/* Multi-layer Rings + Orbital Dots — 3 concentric dashed rings      */}
+        {/* rotating at different speeds/directions with orbiting dots.        */}
+        {/* See documents/ai-agent-animation-variants.md for full details.    */}
+        {/* ================================================================= */}
+        {/*
+        <g>
+          <text x="480" y="42" textAnchor="middle" className="fill-neutral-950 font-display text-[11px] font-semibold tracking-wider uppercase" style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.05em' }}>AI agent</text>
+
+          <circle cx="480" cy="160" r="52" fill="white" opacity="0.04" filter="url(#glassBlur)" />
+
+          <!-- Ring 1 (innermost): r=20, clockwise, 8s -->
+          <circle cx="480" cy="160" r="20" fill="none" stroke="#171717" strokeWidth="0.8" strokeDasharray="4 3" opacity="0.15">
+            <animateTransform attributeName="transform" type="rotate" from="0 480 160" to="360 480 160" dur="8s" repeatCount="indefinite" />
+          </circle>
+
+          <!-- Ring 2 (middle): r=35, counter-clockwise, 12s -->
+          <circle cx="480" cy="160" r="35" fill="none" stroke="#171717" strokeWidth="0.6" strokeDasharray="6 4 2 4" opacity="0.10">
+            <animateTransform attributeName="transform" type="rotate" from="360 480 160" to="0 480 160" dur="12s" repeatCount="indefinite" />
+          </circle>
+
+          <!-- Ring 3 (outermost): r=50, clockwise, 16s -->
+          <circle cx="480" cy="160" r="50" fill="none" stroke="#171717" strokeWidth="0.4" strokeDasharray="3 6 1 6" opacity="0.07">
+            <animateTransform attributeName="transform" type="rotate" from="0 480 160" to="360 480 160" dur="16s" repeatCount="indefinite" />
+          </circle>
+
+          <!-- Central core node -->
+          <circle cx="480" cy="160" r="3.5" fill="#171717" opacity="0.30" className="hero-agent-pulse" />
+          <circle cx="480" cy="160" r="6" fill="#171717" opacity="0.06" className="hero-agent-pulse" />
+
+          <!-- Orbital dot 1: inner orbit (r=20), fast, clockwise -->
+          <circle r="2" fill="#171717" opacity="0.40">
+            <animateMotion dur="5s" repeatCount="indefinite" begin="0s" path="M 500,160 A 20,20 0 1,1 499.99,160" />
+          </circle>
+
+          <!-- Orbital dot 2: middle orbit (r=35), medium, counter-clockwise -->
+          <circle r="1.8" fill="#171717" opacity="0.30">
+            <animateMotion dur="8s" repeatCount="indefinite" begin="2s" path="M 515,160 A 35,35 0 1,0 514.99,160" />
+          </circle>
+
+          <!-- Orbital dot 3: outer orbit (r=50), slow, clockwise -->
+          <circle r="1.5" fill="#171717" opacity="0.22">
+            <animateMotion dur="11s" repeatCount="indefinite" begin="1s" path="M 530,160 A 50,50 0 1,1 529.99,160" />
+          </circle>
+        </g>
+        */}
 
         {/* ----------------------------------------------------------------- */}
         {/* Connection paths: Agent → Consumer                                */}
