@@ -9,12 +9,16 @@
 
 export function AuditXRayScanner() {
   return (
-    <div className="relative mt-8 w-full overflow-hidden" aria-hidden="true">
+    <div
+      className="relative mt-8 w-full overflow-hidden aspect-[2.05/1] md:aspect-[2.35/1] lg:aspect-[3/1]"
+      aria-hidden="true"
+    >
       <svg
         viewBox="0 0 960 320"
+        preserveAspectRatio="xMidYMid slice"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full h-auto"
+        className="h-full w-full"
         role="img"
       >
         <defs>

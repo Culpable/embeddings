@@ -14,7 +14,7 @@ All animations share these conventions:
 - **Colour palette:** `#171717` (neutral-950) at varying opacities; red (`#dc2626`) for problems/stale; amber/yellow (`#f59e0b`, `#fbbf24`) for warnings; green (`#16a34a`) for fresh/success
 - **Typography:** `font-display text-[11px] font-semibold tracking-wider uppercase` for labels
 - **Animation:** Pure CSS `@keyframes` in `<style>` blocks within each SVG, plus SVG `<animateMotion>` for particles
-- **Wrapper:** `<div className="relative mt-8 w-full overflow-hidden" aria-hidden="true">`
+- **SVG framing (service sections):** Mobile/tablet framing is per-component; Audit/Freshness/Optimisation use responsive aspect-ratio wrappers with `preserveAspectRatio="xMidYMid slice"`, while Enrichment keeps native scaling and compacts left/right edge clusters inward so connectors read shorter without distorting nodes/cards
 - **Component type:** Server Component (no `'use client'` directive)
 
 ---
@@ -85,6 +85,10 @@ All animations share these conventions:
 - `warnPulse`: per-row opacity 0 → 0.8 → 0, timed to beam position
 - `highlightGlow`: amber wash rect fades in/out as beam passes each field zone
 
+**Responsive framing (2026-02-13):**
+- Wrapper uses `aspect-[2.05/1] md:aspect-[2.35/1] lg:aspect-[3/1]`
+- SVG uses `preserveAspectRatio="xMidYMid slice"` to zoom the visual on mobile/tablet without changing desktop framing
+
 ### FreshnessPipelineFlow.jsx
 
 **Concept:** Three source nodes (ERP, POS, Inventory) on the left with curved paths carrying flowing particles to a Catalogue node on the right. Status text snippets ("stock: 142 → 139", "price: $189 → $179", "status: active") fade in/out along each path.
@@ -93,6 +97,10 @@ All animations share these conventions:
 - `<animateMotion>` particles along 3 curved `<path>` definitions (3s, 3.5s, 4s durations, staggered begins)
 - Catalogue node breathes with a subtle pulse
 - Status text snippets cycle visibility with staggered delays
+
+**Responsive framing (2026-02-13):**
+- Wrapper uses `aspect-[2.1/1] md:aspect-[2.4/1] lg:aspect-[3/1]`
+- SVG uses `preserveAspectRatio="xMidYMid slice"` for larger mobile/tablet rendering
 
 ### EnrichmentTypewriter.jsx
 
@@ -106,6 +114,10 @@ All animations share these conventions:
 - `blinkCursor`: opacity toggle with `steps(1)` at 0.8s
 - `fadeInTag`: staggered per attribute tag (2s, 2.3s, 2.6s, 2.9s, 3.2s)
 - `<animateMotion>` particles along both connection paths
+
+**Responsive framing (2026-02-13):**
+- Wrapper remains width-driven (`w-full h-auto`) so horizontal bounds are preserved
+- Mobile/tablet apply matched left/right `translateX` offsets to the edge card groups and connector groups, reducing connector span while preserving each card/node aspect ratio
 
 ### OptimisationSeismograph.jsx
 
@@ -138,6 +150,10 @@ When a ripple ring reaches a product card node, that node flashes and receives a
 - 3 drop sets staggered by 4s
 - Node flash: brightness spike timed to ripple arrival
 - Badge fade: "+optimised" text appears after flash
+
+**Responsive framing (2026-02-13):**
+- Wrapper uses `aspect-[2.15/1] md:aspect-[2.45/1] lg:aspect-[3/1]`
+- SVG uses `preserveAspectRatio="xMidYMid slice"` to enlarge node/ripple visibility on mobile/tablet
 
 ---
 

@@ -14,7 +14,7 @@ export function HeroDataFlow() {
         viewBox="0 0 960 320"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full h-auto"
+        className="h-auto w-full"
         role="img"
       >
         {/* ----------------------------------------------------------------- */}
@@ -39,6 +39,24 @@ export function HeroDataFlow() {
             <stop offset="0%" stopColor="#171717" stopOpacity="0.6" />
             <stop offset="100%" stopColor="#171717" stopOpacity="0" />
           </radialGradient>
+
+          {/* Blue particle glow — Catalogue→Agent (raw data entering) */}
+          <radialGradient id="particleGlowBlue">
+            <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.45" />
+            <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
+          </radialGradient>
+
+          {/* Emerald particle glow — Agent→Consumer (processed intelligence) */}
+          <radialGradient id="particleGlowEmerald">
+            <stop offset="0%" stopColor="#10b981" stopOpacity="0.45" />
+            <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+          </radialGradient>
+
+          {/* Dual-tone hub glow — blue on left, emerald on right */}
+          <linearGradient id="hubDualTone" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.03" />
+            <stop offset="100%" stopColor="#10b981" stopOpacity="0.03" />
+          </linearGradient>
 
           {/* Frosted glass blur for the AI agent node */}
           <filter id="glassBlur" x="-50%" y="-50%" width="200%" height="200%">
@@ -71,7 +89,7 @@ export function HeroDataFlow() {
         {/* ----------------------------------------------------------------- */}
         {/* Layer 1: Retailer Catalogue (left)                                */}
         {/* ----------------------------------------------------------------- */}
-        <g className="hero-catalogue">
+        <g className="hero-catalogue hero-mobile-left-layer">
           {/* Label */}
           <text
             x="140"
@@ -84,21 +102,37 @@ export function HeroDataFlow() {
           </text>
 
           {/* Product card grid — 3 cards representing SKUs */}
-          {/* Card 1 (enriched — full colour) */}
+          {/* Card 1 (enriched — full colour) with sequential field pulse.
+              Each field brightens briefly as a "scan" sweeps top→bottom, then
+              returns to resting opacity. 6s cycle with 0.8s stagger per field. */}
           <g className="hero-catalogue-card-enriched">
             <rect x="30" y="60" width="100" height="120" rx="8" fill="white" stroke="#e5e5e5" strokeWidth="1" />
             {/* Image placeholder */}
-            <rect x="38" y="68" width="84" height="44" rx="4" fill="#f5f5f5" className="hero-enrich-fill" />
+            <rect x="38" y="68" width="84" height="44" rx="4" fill="#f5f5f5" className="hero-enrich-fill">
+              <animate attributeName="opacity" values="0.95;1.0;0.95" dur="6s" repeatCount="indefinite" begin="0s" />
+            </rect>
             {/* Title line */}
-            <rect x="38" y="120" width="70" height="6" rx="2" fill="#171717" opacity="0.8" className="hero-enrich-fill" />
+            <rect x="38" y="120" width="70" height="6" rx="2" fill="#171717" className="hero-enrich-fill">
+              <animate attributeName="opacity" values="0.8;0.88;0.8" dur="6s" repeatCount="indefinite" begin="0.8s" />
+            </rect>
             {/* Price */}
-            <rect x="38" y="132" width="30" height="5" rx="2" fill="#171717" opacity="0.4" className="hero-enrich-fill" />
+            <rect x="38" y="132" width="30" height="5" rx="2" fill="#171717" className="hero-enrich-fill">
+              <animate attributeName="opacity" values="0.4;0.48;0.4" dur="6s" repeatCount="indefinite" begin="1.6s" />
+            </rect>
             {/* GTIN */}
-            <rect x="38" y="143" width="50" height="4" rx="2" fill="#171717" opacity="0.2" className="hero-enrich-fill" />
-            {/* Description lines */}
-            <rect x="38" y="153" width="84" height="3" rx="1" fill="#171717" opacity="0.12" className="hero-enrich-fill" />
-            <rect x="38" y="160" width="60" height="3" rx="1" fill="#171717" opacity="0.12" className="hero-enrich-fill" />
-            <rect x="38" y="167" width="72" height="3" rx="1" fill="#171717" opacity="0.12" className="hero-enrich-fill" />
+            <rect x="38" y="143" width="50" height="4" rx="2" fill="#171717" className="hero-enrich-fill">
+              <animate attributeName="opacity" values="0.2;0.28;0.2" dur="6s" repeatCount="indefinite" begin="2.4s" />
+            </rect>
+            {/* Description lines — all three pulse together */}
+            <rect x="38" y="153" width="84" height="3" rx="1" fill="#171717" className="hero-enrich-fill">
+              <animate attributeName="opacity" values="0.12;0.20;0.12" dur="6s" repeatCount="indefinite" begin="3.2s" />
+            </rect>
+            <rect x="38" y="160" width="60" height="3" rx="1" fill="#171717" className="hero-enrich-fill">
+              <animate attributeName="opacity" values="0.12;0.20;0.12" dur="6s" repeatCount="indefinite" begin="3.2s" />
+            </rect>
+            <rect x="38" y="167" width="72" height="3" rx="1" fill="#171717" className="hero-enrich-fill">
+              <animate attributeName="opacity" values="0.12;0.20;0.12" dur="6s" repeatCount="indefinite" begin="3.2s" />
+            </rect>
           </g>
 
           {/* Card 2 (sparse — muted, represents incomplete data) */}
@@ -125,25 +159,27 @@ export function HeroDataFlow() {
         {/* ----------------------------------------------------------------- */}
         {/* Connection paths: Catalogue → Agent                               */}
         {/* ----------------------------------------------------------------- */}
-        <path d="M 260 160 C 340 160, 360 140, 420 140" stroke="url(#pathGrad)" strokeWidth="1.5" fill="none" />
-        <path d="M 260 170 C 340 180, 370 170, 420 165" stroke="url(#pathGrad)" strokeWidth="1" fill="none" opacity="0.5" />
+        <g className="hero-mobile-left-connectors">
+          <path d="M 260 160 C 340 160, 360 140, 420 140" stroke="url(#pathGrad)" strokeWidth="1.5" fill="none" />
+          <path d="M 260 170 C 340 180, 370 170, 420 165" stroke="url(#pathGrad)" strokeWidth="1" fill="none" opacity="0.5" />
 
-        {/* Flowing particles along path 1 */}
-        <circle r="3" fill="#171717" opacity="0.5">
-          <animateMotion dur="3s" repeatCount="indefinite" begin="0s">
-            <mpath href="#pathCatalogueToAgent" />
-          </animateMotion>
-        </circle>
-        <circle r="2" fill="#171717" opacity="0.3">
-          <animateMotion dur="3s" repeatCount="indefinite" begin="1s">
-            <mpath href="#pathCatalogueToAgent" />
-          </animateMotion>
-        </circle>
-        <circle r="2.5" fill="#171717" opacity="0.4">
-          <animateMotion dur="3.5s" repeatCount="indefinite" begin="0.5s">
-            <mpath href="#pathCatalogueToAgent2" />
-          </animateMotion>
-        </circle>
+          {/* Flowing particles along path 1 — blue tint for raw data */}
+          <circle r="3" fill="#3b82f6" opacity="0.30">
+            <animateMotion dur="3s" repeatCount="indefinite" begin="0s">
+              <mpath href="#pathCatalogueToAgent" />
+            </animateMotion>
+          </circle>
+          <circle r="2" fill="#3b82f6" opacity="0.20">
+            <animateMotion dur="3s" repeatCount="indefinite" begin="1s">
+              <mpath href="#pathCatalogueToAgent" />
+            </animateMotion>
+          </circle>
+          <circle r="2.5" fill="#3b82f6" opacity="0.25">
+            <animateMotion dur="3.5s" repeatCount="indefinite" begin="0.5s">
+              <mpath href="#pathCatalogueToAgent2" />
+            </animateMotion>
+          </circle>
+        </g>
 
         {/* ----------------------------------------------------------------- */}
         {/* Layer 2: AI Agent (centre) — Variant A: Neural Mesh + Orbital Dots*/}
@@ -160,8 +196,8 @@ export function HeroDataFlow() {
             AI agent
           </text>
 
-          {/* Ambient glow behind the mesh */}
-          <circle cx="480" cy="160" r="50" fill="white" opacity="0.05" filter="url(#glassBlur)" />
+          {/* Ambient glow behind the mesh — dual-tone blue/emerald warmth */}
+          <circle cx="480" cy="160" r="50" fill="url(#hubDualTone)" opacity="0.06" filter="url(#glassBlur)" />
 
           {/* Central hub node — slightly larger with gentle pulse */}
           <circle cx="480" cy="160" r="5" fill="#171717" opacity="0.35" className="hero-agent-pulse" />
@@ -388,30 +424,32 @@ export function HeroDataFlow() {
         {/* ----------------------------------------------------------------- */}
         {/* Connection paths: Agent → Consumer                                */}
         {/* ----------------------------------------------------------------- */}
-        <path d="M 540 160 C 620 160, 640 160, 700 160" stroke="url(#pathGrad)" strokeWidth="1.5" fill="none" />
-        <path d="M 540 155 C 620 150, 650 155, 700 152" stroke="url(#pathGrad)" strokeWidth="1" fill="none" opacity="0.5" />
+        <g className="hero-mobile-right-connectors">
+          <path d="M 540 160 C 620 160, 640 160, 700 160" stroke="url(#pathGrad)" strokeWidth="1.5" fill="none" />
+          <path d="M 540 155 C 620 150, 650 155, 700 152" stroke="url(#pathGrad)" strokeWidth="1" fill="none" opacity="0.5" />
 
-        {/* Flowing particles along path 2 */}
-        <circle r="3" fill="#171717" opacity="0.5">
-          <animateMotion dur="2.5s" repeatCount="indefinite" begin="0.3s">
-            <mpath href="#pathAgentToConsumer" />
-          </animateMotion>
-        </circle>
-        <circle r="2" fill="#171717" opacity="0.3">
-          <animateMotion dur="2.5s" repeatCount="indefinite" begin="1.3s">
-            <mpath href="#pathAgentToConsumer" />
-          </animateMotion>
-        </circle>
-        <circle r="2" fill="#171717" opacity="0.35">
-          <animateMotion dur="3s" repeatCount="indefinite" begin="0.8s">
-            <mpath href="#pathAgentToConsumer2" />
-          </animateMotion>
-        </circle>
+          {/* Flowing particles along path 2 — emerald tint for processed intelligence */}
+          <circle r="3" fill="#10b981" opacity="0.30">
+            <animateMotion dur="2.5s" repeatCount="indefinite" begin="0.3s">
+              <mpath href="#pathAgentToConsumer" />
+            </animateMotion>
+          </circle>
+          <circle r="2" fill="#10b981" opacity="0.20">
+            <animateMotion dur="2.5s" repeatCount="indefinite" begin="1.3s">
+              <mpath href="#pathAgentToConsumer" />
+            </animateMotion>
+          </circle>
+          <circle r="2" fill="#10b981" opacity="0.25">
+            <animateMotion dur="3s" repeatCount="indefinite" begin="0.8s">
+              <mpath href="#pathAgentToConsumer2" />
+            </animateMotion>
+          </circle>
+        </g>
 
         {/* ----------------------------------------------------------------- */}
         {/* Layer 3: Consumer chat interface (right)                          */}
         {/* ----------------------------------------------------------------- */}
-        <g>
+        <g className="hero-mobile-right-layer">
           {/* Label */}
           <text
             x="810"
@@ -453,34 +491,41 @@ export function HeroDataFlow() {
             shoes under $200
           </text>
 
-          {/* AI response — product recommendation */}
-          <rect x="732" y="152" width="140" height="48" rx="8" fill="#171717" opacity="0.04" />
+          {/* AI response — product recommendation.
+              Response bubble and text lines fade in sequentially to simulate
+              the response being "written", then hold, then reset. 8s cycle. */}
+          <rect x="732" y="152" width="140" height="48" rx="8" fill="#171717">
+            <animate attributeName="opacity" values="0.01;0.04;0.04;0.01" keyTimes="0;0.1875;0.8125;1" dur="8s" repeatCount="indefinite" begin="0s" />
+          </rect>
           <text
             x="742"
             y="161"
             dominantBaseline="text-before-edge"
             className="fill-neutral-950"
-            style={{ fontSize: '7.5px', fontWeight: 400, opacity: 0.5 }}
+            style={{ fontSize: '7.5px', fontWeight: 400 }}
           >
             Based on 12 catalogues, I
+            <animate attributeName="opacity" values="0.15;0.5;0.5;0.15" keyTimes="0;0.125;0.75;1" dur="8s" repeatCount="indefinite" begin="0s" />
           </text>
           <text
             x="742"
             y="172"
             dominantBaseline="text-before-edge"
             className="fill-neutral-950"
-            style={{ fontSize: '7.5px', fontWeight: 400, opacity: 0.5 }}
+            style={{ fontSize: '7.5px', fontWeight: 400 }}
           >
             recommend the Nike Pegasus
+            <animate attributeName="opacity" values="0.15;0.5;0.5;0.15" keyTimes="0;0.125;0.75;1" dur="8s" repeatCount="indefinite" begin="0.5s" />
           </text>
           <text
             x="742"
             y="183"
             dominantBaseline="text-before-edge"
             className="fill-neutral-950"
-            style={{ fontSize: '7.5px', fontWeight: 400, opacity: 0.5 }}
+            style={{ fontSize: '7.5px', fontWeight: 400 }}
           >
             41 — $189, in stock, 4.8★
+            <animate attributeName="opacity" values="0.15;0.5;0.5;0.15" keyTimes="0;0.125;0.75;1" dur="8s" repeatCount="indefinite" begin="1.0s" />
           </text>
 
           {/* Typing indicator for second response */}
@@ -506,12 +551,42 @@ export function HeroDataFlow() {
           >
             Ask anything...
           </text>
+          {/* Blinking cursor inside the input bar */}
+          <rect x="745" y="247" width="1" height="10" rx="0.5" fill="#171717">
+            <animate attributeName="opacity" values="0;0.3;0" dur="1.2s" repeatCount="indefinite" />
+          </rect>
         </g>
 
         {/* ----------------------------------------------------------------- */}
         {/* CSS animations for hero elements                                  */}
         {/* ----------------------------------------------------------------- */}
         <style>{`
+          /* Reduce left/right connector spans on small viewports by moving the
+             edge clusters and their connector paths inward together. */
+          @media (max-width: 1023px) {
+            .hero-mobile-left-layer,
+            .hero-mobile-left-connectors {
+              transform: translateX(30px);
+            }
+
+            .hero-mobile-right-layer,
+            .hero-mobile-right-connectors {
+              transform: translateX(-30px);
+            }
+          }
+
+          @media (max-width: 767px) {
+            .hero-mobile-left-layer,
+            .hero-mobile-left-connectors {
+              transform: translateX(42px);
+            }
+
+            .hero-mobile-right-layer,
+            .hero-mobile-right-connectors {
+              transform: translateX(-42px);
+            }
+          }
+
           .hero-agent-pulse {
             animation: agentPulse 3s ease-in-out infinite;
           }

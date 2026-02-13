@@ -12,7 +12,7 @@ export function EnrichmentTypewriter() {
         viewBox="0 0 960 320"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full h-auto"
+        className="h-auto w-full"
         role="img"
       >
         <defs>
@@ -36,7 +36,7 @@ export function EnrichmentTypewriter() {
         {/* ----------------------------------------------------------------- */}
         {/* Left: Sparse product card                                         */}
         {/* ----------------------------------------------------------------- */}
-        <g>
+        <g className="enrich-mobile-left-layer">
           <rect x="60" y="80" width="160" height="160" rx="10" fill="white" stroke="#e5e5e5" strokeWidth="1" />
 
           {/* Title — short */}
@@ -62,19 +62,21 @@ export function EnrichmentTypewriter() {
         {/* ----------------------------------------------------------------- */}
         {/* Connection: Sparse → Processor                                    */}
         {/* ----------------------------------------------------------------- */}
-        <path d="M 230 160 C 300 160, 340 150, 400 150" stroke="url(#enrichTypeGrad)" strokeWidth="1.5" fill="none" />
+        <g className="enrich-mobile-left-connectors">
+          <path d="M 230 160 C 300 160, 340 150, 400 150" stroke="url(#enrichTypeGrad)" strokeWidth="1.5" fill="none" />
 
-        {/* Particles: Sparse → Processor */}
-        <circle r="2.5" fill="#171717" opacity="0.4">
-          <animateMotion dur="2.5s" repeatCount="indefinite" begin="0s">
-            <mpath href="#enrichTypePath1" />
-          </animateMotion>
-        </circle>
-        <circle r="2" fill="#171717" opacity="0.3">
-          <animateMotion dur="2.5s" repeatCount="indefinite" begin="1.2s">
-            <mpath href="#enrichTypePath1" />
-          </animateMotion>
-        </circle>
+          {/* Particles: Sparse → Processor */}
+          <circle r="2.5" fill="#171717" opacity="0.4">
+            <animateMotion dur="2.5s" repeatCount="indefinite" begin="0s">
+              <mpath href="#enrichTypePath1" />
+            </animateMotion>
+          </circle>
+          <circle r="2" fill="#171717" opacity="0.3">
+            <animateMotion dur="2.5s" repeatCount="indefinite" begin="1.2s">
+              <mpath href="#enrichTypePath1" />
+            </animateMotion>
+          </circle>
+        </g>
 
         {/* ----------------------------------------------------------------- */}
         {/* Centre: LLM processor node (concentric circles like HeroDataFlow) */}
@@ -99,24 +101,26 @@ export function EnrichmentTypewriter() {
         {/* ----------------------------------------------------------------- */}
         {/* Connection: Processor → Enriched                                  */}
         {/* ----------------------------------------------------------------- */}
-        <path d="M 520 160 C 580 160, 610 150, 660 145" stroke="url(#enrichTypeGrad)" strokeWidth="1.5" fill="none" />
+        <g className="enrich-mobile-right-connectors">
+          <path d="M 520 160 C 580 160, 610 150, 660 145" stroke="url(#enrichTypeGrad)" strokeWidth="1.5" fill="none" />
 
-        {/* Particles: Processor → Enriched */}
-        <circle r="2.5" fill="#171717" opacity="0.4">
-          <animateMotion dur="2s" repeatCount="indefinite" begin="0.3s">
-            <mpath href="#enrichTypePath2" />
-          </animateMotion>
-        </circle>
-        <circle r="2" fill="#171717" opacity="0.3">
-          <animateMotion dur="2s" repeatCount="indefinite" begin="1s">
-            <mpath href="#enrichTypePath2" />
-          </animateMotion>
-        </circle>
+          {/* Particles: Processor → Enriched */}
+          <circle r="2.5" fill="#171717" opacity="0.4">
+            <animateMotion dur="2s" repeatCount="indefinite" begin="0.3s">
+              <mpath href="#enrichTypePath2" />
+            </animateMotion>
+          </circle>
+          <circle r="2" fill="#171717" opacity="0.3">
+            <animateMotion dur="2s" repeatCount="indefinite" begin="1s">
+              <mpath href="#enrichTypePath2" />
+            </animateMotion>
+          </circle>
+        </g>
 
         {/* ----------------------------------------------------------------- */}
         {/* Right: Enriched product card with typewriter reveal               */}
         {/* ----------------------------------------------------------------- */}
-        <g>
+        <g className="enrich-mobile-right-layer">
           <rect x="660" y="60" width="240" height="200" rx="10" fill="white" stroke="#e5e5e5" strokeWidth="1" />
 
           {/* Title — typed out with clip-path animation */}
@@ -179,6 +183,32 @@ export function EnrichmentTypewriter() {
         {/* CSS keyframes                                                     */}
         {/* ----------------------------------------------------------------- */}
         <style>{`
+          /* Keep cards and nodes at native proportions while compacting
+             left/right edge clusters on smaller viewports. */
+          @media (max-width: 1023px) {
+            .enrich-mobile-left-layer,
+            .enrich-mobile-left-connectors {
+              transform: translateX(34px);
+            }
+
+            .enrich-mobile-right-layer,
+            .enrich-mobile-right-connectors {
+              transform: translateX(-34px);
+            }
+          }
+
+          @media (max-width: 767px) {
+            .enrich-mobile-left-layer,
+            .enrich-mobile-left-connectors {
+              transform: translateX(48px);
+            }
+
+            .enrich-mobile-right-layer,
+            .enrich-mobile-right-connectors {
+              transform: translateX(-48px);
+            }
+          }
+
           /* Typewriter clip-path reveal: expands from left to right using steps */
           .enrich-type-clip-rect {
             animation: enrichTypeReveal 5s steps(30) infinite;
