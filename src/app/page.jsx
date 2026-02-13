@@ -172,10 +172,10 @@ function AgenticTimeline() {
         <FadeIn>
           <div className="mt-16 border-t border-white/10 pt-10 text-center">
             <p className="font-display text-base font-medium tracking-tight text-white sm:text-lg">
-              Retailers who aren&rsquo;t agentic-ready risk becoming invisible.
+              Retailers who aren&rsquo;t agentic-ready risk falling behind.
             </p>
             <p className="mt-2 text-sm text-neutral-500">
-              Your catalogue is your competitive moat.
+              The ones who are? They&rsquo;re capturing market share right now.
             </p>
           </div>
         </FadeIn>
@@ -190,8 +190,8 @@ function AgenticTimeline() {
 
 const whyNowCards = [
   {
-    stat: '0',
-    statLabel: 'customer touchpoints when an AI agent shops for your customer',
+    stat: '$5T',
+    statLabel: 'in commerce AI agents could mediate by 2030',
     title: 'Disintermediation',
     body: 'AI agents become the storefront. Retailers lose direct customer relationships, loyalty programme activation, and the data that powers personalisation.',
   },
@@ -214,7 +214,7 @@ function WhyNow() {
     <>
       <SectionIntro
         eyebrow="the shift"
-        title="Your customers are about to stop shopping &mdash; their AI agents will do it for them"
+        title="Your customers aren&rsquo;t shopping anymore &mdash; their AI agents are"
         className="mt-24 sm:mt-32 lg:mt-40"
       >
         <p>
@@ -278,13 +278,13 @@ function Services() {
     <>
       <SectionIntro
         eyebrow="services"
-        title="Four services to make your catalogue agentic-ready"
+        title="Your catalogue is your competitive moat &mdash; we make it unassailable"
         className="mt-24 sm:mt-32 lg:mt-40"
       >
         <p>
-          We combine deep expertise in LLM pipelines and data engineering at scale to prepare your
-          product catalogue for AI-driven commerce. No other consultancy on the market has this
-          combination of skills and context.
+          From audit to real-time optimisation, our four services transform your product catalogue
+          into an asset AI agents can read, trust, and recommend. No other consultancy in Australia
+          has this combination of LLM pipeline expertise and data engineering capability.
         </p>
       </SectionIntro>
       <Container className="mt-16">
@@ -331,7 +331,7 @@ function CatalogueFreshness() {
     <>
       <SectionIntro
         eyebrow="catalogue freshness"
-        title="Stale data is invisible data"
+        title="Fresh data keeps you in the recommendation set"
         className="mt-24 sm:mt-32 lg:mt-40"
       >
         <p>
@@ -442,11 +442,11 @@ export default async function Home() {
       <Container className="mt-24 sm:mt-32 md:mt-56">
         <FadeIn className="max-w-3xl">
           <h1 className="font-display text-5xl font-medium tracking-tight text-neutral-950 [text-wrap:balance] sm:text-7xl">
-            The $3 trillion agentic shopping revolution starts with your catalogue
+            Be the brand AI agents recommend first
           </h1>
           <p className="mt-6 text-xl text-neutral-600">
-            AI agents from Google and OpenAI are already shopping on behalf of your customers. We
-            help Australian retailers become the brands these agents recommend first.
+            Google and OpenAI agents already shop for 700 million consumers. We help Australian
+            retailers win that recommendation, starting with your catalogue.
           </p>
           <div className="mt-8 flex gap-4">
             <Button href="/contact">Contact us</Button>

@@ -19,7 +19,7 @@ function readCatalogueTransformationSource() {
 function readServicePipelineContainerClasses(source) {
   // Locate the service pipeline container by matching the arrow marker and first service step.
   const pipelineContainerMatch = source.match(
-    /<div className="([^"]+)">\s*\{\/\* Arrow \(horizontal on mobile, vertical on desktop\) \*\/[\s\S]*?<ServiceStep number="1" label="Audit"(?: [^>]*)? \/>/,
+    /<div className="([^"]+)">\s*\{\/\* Arrow \(horizontal on mobile, vertical on desktop\) \*\/[\s\S]*?<ServiceStep[\s\S]*?number="1"[\s\S]*?label="Audit"[\s\S]*?\/>/,
   )
 
   return pipelineContainerMatch ? pipelineContainerMatch[1] : ''
@@ -29,7 +29,7 @@ function readServicePipelineContainerClasses(source) {
 function readServiceStepClasses(source) {
   // Locate the ServiceStep root classes in case responsive width rules live on each step item.
   const serviceStepMatch = source.match(
-    /function ServiceStep\(\{ number, label(?:, className = ''|, className=''|, className)? \}\) \{[\s\S]*?<div className=\{`([^`]+)`\}/,
+    /function ServiceStep\(\{ number, label(?:, className = ''|, className=''|, className)? \}\) \{[\s\S]*?<div[\s\S]*?className=\{`([^`]+)`\}/,
   )
 
   return serviceStepMatch ? serviceStepMatch[1] : ''
@@ -40,7 +40,7 @@ function readServiceStepInvocationClasses(source) {
   // Locate className props on each service step call to assert responsive alignment intent.
   const serviceStepClassMatches = [
     ...source.matchAll(
-      /<ServiceStep number="\d+" label="[^"]+" className="([^"]+)" \/>/g,
+      /<ServiceStep[\s\S]*?number="\d+"[\s\S]*?label="[^"]+"[\s\S]*?className="([^"]+)"[\s\S]*?\/>/g,
     ),
   ]
 
@@ -48,8 +48,28 @@ function readServiceStepInvocationClasses(source) {
 }
 
 
-test('service pipeline includes mobile 2x2 and tablet 1x4 responsive classes', () => {
-  // Assert responsive class behaviour expected for four steps: 2x2 on small screens, 1x4 on tablet.
+function readServiceStepSlotClasses(source) {
+  // Locate number and label span classes to assert separate slot intent inside each step cell.
+  const serviceStepSlotMatch = source.match(
+    /function ServiceStep\(\{ number, label(?:, className = ''|, className=''|, className)? \}\) \{[\s\S]*?<span className="([^"]+)">\s*\{number\}\s*<\/span>[\s\S]*?<span className="([^"]+)">\s*\{label\}\s*<\/span>/,
+  )
+
+  if (!serviceStepSlotMatch) {
+    return {
+      numberSlotClasses: '',
+      labelSlotClasses: '',
+    }
+  }
+
+  return {
+    numberSlotClasses: serviceStepSlotMatch[1],
+    labelSlotClasses: serviceStepSlotMatch[2],
+  }
+}
+
+
+test('service pipeline includes mobile 2x2 and tablet+ single-row responsive classes', () => {
+  // Assert responsive class behaviour expected for four steps: 2x2 on small screens, single-row on tablet+.
   const source = readCatalogueTransformationSource()
   const pipelineClasses = readServicePipelineContainerClasses(source)
   const serviceStepClasses = readServiceStepClasses(source)
@@ -74,35 +94,61 @@ test('service pipeline includes mobile 2x2 and tablet 1x4 responsive classes', (
 })
 
 
-test('service steps centre within mobile 2x2 boxes and return to start alignment on tablet+', () => {
-  // Require mobile centring in each half-width box while preserving non-centred alignment on tablet+.
+test('service steps use dedicated number and label slots with left-aligned mobile content', () => {
+  // Require dedicated slot classes and left-aligned mobile content in each 2x2 step cell.
   const source = readCatalogueTransformationSource()
   const serviceStepClasses = readServiceStepClasses(source)
   const serviceStepInvocationClasses = readServiceStepInvocationClasses(source)
-  const searchableClassList = [
-    serviceStepClasses,
-    ...serviceStepInvocationClasses,
-  ].join(' ')
+  const { numberSlotClasses, labelSlotClasses } = readServiceStepSlotClasses(source)
 
   assert.ok(
     serviceStepInvocationClasses.length > 0,
     'Expected to find ServiceStep className props in src/components/CatalogueTransformation.jsx',
   )
 
-  assert.match(
-    searchableClassList,
-    /\bbasis-1\/2\b/,
-    'Expected mobile half-width classes so each step occupies one cell in the 2x2 layout',
-  )
-
-  assert.match(
-    searchableClassList,
+  assert.doesNotMatch(
+    serviceStepClasses,
     /\bjustify-center\b/,
-    'Expected mobile horizontal centring inside each half-width service-step box',
+    'Did not expect mobile centring intent inside each service-step cell',
   )
 
   assert.match(
-    searchableClassList,
+    serviceStepClasses,
+    /\b(?:grid|inline-grid)\b/,
+    'Expected each service step cell to use grid-based slots for number and label content',
+  )
+
+  assert.ok(
+    numberSlotClasses.length > 0 && labelSlotClasses.length > 0,
+    'Expected to find number and label span classes in src/components/CatalogueTransformation.jsx',
+  )
+
+  assert.match(
+    serviceStepClasses,
+    /\bjustify-start\b/,
+    'Expected mobile content to be left-aligned inside each service-step cell',
+  )
+
+  assert.match(
+    numberSlotClasses,
+    /\b(?:w-\d+|size-\d+)\b/,
+    'Expected number slot classes to reserve a fixed mobile slot width',
+  )
+
+  assert.match(
+    labelSlotClasses,
+    /\b(?:min-w-0|w-full|grow)\b/,
+    'Expected label slot classes to reserve an independent text slot',
+  )
+
+  assert.match(
+    labelSlotClasses,
+    /\btext-left\b/,
+    'Expected label slot text to remain left-aligned on mobile',
+  )
+
+  assert.match(
+    serviceStepInvocationClasses.join(' '),
     /\bmd:justify-start\b/,
     'Expected tablet+ alignment to switch back to non-centred start alignment',
   )

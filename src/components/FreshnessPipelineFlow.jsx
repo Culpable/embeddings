@@ -125,13 +125,13 @@ export function FreshnessPipelineFlow() {
         {/* ----------------------------------------------------------------- */}
         {/* Status text snippets — fade in/out along paths                   */}
         {/* ----------------------------------------------------------------- */}
-        <text x="420" y="95" fill="#171717" style={{ fontSize: '9px', fontWeight: 500, opacity: 0.4 }} className="fresh-pipe-text-1">
+        <text x="420" y="85" fill="#171717" style={{ fontSize: '9px', fontWeight: 500, opacity: 0.4 }} className="fresh-pipe-text-1">
           stock: 142 → 139
         </text>
-        <text x="440" y="155" fill="#171717" style={{ fontSize: '9px', fontWeight: 500, opacity: 0.4 }} className="fresh-pipe-text-2">
+        <text x="440" y="143" fill="#171717" style={{ fontSize: '9px', fontWeight: 500, opacity: 0.4 }} className="fresh-pipe-text-2">
           price: $189 → $179
         </text>
-        <text x="460" y="210" fill="#171717" style={{ fontSize: '9px', fontWeight: 500, opacity: 0.4 }} className="fresh-pipe-text-3">
+        <text x="460" y="240" fill="#171717" style={{ fontSize: '9px', fontWeight: 500, opacity: 0.4 }} className="fresh-pipe-text-3">
           status: active
         </text>
 

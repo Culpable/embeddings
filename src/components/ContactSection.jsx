@@ -55,10 +55,10 @@ export function ContactSection({ invert = false }) {
         <FadeIn>
           <div className="relative mx-auto max-w-3xl text-center">
             <h2 className="font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
-              Your catalogue is your competitive moat
+              Be the brand AI agents recommend first
             </h2>
             <p className="mt-6 text-base text-neutral-400">
-              Every day without action is market share lost to retailers with richer product data.
+              The retailers preparing their catalogues today are building advantages that compound tomorrow.
             </p>
             <Button href="/contact" invert className="mt-8">
               Contact us

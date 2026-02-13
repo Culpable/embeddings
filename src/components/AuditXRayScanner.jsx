@@ -42,10 +42,10 @@ export function AuditXRayScanner() {
           {/* Card background */}
           <rect x="380" y="30" width="200" height="260" rx="12" fill="white" stroke="#e5e5e5" strokeWidth="1" />
 
-          {/* Image placeholder — solid (present) */}
-          <rect x="396" y="46" width="168" height="60" rx="6" fill="#f5f5f5" />
+          {/* Image placeholder — dashed outline (missing) — turns red when scanned */}
+          <rect x="396" y="46" width="168" height="60" rx="6" fill="none" stroke="#171717" strokeWidth="1" strokeDasharray="6 4" opacity="0.15" />
 
-          {/* Title line — solid (present) */}
+          {/* Title line — solid (present but generic quality) */}
           <rect x="396" y="120" width="120" height="8" rx="3" fill="#171717" opacity="0.6" />
 
           {/* Price line — solid (present) */}
@@ -74,6 +74,12 @@ export function AuditXRayScanner() {
         {/* fades in as the beam crosses, mimicking the magnifying-glass lens */}
         {/* ----------------------------------------------------------------- */}
 
+        {/* Highlight zone: Image placeholder */}
+        <rect x="390" y="42" width="180" height="70" rx="4" fill="url(#auditHighlightWash)" className="audit-xray-highlight-img" />
+
+        {/* Highlight zone: Title row */}
+        <rect x="390" y="114" width="180" height="20" rx="4" fill="url(#auditHighlightWash)" className="audit-xray-highlight-title" />
+
         {/* Highlight zone: GTIN row */}
         <rect x="390" y="150" width="180" height="18" rx="4" fill="url(#auditHighlightWash)" className="audit-xray-highlight-gtin" />
 
@@ -87,6 +93,12 @@ export function AuditXRayScanner() {
         {/* Red/amber overlays on broken fields — revealed by the beam        */}
         {/* These sit on top of the base fields and tint them red/amber       */}
         {/* ----------------------------------------------------------------- */}
+
+        {/* Image placeholder — turns red when scanned (missing) */}
+        <rect x="396" y="46" width="168" height="60" rx="6" fill="none" stroke="#dc2626" strokeWidth="1.5" strokeDasharray="6 4" className="audit-xray-red-img" />
+
+        {/* Title — turns amber when scanned (generic quality) */}
+        <rect x="396" y="118" width="120" height="12" rx="4" fill="none" stroke="#f59e0b" strokeWidth="1.5" className="audit-xray-amber-title" />
 
         {/* GTIN — turns red when scanned */}
         <rect x="396" y="156" width="80" height="6" rx="2" fill="none" stroke="#dc2626" strokeWidth="1.5" strokeDasharray="4 3" className="audit-xray-red-gtin" />
@@ -119,6 +131,20 @@ export function AuditXRayScanner() {
         {/* Warning markers — red "!" circles at positions of broken fields   */}
         {/* ----------------------------------------------------------------- */}
 
+        {/* Warning at image placeholder (y=76 — centre of image area) */}
+        <g className="audit-xray-warn-img">
+          <circle cx="590" cy="76" r="9" fill="#dc2626" opacity="0.1" />
+          <circle cx="590" cy="76" r="6" fill="#dc2626" opacity="0.15" />
+          <text x="590" y="80" textAnchor="middle" fill="#dc2626" opacity="0.8" style={{ fontSize: '10px', fontWeight: 700 }}>!</text>
+        </g>
+
+        {/* Warning at title row (y=124) */}
+        <g className="audit-xray-warn-title">
+          <circle cx="590" cy="124" r="9" fill="#f59e0b" opacity="0.1" />
+          <circle cx="590" cy="124" r="6" fill="#f59e0b" opacity="0.15" />
+          <text x="590" y="128" textAnchor="middle" fill="#f59e0b" opacity="0.8" style={{ fontSize: '10px', fontWeight: 700 }}>!</text>
+        </g>
+
         {/* Warning at GTIN row (y=156) */}
         <g className="audit-xray-warn-gtin">
           <circle cx="590" cy="159" r="9" fill="#dc2626" opacity="0.1" />
@@ -145,7 +171,7 @@ export function AuditXRayScanner() {
         {/* ----------------------------------------------------------------- */}
         <text
           x="660"
-          y="155"
+          y="145"
           fill="#dc2626"
           style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.05em', opacity: 0.7 }}
         >
@@ -153,7 +179,23 @@ export function AuditXRayScanner() {
         </text>
         <text
           x="660"
-          y="175"
+          y="165"
+          fill="#dc2626"
+          style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.05em', opacity: 0.7 }}
+        >
+          1 missing image
+        </text>
+        <text
+          x="660"
+          y="185"
+          fill="#f59e0b"
+          style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.05em', opacity: 0.6 }}
+        >
+          Title is generic
+        </text>
+        <text
+          x="660"
+          y="205"
           fill="#f59e0b"
           style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.05em', opacity: 0.6 }}
         >
@@ -178,6 +220,30 @@ export function AuditXRayScanner() {
           /* ----------------------------------------------------------- */
           /* Amber highlight wash zones — fade in as beam passes          */
           /* ----------------------------------------------------------- */
+
+          /* Image highlight zone — beam at ~8% */
+          .audit-xray-highlight-img {
+            opacity: 0;
+            animation: auditHighlightImg 4s ease-in-out infinite;
+          }
+          @keyframes auditHighlightImg {
+            0%, 4% { opacity: 0; }
+            10% { opacity: 1; }
+            30% { opacity: 0.7; }
+            88%, 100% { opacity: 0; }
+          }
+
+          /* Title highlight zone — beam at ~35% */
+          .audit-xray-highlight-title {
+            opacity: 0;
+            animation: auditHighlightTitle 4s ease-in-out infinite;
+          }
+          @keyframes auditHighlightTitle {
+            0%, 30% { opacity: 0; }
+            36% { opacity: 1; }
+            55% { opacity: 0.7; }
+            88%, 100% { opacity: 0; }
+          }
 
           /* GTIN highlight zone — beam at ~48% */
           .audit-xray-highlight-gtin {
@@ -218,6 +284,30 @@ export function AuditXRayScanner() {
           /* ----------------------------------------------------------- */
           /* Red/amber field overlays — appear when beam scans the row    */
           /* ----------------------------------------------------------- */
+
+          /* Image turns red (missing) */
+          .audit-xray-red-img {
+            opacity: 0;
+            animation: auditRedImg 4s ease-in-out infinite;
+          }
+          @keyframes auditRedImg {
+            0%, 4% { opacity: 0; }
+            12% { opacity: 0.6; }
+            32% { opacity: 0.5; }
+            90%, 100% { opacity: 0; }
+          }
+
+          /* Title turns amber (generic quality) */
+          .audit-xray-amber-title {
+            opacity: 0;
+            animation: auditAmberTitle 4s ease-in-out infinite;
+          }
+          @keyframes auditAmberTitle {
+            0%, 30% { opacity: 0; }
+            38% { opacity: 0.6; }
+            58% { opacity: 0.5; }
+            90%, 100% { opacity: 0; }
+          }
 
           /* GTIN turns red */
           .audit-xray-red-gtin {
@@ -270,6 +360,28 @@ export function AuditXRayScanner() {
           /* ----------------------------------------------------------- */
           /* Warning markers pulse on when beam crosses their row         */
           /* ----------------------------------------------------------- */
+
+          /* Image warning at ~8% */
+          .audit-xray-warn-img {
+            animation: auditWarnImg 4s ease-in-out infinite;
+          }
+          @keyframes auditWarnImg {
+            0%, 4% { opacity: 0; }
+            10% { opacity: 1; }
+            32% { opacity: 0.6; }
+            90%, 100% { opacity: 0; }
+          }
+
+          /* Title warning at ~35% */
+          .audit-xray-warn-title {
+            animation: auditWarnTitle 4s ease-in-out infinite;
+          }
+          @keyframes auditWarnTitle {
+            0%, 30% { opacity: 0; }
+            36% { opacity: 1; }
+            58% { opacity: 0.6; }
+            90%, 100% { opacity: 0; }
+          }
 
           /* GTIN warning at ~48% */
           .audit-xray-warn-gtin {
