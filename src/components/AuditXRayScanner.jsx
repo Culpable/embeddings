@@ -80,8 +80,7 @@ export function AuditXRayScanner() {
         {/* Highlight zone: Title row */}
         <rect x="390" y="114" width="180" height="20" rx="4" fill="url(#auditHighlightWash)" className="audit-xray-highlight-title" />
 
-        {/* Highlight zone: GTIN row */}
-        <rect x="390" y="150" width="180" height="18" rx="4" fill="url(#auditHighlightWash)" className="audit-xray-highlight-gtin" />
+        {/* GTIN highlight zone removed — not separately labelled */}
 
         {/* Highlight zone: Description rows */}
         <rect x="390" y="178" width="180" height="28" rx="4" fill="url(#auditHighlightWash)" className="audit-xray-highlight-desc" />
@@ -100,19 +99,18 @@ export function AuditXRayScanner() {
         {/* Title — turns amber when scanned (generic quality) */}
         <rect x="396" y="118" width="120" height="12" rx="4" fill="none" stroke="#f59e0b" strokeWidth="1.5" className="audit-xray-amber-title" />
 
-        {/* GTIN — turns red when scanned */}
-        <rect x="396" y="156" width="80" height="6" rx="2" fill="none" stroke="#dc2626" strokeWidth="1.5" strokeDasharray="4 3" className="audit-xray-red-gtin" />
+        {/* GTIN — dashed but not separately highlighted (part of card background) */}
 
-        {/* Description line 2 — red underline when scanned */}
-        <rect x="396" y="186" width="140" height="4" rx="1.5" fill="none" stroke="#dc2626" strokeWidth="1" strokeDasharray="4 3" className="audit-xray-red-desc2" />
+        {/* Description line 2 — amber when scanned (thin/quality gap) */}
+        <rect x="396" y="186" width="140" height="4" rx="1.5" fill="none" stroke="#f59e0b" strokeWidth="1" strokeDasharray="4 3" className="audit-xray-amber-desc2" />
 
-        {/* Description line 3 — red when scanned */}
-        <rect x="396" y="196" width="100" height="4" rx="1.5" fill="none" stroke="#dc2626" strokeWidth="1" strokeDasharray="4 3" className="audit-xray-red-desc3" />
+        {/* Description line 3 — amber when scanned (thin/quality gap) */}
+        <rect x="396" y="196" width="100" height="4" rx="1.5" fill="none" stroke="#f59e0b" strokeWidth="1" strokeDasharray="4 3" className="audit-xray-amber-desc3" />
 
-        {/* Dashed attribute pills — turn amber/red when scanned */}
-        <rect x="488" y="216" width="36" height="14" rx="7" fill="none" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="3 2" className="audit-xray-amber-attr1" />
-        <rect x="396" y="236" width="40" height="14" rx="7" fill="none" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="3 2" className="audit-xray-amber-attr2" />
-        <rect x="442" y="236" width="48" height="14" rx="7" fill="none" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="3 2" className="audit-xray-amber-attr3" />
+        {/* Dashed attribute pills — turn red when scanned (missing fields) */}
+        <rect x="488" y="216" width="36" height="14" rx="7" fill="none" stroke="#dc2626" strokeWidth="1.5" strokeDasharray="3 2" className="audit-xray-red-attr1" />
+        <rect x="396" y="236" width="40" height="14" rx="7" fill="none" stroke="#dc2626" strokeWidth="1.5" strokeDasharray="3 2" className="audit-xray-red-attr2" />
+        <rect x="442" y="236" width="48" height="14" rx="7" fill="none" stroke="#dc2626" strokeWidth="1.5" strokeDasharray="3 2" className="audit-xray-red-attr3" />
 
         {/* ----------------------------------------------------------------- */}
         {/* Scan beam — sweeps top to bottom of card                          */}
@@ -145,25 +143,20 @@ export function AuditXRayScanner() {
           <text x="590" y="128" textAnchor="middle" fill="#f59e0b" opacity="0.8" style={{ fontSize: '10px', fontWeight: 700 }}>!</text>
         </g>
 
-        {/* Warning at GTIN row (y=156) */}
-        <g className="audit-xray-warn-gtin">
-          <circle cx="590" cy="159" r="9" fill="#dc2626" opacity="0.1" />
-          <circle cx="590" cy="159" r="6" fill="#dc2626" opacity="0.15" />
-          <text x="590" y="163" textAnchor="middle" fill="#dc2626" opacity="0.8" style={{ fontSize: '10px', fontWeight: 700 }}>!</text>
-        </g>
+        {/* GTIN warning removed — not separately labelled */}
 
-        {/* Warning at description rows (y=186) */}
+        {/* Warning at description rows (y=186) — amber (quality gap) */}
         <g className="audit-xray-warn-desc">
-          <circle cx="590" cy="191" r="9" fill="#dc2626" opacity="0.1" />
-          <circle cx="590" cy="191" r="6" fill="#dc2626" opacity="0.15" />
-          <text x="590" y="195" textAnchor="middle" fill="#dc2626" opacity="0.8" style={{ fontSize: '10px', fontWeight: 700 }}>!</text>
+          <circle cx="590" cy="191" r="9" fill="#f59e0b" opacity="0.1" />
+          <circle cx="590" cy="191" r="6" fill="#f59e0b" opacity="0.15" />
+          <text x="590" y="195" textAnchor="middle" fill="#f59e0b" opacity="0.8" style={{ fontSize: '10px', fontWeight: 700 }}>!</text>
         </g>
 
-        {/* Warning at attributes rows (y=226) */}
+        {/* Warning at attributes rows (y=226) — red (missing fields) */}
         <g className="audit-xray-warn-attr">
-          <circle cx="590" cy="233" r="9" fill="#f59e0b" opacity="0.1" />
-          <circle cx="590" cy="233" r="6" fill="#f59e0b" opacity="0.15" />
-          <text x="590" y="237" textAnchor="middle" fill="#f59e0b" opacity="0.8" style={{ fontSize: '10px', fontWeight: 700 }}>!</text>
+          <circle cx="590" cy="233" r="9" fill="#dc2626" opacity="0.1" />
+          <circle cx="590" cy="233" r="6" fill="#dc2626" opacity="0.15" />
+          <text x="590" y="237" textAnchor="middle" fill="#dc2626" opacity="0.8" style={{ fontSize: '10px', fontWeight: 700 }}>!</text>
         </g>
 
         {/* ----------------------------------------------------------------- */}
@@ -175,19 +168,11 @@ export function AuditXRayScanner() {
           fill="#dc2626"
           style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.05em', opacity: 0.7 }}
         >
-          3 missing fields
-        </text>
-        <text
-          x="660"
-          y="165"
-          fill="#dc2626"
-          style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.05em', opacity: 0.7 }}
-        >
           1 missing image
         </text>
         <text
           x="660"
-          y="185"
+          y="165"
           fill="#f59e0b"
           style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.05em', opacity: 0.6 }}
         >
@@ -195,11 +180,19 @@ export function AuditXRayScanner() {
         </text>
         <text
           x="660"
-          y="205"
+          y="185"
           fill="#f59e0b"
           style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.05em', opacity: 0.6 }}
         >
           2 thin descriptions
+        </text>
+        <text
+          x="660"
+          y="205"
+          fill="#dc2626"
+          style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.05em', opacity: 0.7 }}
+        >
+          3 missing fields
         </text>
 
         {/* ----------------------------------------------------------------- */}
@@ -242,18 +235,6 @@ export function AuditXRayScanner() {
             0%, 30% { opacity: 0; }
             36% { opacity: 1; }
             55% { opacity: 0.7; }
-            88%, 100% { opacity: 0; }
-          }
-
-          /* GTIN highlight zone — beam at ~48% */
-          .audit-xray-highlight-gtin {
-            opacity: 0;
-            animation: auditHighlightGtin 4s ease-in-out infinite;
-          }
-          @keyframes auditHighlightGtin {
-            0%, 42% { opacity: 0; }
-            48% { opacity: 1; }
-            68% { opacity: 0.7; }
             88%, 100% { opacity: 0; }
           }
 
@@ -309,48 +290,36 @@ export function AuditXRayScanner() {
             90%, 100% { opacity: 0; }
           }
 
-          /* GTIN turns red */
-          .audit-xray-red-gtin {
+          /* Description lines turn amber (thin/quality gap) */
+          .audit-xray-amber-desc2 {
             opacity: 0;
-            animation: auditRedGtin 4s ease-in-out infinite;
+            animation: auditAmberDesc 4s ease-in-out infinite;
           }
-          @keyframes auditRedGtin {
-            0%, 42% { opacity: 0; }
-            50% { opacity: 0.6; }
-            70% { opacity: 0.5; }
-            90%, 100% { opacity: 0; }
-          }
-
-          /* Description lines turn red */
-          .audit-xray-red-desc2 {
+          .audit-xray-amber-desc3 {
             opacity: 0;
-            animation: auditRedDesc 4s ease-in-out infinite;
+            animation: auditAmberDesc 4s ease-in-out infinite 0.2s;
           }
-          .audit-xray-red-desc3 {
-            opacity: 0;
-            animation: auditRedDesc 4s ease-in-out infinite 0.2s;
-          }
-          @keyframes auditRedDesc {
+          @keyframes auditAmberDesc {
             0%, 55% { opacity: 0; }
             62% { opacity: 0.5; }
             75% { opacity: 0.4; }
             90%, 100% { opacity: 0; }
           }
 
-          /* Attribute pills turn amber */
-          .audit-xray-amber-attr1 {
+          /* Attribute pills turn red (missing fields) */
+          .audit-xray-red-attr1 {
             opacity: 0;
-            animation: auditAmberAttr 4s ease-in-out infinite;
+            animation: auditRedAttr 4s ease-in-out infinite;
           }
-          .audit-xray-amber-attr2 {
+          .audit-xray-red-attr2 {
             opacity: 0;
-            animation: auditAmberAttr 4s ease-in-out infinite 0.15s;
+            animation: auditRedAttr 4s ease-in-out infinite 0.15s;
           }
-          .audit-xray-amber-attr3 {
+          .audit-xray-red-attr3 {
             opacity: 0;
-            animation: auditAmberAttr 4s ease-in-out infinite 0.3s;
+            animation: auditRedAttr 4s ease-in-out infinite 0.3s;
           }
-          @keyframes auditAmberAttr {
+          @keyframes auditRedAttr {
             0%, 72% { opacity: 0; }
             82% { opacity: 0.6; }
             88% { opacity: 0.5; }
@@ -380,17 +349,6 @@ export function AuditXRayScanner() {
             0%, 30% { opacity: 0; }
             36% { opacity: 1; }
             58% { opacity: 0.6; }
-            90%, 100% { opacity: 0; }
-          }
-
-          /* GTIN warning at ~48% */
-          .audit-xray-warn-gtin {
-            animation: auditWarnGtin 4s ease-in-out infinite;
-          }
-          @keyframes auditWarnGtin {
-            0%, 42% { opacity: 0; }
-            48% { opacity: 1; }
-            70% { opacity: 0.6; }
             90%, 100% { opacity: 0; }
           }
 
