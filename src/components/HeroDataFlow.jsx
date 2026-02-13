@@ -258,10 +258,11 @@ export function HeroDataFlow() {
           </text>
 
           {/* AI response — product recommendation */}
-          <rect x="732" y="150" width="140" height="56" rx="8" fill="#171717" opacity="0.04" />
+          <rect x="732" y="152" width="140" height="48" rx="8" fill="#171717" opacity="0.04" />
           <text
             x="742"
-            y="165"
+            y="161"
+            dominantBaseline="text-before-edge"
             className="fill-neutral-950"
             style={{ fontSize: '7.5px', fontWeight: 400, opacity: 0.5 }}
           >
@@ -269,7 +270,8 @@ export function HeroDataFlow() {
           </text>
           <text
             x="742"
-            y="176"
+            y="172"
+            dominantBaseline="text-before-edge"
             className="fill-neutral-950"
             style={{ fontSize: '7.5px', fontWeight: 400, opacity: 0.5 }}
           >
@@ -277,7 +279,8 @@ export function HeroDataFlow() {
           </text>
           <text
             x="742"
-            y="187"
+            y="183"
+            dominantBaseline="text-before-edge"
             className="fill-neutral-950"
             style={{ fontSize: '7.5px', fontWeight: 400, opacity: 0.5 }}
           >
