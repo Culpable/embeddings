@@ -99,6 +99,12 @@ test('service pipeline includes mobile 2x2 and tablet+ single-row responsive cla
     'Expected explicit tablet full-width container intent so the 1x4 row can spread consistently',
   )
 
+  assert.match(
+    pipelineClasses,
+    /\blg:gap-\d+\b/,
+    'Expected explicit desktop gap classes for 1x4 spacing intent',
+  )
+
   assert.ok(
     serviceStepInvocationClasses.length > 0,
     'Expected to find ServiceStep className props in src/components/CatalogueTransformation.jsx',

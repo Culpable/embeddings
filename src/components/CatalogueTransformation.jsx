@@ -183,7 +183,7 @@ export function CatalogueTransformation() {
 
           {/* Service steps — the transformation pipeline */}
           <FadeIn>
-            <div className="grid grid-cols-2 items-start gap-x-4 gap-y-3 px-2 md:w-full md:grid-cols-4 md:gap-x-8 md:gap-y-0 md:px-0 lg:h-full lg:w-auto lg:flex lg:flex-col lg:items-start lg:justify-between lg:self-stretch lg:py-8">
+            <div className="grid grid-cols-2 items-start gap-x-4 gap-y-3 px-2 md:w-full md:grid-cols-4 md:gap-x-8 md:gap-y-0 md:px-0 lg:flex lg:flex-col lg:items-start lg:gap-5 lg:py-8">
               {/* Arrow (horizontal on mobile, vertical on desktop) */}
               <div className="hidden h-6 w-px bg-gradient-to-b from-neutral-300 to-neutral-950/20 lg:block" aria-hidden="true" />
 
