@@ -73,6 +73,7 @@ test('service pipeline includes mobile 2x2 and tablet+ single-row responsive cla
   const source = readCatalogueTransformationSource()
   const pipelineClasses = readServicePipelineContainerClasses(source)
   const serviceStepClasses = readServiceStepClasses(source)
+  const serviceStepInvocationClasses = readServiceStepInvocationClasses(source)
   const searchableClassList = `${pipelineClasses} ${serviceStepClasses}`
 
   assert.ok(
@@ -90,6 +91,23 @@ test('service pipeline includes mobile 2x2 and tablet+ single-row responsive cla
     searchableClassList,
     /\bmd:(?:flex-nowrap|grid-cols-4|basis-1\/4|w-1\/4)\b/,
     'Expected tablet single-row classes for a 1x4 service-step layout',
+  )
+
+  assert.match(
+    pipelineClasses,
+    /\bmd:(?:w-full|basis-full|flex-1)\b/,
+    'Expected explicit tablet full-width container intent so the 1x4 row can spread consistently',
+  )
+
+  assert.ok(
+    serviceStepInvocationClasses.length > 0,
+    'Expected to find ServiceStep className props in src/components/CatalogueTransformation.jsx',
+  )
+
+  assert.match(
+    serviceStepInvocationClasses.join(' '),
+    /\bmd:(?:w-full|basis-1\/4)\b/,
+    'Expected ServiceStep tablet classes to include md:w-full or md:basis-1/4 for consistent spread',
   )
 })
 

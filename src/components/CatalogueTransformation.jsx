@@ -183,32 +183,32 @@ export function CatalogueTransformation() {
 
           {/* Service steps — the transformation pipeline */}
           <FadeIn>
-            <div className="-mx-1 flex flex-wrap items-start gap-y-3 md:mx-0 md:flex-nowrap md:items-center md:gap-x-6 lg:flex-col lg:items-start lg:gap-5 lg:py-8">
+            <div className="grid grid-cols-2 items-start gap-x-4 gap-y-3 px-2 md:w-full md:grid-cols-4 md:gap-x-8 md:gap-y-0 md:px-0 lg:h-full lg:w-auto lg:flex lg:flex-col lg:items-start lg:justify-between lg:self-stretch lg:py-8">
               {/* Arrow (horizontal on mobile, vertical on desktop) */}
               <div className="hidden h-6 w-px bg-gradient-to-b from-neutral-300 to-neutral-950/20 lg:block" aria-hidden="true" />
 
               <ServiceStep
                 number="1"
                 label="Audit"
-                className="basis-1/2 justify-start px-1 md:basis-auto md:justify-start md:px-0"
+                className="w-[8.75rem] justify-self-center justify-start md:w-full md:justify-self-stretch md:justify-start lg:w-full"
               />
 
               <ServiceStep
                 number="2"
                 label="Freshness"
-                className="basis-1/2 justify-start px-1 md:basis-auto md:justify-start md:px-0"
+                className="w-[8.75rem] justify-self-center justify-start md:w-full md:justify-self-stretch md:justify-start lg:w-full"
               />
 
               <ServiceStep
                 number="3"
                 label="Enrichment"
-                className="basis-1/2 justify-start px-1 md:basis-auto md:justify-start md:px-0"
+                className="w-[8.75rem] justify-self-center justify-start md:w-full md:justify-self-stretch md:justify-start lg:w-full"
               />
 
               <ServiceStep
                 number="4"
                 label="Optimisation"
-                className="basis-1/2 justify-start px-1 md:basis-auto md:justify-start md:px-0"
+                className="w-[8.75rem] justify-self-center justify-start md:w-full md:justify-self-stretch md:justify-start lg:w-full"
               />
 
               <div className="hidden h-6 w-px bg-gradient-to-b from-neutral-950/20 to-neutral-300 lg:block" aria-hidden="true" />
