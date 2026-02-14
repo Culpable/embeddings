@@ -17,6 +17,7 @@ import { OptimisationSeismograph } from '@/components/OptimisationSeismograph'
 import { OptimisationRipple } from '@/components/OptimisationRipple'
 import { AnimatedStat } from '@/components/AnimatedStat'
 import { NoiseOverlay } from '@/components/NoiseOverlay'
+import { ServiceTimelineLeftRail } from '@/components/ServiceTimelineLeftRail'
 
 import { loadCaseStudies } from '@/lib/mdx'
 import { Button } from '@/components/Button'
@@ -499,17 +500,14 @@ export default async function Home() {
       {/* Services — before/after catalogue transformation */}
       <Services />
 
-      {/* Service 1: Catalogue Audit — three animation variants */}
-      <CatalogueAudit />
+      {/* Original individual service sections — replaced by left-rail timeline */}
+      {/* <CatalogueAudit /> */}
+      {/* <CatalogueFreshness /> */}
+      {/* <CatalogueEnrichment /> */}
+      {/* <ContextualOptimisation /> */}
 
-      {/* Service 2: Catalogue Freshness — three animation variants */}
-      <CatalogueFreshness />
-
-      {/* Service 3: Catalogue Enrichment — three animation variants */}
-      <CatalogueEnrichment />
-
-      {/* Service 4: Contextual Catalogue Optimisation — three animation variants */}
-      <ContextualOptimisation />
+      {/* Service Timeline — left-rail layout connecting all four services */}
+      <ServiceTimelineLeftRail />
 
       {/* Contact CTA — dark section with floating catalogue data */}
       <ContactSection />
