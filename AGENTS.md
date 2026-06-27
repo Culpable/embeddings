@@ -9,6 +9,12 @@ These rules apply specifically to this repository and should be used for all cod
 - Use ’ instead of ' as an apostrophe on any frontend words (words that display to the user). e.g. Let’s, not Let's, businesses’, not businesses'
 </content_rules>
 
+<contact_form_rules>
+- Preserve the contact form field contract unless the user explicitly requests a field model change.
+- The business enquiry form fields are: name, email, company, phone, message, and budget.
+- Frontend improvements may change layout, styling, focus states, loading states, error states, success states, and fallback behaviour, but must not replace the field contract with catalogue-readiness, SKU, platform, feed source, or priority fields without explicit approval.
+</contact_form_rules>
+
 <code_standards>
 - Give fully coded solutions to each problem without skipping lines.
 - You must separate distinct functions and classes by two new lines.
@@ -133,29 +139,40 @@ Documentation update rules:
 
 <testing_rules>
 
-Here is how to run UI checks and tests:
-<playwright_testing>
+<validation_commands>
+Required validation before reporting completion:
+- `npm run lint` - ESLint checks (must pass with zero errors)
+- `npm run build` - static export build (must complete without errors)
+- `npm test` - all Node.js tests in `test/*.test.mjs`
+- `node --test test/<file>.test.mjs` - run a specific test file
+</validation_commands>
+
+<dev_server_policy>
 LOCAL DEV SERVER POLICY (CRITICAL):
 - Assume the app is already running on `http://localhost:3002`.
 - Always verify port `3002` before any `dev-browser`, `agent-browser`, or manual browser testing.
 - If it is not running, start it exactly like `.vscode/launch.json`: run `npm run dev` from the repo root.
 - Wait for `http://localhost:3002` to respond, then proceed.
 - For frontend UI verification, use `dev-browser` by default. Use Playwright only if browser automation is explicitly requested.
+</dev_server_policy>
 
+<ui_verification>
 VALIDATION GATE (CRITICAL):
 - Frontend behaviour changes (rendering, animation, scroll, loading/error/empty states, interaction timing, conditional visibility) REQUIRE browser verification via `dev-browser` or `agent-browser`, unless the user explicitly says they will test UI themselves.
 - A task is not complete until required automated tests and required browser checks pass.
 - If a required browser check is skipped, the final response MUST state: skipped check, reason, and residual risk.
 - Final response MUST include a Validation Summary: automated checks run, browser scenarios run, and outcomes.
 
-Running tests:
-- `npm test` - run all Node.js tests in `test/*.test.mjs`
-- `node --test test/<file>.test.mjs` - run a specific test file
+Responsive verification viewports:
+- Desktop: 1440x900
+- Mobile: 390x900
+- Capture screenshots using absolute paths.
+- Check for horizontal overflow, console errors, page errors, and offscreen changed elements.
 
 IMPORTANT:
 - This project currently has no configured Playwright suite or Playwright npm script.
 - Keep browser verification focused on `http://localhost:3002` and document which pages and interactions were checked.
-</playwright_testing>
+</ui_verification>
 
 </testing_rules>
 

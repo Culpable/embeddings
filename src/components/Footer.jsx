@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
 import { Logo } from '@/components/Logo'
-import { socialMediaProfiles } from '@/components/SocialMedia'
 import { Offices } from '@/components/Offices'
 
 const navigation = [
@@ -25,10 +24,18 @@ const navigation = [
   //   ],
   // },
   {
+    title: 'offer',
+    links: [
+      { title: 'why now', href: '/#why-now' },
+      { title: 'services', href: '/#services' },
+      { title: 'proof', href: '/#proof' },
+    ],
+  },
+  {
     title: 'company',
     links: [
-      { title: 'about us', href: '/about' },
       { title: 'our process', href: '/process' },
+      { title: 'about us', href: '/about' },
       { title: 'contact us', href: '/contact' },
     ],
   },

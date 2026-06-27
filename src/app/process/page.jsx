@@ -45,20 +45,23 @@ function Section({ title, image, children }) {
 
 function Discover() {
   return (
-    <Section title="Discover" image={{ src: imageWhiteboard }}>
+    <Section title="Audit" image={{ src: imageWhiteboard, priority: true }}>
       <div className="space-y-6 text-base text-neutral-600">
         <p>
-          Through detailed process mapping and data analysis, we identify{' '}
-          <strong className="font-semibold text-neutral-950">key opportunities</strong>{' '}
-          where AI can drive the most significant productivity gains. This includes 
-          evaluating your knowledge management systems, document workflows, and 
-          production environments.
+          We start with the product catalogue because that is where agentic
+          commerce is won or lost. Our audit checks{' '}
+          <strong className="font-semibold text-neutral-950">
+            GTIN coverage, taxonomy depth, image quality, descriptions, pricing,
+            stock freshness, and merchant-feed readiness
+          </strong>{' '}
+          against the standards AI agents already use to rank products.
         </p>
         <p>
-          Following our discovery phase, we deliver a comprehensive{' '}
-          <strong className="font-semibold text-neutral-950">implementation roadmap</strong>{' '}
-          that outlines specific AI solutions, expected efficiency gains, and 
-          clear ROI metrics for each proposed solution.
+          You receive a prioritised remediation plan that shows which gaps block
+          recommendation eligibility, which fixes protect revenue first, and
+          which data owners need to be involved. The output is practical: a
+          catalogue-readiness score, a risk register, and the fastest path to
+          richer product data.
         </p>
       </div>
 
@@ -66,12 +69,12 @@ function Discover() {
         Included in this phase
       </h3>
       <TagList className="mt-4">
-        <TagListItem>Production System Analysis</TagListItem>
-        <TagListItem>Integration Requirements</TagListItem>
-        <TagListItem>Solution Design</TagListItem>
-        <TagListItem>Security Assessment</TagListItem>
-        <TagListItem>Implementation Planning</TagListItem>
-        <TagListItem>Deployment Strategy</TagListItem>
+        <TagListItem>Merchant Feed Audit</TagListItem>
+        <TagListItem>GTIN Coverage</TagListItem>
+        <TagListItem>Attribute Gaps</TagListItem>
+        <TagListItem>Taxonomy Review</TagListItem>
+        <TagListItem>Freshness Risk</TagListItem>
+        <TagListItem>Revenue Priority</TagListItem>
       </TagList>
     </Section>
   )
@@ -79,31 +82,32 @@ function Discover() {
 
 function Build() {
   return (
-    <Section title="Build" image={{ src: imageLaptop, shape: 1 }}>
+    <Section title="Engineer" image={{ src: imageLaptop, shape: 1 }}>
       <div className="space-y-6 text-base text-neutral-600">
         <p>
-          Based on our thorough analysis, we develop a comprehensive implementation plan 
-          that aligns with your business objectives. Our approach focuses on delivering 
-          measurable value through strategic AI integration.
+          Once the gaps are clear, we build the pipelines that make catalogue
+          data durable. ERP, PIM, POS, and inventory signals are normalised into
+          product records that AI agents can read, compare, and trust without
+          waiting for manual spreadsheet clean-up.
         </p>
         <p>
-          Each client is assigned a dedicated AI transformation specialist who ensures 
-          clear communication and smooth implementation. They work closely with our technical 
-          team to customise solutions that maximise your organisation’s potential.
+          Our enrichment layer adds the content agents need: complete
+          attributes, clearer descriptions, better categorisation, and
+          trend-aware language that still sounds like your brand. Every field
+          stays traceable, so merchandising teams can review the data before it
+          reaches a live feed.
         </p>
         <p>
-          We maintain transparent communication throughout the process, providing regular 
-          updates on implementation progress and early results, ensuring you’re always 
-          informed about your AI transformation journey.
+          We keep implementation narrow and measurable. The work is organised
+          around catalogue coverage, freshness latency, feed acceptance, and the
+          specific product categories with the highest commercial impact.
         </p>
       </div>
 
-      <Blockquote
-        className="mt-12"
-      >
-        Embeddings transformed our maintenance workflows within weeks. Their systematic
-        approach to AI implementation helped us achieve a 70% reduction in document
-        processing time.
+      <Blockquote className="mt-12">
+        Embeddings showed us which catalogue gaps were stopping our products
+        from being understood and gave our merchandising team a practical way to
+        fix them at scale.
       </Blockquote>
     </Section>
   )
@@ -111,26 +115,27 @@ function Build() {
 
 function Deliver() {
   return (
-    <Section title="Deliver" image={{ src: imageMeeting, shape: 2 }}>
+    <Section title="Optimise" image={{ src: imageMeeting, shape: 2 }}>
       <div className="space-y-6 text-base text-neutral-600">
         <p>
-          We don’t stop at strategy decks. We focus on the crucial{' '}
-          <strong className="font-semibold text-neutral-950">implementation phase</strong>{' '}
-          where real value is created. Our focus is on production-ready solutions that 
-          work in the real world.
+          A catalogue is only agentic-ready if it stays current. We help teams
+          operate the new data layer in production, with monitoring for stale
+          inventory, rejected feed fields, missing product identifiers, and
+          content that drifts away from live search demand.
         </p>
         <p>
-          Our team provides comprehensive{' '}
-          <strong className="font-semibold text-neutral-950">hands-on support</strong>{' '}
-          throughout deployment, ensuring successful adoption and measurable productivity 
-          gains from day one.
+          Trend signals are folded back into the catalogue, so products can
+          respond to cultural demand, regulatory news, and seasonal shifts while
+          staying accurate. The goal is a living product data layer that
+          strengthens every recommendation surface.
         </p>
         <p>
-          We maintain ongoing technical support to ensure your AI solutions{' '}
+          We continue measuring whether the catalogue{' '}
           <strong className="font-semibold text-neutral-950">
-            perform at scale
+            performs at scale
           </strong>{' '}
-          in production, evolving with your business needs.
+          across agentic shopping entry points, merchant feeds, and internal
+          commerce systems.
         </p>
       </div>
 
@@ -138,17 +143,19 @@ function Deliver() {
         Included in this phase
       </h3>
       <List className="mt-8">
-        <ListItem title="Production Deployment">
-          We handle the complex technical work of deploying AI solutions into your 
-          live business environment, ensuring security, reliability, and performance.
+        <ListItem title="Feed Monitoring">
+          We watch acceptance rates, stale records, rejected attributes, and
+          catalogue freshness so issues are fixed before they affect
+          recommendation quality.
         </ListItem>
-        <ListItem title="System Integration">
-          Our team manages the integration with your existing enterprise systems, 
-          delivering a seamless experience for your users.
+        <ListItem title="Trend Response">
+          We connect product content to live demand signals, then update
+          descriptions and attributes where the commercial opportunity justifies
+          action.
         </ListItem>
-        <ListItem title="Production Support">
-          We provide ongoing technical support and optimisation, ensuring your 
-          solutions continue delivering value at enterprise scale.
+        <ListItem title="Merchandising Handover">
+          We document the workflow, review controls, and ownership model so
+          internal teams can keep improving the catalogue after launch.
         </ListItem>
       </List>
     </Section>
@@ -167,40 +174,40 @@ function Values() {
 
       <SectionIntro
         eyebrow="our values"
-        title="Transforming work through AI innovation"
+        title="Built for agentic commerce, not generic AI adoption"
       >
         <p>
-          We combine deep technical expertise with practical business acumen to help 
-          Australian organisations harness the power of generative AI. Our commitment 
-          to delivering measurable results drives everything we do.
+          Catalogue readiness is a technical, commercial, and operational
+          problem. These principles keep the work focused on recommendation
+          quality rather than broad AI theatre.
         </p>
       </SectionIntro>
 
       <Container className="mt-24">
         <GridList>
-          <GridListItem title="Technical Excellence">
-            Our team stays at the forefront of generative AI advancements, ensuring our 
-            clients benefit from cutting-edge solutions that deliver real business value.
+          <GridListItem title="Agent-readable data">
+            Product records need complete identifiers, attributes, descriptions,
+            and categories that agents can compare without guessing.
           </GridListItem>
-          <GridListItem title="Measurable Impact">
-            We focus on delivering quantifiable productivity gains and efficiency 
-            improvements that directly impact your bottom line.
+          <GridListItem title="Freshness as a signal">
+            Stock, price, availability, and status changes must reach commerce
+            surfaces before stale data costs visibility.
           </GridListItem>
-          <GridListItem title="Practical Innovation">
-            We transform complex AI capabilities into practical business solutions that 
-            solve real operational challenges.
+          <GridListItem title="Measurable coverage">
+            Progress is tracked through catalogue completeness, feed acceptance,
+            enrichment quality, and freshness latency.
           </GridListItem>
-          <GridListItem title="Clear Communication">
-            We maintain transparent dialogue throughout the transformation process, 
-            ensuring alignment and understanding at every step.
+          <GridListItem title="Brand-safe enrichment">
+            Generated content needs governance, review paths, and traceability
+            so product truth stays intact.
           </GridListItem>
-          <GridListItem title="Strategic Partnership">
-            We build lasting relationships with our clients, supporting their ongoing 
-            AI transformation journey and evolution.
+          <GridListItem title="Retail workflow fit">
+            The system must work with merchandising, data, and commerce teams
+            rather than creating a separate AI process.
           </GridListItem>
-          <GridListItem title="Deep Expertise">
-            Our team combines advanced AI knowledge with extensive business experience 
-            to deliver solutions that work in the real world.
+          <GridListItem title="Live optimisation">
+            Trend signals, seasonality, and regulatory moments should improve
+            catalogue content while demand is still active.
           </GridListItem>
         </GridList>
       </Container>
@@ -209,19 +216,23 @@ function Values() {
 }
 
 export const metadata = {
-  title: 'Our Process',
+  title: 'Catalogue Readiness Process',
   description:
-    'We help Australian businesses achieve radical productivity gains through strategic AI implementation, combining technical expertise with practical business solutions.',
+    'How Embeddings audits, enriches, and optimises retail catalogues for agentic commerce.',
 }
 
 export default function Process() {
   return (
     <>
-      <PageIntro eyebrow="our process" title="How we work">
+      <PageIntro
+        eyebrow="our process"
+        title="How we make catalogues agentic-ready"
+      >
         <p>
-          We take a systematic approach to AI implementation, ensuring each solution 
-          delivers immediate value while building a foundation for long-term 
-          transformation and sustained productivity gains.
+          We turn retail catalogues into product data layers that Google,
+          OpenAI, and commerce agents can read, trust, and recommend. The
+          process moves from quantified gaps to live optimisation without
+          drifting into generic AI consulting.
         </p>
       </PageIntro>
 

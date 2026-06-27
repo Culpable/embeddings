@@ -8,14 +8,18 @@ import { ContactDetails } from './ContactDetails'
 
 export const metadata = {
   title: 'Contact Us',
-  description: "Contact us to learn how we can integrate AI into your business.",
+  description:
+    'Contact us to learn how we can integrate AI into your business.',
 }
 
 export default function Contact() {
   return (
     <>
       <PageIntro eyebrow="contact us" title="Your AI advantage starts here">
-        <p>Ready to experience the future of work? Contact us to see how we can integrate AI into your business.</p>
+        <p>
+          Ready to experience the future of work? Contact us to see how we can
+          integrate AI into your business.
+        </p>
       </PageIntro>
 
       <Container className="mt-24 sm:mt-32 lg:mt-40">

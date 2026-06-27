@@ -1,156 +1,164 @@
-import mixpanel from 'mixpanel-browser';
+const MIXPANEL_TOKEN = '48ebd83acf333df6efcfe970cfde6c5c'
+const isDevelopment = process.env.NODE_ENV === 'development'
 
-// Mixpanel project token - hardcoded for reliability
-const MIXPANEL_TOKEN = '48ebd83acf333df6efcfe970cfde6c5c';
-const isDevelopment = process.env.NODE_ENV === 'development';
+let mixpanelModulePromise = null
+let mixpanelInstance = null
+let mixpanelInitialisationPromise = null
 
-/**
- * Initialize Mixpanel with Session Replay configuration
- * - Session Replay records user interactions for later review
- * - Configured for optimal recording with privacy considerations
- * - Sets global flags for dependent tracking systems
- */
-export const initMixpanel = () => {
-  // Only initialize in browser environment and if token is provided
+function markMixpanelDisabled() {
+  if (typeof window === 'undefined') {
+    return
+  }
+
+  window.mixpanelLoaded = false
+  window.mixpanelDisabled = true
+}
+
+async function loadMixpanelModule() {
+  if (typeof window === 'undefined' || !MIXPANEL_TOKEN || isDevelopment) {
+    return null
+  }
+
+  if (!mixpanelModulePromise) {
+    mixpanelModulePromise = import('mixpanel-browser').then(
+      (module) => module.default ?? module,
+    )
+  }
+
+  return mixpanelModulePromise
+}
+
+function applyLoadedState(mixpanel) {
+  window.mixpanelLoaded = true
+  window.mixpanelInstance = mixpanel
+
+  if (typeof window.dispatchEvent === 'function') {
+    window.dispatchEvent(
+      new CustomEvent('mixpanel:loaded', {
+        detail: { mixpanel },
+      }),
+    )
+  }
+}
+
+export async function initMixpanel() {
   if (typeof window === 'undefined' || !MIXPANEL_TOKEN) {
-    console.warn('Mixpanel not initialized: Missing token or not in browser environment');
-    return false;
+    return false
   }
 
   if (isDevelopment) {
-    window.mixpanelLoaded = false;
-    window.mixpanelDisabled = true;
-    console.info('Mixpanel disabled in development environment.');
-    return false;
+    markMixpanelDisabled()
+    console.info('Mixpanel disabled in development environment.')
+    return false
   }
 
-  try {
-  mixpanel.init(MIXPANEL_TOKEN, {
-    // Automatically track page views
-    track_pageview: true,
-    
-      // Storage configuration - using localStorage for better performance
-      persistence: 'localStorage',
-      
-      // Cross-subdomain tracking (uncomment if needed)
-      // cross_subdomain_cookie: true,
-    
-      // Session Replay settings optimised for performance
-      record_sessions_percent: 100,                    // Record 100% of sessions
-      record_heatmap_data: true,                       // Enable heatmap data collection for click tracking
-      record_block_selector: "",                       // CSS selector for elements to block from recording
-      record_mask_text_selector: ".sensitive-data",   // Mask sensitive data elements
-      record_collect_fonts: true,                      // Include font information for accurate playback
-      record_idle_timeout_ms: 600000,                  // 10 minutes idle timeout before ending session
-      record_min_ms: 3000,                             // Minimum 3 seconds for a valid recording
-      
-      // Callback when Mixpanel is fully loaded and ready
-      loaded: function(mixpanel) {
-        // Set multiple flags for robust detection by dependent systems
-        window.mixpanelLoaded = true;
-        window.mixpanelInstance = mixpanel;
-        
-        // Dispatch custom event for more advanced integrations
-        if (typeof window.dispatchEvent === 'function') {
-          window.dispatchEvent(new CustomEvent('mixpanel:loaded', { 
-            detail: { mixpanel } 
-          }));
-        }
-        
-        console.log('Mixpanel fully loaded and ready for tracking');
+  if (mixpanelInstance) {
+    return true
+  }
+
+  if (mixpanelInitialisationPromise) {
+    return mixpanelInitialisationPromise
+  }
+
+  mixpanelInitialisationPromise = loadMixpanelModule()
+    .then((mixpanel) => {
+      if (!mixpanel) {
+        return false
       }
-  });
-  
-    // Make mixpanel available globally for backward compatibility
-  window.mixpanel = mixpanel;
-  
-    console.log('Mixpanel initialization started...');
-    return true;
-  
-  } catch (error) {
-    console.error('Failed to initialize Mixpanel:', error);
-    return false;
-  }
-};
 
-/**
- * Safe tracking function with comprehensive error handling
- * @param {string} eventName - The name of the event to track
- * @param {object} properties - Properties to attach to the event
- * @param {function} callback - Optional callback after successful tracking
- */
-export const track = (eventName, properties = {}, callback = null) => {
-  try {
-    if (isDevelopment) {
-      return;
-    }
-    // Ensure Mixpanel is initialized and has a distinct ID
-    if (mixpanel && mixpanel.get_distinct_id && mixpanel.get_distinct_id()) {
-      mixpanel.track(eventName, properties);
-      
-      if (callback && typeof callback === 'function') {
-        callback();
-      }
-    } else {
-      console.warn('Mixpanel not ready for tracking:', eventName);
-    }
-  } catch (error) {
-    console.warn('Mixpanel tracking failed:', error);
-  }
-};
+      mixpanel.init(MIXPANEL_TOKEN, {
+        track_pageview: true,
+        persistence: 'localStorage',
+        record_sessions_percent: 100,
+        record_heatmap_data: true,
+        record_block_selector: '',
+        record_mask_text_selector: '.sensitive-data',
+        record_collect_fonts: true,
+        record_idle_timeout_ms: 600000,
+        record_min_ms: 3000,
+        loaded(loadedMixpanel) {
+          applyLoadedState(loadedMixpanel)
+        },
+      })
 
-/**
- * Safe identify function with comprehensive error handling
- * @param {string} userId - The user ID to identify
- */
-export const identify = (userId) => {
-  try {
-    if (isDevelopment) {
-      return;
-    }
-    if (mixpanel && mixpanel.get_distinct_id && mixpanel.get_distinct_id()) {
-      mixpanel.identify(userId);
-    }
-  } catch (error) {
-    console.warn('Mixpanel identify failed:', error);
-  }
-};
+      mixpanelInstance = mixpanel
+      window.mixpanel = mixpanel
 
-/**
- * Safe people properties function with comprehensive error handling
- * @param {object} properties - Properties to set for the current user
- */
-export const setPeopleProperties = (properties) => {
-  try {
-    if (isDevelopment) {
-      return;
-    }
-    if (mixpanel && mixpanel.people && mixpanel.get_distinct_id && mixpanel.get_distinct_id()) {
-      mixpanel.people.set(properties);
-    }
-  } catch (error) {
-    console.warn('Mixpanel people properties failed:', error);
-  }
-};
+      return true
+    })
+    .catch((error) => {
+      console.error('Failed to initialise Mixpanel:', error)
+      mixpanelInitialisationPromise = null
+      return false
+    })
 
-/**
- * Check if Mixpanel is fully loaded and ready for tracking
- * @returns {boolean} True if Mixpanel is ready, false otherwise
- */
-export const isMixpanelReady = () => {
+  return mixpanelInitialisationPromise
+}
+
+async function withMixpanel(callback) {
+  if (isDevelopment) {
+    return
+  }
+
+  const initialised = await initMixpanel()
+
+  if (!initialised || !mixpanelInstance) {
+    return
+  }
+
+  callback(mixpanelInstance)
+}
+
+export function track(eventName, properties = {}, callback = null) {
+  void withMixpanel((mixpanel) => {
+    mixpanel.track(eventName, properties)
+
+    if (callback && typeof callback === 'function') {
+      callback()
+    }
+  }).catch((error) => {
+    console.warn('Mixpanel tracking failed:', error)
+  })
+}
+
+export function identify(userId) {
+  void withMixpanel((mixpanel) => {
+    mixpanel.identify(userId)
+  }).catch((error) => {
+    console.warn('Mixpanel identify failed:', error)
+  })
+}
+
+export function setPeopleProperties(properties) {
+  void withMixpanel((mixpanel) => {
+    if (mixpanel.people) {
+      mixpanel.people.set(properties)
+    }
+  }).catch((error) => {
+    console.warn('Mixpanel people properties failed:', error)
+  })
+}
+
+export function isMixpanelReady() {
   if (isDevelopment || typeof window === 'undefined') {
-    return false;
+    return false
   }
-  return !!(
-    window.mixpanelLoaded && 
-    mixpanel && 
-    typeof mixpanel.track === 'function' &&
-    mixpanel.get_distinct_id && 
-    mixpanel.get_distinct_id()
-  );
-};
 
-/**
- * Export mixpanel instance for direct use in components
- */
-export default mixpanel; 
+  return !!(
+    window.mixpanelLoaded &&
+    mixpanelInstance &&
+    typeof mixpanelInstance.track === 'function' &&
+    mixpanelInstance.get_distinct_id &&
+    mixpanelInstance.get_distinct_id()
+  )
+}
+
+const mixpanelClient = {
+  identify,
+  initMixpanel,
+  isMixpanelReady,
+  setPeopleProperties,
+  track,
+}
+
+export default mixpanelClient
