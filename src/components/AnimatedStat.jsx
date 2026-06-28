@@ -2,8 +2,9 @@
 
 // ---------------------------------------------------------------------------
 // AnimatedStat — Animated counting number that springs from 0 to target
-// when the element scrolls into view. Uses framer-motion springs for a
-// smooth, physics-based count-up effect (~1.5s ease-out).
+// when the element scrolls into view. Uses IntersectionObserver and direct DOM
+// text updates so stat cards keep their premium count-up without adding a
+// heavy animation runtime to otherwise static page sections.
 //
 // Props:
 //   value     – target number to count up to (e.g. 700, 81, 758)
@@ -12,50 +13,67 @@
 //   className – pass-through styling for the wrapper <span>
 // ---------------------------------------------------------------------------
 
-import { useEffect, useRef } from 'react'
-import { useInView, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { useEffect, useMemo, useRef } from 'react'
 
 
 export function AnimatedStat({ value, prefix = '', suffix = '', className }) {
   const ref = useRef(null)
-
-  // Trigger animation once when the element enters the viewport
-  const isInView = useInView(ref, { once: true })
-
-  // Motion value drives the spring animation from 0 → target
-  const motionValue = useMotionValue(0)
-
-  // Spring config: moderate stiffness for ~1.5s duration, low bounce
-  const springValue = useSpring(motionValue, {
-    stiffness: 60,
-    damping: 20,
-    restDelta: 0.5,
-  })
-
-  // Transform the spring output to a rounded integer string
-  const displayValue = useTransform(springValue, (latest) =>
-    Math.round(latest).toLocaleString(),
-  )
-
-  // Ref to the DOM node for updating text content directly (avoids re-renders)
   const numberRef = useRef(null)
+  const formatter = useMemo(() => new Intl.NumberFormat('en-AU'), [])
 
-  // Start the spring when the element comes into view
   useEffect(() => {
-    if (isInView) {
-      motionValue.set(value)
+    const node = ref.current
+    const numberNode = numberRef.current
+    let frameId = null
+
+    if (!node || !numberNode) {
+      return
     }
-  }, [isInView, motionValue, value])
 
-  // Subscribe to the transformed display value and update the DOM
-  useEffect(() => {
-    const unsubscribe = displayValue.on('change', (latest) => {
-      if (numberRef.current) {
-        numberRef.current.textContent = latest
+    function setDisplayedValue(nextValue) {
+      numberNode.textContent = formatter.format(Math.round(nextValue))
+    }
+
+    function startCount() {
+      const startTime = performance.now()
+      const duration = 1450
+
+      function tick(now) {
+        const elapsed = Math.min((now - startTime) / duration, 1)
+        const eased = 1 - Math.pow(1 - elapsed, 3)
+
+        setDisplayedValue(value * eased)
+
+        if (elapsed < 1) {
+          frameId = window.requestAnimationFrame(tick)
+        }
       }
-    })
-    return unsubscribe
-  }, [displayValue])
+
+      frameId = window.requestAnimationFrame(tick)
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          return
+        }
+
+        startCount()
+        observer.unobserve(node)
+      },
+      { rootMargin: '0px 0px -200px 0px', threshold: 0 },
+    )
+
+    observer.observe(node)
+
+    return () => {
+      observer.disconnect()
+
+      if (frameId) {
+        window.cancelAnimationFrame(frameId)
+      }
+    }
+  }, [formatter, value])
 
   return (
     <span ref={ref} className={className}>

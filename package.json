@@ -5,11 +5,11 @@
   "homepage": "https://embeddings.au",
   "scripts": {
     "dev": "next dev -p 3002",
-    "build": "next build && node src/scripts/generate-sitemap.js",
+    "build": "rm -rf .next out && node src/scripts/generate-sitemap.js && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "node --test",
-    "deploy": "next build && node src/scripts/generate-sitemap.js && gh-pages -d out",
+    "deploy": "npm run build && gh-pages -d out",
     "generate-sitemap": "node src/scripts/generate-sitemap.js"
   },
   "browserslist": "defaults, not ie <= 11",

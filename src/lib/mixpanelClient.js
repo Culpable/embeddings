@@ -1,9 +1,22 @@
 const MIXPANEL_TOKEN = '48ebd83acf333df6efcfe970cfde6c5c'
 const isDevelopment = process.env.NODE_ENV === 'development'
+const recordingPercent = Number(
+  process.env.NEXT_PUBLIC_MIXPANEL_RECORDING_PERCENT ?? '10',
+)
+const shouldRecordHeatmaps =
+  process.env.NEXT_PUBLIC_MIXPANEL_RECORD_HEATMAPS === 'true'
 
 let mixpanelModulePromise = null
 let mixpanelInstance = null
 let mixpanelInitialisationPromise = null
+
+function clampRecordingPercent(value) {
+  if (!Number.isFinite(value)) {
+    return 10
+  }
+
+  return Math.min(100, Math.max(0, value))
+}
 
 function markMixpanelDisabled() {
   if (typeof window === 'undefined') {
@@ -67,13 +80,13 @@ export async function initMixpanel() {
       }
 
       mixpanel.init(MIXPANEL_TOKEN, {
-        track_pageview: true,
+        track_pageview: false,
         persistence: 'localStorage',
-        record_sessions_percent: 100,
-        record_heatmap_data: true,
+        record_sessions_percent: clampRecordingPercent(recordingPercent),
+        record_heatmap_data: shouldRecordHeatmaps,
         record_block_selector: '',
         record_mask_text_selector: '.sensitive-data',
-        record_collect_fonts: true,
+        record_collect_fonts: false,
         record_idle_timeout_ms: 600000,
         record_min_ms: 3000,
         loaded(loadedMixpanel) {

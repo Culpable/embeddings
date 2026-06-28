@@ -13,6 +13,8 @@ export function Button({
   ...props
 }) {
   const isDisabled = props.disabled || props['aria-disabled']
+  const trackingText =
+    trackingLabel || (typeof children === 'string' ? children : 'button')
 
   className = clsx(
     className,
@@ -24,10 +26,10 @@ export function Button({
   )
 
   const handleClick = (e) => {
-    // Track the button click
+    // Track the button click without serialising nested React children.
     track('Button Clicked', {
-      button_text: children,
-      button_label: trackingLabel || children,
+      button_text: trackingText,
+      button_label: trackingText,
       href: props.href,
       invert: invert,
       ...trackingProperties,

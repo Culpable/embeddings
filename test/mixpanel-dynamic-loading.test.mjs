@@ -42,3 +42,33 @@ test('mixpanel provider schedules analytics after initial render work', () => {
     'Expected MixpanelProvider to include a timeout fallback for browsers without requestIdleCallback',
   )
 })
+
+test('mixpanel replay defaults stay light for public marketing pages', () => {
+  // Keep core analytics while avoiding full-session recording and heatmap work
+  // for every visitor by default.
+  const source = readFileSync(mixpanelClientPath, 'utf8')
+
+  assert.match(
+    source,
+    /track_pageview:\s*false/,
+    'Expected automatic Mixpanel page-view tracking to stay disabled',
+  )
+
+  assert.doesNotMatch(
+    source,
+    /record_sessions_percent:\s*100/,
+    'Expected session replay not to sample every visitor by default',
+  )
+
+  assert.match(
+    source,
+    /record_heatmap_data:\s*shouldRecordHeatmaps/,
+    'Expected heatmap recording to be opt-in',
+  )
+
+  assert.match(
+    source,
+    /record_collect_fonts:\s*false/,
+    'Expected font collection to stay disabled',
+  )
+})

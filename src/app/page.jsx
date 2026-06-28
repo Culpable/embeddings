@@ -101,6 +101,21 @@ const urgencyGlows = [
   'shadow-[0_4px_12px_rgba(239,68,68,0.15)]', // red glow
 ]
 
+const heroProofSignals = [
+  {
+    stat: '700M+',
+    label: 'weekly users',
+  },
+  {
+    stat: 'UCP',
+    label: 'protocol live',
+  },
+  {
+    stat: '$3–5T',
+    label: 'by 2030',
+  },
+]
+
 // Scale-up reveal variants for card materialisation effect (Enhancement 9)
 const scaleUpVariants = {
   hidden: { opacity: 0, y: 24, scale: 0.97 },
@@ -121,6 +136,34 @@ function SourceLink({ href, label, invert = false }) {
     >
       Source: {label}
     </a>
+  )
+}
+
+function HeroProofSignals() {
+  return (
+    <ul
+      role="list"
+      className="mt-8 grid max-w-3xl grid-cols-3 gap-2 sm:gap-3"
+      aria-label="Agentic commerce proof points"
+    >
+      {heroProofSignals.map(({ stat, label }, index) => (
+        <li
+          key={stat}
+          className="group relative overflow-hidden rounded-2xl border border-neutral-950/10 bg-white/70 px-3 py-3 shadow-[0_1px_0_rgba(23,23,23,0.04)] transition duration-300 hover:-translate-y-0.5 hover:border-neutral-950/20 hover:bg-white hover:shadow-lg sm:px-4"
+        >
+          <div
+            className={`absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r ${urgencyGradients[index]}`}
+            aria-hidden="true"
+          />
+          <p className="font-display text-base font-semibold tracking-tight text-neutral-950 sm:text-lg">
+            {stat}
+          </p>
+          <p className="mt-1 text-[0.6875rem] leading-4 text-neutral-500 sm:text-xs sm:leading-5">
+            {label}
+          </p>
+        </li>
+      ))}
+    </ul>
   )
 }
 
@@ -553,6 +596,7 @@ export default async function Home() {
               <span className="relative top-px">Learn how it works</span>
             </Link>
           </div>
+          <HeroProofSignals />
         </FadeIn>
         {/* Animated SVG data flow: Catalogue → AI Agent → Consumer */}
         <FadeIn>

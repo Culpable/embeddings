@@ -27,12 +27,12 @@ const capabilities = [
   {
     index: '01',
     title: 'LLM Pipeline Engineering',
-    body: 'We build and operate large language model pipelines that enrich product catalogs at scale — generating descriptions, categories, and attributes from raw product data and images. Thousands of SKUs processed in hours.',
+    body: 'We build and operate large language model pipelines that enrich product catalogues at scale — generating descriptions, categories, and attributes from raw product data and images. Thousands of SKUs processed in hours.',
   },
   {
     index: '02',
     title: 'Data Infrastructure',
-    body: 'We integrate directly with your ERP, PIM, and inventory systems to keep catalog data fresh and accurate. Real-time stock, pricing, and product status — because AI agents penalise stale data.',
+    body: 'We integrate directly with your ERP, PIM, and inventory systems to keep catalogue data fresh and accurate. Real-time stock, pricing, and product status — because AI agents penalise stale data.',
   },
   {
     index: '03',
@@ -52,13 +52,13 @@ function Culture() {
     <div className="mt-24 rounded-4xl bg-neutral-950 py-24 sm:mt-32 lg:mt-40 lg:py-32">
       <SectionIntro
         eyebrow="our approach"
-        title="Built for catalogs, not generic AI consulting"
+        title="Built for catalogues, not generic AI consulting"
         invert
       >
         <p>
           Most AI consultancies offer broad capability across dozens of use cases. We chose a
           different path — deep, vertical expertise in the one problem that determines whether
-          retailers survive the agentic shift: catalog data quality.
+          retailers survive the agentic shift: catalogue data quality.
         </p>
       </SectionIntro>
       <Container className="mt-16">
@@ -231,7 +231,7 @@ function Team() {
 export const metadata = {
   title: 'About Us',
   description:
-    'The only Australian consultancy combining LLM pipeline engineering and data infrastructure at scale — purpose-built to make retail catalogs agentic-ready.',
+    'The only Australian consultancy combining LLM pipeline engineering and data infrastructure at scale — purpose-built to make retail catalogues agentic-ready.',
 }
 
 export default async function About() {
@@ -244,11 +244,11 @@ export default async function About() {
           Embeddings was founded on a single conviction: the retailers who win in agentic commerce
           will be the ones with the best product data. We&rsquo;re the only Australian consultancy
           that combines LLM pipeline engineering with data infrastructure at scale — purpose-built
-          for catalog readiness.
+          for catalogue readiness.
         </p>
         <p style={{ marginTop: '1rem' }}>
           We don&rsquo;t hand you a strategy deck and wish you luck. We audit, enrich, and
-          operationalise your catalog so AI agents from Google and OpenAI recommend your products
+          operationalise your catalogue so AI agents from Google and OpenAI recommend your products
           first.
         </p>
         <div className="mt-10 max-w-2xl space-y-6 text-base">
@@ -261,9 +261,9 @@ export default async function About() {
             Embeddings to solve that problem.
           </p>
           <p>
-            Our approach is engineering-led and outcome-driven. We measure success in catalog
+            Our approach is engineering-led and outcome-driven. We measure success in catalogue
             completeness scores, enrichment coverage, and freshness latency — not slide counts.
-            Every engagement begins with a quantitative audit and ends with a catalog that&rsquo;s
+            Every engagement begins with a quantitative audit and ends with a catalogue that&rsquo;s
             ready for Google&rsquo;s Universal Commerce Protocol, OpenAI&rsquo;s Instant Checkout,
             and whatever comes next.
           </p>

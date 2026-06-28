@@ -7,12 +7,14 @@ These rules apply specifically to this repository and should be used for all cod
 <content_rules>
 - All text must be in British English
 - Use ’ instead of ' as an apostrophe on any frontend words (words that display to the user). e.g. Let’s, not Let's, businesses’, not businesses'
+- Main navigation and footer link labels are intentionally lowercase. Preserve this stylistic choice unless the user explicitly requests a label casing change.
 </content_rules>
 
 <contact_form_rules>
 - Preserve the contact form field contract unless the user explicitly requests a field model change.
 - The business enquiry form fields are: name, email, company, phone, message, and budget.
 - Frontend improvements may change layout, styling, focus states, loading states, error states, success states, and fallback behaviour, but must not replace the field contract with catalogue-readiness, SKU, platform, feed source, or priority fields without explicit approval.
+- Keep the contact route and contact form helper copy broad and concise. Do not add catalogue-readiness-specific form guidance or contact side-panel "what happens next" workflow content unless the user explicitly requests that messaging change.
 </contact_form_rules>
 
 <code_standards>

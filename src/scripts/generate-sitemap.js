@@ -59,6 +59,9 @@ async function generateSitemap() {
     '!**/template.*',                 // Next.js template files
     '!**/_disabled_pages/**/*',       // Disabled pages
   ]);
+
+  // Keep sitemap output stable across local and CI filesystems.
+  pages = pages.sort();
   
   // Process file paths into URLs
   const dynamicUrls = pages
