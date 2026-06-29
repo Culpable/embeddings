@@ -40,3 +40,20 @@ test('homepage uses the current Adobe retail traffic figure', () => {
     'Did not expect the previous unsourced 758% Adobe traffic stat',
   )
 })
+
+test('homepage emits static json ld without next script loader', () => {
+  // Keep static structured data out of the route script-loader runtime.
+  const source = readFileSync(homePagePath, 'utf8')
+
+  assert.doesNotMatch(
+    source,
+    /next\/script/,
+    'Expected homepage JSON-LD not to import next/script',
+  )
+
+  assert.match(
+    source,
+    /<script\s+id="organization-schema"/,
+    'Expected organisation schema to render as a static script tag',
+  )
+})

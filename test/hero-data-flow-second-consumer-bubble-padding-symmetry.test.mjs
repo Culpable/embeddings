@@ -4,11 +4,14 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 
-const heroDataFlowPath = resolve(process.cwd(), 'src/components/HeroDataFlow.jsx')
+const heroDataFlowPath = resolve(
+  process.cwd(),
+  'src/components/HeroDesktopDataFlow.jsx',
+)
 
 
 function readHeroDataFlowSource() {
-  // Read HeroDataFlow source text to validate the second consumer bubble geometry directly.
+  // Read desktop hero source text to validate the second consumer bubble geometry directly.
   return readFileSync(heroDataFlowPath, 'utf8')
 }
 
@@ -22,7 +25,7 @@ function readSecondConsumerBubbleBlock(source) {
   assert.notEqual(
     secondBubbleBlockMatch,
     null,
-    'Expected to find the second consumer bubble block in src/components/HeroDataFlow.jsx',
+    'Expected to find the second consumer bubble block in src/components/HeroDesktopDataFlow.jsx',
   )
 
   return secondBubbleBlockMatch[1]
@@ -38,7 +41,7 @@ function readSecondBubbleRectMetrics(secondBubbleBlock) {
   assert.notEqual(
     rectMatch,
     null,
-    'Expected to find second bubble rect y and height in src/components/HeroDataFlow.jsx',
+    'Expected to find second bubble rect y and height in src/components/HeroDesktopDataFlow.jsx',
   )
 
   return {

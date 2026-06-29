@@ -118,6 +118,12 @@ test('mixpanel replay defaults stay light for public marketing pages', () => {
 
   assert.match(
     source,
+    /NEXT_PUBLIC_MIXPANEL_RECORDING_PERCENT\s*\?\?\s*'0'/,
+    'Expected Mixpanel replay sampling to default to 0 for public marketing visits',
+  )
+
+  assert.match(
+    source,
     /record_heatmap_data:\s*shouldRecordHeatmaps/,
     'Expected heatmap recording to be opt-in',
   )

@@ -133,6 +133,12 @@ test('contact form preserves the original business enquiry fields', () => {
     /budget_range: formData\.get\('budget'\)/,
     'Expected analytics metadata to preserve budget range tracking',
   )
+
+  assert.doesNotMatch(
+    source,
+    /Contact Form Field Focused/,
+    'Expected field focus not to trigger analytics loading before submit intent',
+  )
 })
 
 test('contact page copy no longer asks for removed catalogue fields', () => {
@@ -201,6 +207,18 @@ test('contact form exposes accessible status states', () => {
     source,
     /Message sent. We’ll get back to you soon./,
     'Expected a visible success message after submission',
+  )
+
+  assert.match(
+    source,
+    /statusPanelRef\.current\?\.focus/,
+    'Expected successful submission to focus the confirmation panel',
+  )
+
+  assert.match(
+    source,
+    /Send another message/,
+    'Expected successful submission to offer a clear reset action',
   )
 })
 

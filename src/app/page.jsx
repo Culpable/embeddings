@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Script from 'next/script'
 import { organizationSchema } from '@/schemas/organization-schema'
 import { pageMetadata } from '@/lib/metadata'
 
@@ -136,11 +135,14 @@ function SourceLink({ href, label, invert = false }) {
       rel="noreferrer"
       className={
         invert
-          ? 'mt-5 inline-flex w-fit rounded-full border border-white/10 px-3 py-1 text-xs font-medium text-white/50 transition hover:border-white/20 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950'
-          : 'mt-5 inline-flex w-fit rounded-full border border-neutral-950/10 px-3 py-1 text-xs font-medium text-neutral-500 transition hover:border-neutral-950/20 hover:text-neutral-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2'
+          ? 'mt-5 inline-flex min-h-8 w-fit items-center rounded-full border border-white/15 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-white/65 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition hover:border-white/25 hover:bg-white/[0.06] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950'
+          : 'mt-5 inline-flex min-h-8 w-fit items-center rounded-full border border-neutral-950/10 bg-white px-3 py-1 text-xs font-semibold text-neutral-600 shadow-[0_1px_0_rgba(23,23,23,0.04)] transition hover:border-neutral-950/20 hover:text-neutral-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2'
       }
     >
-      Source: {label}
+      Source · {label}
+      <span className="ml-1 text-[0.65rem]" aria-hidden="true">
+        ↗
+      </span>
     </a>
   )
 }
@@ -171,9 +173,12 @@ function HeroProofSignals() {
             href={source.href}
             target="_blank"
             rel="noreferrer"
-            className="mt-2 inline-flex max-w-full text-[0.625rem] font-semibold text-neutral-400 underline decoration-neutral-300 underline-offset-2 transition hover:text-neutral-950 sm:text-xs"
+            className="mt-2 inline-flex min-h-7 max-w-full items-center rounded-full border border-neutral-950/10 bg-white px-2.5 text-[0.625rem] font-semibold text-neutral-500 shadow-[0_1px_0_rgba(23,23,23,0.04)] transition hover:border-neutral-950/20 hover:text-neutral-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 sm:text-xs"
           >
-            Source: {source.label}
+            Source · {source.label}
+            <span className="ml-1 text-[0.6rem]" aria-hidden="true">
+              ↗
+            </span>
           </a>
         </li>
       ))}
@@ -457,7 +462,7 @@ export const metadata = {
 export default function Home() {
   return (
     <>
-      <Script
+      <script
         id="organization-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -480,7 +485,7 @@ export default function Home() {
             <Button href="/contact">Contact us</Button>
             <Link
               href="/process"
-              className="inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold text-neutral-950 ring-1 ring-neutral-950/10 transition hover:bg-neutral-50 hover:ring-neutral-950/20"
+              className="inline-flex min-h-11 items-center rounded-full px-5 py-2 text-sm font-semibold text-neutral-950 ring-1 ring-neutral-950/10 transition hover:bg-neutral-50 hover:ring-neutral-950/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
             >
               <span className="relative top-px">Learn how it works</span>
             </Link>

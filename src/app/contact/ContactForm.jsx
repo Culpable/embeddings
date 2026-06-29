@@ -1,6 +1,6 @@
 'use client'
 
-import { useId, useState } from 'react'
+import { useId, useRef, useState } from 'react'
 import clsx from 'clsx'
 import { Button } from '@/components/Button'
 import { FadeIn } from '@/components/FadeIn'
@@ -182,7 +182,7 @@ function RadioInput({ id, label, invalid = false, ...props }) {
     <label
       htmlFor={id}
       className={clsx(
-        'flex gap-x-3 rounded-2xl border p-2 transition hover:bg-neutral-950/[0.03] has-[:disabled]:cursor-not-allowed has-[:checked]:border-neutral-950/10 has-[:checked]:bg-neutral-950/[0.04] has-[:disabled]:opacity-60',
+        'flex min-h-14 items-center gap-x-3 rounded-2xl border px-3 py-3 transition hover:bg-neutral-950/[0.03] has-[:checked]:border-neutral-950/20 has-[:checked]:bg-neutral-950/[0.05] has-[:checked]:shadow-sm has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-60',
         invalid ? 'border-red-200 bg-red-50/50' : 'border-transparent',
       )}
     >
@@ -191,7 +191,7 @@ function RadioInput({ id, label, invalid = false, ...props }) {
         type="radio"
         {...props}
         className={clsx(
-          'h-6 w-6 flex-none appearance-none rounded-full border outline-none transition checked:border-[0.5rem] checked:border-neutral-950 focus-visible:ring-1 focus-visible:ring-neutral-950 focus-visible:ring-offset-2',
+          'h-6 w-6 flex-none appearance-none rounded-full border outline-none transition checked:border-[0.45rem] checked:border-neutral-950 focus-visible:ring-1 focus-visible:ring-neutral-950 focus-visible:ring-offset-2',
           invalid ? 'border-red-400' : 'border-neutral-950/20',
         )}
       />
@@ -200,7 +200,7 @@ function RadioInput({ id, label, invalid = false, ...props }) {
   )
 }
 
-function StatusPanel({ status, message }) {
+function StatusPanel({ status, message, panelRef }) {
   if (status === 'idle') {
     return null
   }
@@ -210,13 +210,15 @@ function StatusPanel({ status, message }) {
 
   return (
     <div
+      ref={panelRef}
       role={isError ? 'alert' : 'status'}
       aria-live={isError ? 'assertive' : 'polite'}
+      tabIndex={-1}
       className={
         isError
           ? 'mt-6 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-700 shadow-sm'
           : isSuccess
-            ? 'mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 text-sm text-emerald-800 shadow-sm'
+            ? 'mt-6 rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-emerald-50 px-5 py-5 text-sm text-emerald-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-600/40'
             : 'mt-6 overflow-hidden rounded-2xl border border-neutral-950/10 bg-white px-5 py-4 text-sm text-neutral-700 shadow-sm'
       }
     >
@@ -257,6 +259,7 @@ function getErrorMessage(status) {
 }
 
 export function ContactForm() {
+  const statusPanelRef = useRef(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [fieldErrors, setFieldErrors] = useState({})
   const [submitStatus, setSubmitStatus] = useState({
@@ -264,6 +267,7 @@ export function ContactForm() {
     message: '',
   })
   const hasFieldErrors = Object.values(fieldErrors).some(Boolean)
+  const isSuccess = submitStatus.status === 'success'
 
   function handleFieldBlur(fieldName, event) {
     const form = event.currentTarget.form
@@ -361,6 +365,9 @@ export function ContactForm() {
       })
       form.reset()
       setFieldErrors({})
+      window.setTimeout(() => {
+        statusPanelRef.current?.focus({ preventScroll: true })
+      })
 
       track('Contact Form Submitted Successfully', {
         form_type: 'business_enquiry',
@@ -389,11 +396,9 @@ export function ContactForm() {
     }
   }
 
-  function handleFieldFocus(fieldName) {
-    track('Contact Form Field Focused', {
-      field_name: fieldName,
-      form_type: 'business_enquiry',
-    })
+  function handleSendAnotherMessage() {
+    setSubmitStatus({ status: 'idle', message: '' })
+    setFieldErrors({})
   }
 
   return (
@@ -438,134 +443,140 @@ export function ContactForm() {
           className="hidden"
         />
 
-        <fieldset
-          disabled={isSubmitting}
-          className="mt-8 transition-opacity disabled:opacity-70"
-        >
-          <legend className="sr-only">Business enquiry details</legend>
-          <ErrorSummary errors={fieldErrors} />
-          <div className="isolate -space-y-px rounded-2xl bg-white/50 shadow-[0_1px_0_rgba(23,23,23,0.04)]">
-            <TextInput
-              id="name-field"
-              label="Name"
-              name="name"
-              autoComplete="name"
-              required
-              error={fieldErrors.name}
-              onFocus={() => handleFieldFocus('name')}
-              onBlur={(event) => handleFieldBlur('name', event)}
-            />
-            <TextInput
-              id="email-field"
-              label="Email"
-              type="email"
-              name="email"
-              autoComplete="email"
-              required
-              error={fieldErrors.email}
-              onFocus={() => handleFieldFocus('email')}
-              onBlur={(event) => handleFieldBlur('email', event)}
-            />
-            <TextInput
-              id="company-field"
-              label="Company"
-              name="company"
-              autoComplete="organization"
-              required
-              error={fieldErrors.company}
-              onFocus={() => handleFieldFocus('company')}
-              onBlur={(event) => handleFieldBlur('company', event)}
-            />
-            <TextInput
-              id="phone-field"
-              label="Phone"
-              type="tel"
-              name="phone"
-              autoComplete="tel"
-              required
-              error={fieldErrors.phone}
-              onFocus={() => handleFieldFocus('phone')}
-              onBlur={(event) => handleFieldBlur('phone', event)}
-            />
-            <TextInput
-              id="message-field"
-              label="Message"
-              name="message"
-              required
-              multiline
-              rows={3}
-              error={fieldErrors.message}
-              onFocus={() => handleFieldFocus('message')}
-              onBlur={(event) => handleFieldBlur('message', event)}
-            />
-            <div
-              className={clsx(
-                'border px-6 py-8 first:rounded-t-2xl last:rounded-b-2xl',
-                fieldErrors.budget
-                  ? 'border-red-300 bg-red-50/40'
-                  : 'border-neutral-300',
-              )}
-            >
-              <fieldset
-                aria-invalid={fieldErrors.budget ? 'true' : undefined}
-                aria-describedby={
-                  fieldErrors.budget ? 'budget-error' : undefined
-                }
-              >
-                <legend className="text-base/6 text-neutral-500">Budget</legend>
-                <p className="mt-2 text-sm leading-6 text-neutral-500">
-                  Select the closest planning range.
-                </p>
-                {fieldErrors.budget && (
-                  <p
-                    id="budget-error"
-                    className="mt-3 text-sm font-medium text-red-600"
-                  >
-                    {fieldErrors.budget}
-                  </p>
+        {!isSuccess && (
+          <fieldset
+            disabled={isSubmitting}
+            className="mt-8 transition-opacity disabled:opacity-70"
+          >
+            <legend className="sr-only">Business enquiry details</legend>
+            <ErrorSummary errors={fieldErrors} />
+            <div className="isolate -space-y-px rounded-2xl bg-white/50 shadow-[0_1px_0_rgba(23,23,23,0.04)]">
+              <TextInput
+                id="name-field"
+                label="Name"
+                name="name"
+                autoComplete="name"
+                required
+                error={fieldErrors.name}
+                onBlur={(event) => handleFieldBlur('name', event)}
+              />
+              <TextInput
+                id="email-field"
+                label="Email"
+                type="email"
+                name="email"
+                autoComplete="email"
+                required
+                error={fieldErrors.email}
+                onBlur={(event) => handleFieldBlur('email', event)}
+              />
+              <TextInput
+                id="company-field"
+                label="Company"
+                name="company"
+                autoComplete="organization"
+                required
+                error={fieldErrors.company}
+                onBlur={(event) => handleFieldBlur('company', event)}
+              />
+              <TextInput
+                id="phone-field"
+                label="Phone"
+                type="tel"
+                name="phone"
+                autoComplete="tel"
+                required
+                error={fieldErrors.phone}
+                onBlur={(event) => handleFieldBlur('phone', event)}
+              />
+              <TextInput
+                id="message-field"
+                label="Message"
+                name="message"
+                required
+                multiline
+                rows={3}
+                error={fieldErrors.message}
+                onBlur={(event) => handleFieldBlur('message', event)}
+              />
+              <div
+                className={clsx(
+                  'border px-6 py-8 first:rounded-t-2xl last:rounded-b-2xl',
+                  fieldErrors.budget
+                    ? 'border-red-300 bg-red-50/40'
+                    : 'border-neutral-300',
                 )}
-                <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  {budgetRanges.map(
-                    ({ label, trackingValue, value }, index) => (
-                      <RadioInput
-                        key={value}
-                        id={index === 0 ? 'budget-field' : undefined}
-                        label={label}
-                        name="budget"
-                        value={value}
-                        required
-                        invalid={Boolean(fieldErrors.budget)}
-                        onChange={() => handleBudgetChange(trackingValue)}
-                      />
-                    ),
+              >
+                <fieldset
+                  aria-invalid={fieldErrors.budget ? 'true' : undefined}
+                  aria-describedby={
+                    fieldErrors.budget ? 'budget-error' : undefined
+                  }
+                >
+                  <legend className="text-base/6 text-neutral-500">
+                    Budget
+                  </legend>
+                  <p className="mt-2 text-sm leading-6 text-neutral-500">
+                    Select the closest planning range.
+                  </p>
+                  {fieldErrors.budget && (
+                    <p
+                      id="budget-error"
+                      className="mt-3 text-sm font-medium text-red-600"
+                    >
+                      {fieldErrors.budget}
+                    </p>
                   )}
-                </div>
-              </fieldset>
+                  <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    {budgetRanges.map(
+                      ({ label, trackingValue, value }, index) => (
+                        <RadioInput
+                          key={value}
+                          id={index === 0 ? 'budget-field' : undefined}
+                          label={label}
+                          name="budget"
+                          value={value}
+                          required
+                          invalid={Boolean(fieldErrors.budget)}
+                          onChange={() => handleBudgetChange(trackingValue)}
+                        />
+                      ),
+                    )}
+                  </div>
+                </fieldset>
+              </div>
             </div>
-          </div>
-        </fieldset>
+          </fieldset>
+        )}
 
         <StatusPanel
           status={submitStatus.status}
           message={submitStatus.message}
+          panelRef={statusPanelRef}
         />
 
-        <Button
-          type="submit"
-          className="mt-10 min-w-36"
-          disabled={isSubmitting}
-          trackingLabel="Send message"
-        >
-          <span className="inline-flex items-center gap-2">
-            {isSubmitting && (
-              <span
-                className="h-3 w-3 animate-spin rounded-full border-2 border-white/30 border-t-white"
-                aria-hidden="true"
-              />
-            )}
-            {isSubmitting ? 'Sending' : 'Send message'}
-          </span>
-        </Button>
+        {isSuccess ? (
+          <Button type="button" className="mt-8" onClick={handleSendAnotherMessage}>
+            Send another message
+          </Button>
+        ) : (
+          <Button
+            type="submit"
+            className="mt-10 min-w-36"
+            disabled={isSubmitting}
+            trackingLabel="Send message"
+          >
+            <span className="inline-flex items-center gap-2">
+              {isSubmitting && (
+                <span
+                  className="h-3 w-3 animate-spin rounded-full border-2 border-white/30 border-t-white"
+                  aria-hidden="true"
+                />
+              )}
+              {isSubmitting ? 'Sending' : 'Send message'}
+            </span>
+          </Button>
+        )}
       </form>
     </FadeIn>
   )

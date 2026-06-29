@@ -36,7 +36,10 @@ export default function Layout({ children }) {
   return (
     <html lang="en" className="h-full bg-neutral-950 text-base antialiased">
       {/* Suppress hydration mismatch warnings when browser extensions inject transient body attributes. */}
-      <body suppressHydrationWarning className="flex min-h-full flex-col">
+      <body
+        suppressHydrationWarning
+        className="flex min-h-full flex-col overflow-x-hidden"
+      >
         <RootLayout>{children}</RootLayout>
       </body>
     </html>

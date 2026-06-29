@@ -16,7 +16,7 @@ const floatingSnippets = [
   { text: 'material: Crepe', x: '88%', delay: '5s', duration: '19s', opacity: '0.14' },
   { text: 'Women\u2019s Midi Dress', x: '40%', delay: '9s', duration: '21s', opacity: '0.12' },
   { text: 'stock: 142 units', x: '15%', delay: '4s', duration: '23s', opacity: '0.11' },
-  { text: 'trend: +758% YoY', x: '65%', delay: '8s', duration: '17s', opacity: '0.14' },
+  { text: 'AI traffic: +393% YoY', x: '65%', delay: '8s', duration: '17s', opacity: '0.14' },
   { text: 'category: Dresses > Midi', x: '35%', delay: '2s', duration: '25s', opacity: '0.11' },
   { text: 'price: $189.00 AUD', x: '80%', delay: '6s', duration: '20s', opacity: '0.12' },
 ]

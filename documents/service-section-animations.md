@@ -9,7 +9,9 @@
 
 The home page features the existing `CatalogueTransformation` before/after visual followed immediately by a four-step left-rail service timeline. The timeline now includes an "implementation loop" bridge so the before/after overview and the detailed delivery stages read as one connected services section.
 
-On desktop and tablet, each timeline item has service copy, one bespoke animated SVG, and readable HTML proof labels below the animation. The SVGs are loaded through `ResponsiveServiceAnimation.jsx`, which only imports the desktop/tablet animation components once the viewport is at least `640px`; this keeps mobile HTML from carrying hidden desktop SVG markup. On mobile, the bespoke SVGs are replaced by `MobileServiceStoryboard` cards in `ServiceTimelineLeftRail.jsx`; this keeps the service meaning readable at 390px without shrinking SVG text into decorative detail.
+On desktop and tablet, each timeline item has service copy, one bespoke animated SVG, and readable HTML proof labels below the animation. The SVGs are loaded through `ResponsiveServiceAnimation.jsx::ResponsiveServiceAnimation`, which only imports the desktop/tablet animation components once the viewport is at least `640px`; this keeps mobile HTML from carrying hidden desktop SVG markup. On mobile, the bespoke SVGs are replaced by `MobileServiceStoryboard` cards in `ServiceTimelineLeftRail.jsx`; this keeps the service meaning readable at 390px without shrinking SVG text into decorative detail.
+
+`ResponsiveServiceAnimation.jsx::ResponsiveServiceAnimation` renders a stable `ServiceAnimationShell` frame first, then observes the animation wrapper with `IntersectionObserver` and a `600px` vertical root margin. The dynamic animation module is imported only when its timeline step approaches the viewport, so the first home page view does not fetch the four service animation chunks while the section still preserves its desktop aspect ratio and scroll height.
 
 Each `.service-timeline-step` uses CSS `content-visibility: auto` with a stable intrinsic size in `src/styles/components.css`. This lets below-the-fold service steps skip rendering work until they approach the viewport while preserving scroll height and section rhythm.
 
@@ -203,16 +205,16 @@ Services SectionIntro (existing)
      └─ Implementation loop bridge copy
      └─ ServiceLoopOverview four-stage proof cards
      └─ Step 1: Catalogue Audit copy
-        └─ Desktop/tablet: ResponsiveServiceAnimation loads AuditXRayScanner + HTML proof labels
+        └─ Desktop/tablet: ResponsiveServiceAnimation shells, then loads AuditXRayScanner + HTML proof labels
         └─ Mobile: MobileServiceStoryboard with gap map, feed risk, revenue priority
      └─ Step 2: Catalogue Freshness copy
-        └─ Desktop/tablet: ResponsiveServiceAnimation loads FreshnessPipelineFlow + HTML proof labels
+        └─ Desktop/tablet: ResponsiveServiceAnimation shells, then loads FreshnessPipelineFlow + HTML proof labels
         └─ Mobile: MobileServiceStoryboard with stock updates, price sync, status freshness
      └─ Step 3: Catalogue Enrichment copy
-        └─ Desktop/tablet: ResponsiveServiceAnimation loads EnrichmentTypewriter + HTML proof labels
+        └─ Desktop/tablet: ResponsiveServiceAnimation shells, then loads EnrichmentTypewriter + HTML proof labels
         └─ Mobile: MobileServiceStoryboard with richer attributes, brand-safe copy, agent taxonomy
      └─ Step 4: Contextual Optimisation copy
-        └─ Desktop/tablet: ResponsiveServiceAnimation loads OptimisationRipple + HTML proof labels
+        └─ Desktop/tablet: ResponsiveServiceAnimation shells, then loads OptimisationRipple + HTML proof labels
         └─ Mobile: MobileServiceStoryboard with trend signals, seasonal updates, demand capture
 
 ContactSection (existing)

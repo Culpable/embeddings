@@ -45,6 +45,27 @@ const proofSignals = [
   },
 ]
 
+function IntroProofBand() {
+  return (
+    <div className="mt-10 grid max-w-4xl grid-cols-1 gap-3 text-base sm:grid-cols-3">
+      {proofSignals.map(({ label, value }) => (
+        <div
+          key={label}
+          className="rounded-2xl border border-neutral-950/10 bg-white/80 px-4 py-4 shadow-[0_1px_0_rgba(23,23,23,0.04)]"
+        >
+          <p className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
+            {label}
+          </p>
+          <p className="mt-2 font-display text-lg font-medium tracking-tight text-neutral-950">
+            {value}
+          </p>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+
 function ProofLedger() {
   return (
     <Container className="mt-16">
@@ -176,6 +197,7 @@ export default function About() {
           enrich, and operationalise your catalogue so AI agents from Google and
           OpenAI recommend your products first.
         </p>
+        <IntroProofBand />
         <div className="mt-10 max-w-2xl space-y-6 text-base">
           <p>
             Embeddings was founded by engineers who spent years building large
@@ -201,7 +223,7 @@ export default function About() {
       <Container className="mt-16">
         <StatList>
           <StatListItem
-            value="758%"
+            value="393%"
             label="YoY growth in AI-driven e-commerce"
             sourceLabel="Adobe"
             sourceHref="https://business.adobe.com/blog/ai-traffic-surge-retail-sites-not-machine-readable"

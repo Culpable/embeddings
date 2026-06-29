@@ -24,9 +24,12 @@ export function StatListItem({ label, value, sourceHref, sourceLabel }) {
                 href={sourceHref}
                 target="_blank"
                 rel="noreferrer"
-                className="font-medium text-neutral-500 underline decoration-neutral-300 underline-offset-2 transition hover:text-neutral-950"
+                className="inline-flex min-h-7 items-center rounded-full border border-neutral-950/10 bg-white px-2.5 text-xs font-semibold text-neutral-500 shadow-[0_1px_0_rgba(23,23,23,0.04)] transition hover:border-neutral-950/20 hover:text-neutral-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
               >
-                Source: {sourceLabel}
+                Source · {sourceLabel}
+                <span className="ml-1 text-[0.6rem]" aria-hidden="true">
+                  ↗
+                </span>
               </a>
             ) : (
               <span className="font-medium text-neutral-500">

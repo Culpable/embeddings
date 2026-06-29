@@ -1,7 +1,7 @@
 const MIXPANEL_TOKEN = '48ebd83acf333df6efcfe970cfde6c5c'
 const isDevelopment = process.env.NODE_ENV === 'development'
 const recordingPercent = Number(
-  process.env.NEXT_PUBLIC_MIXPANEL_RECORDING_PERCENT ?? '10',
+  process.env.NEXT_PUBLIC_MIXPANEL_RECORDING_PERCENT ?? '0',
 )
 const shouldRecordHeatmaps =
   process.env.NEXT_PUBLIC_MIXPANEL_RECORD_HEATMAPS === 'true'
@@ -12,7 +12,7 @@ let mixpanelInitialisationPromise = null
 
 function clampRecordingPercent(value) {
   if (!Number.isFinite(value)) {
-    return 10
+    return 0
   }
 
   return Math.min(100, Math.max(0, value))
