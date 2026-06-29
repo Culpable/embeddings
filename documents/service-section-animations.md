@@ -7,7 +7,7 @@
 
 ## Overview
 
-The home page features four dedicated service sections below the existing `CatalogueTransformation` before/after visual. Each section has a `SectionIntro` (eyebrow + title + body) followed by one or two bespoke animated SVGs.
+The home page features the existing `CatalogueTransformation` before/after visual followed by a four-step left-rail service timeline. Each timeline item has service copy, one bespoke animated SVG, and readable HTML proof labels below the animation so the key outcome remains legible on mobile.
 
 All animations share these conventions:
 - **viewBox:** `0 0 960 320`
@@ -15,6 +15,7 @@ All animations share these conventions:
 - **Typography:** `font-display text-[11px] font-semibold tracking-wider uppercase` for labels
 - **Animation:** Pure CSS `@keyframes` in `<style>` blocks within each SVG, plus SVG `<animateMotion>` for particles
 - **SVG framing (service sections):** Mobile/tablet framing is per-component; Audit/Freshness/Optimisation use responsive aspect-ratio wrappers with `preserveAspectRatio="xMidYMid slice"`, while Enrichment keeps native scaling and compacts left/right edge clusters inward so connectors read shorter without distorting nodes/cards
+- **Companion labels:** `ServiceTimelineLeftRail.jsx` renders three HTML proof labels below each SVG. These labels summarise the animation outcome with normal page text, improving mobile scanability without changing SVG timing.
 - **Component type:** Server Component (no `'use client'` directive)
 
 ---
@@ -28,7 +29,7 @@ All animations share these conventions:
 | Catalogue Enrichment | A — Typewriter | `EnrichmentTypewriter.jsx` |
 | Contextual Optimisation | C — Ripple (active) + B — Seismograph (commented out, kept for future use) | `OptimisationRipple.jsx`, `OptimisationSeismograph.jsx` |
 
-> **Note:** The Seismograph animation (`OptimisationSeismograph.jsx`) is intentionally commented out in `page.jsx` but the component file is retained. It can be re-enabled by uncommenting the `<FadeIn>` block in the `ContextualOptimisation` function.
+> **Note:** The Seismograph animation (`OptimisationSeismograph.jsx`) is retained for future use but is not wired into the active home page. It can be re-enabled by importing it into the relevant service section and rendering it inside the timeline.
 
 ### Rejected Variants (deleted)
 
@@ -53,14 +54,14 @@ All animations share these conventions:
 ### Service 2: Catalogue Freshness
 
 - **Eyebrow:** "catalogue freshness"
-- **Title:** "Stale data is invisible data"
+- **Title:** "Fresh data keeps you in the recommendation set"
 - **Body:** "AI agents penalise outdated catalogues. We build real-time integrations from your ERP, POS, and inventory systems so stock levels, pricing, and product status are always current. A fresh catalogue means your products stay in the recommendation set."
 
 ### Service 3: Catalogue Enrichment
 
 - **Eyebrow:** "catalogue enrichment"
 - **Title:** "From thin listings to rich, AI-readable content"
-- **Body:** "Our LLM pipelines transform sparse product data into rich, brand-aligned descriptions, categories, and attributes. Thousands of SKUs enriched in hours, not months. If an AI agent can't understand your product data, your products don't exist in agentic commerce."
+- **Body:** "Our LLM pipelines transform sparse product data into rich, brand-aligned descriptions, categories, and attributes. Thousands of SKUs enriched in hours, not months. If an AI agent can’t understand your product data, your products don’t exist in agentic commerce."
 
 ### Service 4: Contextual Catalogue Optimisation
 
@@ -163,22 +164,19 @@ When a ripple ring reaches a product card node, that node flashes and receives a
 Services SectionIntro (existing)
   └─ CatalogueTransformation (existing before/after visual)
 
-Service 1: Catalogue Audit
-  └─ SectionIntro
-  └─ AuditXRayScanner (enhanced with yellow/red)
-
-Service 2: Catalogue Freshness
-  └─ SectionIntro
-  └─ FreshnessPipelineFlow
-
-Service 3: Catalogue Enrichment
-  └─ SectionIntro
-  └─ EnrichmentTypewriter
-
-Service 4: Contextual Catalogue Optimisation
-  └─ SectionIntro
-  └─ OptimisationSeismograph (intentionally commented out; kept for future use)
-  └─ OptimisationRipple (contextual product nodes)
+ServiceTimelineLeftRail
+  └─ Step 1: Catalogue Audit copy
+     └─ AuditXRayScanner
+     └─ HTML proof labels: gap map, feed risk, revenue priority
+  └─ Step 2: Catalogue Freshness copy
+     └─ FreshnessPipelineFlow
+     └─ HTML proof labels: stock updates, price sync, status freshness
+  └─ Step 3: Catalogue Enrichment copy
+     └─ EnrichmentTypewriter
+     └─ HTML proof labels: richer attributes, brand-safe copy, agent taxonomy
+  └─ Step 4: Contextual Optimisation copy
+     └─ OptimisationRipple
+     └─ HTML proof labels: trend signals, seasonal updates, demand capture
 
 ContactSection (existing)
 ```

@@ -6,7 +6,7 @@ import { PageIntro } from '@/components/PageIntro'
 export const metadata = {
   title: 'Thank You',
   description:
-    'Confirmation that Embeddings received your catalogue-readiness enquiry.',
+    'Confirmation that Embeddings received your business enquiry.',
 }
 
 export default function ThankYou() {
@@ -14,12 +14,11 @@ export default function ThankYou() {
     <>
       <PageIntro
         eyebrow="message received"
-        title="We’ll review your catalogue-readiness goals"
+        title="We’ll review your enquiry"
       >
         <p>
-          Thanks for getting in touch. We’ll look at your catalogue context,
-          platform, SKU volume, and readiness priority before responding with
-          the most useful next step.
+          Thanks for getting in touch. We’ll look at your context and respond
+          with the most useful next step for improving your catalogue data.
         </p>
       </PageIntro>
 

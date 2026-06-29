@@ -13,13 +13,11 @@ import { CatalogueTransformation } from '@/components/CatalogueTransformation'
 import { AuditXRayScanner } from '@/components/AuditXRayScanner'
 import { FreshnessPipelineFlow } from '@/components/FreshnessPipelineFlow'
 import { EnrichmentTypewriter } from '@/components/EnrichmentTypewriter'
-import { OptimisationSeismograph } from '@/components/OptimisationSeismograph'
 import { OptimisationRipple } from '@/components/OptimisationRipple'
 import { AnimatedStat } from '@/components/AnimatedStat'
 import { NoiseOverlay } from '@/components/NoiseOverlay'
 import { ServiceTimelineLeftRail } from '@/components/ServiceTimelineLeftRail'
 
-import { loadCaseStudies } from '@/lib/mdx'
 import { Button } from '@/components/Button'
 
 // ---------------------------------------------------------------------------
@@ -143,22 +141,22 @@ function HeroProofSignals() {
   return (
     <ul
       role="list"
-      className="mt-8 grid max-w-3xl grid-cols-3 gap-2 sm:gap-3"
+      className="mt-8 grid max-w-3xl grid-cols-3 gap-1.5 rounded-2xl border border-neutral-950/10 bg-white/75 p-1.5 shadow-[0_1px_0_rgba(23,23,23,0.04)] sm:gap-3 sm:rounded-none sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none"
       aria-label="Agentic commerce proof points"
     >
       {heroProofSignals.map(({ stat, label }, index) => (
         <li
           key={stat}
-          className="group relative overflow-hidden rounded-2xl border border-neutral-950/10 bg-white/70 px-3 py-3 shadow-[0_1px_0_rgba(23,23,23,0.04)] transition duration-300 hover:-translate-y-0.5 hover:border-neutral-950/20 hover:bg-white hover:shadow-lg sm:px-4"
+          className="group relative overflow-hidden rounded-xl px-2 py-2 transition duration-300 hover:-translate-y-0.5 hover:bg-white sm:rounded-2xl sm:border sm:border-neutral-950/10 sm:bg-white/70 sm:px-4 sm:py-3 sm:shadow-[0_1px_0_rgba(23,23,23,0.04)] sm:hover:border-neutral-950/20 sm:hover:shadow-lg"
         >
           <div
             className={`absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r ${urgencyGradients[index]}`}
             aria-hidden="true"
           />
-          <p className="font-display text-base font-semibold tracking-tight text-neutral-950 sm:text-lg">
+          <p className="font-display text-sm font-semibold tracking-tight text-neutral-950 sm:text-lg">
             {stat}
           </p>
-          <p className="mt-1 text-[0.6875rem] leading-4 text-neutral-500 sm:text-xs sm:leading-5">
+          <p className="mt-1 text-[0.625rem] leading-3 text-neutral-500 sm:text-xs sm:leading-5">
             {label}
           </p>
         </li>
@@ -562,10 +560,7 @@ export const metadata = {
   description: pageMetadata.home.description,
 }
 
-export default async function Home() {
-  // Case studies data retained for future use
-  let caseStudies = (await loadCaseStudies()).slice(0, 3)
-
+export default function Home() {
   return (
     <>
       <Script
@@ -587,7 +582,7 @@ export default async function Home() {
             help Australian retailers win that recommendation, starting with
             your catalogue.
           </p>
-          <div className="mt-8 flex gap-4">
+          <div className="mt-8 flex flex-wrap gap-3 sm:gap-4">
             <Button href="/contact">Contact us</Button>
             <Link
               href="/process"

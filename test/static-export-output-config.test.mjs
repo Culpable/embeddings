@@ -9,6 +9,11 @@ const deployWorkflowPath = resolve(
   process.cwd(),
   '.github/workflows/deploy.yml',
 )
+const sitemapConfigPath = resolve(process.cwd(), 'src/lib/sitemap.js')
+const testMixpanelLayoutPath = resolve(
+  process.cwd(),
+  'src/app/test-mixpanel/layout.jsx',
+)
 
 test('static export keeps next internals out of the published out directory', () => {
   // Keep Next build internals in .next so GitHub Pages receives only the
@@ -39,5 +44,30 @@ test('static export keeps next internals out of the published out directory', ()
     deployWorkflow,
     /rm -rf \.next out[\s\S]*npm run build/,
     'Expected deployment to clean stale build output before building',
+  )
+})
+
+
+test('sitemap excludes internal debug routes', () => {
+  // Keep internal diagnostics out of crawlable production metadata.
+  const sitemapConfig = readFileSync(sitemapConfigPath, 'utf8')
+
+  assert.match(
+    sitemapConfig,
+    /EXCLUDED_ROUTES\s*=\s*\[[\s\S]*['"]\/test-mixpanel['"]/,
+    'Expected the internal Mixpanel debug page to be excluded from the public sitemap',
+  )
+})
+
+
+test('internal debug routes opt out of indexing', () => {
+  // Keep the diagnostics URL available for direct checks without presenting it
+  // as a crawlable marketing page.
+  const testMixpanelLayout = readFileSync(testMixpanelLayoutPath, 'utf8')
+
+  assert.match(
+    testMixpanelLayout,
+    /robots:\s*\{[\s\S]*index:\s*false[\s\S]*follow:\s*false/,
+    'Expected the internal Mixpanel debug route to declare noindex,nofollow metadata',
   )
 })

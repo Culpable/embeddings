@@ -9,12 +9,12 @@
 
 export function HeroDataFlow() {
   return (
-    <div className="relative mt-16 w-full overflow-hidden" aria-hidden="true">
+    <div className="relative mt-10 w-full overflow-hidden sm:mt-16" aria-hidden="true">
       <svg
         viewBox="0 0 960 320"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="h-auto w-full"
+        className="-ml-[7%] h-auto w-[114%] max-w-none sm:ml-0 sm:w-full"
         role="img"
       >
         {/* ----------------------------------------------------------------- */}

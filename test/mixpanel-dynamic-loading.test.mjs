@@ -43,6 +43,25 @@ test('mixpanel provider schedules analytics after initial render work', () => {
   )
 })
 
+
+test('referral attribution loads after mixpanel instead of in the initial provider bundle', () => {
+  // Keep the heavier referral classifier out of the first client route chunk.
+  const source = readFileSync(mixpanelProviderPath, 'utf8')
+
+  assert.doesNotMatch(
+    source,
+    /import\s+\{\s*initReferralTracking\s*\}\s+from\s+['"]@\/lib\/referralTracking['"]/,
+    'Expected referral tracking not to be statically imported by MixpanelProvider',
+  )
+
+  assert.match(
+    source,
+    /import\(['"]@\/lib\/referralTracking['"]\)/,
+    'Expected referral tracking to be loaded with a dynamic import',
+  )
+})
+
+
 test('mixpanel replay defaults stay light for public marketing pages', () => {
   // Keep core analytics while avoiding full-session recording and heatmap work
   // for every visitor by default.

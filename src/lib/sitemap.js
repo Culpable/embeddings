@@ -29,6 +29,7 @@ const CORE_ROUTES = [
 const EXCLUDED_ROUTES = [
   '/404',          // 404 page
   '/500',          // 500 page
+  '/test-mixpanel', // Internal analytics debug page
 ];
 
 /**

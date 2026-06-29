@@ -15,6 +15,8 @@ These rules apply specifically to this repository and should be used for all cod
 - The business enquiry form fields are: name, email, company, phone, message, and budget.
 - Frontend improvements may change layout, styling, focus states, loading states, error states, success states, and fallback behaviour, but must not replace the field contract with catalogue-readiness, SKU, platform, feed source, or priority fields without explicit approval.
 - Keep the contact route and contact form helper copy broad and concise. Do not add catalogue-readiness-specific form guidance or contact side-panel "what happens next" workflow content unless the user explicitly requests that messaging change.
+- Preserve the stable contact page copy unless the user explicitly requests copy changes. The contact metadata description must stay "Contact us to learn how we can integrate AI into your business.", the contact PageIntro title must stay "Your AI advantage starts here", and the PageIntro body must stay "Ready to experience the future of work? Contact us to see how we can integrate AI into your business."
+- Preserve the existing contact details side panel copy and structure unless the user explicitly requests copy changes. Keep "our offices", "We’re based in Perth and Melbourne, and work with clients all over Australia.", "email us", and "business enquiries"; do not add new trust, process, readiness, workflow, or "what we handle" copy to that side panel without explicit approval.
 </contact_form_rules>
 
 <code_standards>

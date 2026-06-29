@@ -1,0 +1,16 @@
+<bug_sweep>
+  <metadata>
+    <worker>ui-interaction</worker>
+    <scope>src/components/RootHeader.jsx; src/styles/components.css; src/app/contact/ContactForm.jsx; src/app/contact/ContactDetails.jsx; src/app/contact/page.jsx; src/app/thank-you/page.jsx; src/app/page.jsx; src/components/HeroDataFlow.jsx; src/components/ServiceTimelineLeftRail.jsx; test/contact-form-contract.test.mjs; documents/service-section-animations.md</scope>
+  </metadata>
+  <bugs>
+    <bug_1>
+      <title>Mobile navigation panel clips open-menu content after enter animation</title>
+      <severity>medium</severity>
+      <file>src/styles/components.css:42</file>
+      <description>The opened navigation panel keeps the animation’s final max-height after the enter animation completes because `.navigation-panel-enter` uses `animation-fill-mode: both` and `navigationPanelEnter` ends at `max-height: 52rem`. On mobile, the open panel rendered by `RootHeader` is taller than 52rem, while the panel also has `overflow-hidden`, so the bottom of the offices/helper area is visually clipped and cannot be scrolled inside the panel.</description>
+      <evidence>Source: `src/components/RootHeader.jsx:202` renders the open panel with `className="navigation-panel-enter relative z-50 overflow-hidden bg-neutral-950 pt-2"`. `src/styles/components.css:42` applies `animation: navigationPanelEnter 500ms cubic-bezier(0.22, 1, 0.36, 1) both;`, and `src/styles/components.css:51` sets the final keyframe to `max-height: 52rem`. Browser verification at `http://localhost:3002/` with viewport `390x900` measured the open panel as `clientHeight: 832`, `scrollHeight: 1117`, `maxHeight: "832px"`, and `overflowY: "hidden"`, confirming 285px of menu content is clipped. The same check at `1440x900` measured `clientHeight: 802` and `scrollHeight: 802`, so the defect is mobile-specific.</evidence>
+      <recommendation>Remove the persistent height cap after the enter transition. For example, animate with a wrapper or keyframes that do not leave `max-height` applied after completion, set a mobile-safe larger cap, or switch to a transform/clip-path based reveal that lets the final panel use its natural height. Re-test the open menu at `390x900` and `1440x900`, including focus order, visible offices text, and horizontal overflow.</recommendation>
+    </bug_1>
+  </bugs>
+</bug_sweep>

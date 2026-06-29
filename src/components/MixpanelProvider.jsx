@@ -3,7 +3,6 @@
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { initMixpanel, track } from '@/lib/mixpanelClient'
-import { initReferralTracking } from '@/lib/referralTracking'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
@@ -57,6 +56,10 @@ export default function MixpanelProvider() {
         const mixpanelInitialized = await initMixpanel()
 
         if (mixpanelInitialized) {
+          // Load referral attribution only after analytics is ready so the
+          // classifier and polling logic stay out of the initial route bundle.
+          const { initReferralTracking } = await import('@/lib/referralTracking')
+
           initReferralTracking()
         } else {
           console.warn(

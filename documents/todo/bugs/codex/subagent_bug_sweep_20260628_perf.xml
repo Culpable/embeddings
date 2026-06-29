@@ -1,0 +1,24 @@
+<bug_sweep>
+  <metadata>
+    <worker>performance-static</worker>
+    <scope>Audited performance/static-export changes across src/components/Button.jsx, src/components/GridPattern.jsx, src/components/MixpanelProvider.jsx, src/components/RootLayout.jsx, src/app/about/page.jsx, src/app/process/page.jsx, src/images/process/, src/app/page.jsx, public/sitemap.xml, documents/MIXPANEL_SETUP.md, test/root-layout-server-shell.test.mjs, test/mixpanel-dynamic-loading.test.mjs, and test/static-button-boundary.test.mjs.</scope>
+  </metadata>
+  <bugs>
+    <bug_1>
+      <title>Internal Mixpanel debug route is exposed in the public sitemap</title>
+      <severity>medium</severity>
+      <file>public/sitemap.xml:28</file>
+      <description>The generated public sitemap advertises https://embeddings.au/test-mixpanel even though src/app/test-mixpanel/page.jsx is an internal analytics debug page. Search crawlers and sitemap consumers can discover and index the test route, which is not part of the public marketing surface and can send synthetic/test analytics events if visitors or bots interact with it.</description>
+      <evidence>public/sitemap.xml and out/sitemap.xml both include &lt;loc&gt;https://embeddings.au/test-mixpanel&lt;/loc&gt;. src/scripts/generate-sitemap.js excludes disabled/private folders but src/lib/sitemap.js only excludes /404 and /500, so the app-directory scan still publishes /test-mixpanel. Read-only checks also found out/test-mixpanel.html in the existing static export.</evidence>
+      <recommendation>Add /test-mixpanel to EXCLUDED_ROUTES in src/lib/sitemap.js, or move the debug page under a private/disabled folder so the sitemap generator and static export do not expose it as a public route.</recommendation>
+    </bug_1>
+    <bug_2>
+      <title>Mixpanel setup documentation is stale after analytics performance changes</title>
+      <severity>low</severity>
+      <file>documents/MIXPANEL_SETUP.md:25</file>
+      <description>The Mixpanel setup guide still claims the shared Button component has automatic click tracking and that session recording is configured at 100%, which contradicts the current performance changes. The implementation now deliberately keeps Button server-renderable without analytics imports, and mixpanelClient defaults session replay sampling to 10% via NEXT_PUBLIC_MIXPANEL_RECORDING_PERCENT.</description>
+      <evidence>documents/MIXPANEL_SETUP.md lines 25, 31, 78, and 184 still describe Button click tracking and 100% session recording. The current code in src/components/Button.jsx lines 12-14 swallows legacy tracking props without importing analytics, while src/lib/mixpanelClient.js lines 3-5 and 82-89 default record_sessions_percent to 10 and disable automatic pageview tracking.</evidence>
+      <recommendation>Update documents/MIXPANEL_SETUP.md so it reflects the current contract: page views are tracked by MixpanelProvider after idle scheduling, shared Button does not auto-track clicks, meaningful CTA/form events must be tracked in the owning client component, and session replay defaults to 10% unless NEXT_PUBLIC_MIXPANEL_RECORDING_PERCENT overrides it.</recommendation>
+    </bug_2>
+  </bugs>
+</bug_sweep>

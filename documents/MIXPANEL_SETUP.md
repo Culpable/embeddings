@@ -22,13 +22,13 @@ This document explains the Mixpanel analytics integration that has been implemen
 1. **`src/lib/mixpanelClient.js`** - Core Mixpanel configuration and client
 2. **`src/components/MixpanelProvider.jsx`** - Provider component for app-wide integration
 3. **`src/app/layout.jsx`** - Updated to include MixpanelProvider
-4. **`src/components/Button.jsx`** - Enhanced with automatic click tracking
+4. **`src/components/Button.jsx`** - Shared server-renderable CTA component; it deliberately does not import analytics
 5. **`src/app/contact/ContactForm.jsx`** - Updated with comprehensive form tracking
 
 ### ✅ Events Currently Being Tracked
 
 - **Page Views**: Automatic tracking when users navigate between pages
-- **Button Clicks**: All Button component usage with context
+- **CTA/Form Events**: Meaningful interactions are tracked inside the client component that owns the event
 - **Contact Form Interactions**:
   - Form submission attempts
   - Successful submissions with form data insights
@@ -53,14 +53,14 @@ The current code does not read environment variables. If you want to switch to e
 ## 🔒 Privacy & Security Considerations
 
 ### Current Privacy Settings
-- **Session Recording**: Set to 100% (can be reduced for production)
+- **Session Recording**: Defaults to 10%; override with `NEXT_PUBLIC_MIXPANEL_RECORDING_PERCENT`
 - **Sensitive Data Masking**: Elements with class `sensitive-data` are automatically masked
 - **Data Retention**: Follows Mixpanel's default retention policies
 
 ### Recommendations for Production
 ```javascript
-// In src/lib/mixpanelClient.js, consider adjusting:
-record_sessions_percent: 10, // Only record 10% of sessions in production
+// In deployment env, adjust only if you need a different sampling rate:
+NEXT_PUBLIC_MIXPANEL_RECORDING_PERCENT=10
 ```
 
 ### Masking Sensitive Data
@@ -75,7 +75,7 @@ Add the `sensitive-data` class to any elements containing sensitive information:
 
 ### Automatic Events
 - **Page View**: Every page navigation with URL and timestamp
-- **Button Clicked**: All button interactions with context
+- **CTA/Form Events**: Events explicitly tracked by their owning client components
 - **Contact Form Submit Attempted**: When users start form submission
 - **Contact Form Submitted Successfully**: Successful submissions with insights
 - **Contact Form Submission Failed**: Failed submissions with error details
@@ -87,7 +87,7 @@ Each event includes relevant properties like:
 - `timestamp`: When the event occurred
 - `page`/`url`: Current page context
 - `form_type`: Type of form being interacted with
-- `button_text`: Text of clicked buttons
+- `cta`: CTA identifier when a client component explicitly tracks the interaction
 - `error_message`: Details of any errors
 - And many more contextual properties
 
@@ -125,18 +125,17 @@ track('Custom Event Name', {
 });
 ```
 
-### Enhanced Button Tracking
-```jsx
-<Button 
-  href="/contact"
-  trackingLabel="hero_cta"
-  trackingProperties={{ 
-    section: 'hero', 
-    campaign: 'summer_2024' 
-  }}
->
-  Contact Us
-</Button>
+### CTA and Interaction Tracking
+The shared `Button` component intentionally stays server-renderable and does
+not import analytics. Track meaningful interactions inside the interactive
+component that owns the event, such as the contact form submit and validation
+handlers.
+
+```javascript
+track('CTA Clicked', {
+  cta: 'hero_contact',
+  section: 'hero'
+});
 ```
 
 ### User Identification
@@ -176,13 +175,13 @@ The current implementation logs initialization and tracking errors to the browse
 
 If you encounter any issues with the integration:
 1. Check the browser console for error messages
-2. Verify your environment variables are set correctly
+2. Verify the hardcoded project token and any optional replay sampling environment variables
 3. Ensure you're using the correct Mixpanel project token
 
 ## Session Replay Feature
 
 Session Replay has been configured with:
-- 100% session recording (configurable via `record_sessions_percent`)
+- 10% session recording by default (configurable via `NEXT_PUBLIC_MIXPANEL_RECORDING_PERCENT`)
 - Privacy masking for elements with `.sensitive-data` class
 - 10-minute idle timeout
 - Minimum 3-second session length

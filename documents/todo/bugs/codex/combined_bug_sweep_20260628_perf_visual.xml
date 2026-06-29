@@ -1,0 +1,32 @@
+<bug_sweep>
+  <metadata>
+    <worker>consolidated</worker>
+    <scope>Consolidated post-change UI, interaction, performance, static-export, and documentation findings from subagent_bug_sweep_20260628_ui.xml and subagent_bug_sweep_20260628_perf.xml.</scope>
+  </metadata>
+  <bugs>
+    <bug_1>
+      <title>Internal Mixpanel debug route is exposed in the public sitemap</title>
+      <severity>medium</severity>
+      <file>public/sitemap.xml:28</file>
+      <description>The generated public sitemap advertised https://embeddings.au/test-mixpanel even though src/app/test-mixpanel/page.jsx is an internal analytics debug page. Search crawlers and sitemap consumers could discover and index the test route, which is not part of the public marketing surface.</description>
+      <evidence>Worker report found public/sitemap.xml and out/sitemap.xml included &lt;loc&gt;https://embeddings.au/test-mixpanel&lt;/loc&gt; because src/lib/sitemap.js did not exclude /test-mixpanel from the app-directory scan.</evidence>
+      <recommendation>Exclude /test-mixpanel from EXCLUDED_ROUTES, regenerate the sitemap, and keep the direct debug route marked noindex,nofollow.</recommendation>
+    </bug_1>
+    <bug_2>
+      <title>Mixpanel setup documentation is stale after analytics performance changes</title>
+      <severity>low</severity>
+      <file>documents/MIXPANEL_SETUP.md:25</file>
+      <description>The Mixpanel setup guide still claimed the shared Button component had automatic click tracking and that session recording was configured at 100%, contradicting the current server-renderable Button and 10% replay default.</description>
+      <evidence>Worker report found stale Button click tracking and 100% session recording references in documents/MIXPANEL_SETUP.md while src/components/Button.jsx deliberately discards legacy tracking props and src/lib/mixpanelClient.js defaults recording to 10%.</evidence>
+      <recommendation>Update documents/MIXPANEL_SETUP.md so it describes explicit owner-component tracking, idle page-view tracking, and the NEXT_PUBLIC_MIXPANEL_RECORDING_PERCENT replay override.</recommendation>
+    </bug_2>
+    <bug_3>
+      <title>Mobile navigation panel clips open-menu content after enter animation</title>
+      <severity>medium</severity>
+      <file>src/styles/components.css:42</file>
+      <description>The opened mobile navigation panel kept the animation’s final max-height after the enter animation completed because .navigation-panel-enter used animation-fill-mode: both. The panel also used overflow-hidden, so the lower offices/helper area could be clipped.</description>
+      <evidence>Worker browser verification at 390x900 measured the open panel as clientHeight 832 and scrollHeight 1117 with maxHeight 832px. Desktop measured clientHeight 802 and scrollHeight 802.</evidence>
+      <recommendation>Remove the persistent animation fill mode so max-height returns to none after the entrance animation completes, then re-test the open menu at 390x900 and 1440x900.</recommendation>
+    </bug_3>
+  </bugs>
+</bug_sweep>

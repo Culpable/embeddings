@@ -22,6 +22,7 @@ const services = [
     eyebrow: 'catalogue audit',
     title: 'See every gap before your competitors exploit it',
     body: 'We analyse your entire product catalogue against Google Merchant Centre specifications and agentic commerce standards. The audit identifies missing descriptions, malformed GTINs, inconsistent taxonomy, and thin data \u2014 then produces a prioritised remediation plan ranked by revenue impact.',
+    proof: ['gap map', 'feed risk', 'revenue priority'],
     Animation: AuditXRayScanner,
   },
   {
@@ -29,6 +30,7 @@ const services = [
     eyebrow: 'catalogue freshness',
     title: 'Fresh data keeps you in the recommendation set',
     body: 'AI agents penalise outdated catalogues. We build real-time integrations from your ERP, POS, and inventory systems so stock levels, pricing, and product status are always current. A fresh catalogue means your products stay in the recommendation set.',
+    proof: ['stock updates', 'price sync', 'status freshness'],
     Animation: FreshnessPipelineFlow,
   },
   {
@@ -36,6 +38,7 @@ const services = [
     eyebrow: 'catalogue enrichment',
     title: 'From thin listings to rich, AI-readable content',
     body: 'Our LLM pipelines transform sparse product data into rich, brand-aligned descriptions, categories, and attributes. Thousands of SKUs enriched in hours, not months. If an AI agent can\u2019t understand your product data, your products don\u2019t exist in agentic commerce.',
+    proof: ['richer attributes', 'brand-safe copy', 'agent taxonomy'],
     Animation: EnrichmentTypewriter,
   },
   {
@@ -43,6 +46,7 @@ const services = [
     eyebrow: 'contextual optimisation',
     title: 'A living catalogue that captures demand as it shifts',
     body: 'We connect your catalogue to live trend signals \u2014 Google Trends, social platforms, news cycles \u2014 so product descriptions evolve with what consumers are searching for right now. When cultural moments create demand spikes, your products are positioned to capture that intent before competitors.',
+    proof: ['trend signals', 'seasonal updates', 'demand capture'],
     Animation: OptimisationRipple,
   },
 ]
@@ -63,7 +67,7 @@ export function ServiceTimelineLeftRail() {
         />
 
         <div className="space-y-16">
-          {services.map(({ step, eyebrow, title, body, Animation }) => (
+          {services.map(({ step, eyebrow, title, body, proof, Animation }) => (
             <FadeIn key={step}>
               <div>
                 {/* Step header — circle + text indented to the right */}
@@ -90,6 +94,20 @@ export function ServiceTimelineLeftRail() {
                 {/* Animation SVG — full-width below, offset to clear the rail */}
                 <div className="mt-8 pl-12 lg:pl-16">
                   <Animation />
+                  <ul
+                    role="list"
+                    aria-label={`${eyebrow} proof points`}
+                    className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-3"
+                  >
+                    {proof.map((item) => (
+                      <li
+                        key={item}
+                        className="rounded-xl border border-neutral-950/10 bg-white px-3 py-2 text-sm font-medium text-neutral-700 shadow-[0_1px_0_rgba(23,23,23,0.04)]"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </FadeIn>

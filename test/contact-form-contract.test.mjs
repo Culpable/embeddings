@@ -38,6 +38,18 @@ test('project guidance protects the business enquiry field contract', () => {
     /must not replace the field contract with catalogue-readiness, SKU, platform, feed source, or priority fields without explicit approval/,
     'Expected AGENTS.md to prevent unapproved catalogue-readiness field changes',
   )
+
+  assert.match(
+    source,
+    /Preserve the stable contact page copy unless the user explicitly requests copy changes/,
+    'Expected AGENTS.md to protect the stable contact page copy',
+  )
+
+  assert.match(
+    source,
+    /do not add new trust, process, readiness, workflow, or "what we handle" copy to that side panel without explicit approval/,
+    'Expected AGENTS.md to prevent unapproved contact details side-panel copy changes',
+  )
 })
 
 
@@ -138,11 +150,31 @@ test('contact page copy no longer asks for removed catalogue fields', () => {
     'catalogue-readiness audit',
     'catalogue size',
     'readiness priority',
+    'what we handle',
+    'Retail catalogue data for agentic shopping',
   ]) {
     assert.doesNotMatch(
       `${pageSource}\n${detailsSource}`,
       new RegExp(removedPhrase),
       `Did not expect contact copy to ask for ${removedPhrase}`,
+    )
+  }
+
+  for (const stablePhrase of [
+    'Contact us to learn how we can integrate AI into your business.',
+    'Your AI advantage starts here',
+    'Ready to experience the future of work? Contact us to see how we can',
+    'integrate AI into your business.',
+    'our offices',
+    'We’re based in Perth and Melbourne, and work with clients all over',
+    'Australia.',
+    'email us',
+    'business enquiries',
+  ]) {
+    assert.match(
+      `${pageSource}\n${detailsSource}`,
+      new RegExp(stablePhrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
+      `Expected contact copy to preserve ${stablePhrase}`,
     )
   }
 })
@@ -174,5 +206,35 @@ test('contact form exposes accessible status states', () => {
     source,
     /Message sent. We’ll get back to you soon./,
     'Expected a visible success message after submission',
+  )
+})
+
+
+test('contact form validates fields inline before submission', () => {
+  // Require accessible field-level validation while preserving the same submitted names.
+  const source = readFileSync(contactFormPath, 'utf8')
+
+  assert.match(
+    source,
+    /noValidate/,
+    'Expected custom validation to replace browser-only invalid UI',
+  )
+
+  assert.match(
+    source,
+    /aria-invalid=\{error \? 'true' : undefined\}/,
+    'Expected text inputs to expose aria-invalid when invalid',
+  )
+
+  assert.match(
+    source,
+    /function ErrorSummary/,
+    'Expected an inline error summary component',
+  )
+
+  assert.match(
+    source,
+    /Contact Form Validation Failed/,
+    'Expected validation failures to be tracked without submitting',
   )
 })

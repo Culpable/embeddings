@@ -189,7 +189,7 @@ export function RootHeader() {
         inert={expanded}
       >
         <Header
-          panelId={panelId}
+          panelId={expanded ? panelId : undefined}
           icon={MenuIcon}
           toggleRef={openRef}
           expanded={expanded}
@@ -199,53 +199,50 @@ export function RootHeader() {
         />
       </div>
 
-      <div
-        ref={panelRef}
-        id={panelId}
-        className={clsx(
-          'relative z-50 overflow-hidden bg-neutral-950 pt-2 transition-[max-height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
-          expanded ? 'max-h-[52rem]' : 'max-h-2',
-        )}
-        aria-hidden={expanded ? undefined : 'true'}
-        inert={!expanded}
-      >
-        <div className="bg-neutral-800">
-          <div className="bg-neutral-950 pb-16 pt-14">
-            <Header
-              invert
-              panelId={panelId}
-              icon={XIcon}
-              toggleRef={closeRef}
-              expanded={expanded}
-              logoHovered={logoHovered}
-              setLogoHovered={setLogoHovered}
-              onToggle={() => togglePanel(!expanded)}
-            />
-          </div>
-          <Navigation />
-          <div className="relative bg-neutral-950 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-neutral-800">
-            <Container>
-              <div className="grid grid-cols-1 gap-y-10 pb-16 pt-10 sm:grid-cols-2 sm:pt-16">
-                <div>
-                  <h2 className="font-display text-base font-semibold text-white">
-                    our offices
-                  </h2>
-                  <Offices
-                    invert
-                    className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2"
-                  />
+      {expanded && (
+        <div
+          ref={panelRef}
+          id={panelId}
+          className="navigation-panel-enter relative z-50 overflow-hidden bg-neutral-950 pt-2"
+        >
+          <div className="bg-neutral-800">
+            <div className="bg-neutral-950 pb-16 pt-14">
+              <Header
+                invert
+                panelId={panelId}
+                icon={XIcon}
+                toggleRef={closeRef}
+                expanded={expanded}
+                logoHovered={logoHovered}
+                setLogoHovered={setLogoHovered}
+                onToggle={() => togglePanel(!expanded)}
+              />
+            </div>
+            <Navigation />
+            <div className="relative bg-neutral-950 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-neutral-800">
+              <Container>
+                <div className="grid grid-cols-1 gap-y-10 pb-16 pt-10 sm:grid-cols-2 sm:pt-16">
+                  <div>
+                    <h2 className="font-display text-base font-semibold text-white">
+                      our offices
+                    </h2>
+                    <Offices
+                      invert
+                      className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2"
+                    />
+                  </div>
+                  <div className="sm:border-l sm:border-transparent sm:pl-16">
+                    <p className="max-w-sm text-sm leading-6 text-neutral-400">
+                      Jump straight to the offer, proof, process, or a
+                      catalogue-readiness conversation.
+                    </p>
+                  </div>
                 </div>
-                <div className="sm:border-l sm:border-transparent sm:pl-16">
-                  <p className="max-w-sm text-sm leading-6 text-neutral-400">
-                    Jump straight to the offer, proof, process, or a
-                    catalogue-readiness conversation.
-                  </p>
-                </div>
-              </div>
-            </Container>
+              </Container>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </header>
   )
 }

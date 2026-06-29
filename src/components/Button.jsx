@@ -1,20 +1,19 @@
-'use client'
-
 import Link from 'next/link'
 import clsx from 'clsx'
-import { track } from '@/lib/mixpanelClient'
 
 export function Button({
   invert = false,
   className,
   children,
   trackingLabel,
-  trackingProperties = {},
+  trackingProperties,
   ...props
 }) {
+  // Accept legacy tracking props without hydrating static CTA links for analytics.
+  void trackingLabel
+  void trackingProperties
+
   const isDisabled = props.disabled || props['aria-disabled']
-  const trackingText =
-    trackingLabel || (typeof children === 'string' ? children : 'button')
 
   className = clsx(
     className,
@@ -25,34 +24,18 @@ export function Button({
       : 'bg-neutral-950 text-white hover:bg-neutral-800',
   )
 
-  const handleClick = (e) => {
-    // Track the button click without serialising nested React children.
-    track('Button Clicked', {
-      button_text: trackingText,
-      button_label: trackingText,
-      href: props.href,
-      invert: invert,
-      ...trackingProperties,
-    })
-
-    // Call the original onClick handler if it exists
-    if (props.onClick) {
-      props.onClick(e)
-    }
-  }
-
   let inner = <span className="relative top-px">{children}</span>
 
   if (typeof props.href === 'undefined') {
     return (
-      <button className={className} {...props} onClick={handleClick}>
+      <button className={className} {...props}>
         {inner}
       </button>
     )
   }
 
   return (
-    <Link className={className} {...props} onClick={handleClick}>
+    <Link className={className} {...props}>
       {inner}
     </Link>
   )
