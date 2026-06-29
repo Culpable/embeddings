@@ -9,7 +9,8 @@ export function FreshnessPipelineFlow() {
   return (
     <div
       className="relative mt-8 w-full overflow-hidden aspect-[2.1/1] md:aspect-[2.4/1] lg:aspect-[3/1]"
-      aria-hidden="true"
+      role="img"
+      aria-label="ERP, POS, and inventory updates flowing into a fresh catalogue record."
     >
       <svg
         viewBox="0 0 960 320"
@@ -17,7 +18,7 @@ export function FreshnessPipelineFlow() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="h-full w-full"
-        role="img"
+        aria-hidden="true"
       >
         <defs>
           {/* Path gradients for connecting lines */}

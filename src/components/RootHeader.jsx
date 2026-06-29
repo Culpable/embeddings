@@ -8,6 +8,12 @@ import { RootNavigation } from '@/components/RootNavigation'
 export function RootHeader() {
   return (
     <header>
+      <a
+        href="#main-content"
+        className="sr-only fixed left-6 top-6 z-[60] rounded-full bg-white px-4 py-2 text-sm font-semibold text-neutral-950 shadow-xl ring-1 ring-neutral-950/10 transition focus:not-sr-only focus:outline-none focus:ring-2 focus:ring-neutral-950"
+      >
+        Skip to content
+      </a>
       <div className="absolute left-0 right-0 top-2 z-40 pt-14">
         <Container>
           <div className="flex items-center justify-between">

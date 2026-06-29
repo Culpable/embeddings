@@ -203,14 +203,20 @@ export default function About() {
           <StatListItem
             value="758%"
             label="YoY growth in AI-driven e-commerce"
+            sourceLabel="Adobe"
+            sourceHref="https://business.adobe.com/blog/ai-traffic-surge-retail-sites-not-machine-readable"
           />
           <StatListItem
             value="$3–5T"
             label="Projected agentic commerce by 2030"
+            sourceLabel="McKinsey"
+            sourceHref="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-automation-curve-in-agentic-commerce"
           />
           <StatListItem
             value="81%"
             label="Of retail execs say AI will weaken brand loyalty"
+            sourceLabel="Deloitte"
+            sourceHref="https://www.deloitte.com/us/en/insights/industry/retail-distribution/retail-distribution-industry-outlook.html"
           />
         </StatList>
       </Container>

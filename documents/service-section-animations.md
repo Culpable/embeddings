@@ -9,7 +9,9 @@
 
 The home page features the existing `CatalogueTransformation` before/after visual followed immediately by a four-step left-rail service timeline. The timeline now includes an "implementation loop" bridge so the before/after overview and the detailed delivery stages read as one connected services section.
 
-On desktop and tablet, each timeline item has service copy, one bespoke animated SVG, and readable HTML proof labels below the animation. On mobile, the bespoke SVGs are hidden and replaced by `MobileServiceStoryboard` cards in `ServiceTimelineLeftRail.jsx`; this keeps the service meaning readable at 390px without shrinking SVG text into decorative detail.
+On desktop and tablet, each timeline item has service copy, one bespoke animated SVG, and readable HTML proof labels below the animation. The SVGs are loaded through `ResponsiveServiceAnimation.jsx`, which only imports the desktop/tablet animation components once the viewport is at least `640px`; this keeps mobile HTML from carrying hidden desktop SVG markup. On mobile, the bespoke SVGs are replaced by `MobileServiceStoryboard` cards in `ServiceTimelineLeftRail.jsx`; this keeps the service meaning readable at 390px without shrinking SVG text into decorative detail.
+
+Each `.service-timeline-step` uses CSS `content-visibility: auto` with a stable intrinsic size in `src/styles/components.css`. This lets below-the-fold service steps skip rendering work until they approach the viewport while preserving scroll height and section rhythm.
 
 All animations share these conventions:
 
@@ -19,7 +21,7 @@ All animations share these conventions:
 - **Animation:** Pure CSS `@keyframes` in `<style>` blocks within each SVG, plus SVG `<animateMotion>` for particles
 - **SVG framing (service sections):** Mobile/tablet framing is per-component; Audit/Freshness/Optimisation use responsive aspect-ratio wrappers with `preserveAspectRatio="xMidYMid slice"`, while Enrichment keeps native scaling and compacts left/right edge clusters inward so connectors read shorter without distorting nodes/cards
 - **Companion labels:** `ServiceTimelineLeftRail.jsx` renders three HTML proof labels below each SVG on tablet/desktop. On mobile, the same proof labels appear inside a larger storyboard card with a short service summary.
-- **Component type:** Server Component (no `'use client'` directive)
+- **Component type:** Animation files remain Server Components. `ResponsiveServiceAnimation.jsx` is the small Client Component that gates and dynamically imports the desktop/tablet animation modules.
 
 ---
 
@@ -97,7 +99,7 @@ All animations share these conventions:
 
 **Mobile rendering (2026-06-29):**
 
-- Hidden below the `sm` breakpoint inside the services timeline
+- Not imported below the `sm` breakpoint inside the services timeline
 - Replaced by a `MobileServiceStoryboard` card with the audit summary and proof labels
 
 ### FreshnessPipelineFlow.jsx
@@ -117,7 +119,7 @@ All animations share these conventions:
 
 **Mobile rendering (2026-06-29):**
 
-- Hidden below the `sm` breakpoint inside the services timeline
+- Not imported below the `sm` breakpoint inside the services timeline
 - Replaced by a `MobileServiceStoryboard` card with freshness summary and proof labels
 
 ### EnrichmentTypewriter.jsx
@@ -142,7 +144,7 @@ All animations share these conventions:
 
 **Mobile rendering (2026-06-29):**
 
-- Hidden below the `sm` breakpoint inside the services timeline
+- Not imported below the `sm` breakpoint inside the services timeline
 - Replaced by a `MobileServiceStoryboard` card with enrichment summary and proof labels
 
 ### OptimisationSeismograph.jsx
@@ -187,7 +189,7 @@ When a ripple ring reaches a product card node, that node flashes and receives a
 
 **Mobile rendering (2026-06-29):**
 
-- Hidden below the `sm` breakpoint inside the services timeline
+- Not imported below the `sm` breakpoint inside the services timeline
 - Replaced by a `MobileServiceStoryboard` card with optimisation summary and proof labels
 
 ---
@@ -199,17 +201,18 @@ Services SectionIntro (existing)
   └─ CatalogueTransformation (existing before/after visual)
   └─ ServiceTimelineLeftRail
      └─ Implementation loop bridge copy
+     └─ ServiceLoopOverview four-stage proof cards
      └─ Step 1: Catalogue Audit copy
-        └─ Desktop/tablet: AuditXRayScanner + HTML proof labels
+        └─ Desktop/tablet: ResponsiveServiceAnimation loads AuditXRayScanner + HTML proof labels
         └─ Mobile: MobileServiceStoryboard with gap map, feed risk, revenue priority
      └─ Step 2: Catalogue Freshness copy
-        └─ Desktop/tablet: FreshnessPipelineFlow + HTML proof labels
+        └─ Desktop/tablet: ResponsiveServiceAnimation loads FreshnessPipelineFlow + HTML proof labels
         └─ Mobile: MobileServiceStoryboard with stock updates, price sync, status freshness
      └─ Step 3: Catalogue Enrichment copy
-        └─ Desktop/tablet: EnrichmentTypewriter + HTML proof labels
+        └─ Desktop/tablet: ResponsiveServiceAnimation loads EnrichmentTypewriter + HTML proof labels
         └─ Mobile: MobileServiceStoryboard with richer attributes, brand-safe copy, agent taxonomy
      └─ Step 4: Contextual Optimisation copy
-        └─ Desktop/tablet: OptimisationRipple + HTML proof labels
+        └─ Desktop/tablet: ResponsiveServiceAnimation loads OptimisationRipple + HTML proof labels
         └─ Mobile: MobileServiceStoryboard with trend signals, seasonal updates, demand capture
 
 ContactSection (existing)

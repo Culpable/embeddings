@@ -30,6 +30,17 @@
   animation: navigationPanelEnter 500ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.service-timeline-step {
+  content-visibility: auto;
+  contain-intrinsic-size: 52rem;
+}
+
+@media (max-width: 639px) {
+  .service-timeline-step {
+    contain-intrinsic-size: 32rem;
+  }
+}
+
 @keyframes navigationPanelEnter {
   from {
     max-height: 0;

@@ -17,6 +17,7 @@ These rules apply specifically to this repository and should be used for all cod
 - Keep the contact route and contact form helper copy broad and concise. Do not add catalogue-readiness-specific form guidance or contact side-panel "what happens next" workflow content unless the user explicitly requests that messaging change.
 - Preserve the stable contact page copy unless the user explicitly requests copy changes. The contact metadata description must stay "Contact us to learn how we can integrate AI into your business.", the contact PageIntro title must stay "Your AI advantage starts here", and the PageIntro body must stay "Ready to experience the future of work? Contact us to see how we can integrate AI into your business."
 - Preserve the existing contact details side panel copy and structure unless the user explicitly requests copy changes. Keep "our offices", "We’re based in Perth and Melbourne, and work with clients all over Australia.", "email us", and "business enquiries"; do not add new trust, process, readiness, workflow, or "what we handle" copy to that side panel without explicit approval.
+- Preserve the intentionally empty trailing `Border` placeholder in `src/app/contact/ContactDetails.jsx` unless the user explicitly requests its removal.
 </contact_form_rules>
 
 <code_standards>
@@ -27,6 +28,7 @@ These rules apply specifically to this repository and should be used for all cod
 
 <animation_standards>
 **NEVER add `prefers-reduced-motion` checks or similar accessibility media query conditionals to animation code.** Animations must work consistently for all users, so do not gate/short-circuit IntersectionObserver setup with accessibility or timing conditionals (including `requestAnimationFrame` wrappers).
+**Do not replace, simplify, remove, or rewrite existing frontpage animations unless the user explicitly asks for that exact animation change.** This includes `HeroDataFlow.jsx`, `CatalogueTransformation.jsx`, the service timeline animations, and `ContactSection.jsx` floating snippets. These animations are essential to the site experience; performance work must preserve the existing animation design.
 </animation_standards>
 
 Read the below only when asked to create git commit messages:

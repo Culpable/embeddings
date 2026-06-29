@@ -30,7 +30,8 @@ export function OptimisationRipple() {
   return (
     <div
       className="relative mt-8 w-full overflow-hidden aspect-[2.15/1] md:aspect-[2.45/1] lg:aspect-[3/1]"
-      aria-hidden="true"
+      role="img"
+      aria-label="Live trend signals rippling out to product records and marking relevant listings as optimised."
     >
       <svg
         viewBox="0 0 960 320"
@@ -38,7 +39,7 @@ export function OptimisationRipple() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="h-full w-full"
-        role="img"
+        aria-hidden="true"
       >
         {/* ----------------------------------------------------------------- */}
         {/* Product card nodes arranged around centre                         */}

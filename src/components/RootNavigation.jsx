@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 
 import { Button } from '@/components/Button'
@@ -128,25 +129,56 @@ function NavigationRow({ children }) {
   )
 }
 
-function NavigationItem({ href, children }) {
+function isCurrentNavigationItem(href, pathname) {
+  if (href.includes('#')) {
+    return false
+  }
+
+  return pathname === href
+}
+
+
+function NavigationItem({ href, children, isCurrent = false }) {
   return (
     <Link
       href={href}
-      className="group relative isolate -mx-6 bg-neutral-950 px-6 py-8 transition even:mt-px sm:mx-0 sm:px-0 sm:py-12 sm:odd:pr-16 sm:even:mt-0 sm:even:border-l sm:even:border-neutral-800 sm:even:pl-16"
+      aria-current={isCurrent ? 'page' : undefined}
+      className={clsx(
+        'group relative isolate -mx-6 bg-neutral-950 px-6 py-8 transition even:mt-px sm:mx-0 sm:px-0 sm:py-12 sm:odd:pr-16 sm:even:mt-0 sm:even:border-l sm:even:border-neutral-800 sm:even:pl-16',
+        isCurrent && 'text-white',
+      )}
     >
       <span className="relative z-10">{children}</span>
+      {isCurrent && (
+        <span className="relative z-10 ml-4 inline-flex align-middle text-xs font-semibold uppercase tracking-wider text-white/45">
+          current
+        </span>
+      )}
+      <span
+        className={clsx(
+          'absolute inset-y-0 left-0 -z-10 w-1 bg-white transition-opacity duration-300 sm:left-auto sm:right-0',
+          isCurrent ? 'opacity-100' : 'opacity-0',
+        )}
+        aria-hidden="true"
+      />
       <span className="absolute inset-y-0 -z-10 w-screen bg-neutral-900 opacity-0 transition-opacity duration-300 group-odd:right-0 group-even:left-0 group-hover:opacity-100" />
     </Link>
   )
 }
 
 function Navigation() {
+  const pathname = usePathname()
+
   return (
     <nav className="mt-px font-display text-4xl font-medium tracking-tight text-white sm:text-5xl">
       {navigationRows.map((row) => (
         <NavigationRow key={row.map((item) => item.href).join('-')}>
           {row.map(({ href, label }) => (
-            <NavigationItem key={href} href={href}>
+            <NavigationItem
+              key={href}
+              href={href}
+              isCurrent={isCurrentNavigationItem(href, pathname)}
+            >
               {label}
             </NavigationItem>
           ))}

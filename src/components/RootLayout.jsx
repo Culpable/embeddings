@@ -14,7 +14,9 @@ export function RootLayout({ children }) {
             yOffset={-96}
           />
 
-          <main className="w-full flex-auto">{children}</main>
+          <main id="main-content" tabIndex={-1} className="w-full flex-auto">
+            {children}
+          </main>
 
           <Footer />
         </div>

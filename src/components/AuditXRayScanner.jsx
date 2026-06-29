@@ -11,7 +11,8 @@ export function AuditXRayScanner() {
   return (
     <div
       className="relative mt-8 w-full overflow-hidden aspect-[2.05/1] md:aspect-[2.35/1] lg:aspect-[3/1]"
-      aria-hidden="true"
+      role="img"
+      aria-label="Catalogue audit scan showing missing images, generic titles, thin descriptions, and missing fields."
     >
       <svg
         viewBox="0 0 960 320"
@@ -19,7 +20,7 @@ export function AuditXRayScanner() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="h-full w-full"
-        role="img"
+        aria-hidden="true"
       >
         <defs>
           {/* Warm amber glow halo for the scan beam (lens-tint effect) */}

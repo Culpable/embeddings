@@ -7,10 +7,7 @@
 
 import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
-import { AuditXRayScanner } from '@/components/AuditXRayScanner'
-import { FreshnessPipelineFlow } from '@/components/FreshnessPipelineFlow'
-import { EnrichmentTypewriter } from '@/components/EnrichmentTypewriter'
-import { OptimisationRipple } from '@/components/OptimisationRipple'
+import { ResponsiveServiceAnimation } from '@/components/ResponsiveServiceAnimation'
 
 // ---------------------------------------------------------------------------
 // Service data — shared across all timeline approaches
@@ -25,7 +22,7 @@ const services = [
     proof: ['gap map', 'feed risk', 'revenue priority'],
     mobileSummary:
       'Find missing identifiers, thin content, stale data, and feed risks before agents rank the catalogue.',
-    Animation: AuditXRayScanner,
+    animationKey: 'audit',
   },
   {
     step: 2,
@@ -35,7 +32,7 @@ const services = [
     proof: ['stock updates', 'price sync', 'status freshness'],
     mobileSummary:
       'Connect ERP, POS, and inventory changes so product truth reaches commerce surfaces quickly.',
-    Animation: FreshnessPipelineFlow,
+    animationKey: 'freshness',
   },
   {
     step: 3,
@@ -45,7 +42,7 @@ const services = [
     proof: ['richer attributes', 'brand-safe copy', 'agent taxonomy'],
     mobileSummary:
       'Turn sparse records into complete attributes, clearer descriptions, and agent-readable taxonomy.',
-    Animation: EnrichmentTypewriter,
+    animationKey: 'enrichment',
   },
   {
     step: 4,
@@ -55,7 +52,7 @@ const services = [
     proof: ['trend signals', 'seasonal updates', 'demand capture'],
     mobileSummary:
       'Fold trend signals back into product content while demand is still active.',
-    Animation: OptimisationRipple,
+    animationKey: 'optimisation',
   },
 ]
 
@@ -89,6 +86,55 @@ function MobileServiceStoryboard({ step, eyebrow, proof, mobileSummary }) {
   )
 }
 
+
+function ServiceLoopOverview() {
+  return (
+    <FadeIn>
+      <ol
+        className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
+        aria-label="Service stages"
+      >
+        {services.map(({ step, eyebrow, proof, mobileSummary }) => (
+          <li
+            key={step}
+            className="group relative overflow-hidden rounded-2xl border border-neutral-950/10 bg-white p-5 shadow-[0_1px_0_rgba(23,23,23,0.04)] transition duration-300 hover:-translate-y-1 hover:border-neutral-950/20 hover:shadow-xl"
+          >
+            <div
+              className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-neutral-950/70 via-blue-400/70 to-emerald-400/70 opacity-80"
+              aria-hidden="true"
+            />
+            <div className="flex items-center justify-between gap-4">
+              <p className="font-display text-xs font-semibold uppercase tracking-wider text-neutral-500">
+                {eyebrow}
+              </p>
+              <span className="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-neutral-950 text-xs font-semibold text-white transition group-hover:scale-105">
+                {step}
+              </span>
+            </div>
+            <p className="mt-5 text-sm leading-6 text-neutral-600">
+              {mobileSummary}
+            </p>
+            <p className="mt-5 text-xs font-semibold uppercase tracking-wider text-neutral-400">
+              proof
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {proof.slice(0, 2).map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full bg-neutral-950/[0.06] px-2.5 py-1 text-xs font-medium text-neutral-700"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </FadeIn>
+  )
+}
+
+
 export function ServiceTimelineLeftRail() {
   return (
     <Container className="mt-16">
@@ -105,6 +151,8 @@ export function ServiceTimelineLeftRail() {
           the work into a generic AI programme.
         </p>
       </div>
+
+      <ServiceLoopOverview />
 
       {/* Wrapper with absolutely-positioned vertical line along the left */}
       <div className="relative mt-12">
@@ -123,10 +171,10 @@ export function ServiceTimelineLeftRail() {
               body,
               proof,
               mobileSummary,
-              Animation,
+              animationKey,
             }) => (
               <FadeIn key={step}>
-                <div>
+                <div className="service-timeline-step">
                   {/* Step header — circle + text indented to the right */}
                   <div className="relative grid grid-cols-[auto_1fr] gap-x-4 pl-0 lg:gap-x-6">
                     {/* Step circle — sits on top of the vertical line */}
@@ -155,7 +203,7 @@ export function ServiceTimelineLeftRail() {
                       mobileSummary={mobileSummary}
                     />
                     <div className="hidden sm:block">
-                      <Animation />
+                      <ResponsiveServiceAnimation animationKey={animationKey} />
                     </div>
                     <ul
                       role="list"

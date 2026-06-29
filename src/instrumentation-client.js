@@ -1,8 +1,12 @@
-import { initMixpanel, track } from '@/lib/mixpanelClient'
-
 const isDevelopment = process.env.NODE_ENV === 'development'
 const trackedPageViews = new Set()
 const initialPagePath = typeof window === 'undefined' ? null : getPagePath()
+const analyticsStartEvents = ['pointerdown', 'keydown', 'scroll']
+const patchedHistoryMethods = new Set()
+let analyticsClient = null
+let analyticsClientPromise = null
+let analyticsStarted = false
+let removeAnalyticsStartTriggers = () => {}
 
 function scheduleWhenIdle(callback) {
   if (typeof window === 'undefined') {
@@ -24,8 +28,16 @@ function getPagePath() {
   return `${window.location.pathname}${window.location.search}`
 }
 
+function loadAnalyticsClient() {
+  if (!analyticsClientPromise) {
+    analyticsClientPromise = import('@/lib/mixpanelClient')
+  }
+
+  return analyticsClientPromise
+}
+
 function trackPageView(page = getPagePath()) {
-  if (isDevelopment || typeof window === 'undefined') {
+  if (isDevelopment || typeof window === 'undefined' || !analyticsClient) {
     return
   }
 
@@ -36,7 +48,7 @@ function trackPageView(page = getPagePath()) {
   trackedPageViews.add(page)
 
   scheduleWhenIdle(() => {
-    track('Page View', {
+    analyticsClient.track('Page View', {
       url: page,
       page,
       timestamp: new Date().toISOString(),
@@ -50,12 +62,14 @@ async function initialiseAnalytics() {
       return
     }
 
+    analyticsClient = await loadAnalyticsClient()
+
     if (isDevelopment) {
-      await initMixpanel()
+      await analyticsClient.initMixpanel()
       return
     }
 
-    const mixpanelInitialized = await initMixpanel()
+    const mixpanelInitialized = await analyticsClient.initMixpanel()
 
     if (!mixpanelInitialized) {
       console.warn(
@@ -79,6 +93,12 @@ async function initialiseAnalytics() {
 }
 
 function patchHistoryMethod(methodName) {
+  if (patchedHistoryMethods.has(methodName)) {
+    return
+  }
+
+  patchedHistoryMethods.add(methodName)
+
   const originalMethod = window.history[methodName]
 
   window.history[methodName] = function patchedHistoryMethod(...args) {
@@ -90,12 +110,54 @@ function patchHistoryMethod(methodName) {
   }
 }
 
-if (typeof window !== 'undefined') {
-  scheduleWhenIdle(initialiseAnalytics)
-
+function startNavigationTracking() {
   patchHistoryMethod('pushState')
   patchHistoryMethod('replaceState')
 
   window.addEventListener('popstate', trackPageView, { passive: true })
   window.addEventListener('embeddings:navigation', trackPageView)
+}
+
+function startAnalytics() {
+  if (analyticsStarted) {
+    return
+  }
+
+  analyticsStarted = true
+  removeAnalyticsStartTriggers()
+
+  void initialiseAnalytics().then(() => {
+    if (isDevelopment || !analyticsClient) {
+      return
+    }
+
+    startNavigationTracking()
+  })
+}
+
+function scheduleAnalyticsStart() {
+  if (isDevelopment) {
+    return scheduleWhenIdle(startAnalytics)
+  }
+
+  const fallbackId = window.setTimeout(startAnalytics, 12000)
+
+  for (const eventName of analyticsStartEvents) {
+    window.addEventListener(eventName, startAnalytics, {
+      once: true,
+      passive: eventName !== 'keydown',
+    })
+  }
+
+  return () => {
+    window.clearTimeout(fallbackId)
+
+    for (const eventName of analyticsStartEvents) {
+      window.removeEventListener(eventName, startAnalytics)
+    }
+  }
+}
+
+if (typeof window !== 'undefined') {
+  removeAnalyticsStartTriggers = scheduleAnalyticsStart()
 }

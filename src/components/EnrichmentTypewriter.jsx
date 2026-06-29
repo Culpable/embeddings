@@ -7,13 +7,17 @@
 
 export function EnrichmentTypewriter() {
   return (
-    <div className="relative mt-8 w-full overflow-hidden" aria-hidden="true">
+    <div
+      className="relative mt-8 w-full overflow-hidden"
+      role="img"
+      aria-label="A sparse product record moving through an LLM processor and becoming an enriched catalogue entry."
+    >
       <svg
         viewBox="0 0 960 320"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="h-auto w-full"
-        role="img"
+        aria-hidden="true"
       >
         <defs>
           {/* Path gradients */}
