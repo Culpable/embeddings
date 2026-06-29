@@ -5,6 +5,10 @@ import { resolve } from 'node:path'
 
 const rootLayoutPath = resolve(process.cwd(), 'src/components/RootLayout.jsx')
 const rootHeaderPath = resolve(process.cwd(), 'src/components/RootHeader.jsx')
+const rootNavigationPath = resolve(
+  process.cwd(),
+  'src/components/RootNavigation.jsx',
+)
 const gridPatternPath = resolve(process.cwd(), 'src/components/GridPattern.jsx')
 const componentsCssPath = resolve(process.cwd(), 'src/styles/components.css')
 
@@ -25,23 +29,30 @@ test('root layout remains a server shell without framer motion', () => {
   )
 })
 
-test('root header owns the interactive navigation island', () => {
-  // Keep menu state isolated to the header instead of hydrating the entire page shell.
-  const source = readFileSync(rootHeaderPath, 'utf8')
+test('root header delegates only the menu control to a client island', () => {
+  // Keep static logo and contact chrome server-rendered while isolating menu
+  // state to the smallest navigation component.
+  const headerSource = readFileSync(rootHeaderPath, 'utf8')
+  const navigationSource = readFileSync(rootNavigationPath, 'utf8')
+
+  assert.doesNotMatch(
+    headerSource,
+    /['"]use client['"]/,
+    'Expected RootHeader.jsx to remain server-rendered static chrome',
+  )
 
   assert.match(
-    source,
+    navigationSource,
     /['"]use client['"]/,
-    'Expected RootHeader.jsx to be the client island for navigation',
+    'Expected RootNavigation.jsx to own the menu interaction island',
   )
 
   assert.doesNotMatch(
-    source,
+    `${headerSource}\n${navigationSource}`,
     /framer-motion/,
-    'Expected RootHeader.jsx to use CSS transitions instead of framer-motion layout animation',
+    'Expected root navigation chrome to use CSS transitions instead of framer-motion layout animation',
   )
 })
-
 
 test('global background grid stays static server-rendered chrome', () => {
   // Keep decorative route chrome from adding a global pointer listener to every page.
@@ -66,7 +77,6 @@ test('global background grid stays static server-rendered chrome', () => {
     'Expected RootLayout.jsx not to request interactive grid hydration',
   )
 })
-
 
 test('navigation menu entrance does not leave a persistent height cap', () => {
   // The open mobile menu can be taller than the entrance target, so max-height

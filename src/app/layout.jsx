@@ -1,13 +1,12 @@
 import { RootLayout } from '@/components/RootLayout'
 import { siteMetadata } from '@/lib/metadata'
-import MixpanelProvider from '@/components/MixpanelProvider'
 
 import '@/styles/tailwind.css'
 
 export const metadata = {
   title: {
     template: '%s / Embeddings',
-    default: siteMetadata.title
+    default: siteMetadata.title,
   },
   description: siteMetadata.description,
   openGraph: {
@@ -38,7 +37,6 @@ export default function Layout({ children }) {
     <html lang="en" className="h-full bg-neutral-950 text-base antialiased">
       {/* Suppress hydration mismatch warnings when browser extensions inject transient body attributes. */}
       <body suppressHydrationWarning className="flex min-h-full flex-col">
-        <MixpanelProvider />
         <RootLayout>{children}</RootLayout>
       </body>
     </html>

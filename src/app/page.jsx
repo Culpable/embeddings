@@ -213,7 +213,7 @@ function AgenticTimeline() {
                         {date}
                       </span>
 
-                      {/* Oversized stat — animated count-up for numeric values */}
+                      {/* Oversized stat — render final sourced values immediately */}
                       <p className="mt-3 font-display text-4xl font-medium tracking-tight text-white lg:text-5xl">
                         {/* "700M+" → prefix="", value=700, suffix="M+" */}
                         {/* "UCP" and "$3–5T" stay static (not purely numeric) */}
@@ -358,7 +358,7 @@ function WhyNow() {
                   aria-hidden="true"
                 />
 
-                {/* Oversized stat — animated count-up for numeric values */}
+                {/* Oversized stat — render final sourced values immediately */}
                 <p className="bg-gradient-to-b from-neutral-950 to-neutral-950/60 bg-clip-text font-display text-6xl font-medium tracking-tight text-transparent sm:text-7xl">
                   {/* Animate all three numeric stats: $5T, 393%, 81% */}
                   {stat === '$5T' ? (
@@ -422,6 +422,7 @@ function Services() {
       <Container className="mt-16">
         <CatalogueTransformation />
       </Container>
+      <ServiceTimelineLeftRail />
     </section>
   )
 }
@@ -640,9 +641,6 @@ export default function Home() {
       {/* <CatalogueFreshness /> */}
       {/* <CatalogueEnrichment /> */}
       {/* <ContextualOptimisation /> */}
-
-      {/* Service Timeline — left-rail layout connecting all four services */}
-      <ServiceTimelineLeftRail />
 
       {/* Contact CTA — dark section with floating catalogue data */}
       <ContactSection />

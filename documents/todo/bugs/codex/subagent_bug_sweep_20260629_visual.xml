@@ -1,0 +1,24 @@
+<bug_sweep>
+  <metadata>
+    <worker>codex</worker>
+    <scope>Read-only post-change visual, responsive, accessibility, focus, contact-form contract/copy, mobile services/hero readability, and documentation-sync sweep for src/components/HeroDataFlow.jsx; src/components/ServiceTimelineLeftRail.jsx; src/app/page.jsx; src/app/contact/ContactForm.jsx; src/app/about/page.jsx; documents/service-section-animations.md; test/root-layout-inert-attribute.test.mjs.</scope>
+  </metadata>
+  <bugs>
+    <bug_1>
+      <title>Mobile navigation focus escapes the open overlay</title>
+      <severity>medium</severity>
+      <file>/Users/sacino/embeddings/src/components/RootNavigation.jsx:193; /Users/sacino/embeddings/test/root-layout-inert-attribute.test.mjs:30</file>
+      <description>The mobile navigation overlay opens as a fixed panel, but the rest of the page remains focusable while the panel is open. Keyboard users can tab out of the overlay into the hidden home page links without closing the menu. The inert regression test does not catch this because it only checks for empty-string inert values and passes when there are no inert expressions at all.</description>
+      <evidence>Exact-viewport browser verification at 390x900 opened the navigation panel and tabbed through focusable elements. Steps 1-6 stayed inside .navigation-panel-enter, then step 7 focused the underlying home-page Contact us link, step 8 focused Learn how it works, and subsequent steps reached timeline source links while panelOpen remained 1. Static review found RootNavigation.jsx renders the panel at lines 193-198 without making the page shell inert or trapping focus; test/root-layout-inert-attribute.test.mjs only asserts emptyStringExpressions.length equals 0.</evidence>
+      <recommendation>Keep focus inside the open navigation panel until it closes, either by restoring a boolean inert state on the page shell or adding a focus trap/sentinel loop. Update the regression test so it fails when the open-navigation state has no focus-isolation mechanism, not only when inert is passed an empty string.</recommendation>
+    </bug_1>
+    <bug_2>
+      <title>Budget error-summary link does not focus a budget control</title>
+      <severity>low</severity>
+      <file>/Users/sacino/embeddings/src/app/contact/ContactForm.jsx:106; /Users/sacino/embeddings/src/app/contact/ContactForm.jsx:507</file>
+      <description>The contact validation summary links each error to a field id, but the Budget link targets the radio-group fieldset rather than a focusable radio input. Activating the Budget summary link changes the URL hash and scroll position, but focus falls to the document body instead of moving to the invalid budget choice.</description>
+      <evidence>Exact-viewport browser verification at 390x900 submitted the empty contact form. The summary was fully visible before the fields, the form used aria-describedby contact-form-guidance contact-error-summary, and the Name link focused name-field. Activating the Budget link produced hash #budget-field with activeId BODY. Static review found ErrorSummary builds href values as #{fieldName}-field and the budget target is a fieldset with id budget-field.</evidence>
+      <recommendation>Give the first budget radio a stable focus target or handle summary-link activation by focusing the first radio in the budget group. Keep the submitted field name as budget and preserve the existing business enquiry field contract.</recommendation>
+    </bug_2>
+  </bugs>
+</bug_sweep>

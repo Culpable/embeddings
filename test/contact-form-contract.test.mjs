@@ -15,7 +15,6 @@ const contactDetailsPath = resolve(
 )
 const thankYouPath = resolve(process.cwd(), 'src/app/thank-you/page.jsx')
 
-
 test('project guidance protects the business enquiry field contract', () => {
   // Require future design work to preserve the field model unless explicitly
   // requested, preventing aesthetic improvements from changing lead data.
@@ -52,7 +51,6 @@ test('project guidance protects the business enquiry field contract', () => {
   )
 })
 
-
 test('contact form posts to formspree with a real thank-you fallback route', () => {
   // Ensure the no-JavaScript submission path does not point to a missing page.
   const source = readFileSync(contactFormPath, 'utf8')
@@ -76,7 +74,6 @@ test('contact form posts to formspree with a real thank-you fallback route', () 
     'Expected the /thank-you route to exist',
   )
 })
-
 
 test('contact form preserves the original business enquiry fields', () => {
   // Preserve the original submitted field names while allowing improved visual
@@ -138,7 +135,6 @@ test('contact form preserves the original business enquiry fields', () => {
   )
 })
 
-
 test('contact page copy no longer asks for removed catalogue fields', () => {
   // Keep visible copy aligned with the restored generic business enquiry fields.
   const pageSource = readFileSync(contactPagePath, 'utf8')
@@ -179,7 +175,6 @@ test('contact page copy no longer asks for removed catalogue fields', () => {
   }
 })
 
-
 test('contact form exposes accessible status states', () => {
   // Require submit feedback that screen readers can announce.
   const source = readFileSync(contactFormPath, 'utf8')
@@ -209,7 +204,6 @@ test('contact form exposes accessible status states', () => {
   )
 })
 
-
 test('contact form validates fields inline before submission', () => {
   // Require accessible field-level validation while preserving the same submitted names.
   const source = readFileSync(contactFormPath, 'utf8')
@@ -236,5 +230,11 @@ test('contact form validates fields inline before submission', () => {
     source,
     /Contact Form Validation Failed/,
     'Expected validation failures to be tracked without submitting',
+  )
+
+  assert.match(
+    source,
+    /id=\{index === 0 \? 'budget-field' : undefined\}/,
+    'Expected the budget summary target to focus the first budget radio',
   )
 })

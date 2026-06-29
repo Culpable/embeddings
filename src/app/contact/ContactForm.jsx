@@ -29,7 +29,6 @@ const budgetRanges = [
   },
 ]
 
-
 const fieldOrder = ['name', 'email', 'company', 'phone', 'message', 'budget']
 
 const fieldLabels = {
@@ -50,11 +49,9 @@ const requiredMessages = {
   budget: 'Select the closest planning range.',
 }
 
-
 function isBlank(value) {
   return typeof value !== 'string' || value.trim().length === 0
 }
-
 
 function validateFormData(formData) {
   const errors = {}
@@ -74,7 +71,6 @@ function validateFormData(formData) {
   return errors
 }
 
-
 function focusFirstInvalidField(form, fieldName) {
   const field = form.elements.namedItem(fieldName)
 
@@ -85,7 +81,6 @@ function focusFirstInvalidField(form, fieldName) {
 
   field?.[0]?.focus()
 }
-
 
 function ErrorSummary({ errors }) {
   const entries = fieldOrder
@@ -98,15 +93,23 @@ function ErrorSummary({ errors }) {
 
   return (
     <div
+      id="contact-error-summary"
       role="alert"
       className="mt-6 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-700 shadow-sm"
     >
-      <p className="font-semibold text-red-800">Fix these details before sending.</p>
+      <p className="font-semibold text-red-800">
+        Fix these details before sending.
+      </p>
       <ul className="mt-3 space-y-1.5">
         {entries.map(([fieldName, message]) => (
           <li key={fieldName}>
-            <span className="font-medium">{fieldLabels[fieldName]}:</span>{' '}
-            {message}
+            <a
+              href={`#${fieldName}-field`}
+              className="font-medium underline decoration-red-300 underline-offset-2 hover:text-red-900"
+            >
+              {fieldLabels[fieldName]}:
+            </a>{' '}
+            <span>{message}</span>
           </li>
         ))}
       </ul>
@@ -114,10 +117,10 @@ function ErrorSummary({ errors }) {
   )
 }
 
-
 function TextInput({ label, error, multiline = false, rows = 3, ...props }) {
-  let id = useId()
-  let errorId = `${id}-error`
+  const generatedId = useId()
+  const id = props.id ?? generatedId
+  const errorId = `${id}-error`
 
   const sharedClasses = clsx(
     'peer block w-full border bg-transparent px-6 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:outline-none group-first:rounded-t-2xl group-last:rounded-b-2xl',
@@ -163,7 +166,10 @@ function TextInput({ label, error, multiline = false, rows = 3, ...props }) {
         {label}
       </label>
       {error && (
-        <p id={errorId} className="absolute bottom-2 left-6 text-xs font-medium text-red-600">
+        <p
+          id={errorId}
+          className="absolute bottom-2 left-6 text-xs font-medium text-red-600"
+        >
           {error}
         </p>
       )}
@@ -171,16 +177,17 @@ function TextInput({ label, error, multiline = false, rows = 3, ...props }) {
   )
 }
 
-
-function RadioInput({ label, invalid = false, ...props }) {
+function RadioInput({ id, label, invalid = false, ...props }) {
   return (
     <label
+      htmlFor={id}
       className={clsx(
-        'flex gap-x-3 rounded-2xl border p-2 transition hover:bg-neutral-950/[0.03] has-[:checked]:border-neutral-950/10 has-[:checked]:bg-neutral-950/[0.04] has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-60',
+        'flex gap-x-3 rounded-2xl border p-2 transition hover:bg-neutral-950/[0.03] has-[:disabled]:cursor-not-allowed has-[:checked]:border-neutral-950/10 has-[:checked]:bg-neutral-950/[0.04] has-[:disabled]:opacity-60',
         invalid ? 'border-red-200 bg-red-50/50' : 'border-transparent',
       )}
     >
       <input
+        id={id}
         type="radio"
         {...props}
         className={clsx(
@@ -192,7 +199,6 @@ function RadioInput({ label, invalid = false, ...props }) {
     </label>
   )
 }
-
 
 function StatusPanel({ status, message }) {
   if (status === 'idle') {
@@ -239,7 +245,6 @@ function StatusPanel({ status, message }) {
   )
 }
 
-
 function getErrorMessage(status) {
   switch (status) {
     case 400:
@@ -251,7 +256,6 @@ function getErrorMessage(status) {
   }
 }
 
-
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [fieldErrors, setFieldErrors] = useState({})
@@ -259,6 +263,7 @@ export function ContactForm() {
     status: 'idle',
     message: '',
   })
+  const hasFieldErrors = Object.values(fieldErrors).some(Boolean)
 
   function handleFieldBlur(fieldName, event) {
     const form = event.currentTarget.form
@@ -399,7 +404,11 @@ export function ContactForm() {
         onSubmit={handleSubmit}
         noValidate
         aria-busy={isSubmitting ? 'true' : 'false'}
-        aria-describedby="contact-form-guidance"
+        aria-describedby={
+          hasFieldErrors
+            ? 'contact-form-guidance contact-error-summary'
+            : 'contact-form-guidance'
+        }
       >
         <h2 className="font-display text-base font-semibold text-neutral-950">
           business enquiries
@@ -434,8 +443,10 @@ export function ContactForm() {
           className="mt-8 transition-opacity disabled:opacity-70"
         >
           <legend className="sr-only">Business enquiry details</legend>
+          <ErrorSummary errors={fieldErrors} />
           <div className="isolate -space-y-px rounded-2xl bg-white/50 shadow-[0_1px_0_rgba(23,23,23,0.04)]">
             <TextInput
+              id="name-field"
               label="Name"
               name="name"
               autoComplete="name"
@@ -445,6 +456,7 @@ export function ContactForm() {
               onBlur={(event) => handleFieldBlur('name', event)}
             />
             <TextInput
+              id="email-field"
               label="Email"
               type="email"
               name="email"
@@ -455,6 +467,7 @@ export function ContactForm() {
               onBlur={(event) => handleFieldBlur('email', event)}
             />
             <TextInput
+              id="company-field"
               label="Company"
               name="company"
               autoComplete="organization"
@@ -464,6 +477,7 @@ export function ContactForm() {
               onBlur={(event) => handleFieldBlur('company', event)}
             />
             <TextInput
+              id="phone-field"
               label="Phone"
               type="tel"
               name="phone"
@@ -474,6 +488,7 @@ export function ContactForm() {
               onBlur={(event) => handleFieldBlur('phone', event)}
             />
             <TextInput
+              id="message-field"
               label="Message"
               name="message"
               required
@@ -493,29 +508,37 @@ export function ContactForm() {
             >
               <fieldset
                 aria-invalid={fieldErrors.budget ? 'true' : undefined}
-                aria-describedby={fieldErrors.budget ? 'budget-error' : undefined}
+                aria-describedby={
+                  fieldErrors.budget ? 'budget-error' : undefined
+                }
               >
                 <legend className="text-base/6 text-neutral-500">Budget</legend>
                 <p className="mt-2 text-sm leading-6 text-neutral-500">
                   Select the closest planning range.
                 </p>
                 {fieldErrors.budget && (
-                  <p id="budget-error" className="mt-3 text-sm font-medium text-red-600">
+                  <p
+                    id="budget-error"
+                    className="mt-3 text-sm font-medium text-red-600"
+                  >
                     {fieldErrors.budget}
                   </p>
                 )}
                 <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  {budgetRanges.map(({ label, trackingValue, value }) => (
-                    <RadioInput
-                      key={value}
-                      label={label}
-                      name="budget"
-                      value={value}
-                      required
-                      invalid={Boolean(fieldErrors.budget)}
-                      onChange={() => handleBudgetChange(trackingValue)}
-                    />
-                  ))}
+                  {budgetRanges.map(
+                    ({ label, trackingValue, value }, index) => (
+                      <RadioInput
+                        key={value}
+                        id={index === 0 ? 'budget-field' : undefined}
+                        label={label}
+                        name="budget"
+                        value={value}
+                        required
+                        invalid={Boolean(fieldErrors.budget)}
+                        onChange={() => handleBudgetChange(trackingValue)}
+                      />
+                    ),
+                  )}
                 </div>
               </fieldset>
             </div>
@@ -526,7 +549,6 @@ export function ContactForm() {
           status={submitStatus.status}
           message={submitStatus.message}
         />
-        <ErrorSummary errors={fieldErrors} />
 
         <Button
           type="submit"

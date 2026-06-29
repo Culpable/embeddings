@@ -3,11 +3,18 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
-const rootLayoutPath = resolve(process.cwd(), 'src/components/RootHeader.jsx')
+const rootHeaderPath = resolve(process.cwd(), 'src/components/RootHeader.jsx')
+const rootNavigationPath = resolve(
+  process.cwd(),
+  'src/components/RootNavigation.jsx',
+)
 
 function readInertExpressions() {
   // Read the layout source and capture each JavaScript expression assigned to `inert`.
-  const source = readFileSync(rootLayoutPath, 'utf8')
+  const source = [
+    readFileSync(rootHeaderPath, 'utf8'),
+    readFileSync(rootNavigationPath, 'utf8'),
+  ].join('\n')
   const inertExpressionMatches = [
     ...source.matchAll(/inert\s*=\s*\{([^}]*)\}/g),
   ]
@@ -26,14 +33,44 @@ test('root layout does not pass empty strings to the inert prop', () => {
   const emptyStringExpressions =
     findEmptyStringInertExpressions(inertExpressions)
 
-  assert.ok(
-    inertExpressions.length > 0,
-    'Expected at least one inert prop expression in src/components/RootHeader.jsx',
-  )
-
   assert.equal(
     emptyStringExpressions.length,
     0,
     `Found inert expressions with empty strings: ${emptyStringExpressions.join(' | ')}`,
+  )
+})
+
+test('mobile navigation overlay contains keyboard focus while open', () => {
+  // Keep the fixed navigation panel from exposing hidden focus behind the overlay.
+  const source = readFileSync(rootNavigationPath, 'utf8')
+
+  assert.match(
+    source,
+    /role="dialog"/,
+    'Expected open navigation panel to use dialog semantics',
+  )
+
+  assert.match(
+    source,
+    /aria-modal="true"/,
+    'Expected open navigation panel to mark the background as modal to assistive technology',
+  )
+
+  assert.match(
+    source,
+    /event\.key\s*===\s*['"]Escape['"]/,
+    'Expected Escape to close the open navigation panel',
+  )
+
+  assert.match(
+    source,
+    /event\.key\s*!==\s*['"]Tab['"]/,
+    'Expected Tab handling to keep focus inside the open navigation panel',
+  )
+
+  assert.match(
+    source,
+    /getFocusableElements/,
+    'Expected the open navigation panel to calculate focusable descendants',
   )
 })

@@ -22,13 +22,74 @@ const capabilities = [
     title: 'Retail Domain Expertise',
     body: (
       <>
-        We understand Google Merchant Centre specifications, GTIN standards, product taxonomy, and
-        the emerging requirements of Google&rsquo;s Universal Commerce Protocol and OpenAI&rsquo;s
-        Instant Checkout.
+        We understand Google Merchant Centre specifications, GTIN standards,
+        product taxonomy, and the emerging requirements of Google&rsquo;s
+        Universal Commerce Protocol and OpenAI&rsquo;s Instant Checkout.
       </>
     ),
   },
 ]
+
+const proofSignals = [
+  {
+    label: 'focus',
+    value: 'catalogue readiness',
+  },
+  {
+    label: 'built from',
+    value: 'LLM pipelines + data infrastructure',
+  },
+  {
+    label: 'based in',
+    value: 'Perth + Melbourne',
+  },
+]
+
+function ProofLedger() {
+  return (
+    <Container className="mt-16">
+      <FadeIn>
+        <div className="relative overflow-hidden rounded-3xl bg-neutral-950 p-6 text-white shadow-xl sm:p-8 lg:p-10">
+          <div
+            className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-blue-300/70 via-white/60 to-emerald-300/70"
+            aria-hidden="true"
+          />
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1.15fr] lg:items-center">
+            <div>
+              <p className="font-display text-sm font-semibold tracking-wider text-white/50">
+                proof of focus
+              </p>
+              <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
+                Built around one retail problem, not a broad AI menu
+              </h2>
+              <p className="mt-5 text-base leading-7 text-neutral-400">
+                The consultancy story resolves into three concrete signals:
+                catalogue-readiness depth, engineering delivery, and Australian
+                retail proximity.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-3">
+              {proofSignals.map(({ label, value }) => (
+                <div
+                  key={label}
+                  className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-wider text-white/40">
+                    {label}
+                  </p>
+                  <p className="mt-2 font-display text-xl font-medium tracking-tight text-white">
+                    {value}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </FadeIn>
+    </Container>
+  )
+}
 
 function Culture() {
   return (
@@ -39,9 +100,10 @@ function Culture() {
         invert
       >
         <p>
-          Most AI consultancies offer broad capability across dozens of use cases. We chose a
-          different path — deep, vertical expertise in the one problem that determines whether
-          retailers survive the agentic shift: catalogue data quality.
+          Most AI consultancies offer broad capability across dozens of use
+          cases. We chose a different path — deep, vertical expertise in the one
+          problem that determines whether retailers survive the agentic shift:
+          catalogue data quality.
         </p>
       </SectionIntro>
       <Container className="mt-16">
@@ -98,41 +160,58 @@ export const metadata = {
 export default function About() {
   return (
     <>
-      <PageIntro eyebrow="about us" title="The team behind Australia&rsquo;s first agentic commerce consultancy">
+      <PageIntro
+        eyebrow="about us"
+        title="The team behind Australia&rsquo;s first agentic commerce consultancy"
+      >
         <p>
-          Embeddings was founded on a single conviction: the retailers who win in agentic commerce
-          will be the ones with the best product data. We&rsquo;re the only Australian consultancy
-          that combines LLM pipeline engineering with data infrastructure at scale — purpose-built
-          for catalogue readiness.
+          Embeddings was founded on a single conviction: the retailers who win
+          in agentic commerce will be the ones with the best product data.
+          We&rsquo;re the only Australian consultancy that combines LLM pipeline
+          engineering with data infrastructure at scale — purpose-built for
+          catalogue readiness.
         </p>
         <p style={{ marginTop: '1rem' }}>
-          We don&rsquo;t hand you a strategy deck and wish you luck. We audit, enrich, and
-          operationalise your catalogue so AI agents from Google and OpenAI recommend your products
-          first.
+          We don&rsquo;t hand you a strategy deck and wish you luck. We audit,
+          enrich, and operationalise your catalogue so AI agents from Google and
+          OpenAI recommend your products first.
         </p>
         <div className="mt-10 max-w-2xl space-y-6 text-base">
           <p>
-            Embeddings was founded by engineers who spent years building large language model
-            pipelines and enterprise data systems. When agentic shopping emerged — AI agents
-            autonomously researching and purchasing on behalf of consumers — we saw the critical
-            gap: retailers had decades of product data locked in formats that AI agents couldn&rsquo;t
-            parse. Rich product knowledge trapped in PDFs, spreadsheets, and legacy ERPs. We built
-            Embeddings to solve that problem.
+            Embeddings was founded by engineers who spent years building large
+            language model pipelines and enterprise data systems. When agentic
+            shopping emerged — AI agents autonomously researching and purchasing
+            on behalf of consumers — we saw the critical gap: retailers had
+            decades of product data locked in formats that AI agents
+            couldn&rsquo;t parse. Rich product knowledge trapped in PDFs,
+            spreadsheets, and legacy ERPs. We built Embeddings to solve that
+            problem.
           </p>
           <p>
-            Our approach is engineering-led and outcome-driven. We measure success in catalogue
-            completeness scores, enrichment coverage, and freshness latency — not slide counts.
-            Every engagement begins with a quantitative audit and ends with a catalogue that&rsquo;s
-            ready for Google&rsquo;s Universal Commerce Protocol, OpenAI&rsquo;s Instant Checkout,
-            and whatever comes next.
+            Our approach is engineering-led and outcome-driven. We measure
+            success in catalogue completeness scores, enrichment coverage, and
+            freshness latency — not slide counts. Every engagement begins with a
+            quantitative audit and ends with a catalogue that&rsquo;s ready for
+            Google&rsquo;s Universal Commerce Protocol, OpenAI&rsquo;s Instant
+            Checkout, and whatever comes next.
           </p>
         </div>
       </PageIntro>
+      <ProofLedger />
       <Container className="mt-16">
         <StatList>
-          <StatListItem value="758%" label="YoY growth in AI-driven e-commerce" />
-          <StatListItem value="$3–5T" label="Projected agentic commerce by 2030" />
-          <StatListItem value="81%" label="Of retail execs say AI will weaken brand loyalty" />
+          <StatListItem
+            value="758%"
+            label="YoY growth in AI-driven e-commerce"
+          />
+          <StatListItem
+            value="$3–5T"
+            label="Projected agentic commerce by 2030"
+          />
+          <StatListItem
+            value="81%"
+            label="Of retail execs say AI will weaken brand loyalty"
+          />
         </StatList>
       </Container>
 

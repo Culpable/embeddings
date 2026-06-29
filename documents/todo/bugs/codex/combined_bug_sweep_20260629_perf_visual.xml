@@ -1,0 +1,40 @@
+<bug_sweep>
+  <metadata>
+    <worker>consolidated</worker>
+    <scope>Consolidated post-change runtime, visual, responsive, accessibility, analytics, and documentation findings from subagent_bug_sweep_20260629_runtime.xml and subagent_bug_sweep_20260629_visual.xml.</scope>
+  </metadata>
+  <bugs>
+    <bug_1>
+      <title>Idle analytics can drop the initial landing page after fast client navigation</title>
+      <severity>medium</severity>
+      <file>src/instrumentation-client.js</file>
+      <description>The first page view was resolved from window.location only when initialiseAnalytics ran during idle time. If a visitor landed on one route and clicked a client-side navigation link before that idle callback ran, the original landing route could be missed.</description>
+      <evidence>The runtime worker found that trackedPageViews stored only current page strings and that initialiseAnalytics called trackPageView after idle setup. The history patch could record the destination path before the delayed initialiser captured the original path.</evidence>
+      <recommendation>Fixed by capturing initialPagePath at module load, allowing trackPageView to accept an explicit page path, and adding a focused test that requires the initial landing path to be queued after delayed analytics setup.</recommendation>
+    </bug_1>
+    <bug_2>
+      <title>Open navigation overlay lets keyboard focus escape behind the menu</title>
+      <severity>medium</severity>
+      <file>src/components/RootNavigation.jsx</file>
+      <description>The open navigation panel moved focus to the close button but did not keep Tab focus inside the fixed overlay or close on Escape. Keyboard users could reach hidden page links while the menu still covered the page.</description>
+      <evidence>Both runtime and visual workers reported focus escaping the open overlay at 390x900. Static review found no role, aria-modal, Escape handling, focus sentinels, or focus-loop logic before the fix.</evidence>
+      <recommendation>Fixed by adding dialog semantics, aria-modal, Escape close handling, focusable descendant detection, Tab wrapping, and a regression test for keyboard focus containment.</recommendation>
+    </bug_2>
+    <bug_3>
+      <title>Mixpanel setup guide contradicts replay environment configuration</title>
+      <severity>low</severity>
+      <file>documents/MIXPANEL_SETUP.md</file>
+      <description>The setup guide said environment variables were not used, while the Mixpanel client reads public environment variables for session replay sampling and heatmap recording.</description>
+      <evidence>The runtime worker found documents/MIXPANEL_SETUP.md contradicted src/lib/mixpanelClient.js, which reads NEXT_PUBLIC_MIXPANEL_RECORDING_PERCENT and NEXT_PUBLIC_MIXPANEL_RECORD_HEATMAPS.</evidence>
+      <recommendation>Fixed by changing the implementation notes to state that the token is hardcoded while replay sampling and heatmap recording use the supported public environment variables.</recommendation>
+    </bug_3>
+    <bug_4>
+      <title>Budget error-summary link does not focus a budget control</title>
+      <severity>low</severity>
+      <file>src/app/contact/ContactForm.jsx</file>
+      <description>The contact validation summary linked the Budget error to a fieldset id instead of a focusable budget radio input. Activating the summary link changed the hash but left focus on the document body.</description>
+      <evidence>The visual worker verified the empty contact form at 390x900. The Name summary link focused name-field, but the Budget link produced hash #budget-field with activeId BODY because budget-field was assigned to the radio-group fieldset.</evidence>
+      <recommendation>Fixed by moving the budget-field id to the first budget radio input while preserving the submitted budget field name, and adding a regression test for the focusable budget summary target.</recommendation>
+    </bug_4>
+  </bugs>
+</bug_sweep>

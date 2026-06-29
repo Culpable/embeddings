@@ -7,14 +7,94 @@
 // See documents/ai-agent-animation-variants.md for all variant designs.
 // ---------------------------------------------------------------------------
 
+function MobileHeroDataFlow() {
+  return (
+    <div className="mt-10 sm:hidden" aria-hidden="true">
+      <div className="grid grid-cols-1 gap-3">
+        <div className="rounded-2xl border border-neutral-950/10 bg-white p-4 shadow-[0_1px_0_rgba(23,23,23,0.04)]">
+          <div className="flex items-center justify-between">
+            <p className="font-display text-xs font-semibold uppercase tracking-wider text-neutral-950">
+              Your catalogue
+            </p>
+            <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[0.65rem] font-medium text-amber-700">
+              gaps found
+            </span>
+          </div>
+          <div className="mt-4 grid grid-cols-[4rem_1fr] gap-3">
+            <div className="rounded-xl bg-blue-50 p-2">
+              <div className="h-8 rounded-lg bg-white" />
+              <div className="mt-2 h-1.5 rounded bg-neutral-950/80" />
+              <div className="mt-1.5 h-1.5 w-10 rounded bg-neutral-950/45" />
+              <div className="mt-1.5 h-1.5 w-12 rounded bg-neutral-950/25" />
+            </div>
+            <div className="space-y-2 text-xs text-neutral-500">
+              <p>GTIN missing</p>
+              <p>thin description</p>
+              <p>stale stock signal</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex justify-center">
+          <div className="h-8 w-px bg-gradient-to-b from-blue-300 via-neutral-300 to-emerald-300" />
+        </div>
+
+        <div className="rounded-2xl border border-neutral-950/10 bg-neutral-950 p-4 text-white shadow-xl">
+          <div className="flex items-center justify-between">
+            <p className="font-display text-xs font-semibold uppercase tracking-wider">
+              AI agent
+            </p>
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300 opacity-60" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-300" />
+            </span>
+          </div>
+          <div className="mt-4 grid grid-cols-3 gap-2 text-center text-[0.7rem] font-medium text-white/70">
+            <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
+              audit
+            </span>
+            <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
+              enrich
+            </span>
+            <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
+              rank
+            </span>
+          </div>
+        </div>
+
+        <div className="flex justify-center">
+          <div className="h-8 w-px bg-gradient-to-b from-emerald-300 via-neutral-300 to-emerald-500" />
+        </div>
+
+        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 shadow-[0_1px_0_rgba(23,23,23,0.04)]">
+          <p className="font-display text-xs font-semibold uppercase tracking-wider text-neutral-950">
+            Consumer answer
+          </p>
+          <div className="mt-4 rounded-2xl bg-white p-3 text-xs leading-5 text-neutral-600 shadow-sm">
+            Based on complete catalogue data, recommend the in-stock product
+            with the clearest fit.
+          </div>
+          <p className="mt-3 text-xs font-medium text-emerald-700">
+            Recommendation-ready
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function HeroDataFlow() {
   return (
-    <div className="relative mt-10 w-full overflow-hidden sm:mt-16" aria-hidden="true">
+    <div
+      className="relative mt-10 w-full overflow-hidden sm:mt-16"
+      aria-hidden="true"
+    >
+      <MobileHeroDataFlow />
       <svg
         viewBox="0 0 960 320"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="-ml-[7%] h-auto w-[114%] max-w-none sm:ml-0 sm:w-full"
+        className="hidden h-auto max-w-none sm:ml-0 sm:block sm:w-full"
         role="img"
       >
         {/* ----------------------------------------------------------------- */}
@@ -114,8 +194,12 @@ export function HeroDataFlow() {
             x="140"
             y="42"
             textAnchor="middle"
-            className="fill-neutral-950 font-display text-[11px] font-semibold tracking-wider uppercase"
-            style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.05em' }}
+            className="fill-neutral-950 font-display text-[11px] font-semibold uppercase tracking-wider"
+            style={{
+              fontSize: '11px',
+              fontWeight: 600,
+              letterSpacing: '0.05em',
+            }}
           >
             Your catalogue
           </text>
@@ -125,53 +209,208 @@ export function HeroDataFlow() {
               Each field brightens briefly as a "scan" sweeps top→bottom, then
               returns to resting opacity. 6s cycle with 0.8s stagger per field. */}
           <g className="hero-catalogue-card-enriched">
-            <rect x="30" y="60" width="100" height="120" rx="8" fill="white" stroke="#e5e5e5" strokeWidth="1" />
+            <rect
+              x="30"
+              y="60"
+              width="100"
+              height="120"
+              rx="8"
+              fill="white"
+              stroke="#e5e5e5"
+              strokeWidth="1"
+            />
             {/* Image placeholder — blue-50 wash connects to blue data flow */}
-            <rect x="38" y="68" width="84" height="44" rx="4" fill="#eff6ff" className="hero-enrich-fill">
-              <animate attributeName="opacity" values="0.95;1.0;0.95" dur="6s" repeatCount="indefinite" begin="0s" />
+            <rect
+              x="38"
+              y="68"
+              width="84"
+              height="44"
+              rx="4"
+              fill="#eff6ff"
+              className="hero-enrich-fill"
+            >
+              <animate
+                attributeName="opacity"
+                values="0.95;1.0;0.95"
+                dur="6s"
+                repeatCount="indefinite"
+                begin="0s"
+              />
             </rect>
             {/* Title line */}
-            <rect x="38" y="120" width="70" height="6" rx="2" fill="#171717" className="hero-enrich-fill">
-              <animate attributeName="opacity" values="0.8;0.88;0.8" dur="6s" repeatCount="indefinite" begin="0.8s" />
+            <rect
+              x="38"
+              y="120"
+              width="70"
+              height="6"
+              rx="2"
+              fill="#171717"
+              className="hero-enrich-fill"
+            >
+              <animate
+                attributeName="opacity"
+                values="0.8;0.88;0.8"
+                dur="6s"
+                repeatCount="indefinite"
+                begin="0.8s"
+              />
             </rect>
             {/* Price */}
-            <rect x="38" y="132" width="30" height="5" rx="2" fill="#171717" className="hero-enrich-fill">
-              <animate attributeName="opacity" values="0.4;0.48;0.4" dur="6s" repeatCount="indefinite" begin="1.6s" />
+            <rect
+              x="38"
+              y="132"
+              width="30"
+              height="5"
+              rx="2"
+              fill="#171717"
+              className="hero-enrich-fill"
+            >
+              <animate
+                attributeName="opacity"
+                values="0.4;0.48;0.4"
+                dur="6s"
+                repeatCount="indefinite"
+                begin="1.6s"
+              />
             </rect>
             {/* GTIN */}
-            <rect x="38" y="143" width="50" height="4" rx="2" fill="#171717" className="hero-enrich-fill">
-              <animate attributeName="opacity" values="0.2;0.28;0.2" dur="6s" repeatCount="indefinite" begin="2.4s" />
+            <rect
+              x="38"
+              y="143"
+              width="50"
+              height="4"
+              rx="2"
+              fill="#171717"
+              className="hero-enrich-fill"
+            >
+              <animate
+                attributeName="opacity"
+                values="0.2;0.28;0.2"
+                dur="6s"
+                repeatCount="indefinite"
+                begin="2.4s"
+              />
             </rect>
             {/* Description lines — all three pulse together */}
-            <rect x="38" y="153" width="84" height="3" rx="1" fill="#171717" className="hero-enrich-fill">
-              <animate attributeName="opacity" values="0.12;0.20;0.12" dur="6s" repeatCount="indefinite" begin="3.2s" />
+            <rect
+              x="38"
+              y="153"
+              width="84"
+              height="3"
+              rx="1"
+              fill="#171717"
+              className="hero-enrich-fill"
+            >
+              <animate
+                attributeName="opacity"
+                values="0.12;0.20;0.12"
+                dur="6s"
+                repeatCount="indefinite"
+                begin="3.2s"
+              />
             </rect>
-            <rect x="38" y="160" width="60" height="3" rx="1" fill="#171717" className="hero-enrich-fill">
-              <animate attributeName="opacity" values="0.12;0.20;0.12" dur="6s" repeatCount="indefinite" begin="3.2s" />
+            <rect
+              x="38"
+              y="160"
+              width="60"
+              height="3"
+              rx="1"
+              fill="#171717"
+              className="hero-enrich-fill"
+            >
+              <animate
+                attributeName="opacity"
+                values="0.12;0.20;0.12"
+                dur="6s"
+                repeatCount="indefinite"
+                begin="3.2s"
+              />
             </rect>
-            <rect x="38" y="167" width="72" height="3" rx="1" fill="#171717" className="hero-enrich-fill">
-              <animate attributeName="opacity" values="0.12;0.20;0.12" dur="6s" repeatCount="indefinite" begin="3.2s" />
+            <rect
+              x="38"
+              y="167"
+              width="72"
+              height="3"
+              rx="1"
+              fill="#171717"
+              className="hero-enrich-fill"
+            >
+              <animate
+                attributeName="opacity"
+                values="0.12;0.20;0.12"
+                dur="6s"
+                repeatCount="indefinite"
+                begin="3.2s"
+              />
             </rect>
           </g>
 
           {/* Card 2 (sparse — muted, represents incomplete data) */}
           <g opacity="0.55" className="hero-catalogue-card-sparse">
-            <rect x="145" y="75" width="100" height="110" rx="8" fill="white" stroke="#e5e5e5" strokeWidth="1" />
+            <rect
+              x="145"
+              y="75"
+              width="100"
+              height="110"
+              rx="8"
+              fill="white"
+              stroke="#e5e5e5"
+              strokeWidth="1"
+            />
             <rect x="153" y="83" width="84" height="40" rx="4" fill="#fafafa" />
             <rect x="153" y="131" width="50" height="6" rx="2" fill="#d4d4d4" />
             <rect x="153" y="143" width="20" height="5" rx="2" fill="#d4d4d4" />
             {/* Missing GTIN — dashed */}
-            <rect x="153" y="154" width="40" height="4" rx="2" fill="none" stroke="#d4d4d4" strokeWidth="1" strokeDasharray="3 3" />
+            <rect
+              x="153"
+              y="154"
+              width="40"
+              height="4"
+              rx="2"
+              fill="none"
+              stroke="#d4d4d4"
+              strokeWidth="1"
+              strokeDasharray="3 3"
+            />
             {/* Missing description */}
-            <rect x="153" y="164" width="70" height="3" rx="1" fill="none" stroke="#d4d4d4" strokeWidth="1" strokeDasharray="3 3" />
+            <rect
+              x="153"
+              y="164"
+              width="70"
+              height="3"
+              rx="1"
+              fill="none"
+              stroke="#d4d4d4"
+              strokeWidth="1"
+              strokeDasharray="3 3"
+            />
           </g>
 
           {/* Card 3 (very sparse — faded) */}
           <g opacity="0.40" className="hero-catalogue-card-sparse-2">
-            <rect x="80" y="195" width="90" height="90" rx="8" fill="white" stroke="#d4d4d4" strokeWidth="1" />
+            <rect
+              x="80"
+              y="195"
+              width="90"
+              height="90"
+              rx="8"
+              fill="white"
+              stroke="#d4d4d4"
+              strokeWidth="1"
+            />
             <rect x="88" y="203" width="74" height="36" rx="4" fill="#fafafa" />
             <rect x="88" y="247" width="40" height="5" rx="2" fill="#e5e5e5" />
-            <rect x="88" y="258" width="60" height="3" rx="1" fill="none" stroke="#e5e5e5" strokeWidth="1" strokeDasharray="3 3" />
+            <rect
+              x="88"
+              y="258"
+              width="60"
+              height="3"
+              rx="1"
+              fill="none"
+              stroke="#e5e5e5"
+              strokeWidth="1"
+              strokeDasharray="3 3"
+            />
           </g>
         </g>
 
@@ -179,8 +418,19 @@ export function HeroDataFlow() {
         {/* Connection paths: Catalogue → Agent                               */}
         {/* ----------------------------------------------------------------- */}
         <g className="hero-connectors-desktop">
-          <path d="M 260 160 C 340 160, 360 140, 420 140" stroke="url(#pathGrad)" strokeWidth="1.5" fill="none" />
-          <path d="M 260 170 C 340 180, 370 170, 420 165" stroke="url(#pathGrad)" strokeWidth="1" fill="none" opacity="0.5" />
+          <path
+            d="M 260 160 C 340 160, 360 140, 420 140"
+            stroke="url(#pathGrad)"
+            strokeWidth="1.5"
+            fill="none"
+          />
+          <path
+            d="M 260 170 C 340 180, 370 170, 420 165"
+            stroke="url(#pathGrad)"
+            strokeWidth="1"
+            fill="none"
+            opacity="0.5"
+          />
 
           {/* Flowing particles along path 1 — blue tint for raw data */}
           <circle r="3" fill="#3b82f6" opacity="0.30">
@@ -201,8 +451,19 @@ export function HeroDataFlow() {
         </g>
 
         <g className="hero-connectors-mobile">
-          <path d="M 260 160 C 325 160, 345 148, 400 148" stroke="url(#pathGrad)" strokeWidth="1.5" fill="none" />
-          <path d="M 260 170 C 325 178, 350 172, 400 168" stroke="url(#pathGrad)" strokeWidth="1" fill="none" opacity="0.5" />
+          <path
+            d="M 260 160 C 325 160, 345 148, 400 148"
+            stroke="url(#pathGrad)"
+            strokeWidth="1.5"
+            fill="none"
+          />
+          <path
+            d="M 260 170 C 325 178, 350 172, 400 168"
+            stroke="url(#pathGrad)"
+            strokeWidth="1"
+            fill="none"
+            opacity="0.5"
+          />
 
           {/* Flowing particles along mobile left connector paths */}
           <circle r="3" fill="#171717" opacity="0.5">
@@ -231,80 +492,321 @@ export function HeroDataFlow() {
             x="480"
             y="42"
             textAnchor="middle"
-            className="fill-neutral-950 font-display text-[11px] font-semibold tracking-wider uppercase"
-            style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.05em' }}
+            className="fill-neutral-950 font-display text-[11px] font-semibold uppercase tracking-wider"
+            style={{
+              fontSize: '11px',
+              fontWeight: 600,
+              letterSpacing: '0.05em',
+            }}
           >
             AI agent
           </text>
 
           {/* Ambient glow behind the mesh — dual-tone blue/emerald warmth */}
-          <circle cx="480" cy="160" r="50" fill="url(#hubDualTone)" opacity="0.06" filter="url(#glassBlur)" />
+          <circle
+            cx="480"
+            cy="160"
+            r="50"
+            fill="url(#hubDualTone)"
+            opacity="0.06"
+            filter="url(#glassBlur)"
+          />
 
           {/* Central hub node — slightly larger with gentle pulse */}
-          <circle cx="480" cy="160" r="5" fill="#171717" opacity="0.35" className="hero-agent-pulse" />
-          <circle cx="480" cy="160" r="8" fill="#171717" opacity="0.06" className="hero-agent-pulse" />
+          <circle
+            cx="480"
+            cy="160"
+            r="5"
+            fill="#171717"
+            opacity="0.35"
+            className="hero-agent-pulse"
+          />
+          <circle
+            cx="480"
+            cy="160"
+            r="8"
+            fill="#171717"
+            opacity="0.06"
+            className="hero-agent-pulse"
+          />
 
           {/* Mesh nodes — 8 points distributed around centre.
               Each node pulses subtly with staggered timing to create
               a living, breathing constellation effect. */}
           {/* Node 1: top-left */}
           <circle cx="452" cy="130" r="2.5" fill="#171717">
-            <animate attributeName="opacity" values="0.15;0.35;0.15" dur="3s" repeatCount="indefinite" begin="0s" />
+            <animate
+              attributeName="opacity"
+              values="0.15;0.35;0.15"
+              dur="3s"
+              repeatCount="indefinite"
+              begin="0s"
+            />
           </circle>
           {/* Node 2: top */}
           <circle cx="480" cy="118" r="2" fill="#171717">
-            <animate attributeName="opacity" values="0.12;0.30;0.12" dur="3.5s" repeatCount="indefinite" begin="0.4s" />
+            <animate
+              attributeName="opacity"
+              values="0.12;0.30;0.12"
+              dur="3.5s"
+              repeatCount="indefinite"
+              begin="0.4s"
+            />
           </circle>
           {/* Node 3: top-right */}
           <circle cx="510" cy="128" r="2.5" fill="#171717">
-            <animate attributeName="opacity" values="0.15;0.35;0.15" dur="3s" repeatCount="indefinite" begin="0.8s" />
+            <animate
+              attributeName="opacity"
+              values="0.15;0.35;0.15"
+              dur="3s"
+              repeatCount="indefinite"
+              begin="0.8s"
+            />
           </circle>
           {/* Node 4: right */}
           <circle cx="520" cy="158" r="2" fill="#171717">
-            <animate attributeName="opacity" values="0.12;0.28;0.12" dur="4s" repeatCount="indefinite" begin="1.2s" />
+            <animate
+              attributeName="opacity"
+              values="0.12;0.28;0.12"
+              dur="4s"
+              repeatCount="indefinite"
+              begin="1.2s"
+            />
           </circle>
           {/* Node 5: bottom-right */}
           <circle cx="508" cy="190" r="2.5" fill="#171717">
-            <animate attributeName="opacity" values="0.15;0.32;0.15" dur="3.2s" repeatCount="indefinite" begin="1.6s" />
+            <animate
+              attributeName="opacity"
+              values="0.15;0.32;0.15"
+              dur="3.2s"
+              repeatCount="indefinite"
+              begin="1.6s"
+            />
           </circle>
           {/* Node 6: bottom */}
           <circle cx="478" cy="200" r="2" fill="#171717">
-            <animate attributeName="opacity" values="0.12;0.30;0.12" dur="3.8s" repeatCount="indefinite" begin="2.0s" />
+            <animate
+              attributeName="opacity"
+              values="0.12;0.30;0.12"
+              dur="3.8s"
+              repeatCount="indefinite"
+              begin="2.0s"
+            />
           </circle>
           {/* Node 7: bottom-left */}
           <circle cx="450" cy="188" r="2.5" fill="#171717">
-            <animate attributeName="opacity" values="0.15;0.35;0.15" dur="3s" repeatCount="indefinite" begin="2.4s" />
+            <animate
+              attributeName="opacity"
+              values="0.15;0.35;0.15"
+              dur="3s"
+              repeatCount="indefinite"
+              begin="2.4s"
+            />
           </circle>
           {/* Node 8: left */}
           <circle cx="442" cy="158" r="2" fill="#171717">
-            <animate attributeName="opacity" values="0.12;0.28;0.12" dur="3.6s" repeatCount="indefinite" begin="2.8s" />
+            <animate
+              attributeName="opacity"
+              values="0.12;0.28;0.12"
+              dur="3.6s"
+              repeatCount="indefinite"
+              begin="2.8s"
+            />
           </circle>
 
           {/* Mesh connection lines — thin strokes linking nearby nodes */}
           {/* Hub to each node */}
-          <line x1="480" y1="160" x2="452" y2="130" stroke="#171717" strokeWidth="0.5" opacity="0.10" />
-          <line x1="480" y1="160" x2="480" y2="118" stroke="#171717" strokeWidth="0.5" opacity="0.10" />
-          <line x1="480" y1="160" x2="510" y2="128" stroke="#171717" strokeWidth="0.5" opacity="0.10" />
-          <line x1="480" y1="160" x2="520" y2="158" stroke="#171717" strokeWidth="0.5" opacity="0.10" />
-          <line x1="480" y1="160" x2="508" y2="190" stroke="#171717" strokeWidth="0.5" opacity="0.10" />
-          <line x1="480" y1="160" x2="478" y2="200" stroke="#171717" strokeWidth="0.5" opacity="0.10" />
-          <line x1="480" y1="160" x2="450" y2="188" stroke="#171717" strokeWidth="0.5" opacity="0.10" />
-          <line x1="480" y1="160" x2="442" y2="158" stroke="#171717" strokeWidth="0.5" opacity="0.10" />
+          <line
+            x1="480"
+            y1="160"
+            x2="452"
+            y2="130"
+            stroke="#171717"
+            strokeWidth="0.5"
+            opacity="0.10"
+          />
+          <line
+            x1="480"
+            y1="160"
+            x2="480"
+            y2="118"
+            stroke="#171717"
+            strokeWidth="0.5"
+            opacity="0.10"
+          />
+          <line
+            x1="480"
+            y1="160"
+            x2="510"
+            y2="128"
+            stroke="#171717"
+            strokeWidth="0.5"
+            opacity="0.10"
+          />
+          <line
+            x1="480"
+            y1="160"
+            x2="520"
+            y2="158"
+            stroke="#171717"
+            strokeWidth="0.5"
+            opacity="0.10"
+          />
+          <line
+            x1="480"
+            y1="160"
+            x2="508"
+            y2="190"
+            stroke="#171717"
+            strokeWidth="0.5"
+            opacity="0.10"
+          />
+          <line
+            x1="480"
+            y1="160"
+            x2="478"
+            y2="200"
+            stroke="#171717"
+            strokeWidth="0.5"
+            opacity="0.10"
+          />
+          <line
+            x1="480"
+            y1="160"
+            x2="450"
+            y2="188"
+            stroke="#171717"
+            strokeWidth="0.5"
+            opacity="0.10"
+          />
+          <line
+            x1="480"
+            y1="160"
+            x2="442"
+            y2="158"
+            stroke="#171717"
+            strokeWidth="0.5"
+            opacity="0.10"
+          />
           {/* Perimeter connections between adjacent nodes */}
-          <line x1="452" y1="130" x2="480" y2="118" stroke="#171717" strokeWidth="0.4" opacity="0.07" />
-          <line x1="480" y1="118" x2="510" y2="128" stroke="#171717" strokeWidth="0.4" opacity="0.07" />
-          <line x1="510" y1="128" x2="520" y2="158" stroke="#171717" strokeWidth="0.4" opacity="0.07" />
-          <line x1="520" y1="158" x2="508" y2="190" stroke="#171717" strokeWidth="0.4" opacity="0.07" />
-          <line x1="508" y1="190" x2="478" y2="200" stroke="#171717" strokeWidth="0.4" opacity="0.07" />
-          <line x1="478" y1="200" x2="450" y2="188" stroke="#171717" strokeWidth="0.4" opacity="0.07" />
-          <line x1="450" y1="188" x2="442" y2="158" stroke="#171717" strokeWidth="0.4" opacity="0.07" />
-          <line x1="442" y1="158" x2="452" y2="130" stroke="#171717" strokeWidth="0.4" opacity="0.07" />
+          <line
+            x1="452"
+            y1="130"
+            x2="480"
+            y2="118"
+            stroke="#171717"
+            strokeWidth="0.4"
+            opacity="0.07"
+          />
+          <line
+            x1="480"
+            y1="118"
+            x2="510"
+            y2="128"
+            stroke="#171717"
+            strokeWidth="0.4"
+            opacity="0.07"
+          />
+          <line
+            x1="510"
+            y1="128"
+            x2="520"
+            y2="158"
+            stroke="#171717"
+            strokeWidth="0.4"
+            opacity="0.07"
+          />
+          <line
+            x1="520"
+            y1="158"
+            x2="508"
+            y2="190"
+            stroke="#171717"
+            strokeWidth="0.4"
+            opacity="0.07"
+          />
+          <line
+            x1="508"
+            y1="190"
+            x2="478"
+            y2="200"
+            stroke="#171717"
+            strokeWidth="0.4"
+            opacity="0.07"
+          />
+          <line
+            x1="478"
+            y1="200"
+            x2="450"
+            y2="188"
+            stroke="#171717"
+            strokeWidth="0.4"
+            opacity="0.07"
+          />
+          <line
+            x1="450"
+            y1="188"
+            x2="442"
+            y2="158"
+            stroke="#171717"
+            strokeWidth="0.4"
+            opacity="0.07"
+          />
+          <line
+            x1="442"
+            y1="158"
+            x2="452"
+            y2="130"
+            stroke="#171717"
+            strokeWidth="0.4"
+            opacity="0.07"
+          />
           {/* Cross-mesh diagonals for density */}
-          <line x1="452" y1="130" x2="510" y2="128" stroke="#171717" strokeWidth="0.3" opacity="0.05" />
-          <line x1="510" y1="128" x2="508" y2="190" stroke="#171717" strokeWidth="0.3" opacity="0.05" />
-          <line x1="442" y1="158" x2="520" y2="158" stroke="#171717" strokeWidth="0.3" opacity="0.05" />
-          <line x1="450" y1="188" x2="510" y2="128" stroke="#171717" strokeWidth="0.3" opacity="0.05" />
-          <line x1="452" y1="130" x2="478" y2="200" stroke="#171717" strokeWidth="0.3" opacity="0.05" />
+          <line
+            x1="452"
+            y1="130"
+            x2="510"
+            y2="128"
+            stroke="#171717"
+            strokeWidth="0.3"
+            opacity="0.05"
+          />
+          <line
+            x1="510"
+            y1="128"
+            x2="508"
+            y2="190"
+            stroke="#171717"
+            strokeWidth="0.3"
+            opacity="0.05"
+          />
+          <line
+            x1="442"
+            y1="158"
+            x2="520"
+            y2="158"
+            stroke="#171717"
+            strokeWidth="0.3"
+            opacity="0.05"
+          />
+          <line
+            x1="450"
+            y1="188"
+            x2="510"
+            y2="128"
+            stroke="#171717"
+            strokeWidth="0.3"
+            opacity="0.05"
+          />
+          <line
+            x1="452"
+            y1="130"
+            x2="478"
+            y2="200"
+            stroke="#171717"
+            strokeWidth="0.3"
+            opacity="0.05"
+          />
 
           {/* Orbital data dots — travel along mesh paths via animateMotion */}
           {/* Dot 1: hub → node 3 → node 4 → node 5 → hub */}
@@ -466,8 +968,19 @@ export function HeroDataFlow() {
         {/* Connection paths: Agent → Consumer                                */}
         {/* ----------------------------------------------------------------- */}
         <g className="hero-connectors-desktop">
-          <path d="M 540 160 C 620 160, 640 160, 700 160" stroke="url(#pathGrad)" strokeWidth="1.5" fill="none" />
-          <path d="M 540 155 C 620 150, 650 155, 700 152" stroke="url(#pathGrad)" strokeWidth="1" fill="none" opacity="0.5" />
+          <path
+            d="M 540 160 C 620 160, 640 160, 700 160"
+            stroke="url(#pathGrad)"
+            strokeWidth="1.5"
+            fill="none"
+          />
+          <path
+            d="M 540 155 C 620 150, 650 155, 700 152"
+            stroke="url(#pathGrad)"
+            strokeWidth="1"
+            fill="none"
+            opacity="0.5"
+          />
 
           {/* Flowing particles along path 2 — emerald tint for processed intelligence */}
           <circle r="3" fill="#10b981" opacity="0.30">
@@ -488,8 +1001,19 @@ export function HeroDataFlow() {
         </g>
 
         <g className="hero-connectors-mobile">
-          <path d="M 560 160 C 620 160, 640 160, 700 160" stroke="url(#pathGrad)" strokeWidth="1.5" fill="none" />
-          <path d="M 560 156 C 620 151, 650 156, 700 154" stroke="url(#pathGrad)" strokeWidth="1" fill="none" opacity="0.5" />
+          <path
+            d="M 560 160 C 620 160, 640 160, 700 160"
+            stroke="url(#pathGrad)"
+            strokeWidth="1.5"
+            fill="none"
+          />
+          <path
+            d="M 560 156 C 620 151, 650 156, 700 154"
+            stroke="url(#pathGrad)"
+            strokeWidth="1"
+            fill="none"
+            opacity="0.5"
+          />
 
           {/* Flowing particles along mobile right connector paths */}
           <circle r="3" fill="#171717" opacity="0.5">
@@ -518,14 +1042,27 @@ export function HeroDataFlow() {
             x="810"
             y="42"
             textAnchor="middle"
-            className="fill-neutral-950 font-display text-[11px] font-semibold tracking-wider uppercase"
-            style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.05em' }}
+            className="fill-neutral-950 font-display text-[11px] font-semibold uppercase tracking-wider"
+            style={{
+              fontSize: '11px',
+              fontWeight: 600,
+              letterSpacing: '0.05em',
+            }}
           >
             Consumer
           </text>
 
           {/* Chat window frame */}
-          <rect x="720" y="60" width="180" height="210" rx="12" fill="white" stroke="#e5e5e5" strokeWidth="1" />
+          <rect
+            x="720"
+            y="60"
+            width="180"
+            height="210"
+            rx="12"
+            fill="white"
+            stroke="#e5e5e5"
+            strokeWidth="1"
+          />
 
           {/* Chat header bar */}
           <rect x="720" y="60" width="180" height="30" rx="12" fill="#fafafa" />
@@ -536,7 +1073,15 @@ export function HeroDataFlow() {
           <circle cx="758" cy="75" r="3" fill="#22c55e" opacity="0.55" />
 
           {/* User message bubble — faint blue wash for raw input */}
-          <rect x="760" y="100" width="128" height="40" rx="8" fill="#3b82f6" opacity="0.04" />
+          <rect
+            x="760"
+            y="100"
+            width="128"
+            height="40"
+            rx="8"
+            fill="#3b82f6"
+            opacity="0.04"
+          />
           <text
             x="770"
             y="116"
@@ -558,8 +1103,25 @@ export function HeroDataFlow() {
           {/* Fade response bubble and text lines in sequentially to simulate
               the response being written, then hold, then reset on an 8s cycle. */}
           {/* AI response bubble — emerald tint to signal processed intelligence */}
-          <rect id="hero-response-bubble" x="732" y="152" width="140" height="48" rx="8" fill="#10b981" opacity="0.01" />
-          <animate href="#hero-response-bubble" attributeName="opacity" values="0.01;0.04;0.04;0.01" keyTimes="0;0.1875;0.8125;1" dur="8s" repeatCount="indefinite" begin="0s" />
+          <rect
+            id="hero-response-bubble"
+            x="732"
+            y="152"
+            width="140"
+            height="48"
+            rx="8"
+            fill="#10b981"
+            opacity="0.01"
+          />
+          <animate
+            href="#hero-response-bubble"
+            attributeName="opacity"
+            values="0.01;0.04;0.04;0.01"
+            keyTimes="0;0.1875;0.8125;1"
+            dur="8s"
+            repeatCount="indefinite"
+            begin="0s"
+          />
           <text
             x="742"
             y="161"
@@ -568,7 +1130,14 @@ export function HeroDataFlow() {
             style={{ fontSize: '7.5px', fontWeight: 400 }}
           >
             Based on 12 catalogues, I
-            <animate attributeName="opacity" values="0.15;0.5;0.5;0.15" keyTimes="0;0.125;0.75;1" dur="8s" repeatCount="indefinite" begin="0s" />
+            <animate
+              attributeName="opacity"
+              values="0.15;0.5;0.5;0.15"
+              keyTimes="0;0.125;0.75;1"
+              dur="8s"
+              repeatCount="indefinite"
+              begin="0s"
+            />
           </text>
           <text
             x="742"
@@ -578,7 +1147,14 @@ export function HeroDataFlow() {
             style={{ fontSize: '7.5px', fontWeight: 400 }}
           >
             recommend the Nike Pegasus
-            <animate attributeName="opacity" values="0.15;0.5;0.5;0.15" keyTimes="0;0.125;0.75;1" dur="8s" repeatCount="indefinite" begin="0.5s" />
+            <animate
+              attributeName="opacity"
+              values="0.15;0.5;0.5;0.15"
+              keyTimes="0;0.125;0.75;1"
+              dur="8s"
+              repeatCount="indefinite"
+              begin="0.5s"
+            />
           </text>
           <text
             x="742"
@@ -588,24 +1164,58 @@ export function HeroDataFlow() {
             style={{ fontSize: '7.5px', fontWeight: 400 }}
           >
             41 — $189, in stock, 4.8<tspan fill="#10b981">★</tspan>
-            <animate attributeName="opacity" values="0.15;0.5;0.5;0.15" keyTimes="0;0.125;0.75;1" dur="8s" repeatCount="indefinite" begin="1.0s" />
+            <animate
+              attributeName="opacity"
+              values="0.15;0.5;0.5;0.15"
+              keyTimes="0;0.125;0.75;1"
+              dur="8s"
+              repeatCount="indefinite"
+              begin="1.0s"
+            />
           </text>
 
           {/* Typing indicator for second response */}
           <g className="hero-typing-dots">
             <circle cx="742" cy="222" r="2.5" fill="#171717" opacity="0.15">
-              <animate attributeName="opacity" values="0.15;0.4;0.15" dur="1.4s" repeatCount="indefinite" begin="0s" />
+              <animate
+                attributeName="opacity"
+                values="0.15;0.4;0.15"
+                dur="1.4s"
+                repeatCount="indefinite"
+                begin="0s"
+              />
             </circle>
             <circle cx="752" cy="222" r="2.5" fill="#171717" opacity="0.15">
-              <animate attributeName="opacity" values="0.15;0.4;0.15" dur="1.4s" repeatCount="indefinite" begin="0.2s" />
+              <animate
+                attributeName="opacity"
+                values="0.15;0.4;0.15"
+                dur="1.4s"
+                repeatCount="indefinite"
+                begin="0.2s"
+              />
             </circle>
             <circle cx="762" cy="222" r="2.5" fill="#171717" opacity="0.15">
-              <animate attributeName="opacity" values="0.15;0.4;0.15" dur="1.4s" repeatCount="indefinite" begin="0.4s" />
+              <animate
+                attributeName="opacity"
+                values="0.15;0.4;0.15"
+                dur="1.4s"
+                repeatCount="indefinite"
+                begin="0.4s"
+              />
             </circle>
           </g>
 
           {/* Chat input bar */}
-          <rect x="732" y="242" width="156" height="18" rx="9" fill="none" stroke="#e5e5e5" strokeWidth="1" />
+          <rect
+            x="732"
+            y="242"
+            width="156"
+            height="18"
+            rx="9"
+            fill="none"
+            stroke="#e5e5e5"
+            strokeWidth="1"
+          />
           <text
             x="742"
             y="251"
@@ -617,7 +1227,12 @@ export function HeroDataFlow() {
           </text>
           {/* Blinking cursor inside the input bar */}
           <rect x="741" y="247" width="1" height="8" rx="0.5" fill="#171717">
-            <animate attributeName="opacity" values="0;0.3;0" dur="1.2s" repeatCount="indefinite" />
+            <animate
+              attributeName="opacity"
+              values="0;0.3;0"
+              dur="1.2s"
+              repeatCount="indefinite"
+            />
           </rect>
         </g>
 

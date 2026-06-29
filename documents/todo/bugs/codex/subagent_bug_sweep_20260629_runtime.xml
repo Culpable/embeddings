@@ -1,0 +1,32 @@
+<bug_sweep>
+  <metadata>
+    <worker>codex-codebase-auditor</worker>
+    <scope>Read-only post-change runtime sweep focused on analytics initialisation and navigation tracking, hydration boundaries, static export compatibility, mobile menu accessibility, reveal/stat primitives, scoped tests, and Mixpanel documentation for the listed files.</scope>
+  </metadata>
+  <bugs>
+    <bug_1>
+      <title>Idle analytics can drop the initial landing page after fast client navigation</title>
+      <severity>medium</severity>
+      <file>src/instrumentation-client.js:31</file>
+      <description>The first page view is resolved from window.location only when initialiseAnalytics runs during idle time. If a visitor lands on one route and clicks a client-side navigation link before that idle callback runs, the navigation listener records the destination path in trackedPageViews first. When initialiseAnalytics later calls trackPageView, it sees only the current destination path and returns because that path was already marked as tracked. The original landing route is never sent to Mixpanel, which breaks the documented behaviour that page views are tracked when users land on pages.</description>
+      <evidence>src/instrumentation-client.js stores only page strings in trackedPageViews at lines 31-39, schedules initialiseAnalytics at line 92, and calls trackPageView from the delayed initialiser at line 73. The history patch at lines 79-98 can call trackPageView before that delayed initialiser runs, so the initial URL is not captured anywhere. documents/MIXPANEL_SETUP.md lines 32 and 84 state that page views are tracked when users land on or navigate between pages, but test/mixpanel-dynamic-loading.test.mjs only checks for pushState/popstate source strings and does not cover this timing path.</evidence>
+      <recommendation>Capture and schedule the initial page path at module load before later navigation events can overwrite the current location, or track the initial path separately from client-side navigation paths. Add a focused test that simulates navigation before the idle initialiser and verifies both the landing route and destination route are queued once.</recommendation>
+    </bug_1>
+    <bug_2>
+      <title>Open navigation overlay lets keyboard focus escape behind the menu</title>
+      <severity>medium</severity>
+      <file>src/components/RootNavigation.jsx:150</file>
+      <description>The open navigation panel is rendered as a fixed overlay and focus is moved to the close button, but the component does not trap focus, close on Escape, mark the panel as modal, or inert the page content behind it. Keyboard users can tab past the final menu link into underlying header, page, or footer links while the overlay still covers the page. This creates invisible focus and makes the menu hard to dismiss without using the pointer.</description>
+      <evidence>RootNavigation only registers a click listener for links inside the panel at lines 150-167 and focus-restoration logic at lines 169-180. The rendered panel at lines 193-231 has no role, aria-modal, keydown handling, focus sentinels, or inert coordination with RootLayout. test/root-layout-inert-attribute.test.mjs only checks that any inert expression is not an empty string; it does not require an inert boundary or keyboard focus containment.</evidence>
+      <recommendation>Treat the expanded panel as a modal navigation state: close it on Escape, keep Tab focus within the overlay while it is open, and either apply inert or aria-hidden to background chrome/content using boolean values. Add a menu accessibility test that covers Tab wrapping, Escape close, and focus restoration to the open button.</recommendation>
+    </bug_2>
+    <bug_3>
+      <title>Mixpanel setup guide contradicts replay environment configuration</title>
+      <severity>low</severity>
+      <file>documents/MIXPANEL_SETUP.md:8</file>
+      <description>The Mixpanel setup guide says environment variables are not used by the current implementation, but the current Mixpanel client reads public environment variables for session replay sampling and heatmap recording. This can mislead future operators into changing source code instead of using the supported deployment variables.</description>
+      <evidence>documents/MIXPANEL_SETUP.md line 8 says environment variables are not used. src/lib/mixpanelClient.js lines 3-7 reads NEXT_PUBLIC_MIXPANEL_RECORDING_PERCENT and NEXT_PUBLIC_MIXPANEL_RECORD_HEATMAPS, and lines 82-87 pass those values into Mixpanel. The same document later mentions NEXT_PUBLIC_MIXPANEL_RECORDING_PERCENT at lines 60, 68, and 207, so the current implementation notes are internally inconsistent.</evidence>
+      <recommendation>Update the current implementation notes to say the Mixpanel token is hardcoded, while replay sampling and heatmap recording are controlled by NEXT_PUBLIC_MIXPANEL_RECORDING_PERCENT and NEXT_PUBLIC_MIXPANEL_RECORD_HEATMAPS.</recommendation>
+    </bug_3>
+  </bugs>
+</bug_sweep>
