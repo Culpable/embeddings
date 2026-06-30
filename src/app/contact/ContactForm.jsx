@@ -4,7 +4,6 @@ import { useId, useRef, useState } from 'react'
 import clsx from 'clsx'
 import { Button } from '@/components/Button'
 import { FadeIn } from '@/components/FadeIn'
-import { track } from '@/lib/mixpanelClient'
 
 const budgetRanges = [
   {
@@ -71,6 +70,22 @@ function validateFormData(formData) {
   return errors
 }
 
+
+function trackContactEvent(eventName, properties) {
+  // Load analytics only after a visitor interacts with the form, keeping the
+  // contact route’s first client chunk focused on validation and submission UI.
+  void import('@/lib/mixpanelClient')
+    .then(({ track }) => {
+      track(eventName, properties)
+    })
+    .catch((error) => {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('Contact analytics failed to load:', error)
+      }
+    })
+}
+
+
 function focusFirstInvalidField(form, fieldName) {
   const field = form.elements.namedItem(fieldName)
 
@@ -125,14 +140,14 @@ function TextInput({ label, error, multiline = false, rows = 3, ...props }) {
   const sharedClasses = clsx(
     'peer block w-full border bg-transparent px-6 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:outline-none group-first:rounded-t-2xl group-last:rounded-b-2xl',
     error
-      ? 'border-red-300 bg-red-50/40 focus:border-red-600 focus:ring-red-600/10'
+      ? 'border-red-300 bg-red-50/40 focus:border-red-600 focus:ring-red-600/10 group-last:rounded-b-none'
       : 'border-neutral-300 focus:border-neutral-950 focus:ring-neutral-950/5',
   )
-  const inputClasses = clsx(sharedClasses, error ? 'pb-8 pt-12' : 'pb-4 pt-12')
+  const inputClasses = clsx(sharedClasses, 'pb-4 pt-12')
   const textareaClasses = clsx(
     sharedClasses,
     'resize-none pt-12',
-    error ? 'pb-8' : 'pb-3',
+    'pb-3',
   )
 
   const labelClasses = multiline
@@ -168,7 +183,7 @@ function TextInput({ label, error, multiline = false, rows = 3, ...props }) {
       {error && (
         <p
           id={errorId}
-          className="absolute bottom-2 left-6 text-xs font-medium text-red-600"
+          className="-mt-px border-x border-b border-red-300 bg-red-50 px-6 pb-3 pt-2 text-sm font-medium text-red-700 group-last:rounded-b-2xl"
         >
           {error}
         </p>
@@ -228,12 +243,31 @@ function StatusPanel({ status, message, panelRef }) {
             status === 'loading'
               ? 'mt-1.5 h-3 w-3 flex-none animate-spin rounded-full border-2 border-neutral-950/20 border-t-neutral-950'
               : isSuccess
-                ? 'mt-2 h-2 w-2 flex-none rounded-full bg-emerald-500'
+                ? 'grid h-8 w-8 flex-none place-items-center rounded-full bg-emerald-600 text-white shadow-sm'
                 : 'mt-2 h-2 w-2 flex-none rounded-full bg-red-500'
           }
           aria-hidden="true"
-        />
-        <p>{message}</p>
+        >
+          {isSuccess && (
+            <svg viewBox="0 0 20 20" className="h-4 w-4" fill="currentColor">
+              <path
+                fillRule="evenodd"
+                d="M16.704 5.29a1 1 0 0 1 .006 1.414l-7.25 7.31a1 1 0 0 1-1.42 0L3.29 9.225a1 1 0 1 1 1.42-1.408l4.04 4.07 6.54-6.59a1 1 0 0 1 1.414-.006Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          )}
+        </span>
+        <div>
+          {isSuccess && (
+            <p className="font-display text-lg font-semibold tracking-tight text-emerald-950">
+              Message sent
+            </p>
+          )}
+          <p className={isSuccess ? 'mt-1 text-emerald-800' : undefined}>
+            {message}
+          </p>
+        </div>
       </div>
       {status === 'loading' && (
         <div
@@ -290,7 +324,7 @@ export function ContactForm() {
       budget: undefined,
     }))
 
-    track('Contact Form Budget Selected', {
+    trackContactEvent('Contact Form Budget Selected', {
       budget_range: trackingValue,
       form_type: 'business_enquiry',
     })
@@ -310,7 +344,7 @@ export function ContactForm() {
       setFieldErrors(validationErrors)
       setSubmitStatus({ status: 'idle', message: '' })
 
-      track('Contact Form Validation Failed', {
+      trackContactEvent('Contact Form Validation Failed', {
         form_type: 'business_enquiry',
         error_fields: Object.keys(validationErrors),
         timestamp: new Date().toISOString(),
@@ -327,7 +361,7 @@ export function ContactForm() {
       message: 'Sending your message...',
     })
 
-    track('Contact Form Submit Attempted', {
+    trackContactEvent('Contact Form Submit Attempted', {
       form_type: 'business_enquiry',
       timestamp: new Date().toISOString(),
     })
@@ -369,7 +403,7 @@ export function ContactForm() {
         statusPanelRef.current?.focus({ preventScroll: true })
       })
 
-      track('Contact Form Submitted Successfully', {
+      trackContactEvent('Contact Form Submitted Successfully', {
         form_type: 'business_enquiry',
         ...formDataObject,
         timestamp: new Date().toISOString(),
@@ -386,7 +420,7 @@ export function ContactForm() {
         message: errorMessage,
       })
 
-      track('Contact Form Submission Failed', {
+      trackContactEvent('Contact Form Submission Failed', {
         form_type: 'business_enquiry',
         error_message: errorMessage,
         timestamp: new Date().toISOString(),

@@ -9,6 +9,10 @@ const rootNavigationPath = resolve(
   process.cwd(),
   'src/components/RootNavigation.jsx',
 )
+const rootNavigationPanelPath = resolve(
+  process.cwd(),
+  'src/components/RootNavigationPanel.jsx',
+)
 const gridPatternPath = resolve(process.cwd(), 'src/components/GridPattern.jsx')
 const componentsCssPath = resolve(process.cwd(), 'src/styles/components.css')
 
@@ -51,6 +55,43 @@ test('root header delegates only the menu control to a client island', () => {
     `${headerSource}\n${navigationSource}`,
     /framer-motion/,
     'Expected root navigation chrome to use CSS transitions instead of framer-motion layout animation',
+  )
+})
+
+test('root navigation lazy-loads the full overlay panel after menu intent', () => {
+  // Keep offices, route highlighting, and focus-trap work out of the initial
+  // global menu button island until the visitor opens navigation.
+  const navigationSource = readFileSync(rootNavigationPath, 'utf8')
+  const panelSource = readFileSync(rootNavigationPanelPath, 'utf8')
+
+  assert.match(
+    navigationSource,
+    /dynamic\(/,
+    'Expected RootNavigation.jsx to lazy-load the overlay panel',
+  )
+
+  assert.match(
+    navigationSource,
+    /@\/components\/RootNavigationPanel/,
+    'Expected RootNavigation.jsx to load RootNavigationPanel dynamically',
+  )
+
+  assert.doesNotMatch(
+    navigationSource,
+    /usePathname|Offices|focusableSelector|getFocusableElements/,
+    'Expected the initial root navigation island not to include panel-only work',
+  )
+
+  assert.match(
+    panelSource,
+    /usePathname/,
+    'Expected the dynamically loaded panel to retain route highlighting',
+  )
+
+  assert.match(
+    panelSource,
+    /Offices/,
+    'Expected the dynamically loaded panel to retain office links',
   )
 })
 

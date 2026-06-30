@@ -151,31 +151,33 @@ function HeroProofSignals() {
   return (
     <ul
       role="list"
-      className="mt-8 grid max-w-3xl grid-cols-3 gap-1.5 rounded-2xl border border-neutral-950/10 bg-white/75 p-1.5 shadow-[0_1px_0_rgba(23,23,23,0.04)] sm:gap-3 sm:rounded-none sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none"
+      className="mt-8 grid max-w-3xl grid-cols-1 gap-2 rounded-2xl border border-neutral-950/10 bg-white/75 p-1.5 shadow-[0_1px_0_rgba(23,23,23,0.04)] sm:grid-cols-3 sm:gap-3 sm:rounded-none sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none"
       aria-label="Agentic commerce proof points"
     >
       {heroProofSignals.map(({ stat, label, source }, index) => (
         <li
           key={stat}
-          className="group relative overflow-hidden rounded-xl px-2 py-2 transition duration-300 hover:-translate-y-0.5 hover:bg-white sm:rounded-2xl sm:border sm:border-neutral-950/10 sm:bg-white/70 sm:px-4 sm:py-3 sm:shadow-[0_1px_0_rgba(23,23,23,0.04)] sm:hover:border-neutral-950/20 sm:hover:shadow-lg"
+          className="group relative grid grid-cols-[auto_1fr_auto] items-center gap-x-3 overflow-hidden rounded-xl px-3 py-2.5 transition duration-300 hover:-translate-y-0.5 hover:bg-white sm:block sm:rounded-2xl sm:border sm:border-neutral-950/10 sm:bg-white/70 sm:px-4 sm:py-3 sm:shadow-[0_1px_0_rgba(23,23,23,0.04)] sm:hover:border-neutral-950/20 sm:hover:shadow-lg"
         >
           <div
             className={`absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r ${urgencyGradients[index]}`}
             aria-hidden="true"
           />
-          <p className="font-display text-sm font-semibold tracking-tight text-neutral-950 sm:text-lg">
+          <p className="font-display text-base font-semibold tracking-tight text-neutral-950 sm:text-lg">
             {stat}
           </p>
-          <p className="mt-1 text-[0.625rem] leading-3 text-neutral-500 sm:text-xs sm:leading-5">
+          <p className="text-xs leading-5 text-neutral-500 sm:mt-1 sm:text-xs">
             {label}
           </p>
           <a
             href={source.href}
             target="_blank"
             rel="noreferrer"
-            className="mt-2 inline-flex min-h-7 max-w-full items-center rounded-full border border-neutral-950/10 bg-white px-2.5 text-[0.625rem] font-semibold text-neutral-500 shadow-[0_1px_0_rgba(23,23,23,0.04)] transition hover:border-neutral-950/20 hover:text-neutral-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 sm:text-xs"
+            aria-label={`Source: ${source.label}`}
+            className="inline-flex min-h-7 shrink-0 items-center rounded-full border border-neutral-950/10 bg-white px-2.5 text-[0.625rem] font-semibold text-neutral-500 shadow-[0_1px_0_rgba(23,23,23,0.04)] transition hover:border-neutral-950/20 hover:text-neutral-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 sm:mt-3 sm:max-w-full sm:text-xs"
           >
-            Source · {source.label}
+            <span className="sm:hidden">Source</span>
+            <span className="hidden sm:inline">Source · {source.label}</span>
             <span className="ml-1 text-[0.6rem]" aria-hidden="true">
               ↗
             </span>
@@ -379,18 +381,9 @@ function WhyNow() {
                   aria-hidden="true"
                 />
 
-                {/* Oversized stat — render final sourced values immediately */}
+                {/* Oversized stat — render final sourced values as server text */}
                 <p className="bg-gradient-to-b from-neutral-950 to-neutral-950/60 bg-clip-text font-display text-6xl font-medium tracking-tight text-transparent sm:text-7xl">
-                  {/* Animate all three numeric stats: $5T, 393%, 81% */}
-                  {stat === '$5T' ? (
-                    <AnimatedStat value={5} prefix="$" suffix="T" />
-                  ) : stat === '393%' ? (
-                    <AnimatedStat value={393} suffix="%" />
-                  ) : stat === '81%' ? (
-                    <AnimatedStat value={81} suffix="%" />
-                  ) : (
-                    stat
-                  )}
+                  {stat}
                 </p>
                 <p className="mt-2 min-h-[2.5rem] text-sm leading-snug text-neutral-500">
                   {statLabel}
@@ -471,7 +464,7 @@ export default function Home() {
       />
 
       {/* Hero — headline + animated data flow SVG */}
-      <Container className="mt-24 sm:mt-32 md:mt-56">
+      <Container className="mt-20 sm:mt-28 md:mt-40 lg:mt-44">
         <FadeIn className="max-w-3xl">
           <h1 className="font-display text-5xl font-medium tracking-tight text-neutral-950 [text-wrap:balance] sm:text-7xl">
             Be the brand AI agents recommend first

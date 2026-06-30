@@ -46,3 +46,29 @@ test('process page prioritises the first visual after the intro', () => {
     'Expected the first process section image to be marked priority',
   )
 })
+
+test('process images include catalogue-readiness signal overlays', () => {
+  // Keep the process visuals tied to measurable catalogue work instead of generic stock imagery.
+  const source = readFileSync(processPagePath, 'utf8')
+
+  assert.match(
+    source,
+    /function ProcessImageSignals/,
+    'Expected process images to render domain-specific signal overlays',
+  )
+
+  for (const expectedSignal of [
+    '74/100 ready',
+    '128 fixes',
+    'ERP + PIM sync',
+    'review queue',
+    '<15 min drift',
+    'trend pulse',
+  ]) {
+    assert.match(
+      source,
+      new RegExp(expectedSignal.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
+      `Expected process visual overlay to include ${expectedSignal}`,
+    )
+  }
+})

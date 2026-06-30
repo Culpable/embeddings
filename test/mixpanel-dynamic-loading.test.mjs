@@ -9,6 +9,10 @@ const instrumentationClientPath = resolve(
   'src/instrumentation-client.js',
 )
 const appLayoutPath = resolve(process.cwd(), 'src/app/layout.jsx')
+const contactFormPath = resolve(
+  process.cwd(),
+  'src/app/contact/ContactForm.jsx',
+)
 
 test('mixpanel browser package is loaded with a dynamic import', () => {
   // Prevent the analytics package from returning to the initial client bundle through a top-level import.
@@ -132,5 +136,35 @@ test('mixpanel replay defaults stay light for public marketing pages', () => {
     source,
     /record_collect_fonts:\s*false/,
     'Expected font collection to stay disabled',
+  )
+})
+
+test('contact form loads analytics only after visitor form intent', () => {
+  // Keep Mixpanel out of the contact route’s initial client chunk while still
+  // tracking budget, validation, submit, success, and failure events.
+  const source = readFileSync(contactFormPath, 'utf8')
+
+  assert.doesNotMatch(
+    source,
+    /import\s+\{\s*track\s*\}\s+from\s+['"]@\/lib\/mixpanelClient['"]/,
+    'Expected ContactForm.jsx not to statically import mixpanel tracking',
+  )
+
+  assert.match(
+    source,
+    /function\s+trackContactEvent/,
+    'Expected contact analytics calls to be centralised behind an intent loader',
+  )
+
+  assert.match(
+    source,
+    /import\(['"]@\/lib\/mixpanelClient['"]\)/,
+    'Expected the contact form to dynamically load the Mixpanel client',
+  )
+
+  assert.match(
+    source,
+    /trackContactEvent\('Contact Form Submit Attempted'/,
+    'Expected submit analytics to use the deferred contact analytics helper',
   )
 })

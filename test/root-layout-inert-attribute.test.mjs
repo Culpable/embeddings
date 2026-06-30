@@ -8,12 +8,17 @@ const rootNavigationPath = resolve(
   process.cwd(),
   'src/components/RootNavigation.jsx',
 )
+const rootNavigationPanelPath = resolve(
+  process.cwd(),
+  'src/components/RootNavigationPanel.jsx',
+)
 
 function readInertExpressions() {
   // Read the layout source and capture each JavaScript expression assigned to `inert`.
   const source = [
     readFileSync(rootHeaderPath, 'utf8'),
     readFileSync(rootNavigationPath, 'utf8'),
+    readFileSync(rootNavigationPanelPath, 'utf8'),
   ].join('\n')
   const inertExpressionMatches = [
     ...source.matchAll(/inert\s*=\s*\{([^}]*)\}/g),
@@ -42,7 +47,7 @@ test('root layout does not pass empty strings to the inert prop', () => {
 
 test('mobile navigation overlay contains keyboard focus while open', () => {
   // Keep the fixed navigation panel from exposing hidden focus behind the overlay.
-  const source = readFileSync(rootNavigationPath, 'utf8')
+  const source = readFileSync(rootNavigationPanelPath, 'utf8')
 
   assert.match(
     source,

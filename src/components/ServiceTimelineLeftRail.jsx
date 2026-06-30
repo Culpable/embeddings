@@ -19,7 +19,8 @@ const services = [
     eyebrow: 'catalogue audit',
     title: 'See every gap before your competitors exploit it',
     body: 'We analyse your entire product catalogue against Google Merchant Centre specifications and agentic commerce standards. The audit identifies missing descriptions, malformed GTINs, inconsistent taxonomy, and thin data \u2014 then produces a prioritised remediation plan ranked by revenue impact.',
-    proof: ['gap map', 'feed risk', 'revenue priority'],
+    loopTitle: 'Find blockers',
+    signal: 'risk register',
     mobileSummary:
       'Find missing identifiers, thin content, stale data, and feed risks before agents rank the catalogue.',
     animationKey: 'audit',
@@ -29,7 +30,8 @@ const services = [
     eyebrow: 'catalogue freshness',
     title: 'Fresh data keeps you in the recommendation set',
     body: 'AI agents penalise outdated catalogues. We build real-time integrations from your ERP, POS, and inventory systems so stock levels, pricing, and product status are always current. A fresh catalogue means your products stay in the recommendation set.',
-    proof: ['stock updates', 'price sync', 'status freshness'],
+    loopTitle: 'Repair records',
+    signal: 'schema map',
     mobileSummary:
       'Connect ERP, POS, and inventory changes so product truth reaches commerce surfaces quickly.',
     animationKey: 'freshness',
@@ -39,7 +41,8 @@ const services = [
     eyebrow: 'catalogue enrichment',
     title: 'From thin listings to rich, AI-readable content',
     body: 'Our LLM pipelines transform sparse product data into rich, brand-aligned descriptions, categories, and attributes. Thousands of SKUs enriched in hours, not months. If an AI agent can\u2019t understand your product data, your products don\u2019t exist in agentic commerce.',
-    proof: ['richer attributes', 'brand-safe copy', 'agent taxonomy'],
+    loopTitle: 'Add buying context',
+    signal: 'review queue',
     mobileSummary:
       'Turn sparse records into complete attributes, clearer descriptions, and agent-readable taxonomy.',
     animationKey: 'enrichment',
@@ -49,7 +52,8 @@ const services = [
     eyebrow: 'contextual optimisation',
     title: 'A living catalogue that captures demand as it shifts',
     body: 'We connect your catalogue to live trend signals \u2014 Google Trends, social platforms, news cycles \u2014 so product descriptions evolve with what consumers are searching for right now. When cultural moments create demand spikes, your products are positioned to capture that intent before competitors.',
-    proof: ['trend signals', 'seasonal updates', 'demand capture'],
+    loopTitle: 'Keep it current',
+    signal: 'freshness loop',
     mobileSummary:
       'Fold trend signals back into product content while demand is still active.',
     animationKey: 'optimisation',
@@ -60,7 +64,7 @@ const services = [
 // Main export — renders the full left-rail timeline
 // ---------------------------------------------------------------------------
 
-function MobileServiceStoryboard({ step, eyebrow, proof, mobileSummary }) {
+function MobileServiceStoryboard({ step, eyebrow, mobileSummary }) {
   return (
     <div className="rounded-2xl border border-neutral-950/10 bg-white p-4 shadow-[0_1px_0_rgba(23,23,23,0.04)] sm:hidden">
       <div className="flex items-center justify-between gap-3">
@@ -72,16 +76,6 @@ function MobileServiceStoryboard({ step, eyebrow, proof, mobileSummary }) {
         </span>
       </div>
       <p className="mt-4 text-sm leading-6 text-neutral-600">{mobileSummary}</p>
-      <ul role="list" className="mt-4 grid grid-cols-1 gap-2">
-        {proof.map((item) => (
-          <li
-            key={item}
-            className="rounded-xl border border-neutral-950/10 bg-neutral-50 px-3 py-2 text-sm font-medium text-neutral-700"
-          >
-            {item}
-          </li>
-        ))}
-      </ul>
     </div>
   )
 }
@@ -91,44 +85,35 @@ function ServiceLoopOverview() {
   return (
     <FadeIn>
       <ol
-        className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
+        className="mt-10 grid grid-cols-1 gap-3 rounded-3xl border border-neutral-950/10 bg-neutral-50 p-2 shadow-[0_1px_0_rgba(23,23,23,0.04)] sm:grid-cols-2 lg:grid-cols-4"
         aria-label="Service stages"
       >
-        {services.map(({ step, eyebrow, proof, mobileSummary }) => (
-          <li
-            key={step}
-            className="group relative overflow-hidden rounded-2xl border border-neutral-950/10 bg-white p-5 shadow-[0_1px_0_rgba(23,23,23,0.04)] transition duration-300 hover:-translate-y-1 hover:border-neutral-950/20 hover:shadow-xl"
-          >
-            <div
-              className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-neutral-950/70 via-blue-400/70 to-emerald-400/70 opacity-80"
-              aria-hidden="true"
-            />
-            <div className="flex items-center justify-between gap-4">
-              <p className="font-display text-xs font-semibold uppercase tracking-wider text-neutral-500">
+        {services.map(
+          ({ step, eyebrow, loopTitle, signal, mobileSummary }) => (
+            <li
+              key={step}
+              className="group relative overflow-hidden rounded-2xl bg-white p-5 ring-1 ring-neutral-950/5 transition duration-300 hover:-translate-y-1 hover:ring-neutral-950/15"
+            >
+              <div className="flex items-center justify-between gap-4">
+                <span className="font-display text-sm font-semibold text-neutral-950">
+                  {String(step).padStart(2, '0')}
+                </span>
+                <span className="rounded-full bg-neutral-950 px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-widest text-white">
+                  {signal}
+                </span>
+              </div>
+              <p className="mt-6 text-xs font-semibold uppercase tracking-widest text-neutral-500">
                 {eyebrow}
               </p>
-              <span className="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-neutral-950 text-xs font-semibold text-white transition group-hover:scale-105">
-                {step}
-              </span>
-            </div>
-            <p className="mt-5 text-sm leading-6 text-neutral-600">
-              {mobileSummary}
-            </p>
-            <p className="mt-5 text-xs font-semibold uppercase tracking-wider text-neutral-400">
-              proof
-            </p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {proof.slice(0, 2).map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full bg-neutral-950/[0.06] px-2.5 py-1 text-xs font-medium text-neutral-700"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-          </li>
-        ))}
+              <h4 className="mt-2 font-display text-lg font-semibold tracking-tight text-neutral-950">
+                {loopTitle}
+              </h4>
+              <p className="mt-5 text-sm leading-6 text-neutral-600">
+                {mobileSummary}
+              </p>
+            </li>
+          ),
+        )}
       </ol>
     </FadeIn>
   )
@@ -169,7 +154,6 @@ export function ServiceTimelineLeftRail() {
               eyebrow,
               title,
               body,
-              proof,
               mobileSummary,
               animationKey,
             }) => (
@@ -199,26 +183,11 @@ export function ServiceTimelineLeftRail() {
                     <MobileServiceStoryboard
                       step={step}
                       eyebrow={eyebrow}
-                      proof={proof}
                       mobileSummary={mobileSummary}
                     />
                     <div className="hidden sm:block">
                       <ResponsiveServiceAnimation animationKey={animationKey} />
                     </div>
-                    <ul
-                      role="list"
-                      aria-label={`${eyebrow} proof points`}
-                      className="mt-4 hidden grid-cols-1 gap-2 sm:grid sm:grid-cols-3"
-                    >
-                      {proof.map((item) => (
-                        <li
-                          key={item}
-                          className="rounded-xl border border-neutral-950/10 bg-white px-3 py-2 text-sm font-medium text-neutral-700 shadow-[0_1px_0_rgba(23,23,23,0.04)]"
-                        >
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
                   </div>
                 </div>
               </FadeIn>

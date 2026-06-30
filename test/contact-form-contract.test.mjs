@@ -246,6 +246,18 @@ test('contact form validates fields inline before submission', () => {
 
   assert.match(
     source,
+    /group-last:rounded-b-none/,
+    'Expected invalid text inputs to reserve a stable inline error row',
+  )
+
+  assert.match(
+    source,
+    /Message sent\s*<\/p>/,
+    'Expected the success state to provide a clear confirmation heading',
+  )
+
+  assert.match(
+    source,
     /Contact Form Validation Failed/,
     'Expected validation failures to be tracked without submitting',
   )

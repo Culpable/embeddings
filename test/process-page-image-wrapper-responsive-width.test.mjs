@@ -16,7 +16,7 @@ function readProcessPageSource() {
 function readSectionImageWrapperClasses(source) {
   // Locate the Section component image wrapper by matching its FadeIn wrapper before StylizedImage.
   const sectionWrapperMatch = source.match(
-    /function Section\(\{ title, image, children \}\) \{[\s\S]*?<FadeIn className="([^"]+)">[\s\S]*?<StylizedImage/,
+    /function Section\([\s\S]*?\) \{[\s\S]*?<FadeIn className="([^"]+)">[\s\S]*?<StylizedImage/,
   )
 
   return sectionWrapperMatch ? sectionWrapperMatch[1] : ''

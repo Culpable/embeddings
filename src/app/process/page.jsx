@@ -13,17 +13,49 @@ import imageLaptop from '@/images/process/laptop.webp'
 import imageMeeting from '@/images/process/meeting.webp'
 import imageWhiteboard from '@/images/process/whiteboard.webp'
 
-function Section({ title, image, children }) {
+function ProcessImageSignals({ title, signals }) {
+  if (signals.length === 0) {
+    return null
+  }
+
+  return (
+    <ul
+      role="list"
+      aria-label={`${title} visual signals`}
+      className="pointer-events-none absolute bottom-4 right-4 z-10 grid w-[min(22rem,calc(100%-2rem))] gap-2 sm:bottom-6 sm:right-6 sm:w-[min(28rem,calc(100%-3rem))] sm:grid-cols-2"
+    >
+      {signals.map(({ label, value }) => (
+        <li
+          key={label}
+          className="rounded-xl border border-white/45 bg-white/90 px-3 py-2 shadow-[0_8px_24px_rgba(23,23,23,0.12)] backdrop-blur"
+        >
+          <p className="text-[0.65rem] font-semibold uppercase tracking-widest text-neutral-500">
+            {label}
+          </p>
+          <p className="mt-1 font-display text-sm font-semibold tracking-tight text-neutral-950">
+            {value}
+          </p>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+
+function Section({ title, image, signals = [], children }) {
   return (
     <Container className="group/section [counter-increment:section]">
       <div className="lg:flex lg:items-center lg:justify-end lg:gap-x-8 lg:group-even/section:justify-start xl:gap-x-20">
         <div className="flex justify-center">
           <FadeIn className="w-full max-w-[33.75rem] flex-none lg:w-[45rem] lg:max-w-none">
-            <StylizedImage
-              {...image}
-              sizes="(min-width: 1024px) 41rem, 31rem"
-              className="justify-center lg:justify-end lg:group-even/section:justify-start"
-            />
+            <div className="relative">
+              <StylizedImage
+                {...image}
+                sizes="(min-width: 1024px) 41rem, 31rem"
+                className="justify-center lg:justify-end lg:group-even/section:justify-start"
+              />
+              <ProcessImageSignals title={title} signals={signals} />
+            </div>
           </FadeIn>
         </div>
         <div className="mt-12 lg:mt-0 lg:w-[37rem] lg:flex-none lg:group-even/section:order-first">
@@ -45,7 +77,14 @@ function Section({ title, image, children }) {
 
 function Discover() {
   return (
-    <Section title="Audit" image={{ src: imageWhiteboard, priority: true }}>
+    <Section
+      title="Audit"
+      image={{ src: imageWhiteboard, priority: true }}
+      signals={[
+        { label: 'scorecard', value: '74/100 ready' },
+        { label: 'gaps ranked', value: '128 fixes' },
+      ]}
+    >
       <div className="space-y-6 text-base text-neutral-600">
         <p>
           We start with the product catalogue because that is where agentic
@@ -82,7 +121,14 @@ function Discover() {
 
 function Build() {
   return (
-    <Section title="Engineer" image={{ src: imageLaptop, shape: 1 }}>
+    <Section
+      title="Engineer"
+      image={{ src: imageLaptop, shape: 1 }}
+      signals={[
+        { label: 'pipeline', value: 'ERP + PIM sync' },
+        { label: 'governance', value: 'review queue' },
+      ]}
+    >
       <div className="space-y-6 text-base text-neutral-600">
         <p>
           Once the gaps are clear, we build the pipelines that make catalogue
@@ -115,7 +161,14 @@ function Build() {
 
 function Deliver() {
   return (
-    <Section title="Optimise" image={{ src: imageMeeting, shape: 2 }}>
+    <Section
+      title="Optimise"
+      image={{ src: imageMeeting, shape: 2 }}
+      signals={[
+        { label: 'freshness', value: '<15 min drift' },
+        { label: 'signals', value: 'trend pulse' },
+      ]}
+    >
       <div className="space-y-6 text-base text-neutral-600">
         <p>
           A catalogue is only agentic-ready if it stays current. We help teams

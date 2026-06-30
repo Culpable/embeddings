@@ -9,7 +9,7 @@
 
 The home page features the existing `CatalogueTransformation` before/after visual followed immediately by a four-step left-rail service timeline. The timeline now includes an "implementation loop" bridge so the before/after overview and the detailed delivery stages read as one connected services section.
 
-On desktop and tablet, each timeline item has service copy, one bespoke animated SVG, and readable HTML proof labels below the animation. The SVGs are loaded through `ResponsiveServiceAnimation.jsx::ResponsiveServiceAnimation`, which only imports the desktop/tablet animation components once the viewport is at least `640px`; this keeps mobile HTML from carrying hidden desktop SVG markup. On mobile, the bespoke SVGs are replaced by `MobileServiceStoryboard` cards in `ServiceTimelineLeftRail.jsx`; this keeps the service meaning readable at 390px without shrinking SVG text into decorative detail.
+On desktop and tablet, each timeline item has service copy and one bespoke animated SVG. The SVGs are loaded through `ResponsiveServiceAnimation.jsx::ResponsiveServiceAnimation`, which only imports the desktop/tablet animation components once the viewport is at least `640px`; this keeps mobile HTML from carrying hidden desktop SVG markup. On mobile, the bespoke SVGs are replaced by `MobileServiceStoryboard` cards in `ServiceTimelineLeftRail.jsx`; this keeps the service meaning readable at 390px without shrinking SVG text into decorative detail.
 
 `ResponsiveServiceAnimation.jsx::ResponsiveServiceAnimation` renders a stable `ServiceAnimationShell` frame first, then observes the animation wrapper with `IntersectionObserver` and a `600px` vertical root margin. The dynamic animation module is imported only when its timeline step approaches the viewport, so the first home page view does not fetch the four service animation chunks while the section still preserves its desktop aspect ratio and scroll height.
 
@@ -22,7 +22,6 @@ All animations share these conventions:
 - **Typography:** `font-display text-[11px] font-semibold tracking-wider uppercase` for labels
 - **Animation:** Pure CSS `@keyframes` in `<style>` blocks within each SVG, plus SVG `<animateMotion>` for particles
 - **SVG framing (service sections):** Mobile/tablet framing is per-component; Audit/Freshness/Optimisation use responsive aspect-ratio wrappers with `preserveAspectRatio="xMidYMid slice"`, while Enrichment keeps native scaling and compacts left/right edge clusters inward so connectors read shorter without distorting nodes/cards
-- **Companion labels:** `ServiceTimelineLeftRail.jsx` renders three HTML proof labels below each SVG on tablet/desktop. On mobile, the same proof labels appear inside a larger storyboard card with a short service summary.
 - **Component type:** Animation files remain Server Components. `ResponsiveServiceAnimation.jsx` is the small Client Component that gates and dynamically imports the desktop/tablet animation modules.
 
 ---
@@ -102,7 +101,7 @@ All animations share these conventions:
 **Mobile rendering (2026-06-29):**
 
 - Not imported below the `sm` breakpoint inside the services timeline
-- Replaced by a `MobileServiceStoryboard` card with the audit summary and proof labels
+- Replaced by a `MobileServiceStoryboard` card with the audit summary
 
 ### FreshnessPipelineFlow.jsx
 
@@ -122,7 +121,7 @@ All animations share these conventions:
 **Mobile rendering (2026-06-29):**
 
 - Not imported below the `sm` breakpoint inside the services timeline
-- Replaced by a `MobileServiceStoryboard` card with freshness summary and proof labels
+- Replaced by a `MobileServiceStoryboard` card with freshness summary
 
 ### EnrichmentTypewriter.jsx
 
@@ -147,7 +146,7 @@ All animations share these conventions:
 **Mobile rendering (2026-06-29):**
 
 - Not imported below the `sm` breakpoint inside the services timeline
-- Replaced by a `MobileServiceStoryboard` card with enrichment summary and proof labels
+- Replaced by a `MobileServiceStoryboard` card with enrichment summary
 
 ### OptimisationSeismograph.jsx
 
@@ -192,7 +191,7 @@ When a ripple ring reaches a product card node, that node flashes and receives a
 **Mobile rendering (2026-06-29):**
 
 - Not imported below the `sm` breakpoint inside the services timeline
-- Replaced by a `MobileServiceStoryboard` card with optimisation summary and proof labels
+- Replaced by a `MobileServiceStoryboard` card with optimisation summary
 
 ---
 
@@ -203,19 +202,19 @@ Services SectionIntro (existing)
   └─ CatalogueTransformation (existing before/after visual)
   └─ ServiceTimelineLeftRail
      └─ Implementation loop bridge copy
-     └─ ServiceLoopOverview four-stage proof cards
+     └─ ServiceLoopOverview four-stage cards
      └─ Step 1: Catalogue Audit copy
-        └─ Desktop/tablet: ResponsiveServiceAnimation shells, then loads AuditXRayScanner + HTML proof labels
-        └─ Mobile: MobileServiceStoryboard with gap map, feed risk, revenue priority
+        └─ Desktop/tablet: ResponsiveServiceAnimation shells, then loads AuditXRayScanner
+        └─ Mobile: MobileServiceStoryboard with audit summary
      └─ Step 2: Catalogue Freshness copy
-        └─ Desktop/tablet: ResponsiveServiceAnimation shells, then loads FreshnessPipelineFlow + HTML proof labels
-        └─ Mobile: MobileServiceStoryboard with stock updates, price sync, status freshness
+        └─ Desktop/tablet: ResponsiveServiceAnimation shells, then loads FreshnessPipelineFlow
+        └─ Mobile: MobileServiceStoryboard with freshness summary
      └─ Step 3: Catalogue Enrichment copy
-        └─ Desktop/tablet: ResponsiveServiceAnimation shells, then loads EnrichmentTypewriter + HTML proof labels
-        └─ Mobile: MobileServiceStoryboard with richer attributes, brand-safe copy, agent taxonomy
+        └─ Desktop/tablet: ResponsiveServiceAnimation shells, then loads EnrichmentTypewriter
+        └─ Mobile: MobileServiceStoryboard with enrichment summary
      └─ Step 4: Contextual Optimisation copy
-        └─ Desktop/tablet: ResponsiveServiceAnimation shells, then loads OptimisationRipple + HTML proof labels
-        └─ Mobile: MobileServiceStoryboard with trend signals, seasonal updates, demand capture
+        └─ Desktop/tablet: ResponsiveServiceAnimation shells, then loads OptimisationRipple
+        └─ Mobile: MobileServiceStoryboard with optimisation summary
 
 ContactSection (existing)
 ```
