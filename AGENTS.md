@@ -10,6 +10,10 @@ These rules apply specifically to this repository and should be used for all cod
 - Main navigation and footer link labels are intentionally lowercase. Preserve this stylistic choice unless the user explicitly requests a label casing change.
 </content_rules>
 
+<navigation_rules>
+- The global header is intentionally minimal on every viewport: logo, Contact us CTA, and menu trigger only. Do not add inline desktop navigation unless explicitly requested; route discovery belongs in `src/components/RootNavigationPanel.jsx` and `src/components/Footer.jsx`, keeping first-viewport hero chrome focused.
+</navigation_rules>
+
 <contact_form_rules>
 - Preserve the contact form field contract unless the user explicitly requests a field model change.
 - The business enquiry form fields are: name, email, company, phone, message, and budget.
@@ -54,7 +58,7 @@ src/
 ├── components/
 │   ├── RootLayout.jsx: Main navigation and site structure
 │   │   └── Navigation(): Main nav items
-│   │   └── Header(): Contact button and mobile menu
+│   │   └── Header(): Minimal logo, Contact us CTA, and menu trigger; no inline desktop nav by design
 │   ├── HeroDataFlow.jsx: Animated SVG showing catalogue → AI agent → consumer flow
 │   ├── CatalogueTransformation.jsx: Before/after catalogue cards with a four-step service pipeline
 │   ├── ContactSection.jsx: Homepage call-to-action section with floating catalogue data snippets

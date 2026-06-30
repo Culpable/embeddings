@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import dynamic from 'next/dynamic'
 
 const serviceAnimations = {
@@ -34,6 +34,128 @@ const serviceAnimations = {
   ),
 }
 
+const desktopViewportSubscribers = new Set()
+const animationVisibilityCallbacks = new Map()
+let desktopViewportQuery = null
+let isDesktopViewport = true
+let sharedAnimationObserver = null
+
+function notifyDesktopViewportSubscribers(event) {
+  isDesktopViewport = event.matches
+
+  for (const callback of desktopViewportSubscribers) {
+    callback()
+  }
+}
+
+function getDesktopViewportQuery() {
+  if (typeof window === 'undefined') {
+    return null
+  }
+
+  if (!desktopViewportQuery) {
+    desktopViewportQuery = window.matchMedia('(min-width: 640px)')
+    isDesktopViewport = desktopViewportQuery.matches
+    desktopViewportQuery.addEventListener(
+      'change',
+      notifyDesktopViewportSubscribers,
+    )
+  }
+
+  return desktopViewportQuery
+}
+
+function subscribeToDesktopViewport(callback) {
+  const query = getDesktopViewportQuery()
+
+  if (!query) {
+    return () => {}
+  }
+
+  desktopViewportSubscribers.add(callback)
+
+  return () => {
+    desktopViewportSubscribers.delete(callback)
+
+    if (desktopViewportSubscribers.size === 0 && desktopViewportQuery) {
+      desktopViewportQuery.removeEventListener(
+        'change',
+        notifyDesktopViewportSubscribers,
+      )
+      desktopViewportQuery = null
+      isDesktopViewport = true
+    }
+  }
+}
+
+function readDesktopViewportSnapshot() {
+  if (typeof window === 'undefined') {
+    return true
+  }
+
+  if (!desktopViewportQuery) {
+    return window.matchMedia('(min-width: 640px)').matches
+  }
+
+  return isDesktopViewport
+}
+
+function readServerDesktopViewportSnapshot() {
+  return true
+}
+
+function getSharedAnimationObserver() {
+  if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+    return null
+  }
+
+  if (!sharedAnimationObserver) {
+    sharedAnimationObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) {
+            continue
+          }
+
+          const onVisible = animationVisibilityCallbacks.get(entry.target)
+
+          if (onVisible) {
+            animationVisibilityCallbacks.delete(entry.target)
+            sharedAnimationObserver?.unobserve(entry.target)
+            onVisible()
+          }
+        }
+      },
+      {
+        rootMargin: '600px 0px',
+      },
+    )
+  }
+
+  return sharedAnimationObserver
+}
+
+function observeAnimationVisibility(target, onVisible) {
+  const observer = getSharedAnimationObserver()
+
+  if (!observer) {
+    onVisible()
+    return () => {}
+  }
+
+  animationVisibilityCallbacks.set(target, onVisible)
+  observer.observe(target)
+
+  return () => {
+    animationVisibilityCallbacks.delete(target)
+    observer.unobserve(target)
+
+    if (animationVisibilityCallbacks.size === 0) {
+      observer.disconnect()
+      sharedAnimationObserver = null
+    }
+  }
+}
 
 function ServiceAnimationShell() {
   return (
@@ -52,73 +174,55 @@ function ServiceAnimationShell() {
   )
 }
 
-
 function useDesktopAnimationViewport() {
-  const [isDesktopAnimationViewport, setIsDesktopAnimationViewport] =
-    useState(true)
-
-  useEffect(() => {
-    const query = window.matchMedia('(min-width: 640px)')
-
-    function updateViewportState() {
-      setIsDesktopAnimationViewport(query.matches)
-    }
-
-    updateViewportState()
-    query.addEventListener('change', updateViewportState)
-
-    return () => {
-      query.removeEventListener('change', updateViewportState)
-    }
-  }, [])
-
-  return isDesktopAnimationViewport
+  return useSyncExternalStore(
+    subscribeToDesktopViewport,
+    readDesktopViewportSnapshot,
+    readServerDesktopViewportSnapshot,
+  )
 }
 
-
-export function ResponsiveServiceAnimation({ animationKey }) {
-  const isDesktopAnimationViewport = useDesktopAnimationViewport()
+function useAnimationVisibility({ animationKey, isEnabled }) {
+  const targetRef = useRef(null)
   const [shouldLoadAnimation, setShouldLoadAnimation] = useState(false)
-  const Animation = serviceAnimations[animationKey]
 
   useEffect(() => {
-    if (!isDesktopAnimationViewport || !Animation) {
+    setShouldLoadAnimation(false)
+  }, [animationKey])
+
+  useEffect(() => {
+    if (!isEnabled || shouldLoadAnimation) {
       return undefined
     }
 
-    const target = document.querySelector(
-      `[data-service-animation="${animationKey}"]`,
-    )
+    const target = targetRef.current
 
     if (!target) {
       return undefined
     }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldLoadAnimation(true)
-          observer.disconnect()
-        }
-      },
-      {
-        rootMargin: '600px 0px',
-      },
-    )
+    return observeAnimationVisibility(target, () => {
+      setShouldLoadAnimation(true)
+    })
+  }, [isEnabled, shouldLoadAnimation])
 
-    observer.observe(target)
+  return [targetRef, shouldLoadAnimation]
+}
 
-    return () => {
-      observer.disconnect()
-    }
-  }, [Animation, animationKey, isDesktopAnimationViewport])
+export function ResponsiveServiceAnimation({ animationKey }) {
+  const isDesktopAnimationViewport = useDesktopAnimationViewport()
+  const Animation = serviceAnimations[animationKey]
+  const [targetRef, shouldLoadAnimation] = useAnimationVisibility({
+    animationKey,
+    isEnabled: isDesktopAnimationViewport && Boolean(Animation),
+  })
 
   if (!isDesktopAnimationViewport || !Animation) {
     return null
   }
 
   return (
-    <div data-service-animation={animationKey}>
+    <div ref={targetRef} data-service-animation={animationKey}>
       {shouldLoadAnimation ? <Animation /> : <ServiceAnimationShell />}
     </div>
   )

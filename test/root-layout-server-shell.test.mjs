@@ -14,7 +14,12 @@ const rootNavigationPanelPath = resolve(
   'src/components/RootNavigationPanel.jsx',
 )
 const gridPatternPath = resolve(process.cwd(), 'src/components/GridPattern.jsx')
+const noiseOverlayPath = resolve(
+  process.cwd(),
+  'src/components/NoiseOverlay.jsx',
+)
 const componentsCssPath = resolve(process.cwd(), 'src/styles/components.css')
+const agentsPath = resolve(process.cwd(), 'AGENTS.md')
 
 test('root layout remains a server shell without framer motion', () => {
   // Guard the performance boundary so global route chrome does not become a full client component again.
@@ -55,6 +60,49 @@ test('root header delegates only the menu control to a client island', () => {
     `${headerSource}\n${navigationSource}`,
     /framer-motion/,
     'Expected root navigation chrome to use CSS transitions instead of framer-motion layout animation',
+  )
+})
+
+test('root header intentionally keeps route links in the menu panel', () => {
+  // Preserve the intentionally minimal header chrome: logo, contact CTA, and
+  // menu trigger only. Route discovery belongs in the lazily loaded panel.
+  const headerSource = readFileSync(rootHeaderPath, 'utf8')
+  const panelSource = readFileSync(rootNavigationPanelPath, 'utf8')
+  const agentsSource = readFileSync(agentsPath, 'utf8')
+
+  assert.doesNotMatch(
+    headerSource,
+    /const desktopNavigation|aria-label="Primary"/,
+    'Expected RootHeader.jsx not to add inline desktop navigation',
+  )
+
+  for (const expectedLink of [
+    { href: '/#why-now', label: 'why now' },
+    { href: '/#services', label: 'services' },
+    { href: '/#proof', label: 'proof' },
+    { href: '/process', label: 'our process' },
+  ]) {
+    assert.doesNotMatch(
+      headerSource,
+      new RegExp(expectedLink.href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
+      `Expected RootHeader.jsx not to include inline route ${expectedLink.href}`,
+    )
+    assert.match(
+      panelSource,
+      new RegExp(expectedLink.href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
+      `Expected RootNavigationPanel.jsx to include ${expectedLink.href}`,
+    )
+    assert.match(
+      panelSource,
+      new RegExp(expectedLink.label),
+      `Expected RootNavigationPanel.jsx to include ${expectedLink.label}`,
+    )
+  }
+
+  assert.match(
+    agentsSource,
+    /global header is intentionally minimal[\s\S]*Do not add inline desktop navigation/,
+    'Expected AGENTS.md to document that inline desktop navigation is intentionally absent',
   )
 })
 
@@ -116,6 +164,30 @@ test('global background grid stays static server-rendered chrome', () => {
     rootLayoutSource,
     /interactive/,
     'Expected RootLayout.jsx not to request interactive grid hydration',
+  )
+})
+
+test('dark-section noise uses a shared css texture', () => {
+  // Keep dark-section texture depth without repeating expensive SVG filter work.
+  const noiseSource = readFileSync(noiseOverlayPath, 'utf8')
+  const cssSource = readFileSync(componentsCssPath, 'utf8')
+
+  assert.doesNotMatch(
+    noiseSource,
+    /feTurbulence|filter=\{/,
+    'Expected NoiseOverlay.jsx not to render per-section SVG turbulence filters',
+  )
+
+  assert.match(
+    noiseSource,
+    /noise-overlay/,
+    'Expected NoiseOverlay.jsx to render the shared CSS texture class',
+  )
+
+  assert.match(
+    cssSource,
+    /\.noise-overlay\s*\{/,
+    'Expected shared CSS to define the noise overlay texture',
   )
 })
 

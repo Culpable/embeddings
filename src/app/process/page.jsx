@@ -22,7 +22,7 @@ function ProcessImageSignals({ title, signals }) {
     <ul
       role="list"
       aria-label={`${title} visual signals`}
-      className="pointer-events-none absolute bottom-4 right-4 z-10 grid w-[min(22rem,calc(100%-2rem))] gap-2 sm:bottom-6 sm:right-6 sm:w-[min(28rem,calc(100%-3rem))] sm:grid-cols-2"
+      className="pointer-events-none static z-10 mt-3 grid w-full gap-2 sm:absolute sm:bottom-6 sm:right-6 sm:mt-0 sm:w-[min(28rem,calc(100%-3rem))] sm:grid-cols-2"
     >
       {signals.map(({ label, value }) => (
         <li
@@ -40,7 +40,6 @@ function ProcessImageSignals({ title, signals }) {
     </ul>
   )
 }
-
 
 function Section({ title, image, signals = [], children }) {
   return (

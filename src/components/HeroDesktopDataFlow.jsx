@@ -11,14 +11,15 @@ export function DesktopHeroDataFlow() {
   return (
     <div
       className="relative mt-10 w-full overflow-hidden sm:mt-16"
-      aria-hidden="true"
+      role="img"
+      aria-label="Retail catalogue data moving through an AI agent into a consumer recommendation."
     >
       <svg
         viewBox="0 0 960 320"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="hidden h-auto max-w-none sm:ml-0 sm:block sm:w-full"
-        role="img"
+        aria-hidden="true"
       >
         {/* ----------------------------------------------------------------- */}
         {/* Definitions: gradients, filters, clip paths                       */}

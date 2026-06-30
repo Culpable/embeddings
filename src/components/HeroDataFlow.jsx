@@ -17,12 +17,12 @@ const DesktopHeroDataFlow = dynamic(
   },
 )
 
-
 function DesktopHeroDataFlowShell() {
   return (
     <div
       className="relative mt-16 hidden aspect-[3/1] w-full overflow-hidden rounded-[2rem] border border-neutral-950/10 bg-white/70 shadow-[0_1px_0_rgba(23,23,23,0.04)] sm:block"
-      aria-hidden="true"
+      role="img"
+      aria-label="Retail catalogue data moving through an AI agent into a consumer recommendation."
     >
       <div className="absolute inset-6 rounded-[1.5rem] bg-gradient-to-r from-blue-50 via-white to-emerald-50" />
       <div className="absolute left-[8%] top-1/2 h-20 w-28 -translate-y-1/2 rounded-2xl border border-neutral-950/10 bg-white shadow-sm" />
@@ -33,10 +33,13 @@ function DesktopHeroDataFlowShell() {
   )
 }
 
-
 function MobileHeroDataFlow() {
   return (
-    <div className="mt-10 sm:hidden" aria-hidden="true">
+    <div
+      className="mt-10 sm:hidden"
+      role="img"
+      aria-label="Retail catalogue gaps moving through an AI agent into a recommendation-ready consumer answer."
+    >
       <div className="grid grid-cols-1 gap-3">
         <div className="rounded-2xl border border-neutral-950/10 bg-white p-4 shadow-[0_1px_0_rgba(23,23,23,0.04)]">
           <div className="flex items-center justify-between">
@@ -110,7 +113,6 @@ function MobileHeroDataFlow() {
   )
 }
 
-
 function useDesktopHeroViewport() {
   const [isDesktopHeroViewport, setIsDesktopHeroViewport] = useState(false)
 
@@ -131,7 +133,6 @@ function useDesktopHeroViewport() {
 
   return isDesktopHeroViewport
 }
-
 
 export function HeroDataFlow() {
   const isDesktopHeroViewport = useDesktopHeroViewport()

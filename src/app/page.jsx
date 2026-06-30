@@ -174,10 +174,9 @@ function HeroProofSignals() {
             target="_blank"
             rel="noreferrer"
             aria-label={`Source: ${source.label}`}
-            className="inline-flex min-h-7 shrink-0 items-center rounded-full border border-neutral-950/10 bg-white px-2.5 text-[0.625rem] font-semibold text-neutral-500 shadow-[0_1px_0_rgba(23,23,23,0.04)] transition hover:border-neutral-950/20 hover:text-neutral-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 sm:mt-3 sm:max-w-full sm:text-xs"
+            className="inline-flex min-h-7 max-w-[8.5rem] shrink-0 items-center rounded-full border border-neutral-950/10 bg-white px-2.5 text-[0.625rem] font-semibold text-neutral-500 shadow-[0_1px_0_rgba(23,23,23,0.04)] transition hover:border-neutral-950/20 hover:text-neutral-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 sm:mt-3 sm:max-w-full sm:text-xs"
           >
-            <span className="sm:hidden">Source</span>
-            <span className="hidden sm:inline">Source · {source.label}</span>
+            <span className="truncate">Source · {source.label}</span>
             <span className="ml-1 text-[0.6rem]" aria-hidden="true">
               ↗
             </span>

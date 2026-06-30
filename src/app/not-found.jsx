@@ -1,5 +1,4 @@
-import Link from 'next/link'
-
+import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
 
@@ -16,12 +15,16 @@ export default function NotFound() {
         <p className="mt-2 text-sm text-neutral-600">
           Sorry, we couldn’t find the page you’re looking for.
         </p>
-        <Link
-          href="/"
-          className="mt-4 text-sm font-semibold text-neutral-950 transition hover:text-neutral-700"
-        >
-          Go to the home page
-        </Link>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <Button href="/">Go to the home page</Button>
+          <Button
+            href="/#services"
+            invert
+            className="ring-1 ring-neutral-950/10"
+          >
+            View services
+          </Button>
+        </div>
       </FadeIn>
     </Container>
   )

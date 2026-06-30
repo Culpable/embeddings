@@ -49,7 +49,11 @@ test('homepage Why Now statistics render visible server text', () => {
   const whyNowEnd = source.indexOf('// Services', whyNowStart)
 
   assert.notEqual(whyNowStart, -1, 'Expected to find the WhyNow component')
-  assert.notEqual(whyNowEnd, -1, 'Expected to find the end of the WhyNow component')
+  assert.notEqual(
+    whyNowEnd,
+    -1,
+    'Expected to find the end of the WhyNow component',
+  )
 
   for (const [statPattern, label] of [
     [/stat:\s*'\$5T'/, '$5T'],
@@ -101,8 +105,8 @@ test('homepage proof strip and hero spacing stay mobile-readable', () => {
 
   assert.match(
     source,
-    /<span className="sm:hidden">Source<\/span>/,
-    'Expected mobile source pills to use compact text',
+    /<span className="truncate">Source · \{source\.label\}<\/span>/,
+    'Expected mobile source pills to include visible source names',
   )
 
   assert.match(

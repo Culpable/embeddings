@@ -72,3 +72,34 @@ test('process images include catalogue-readiness signal overlays', () => {
     )
   }
 })
+
+test('process image signal overlays stay mobile-safe', () => {
+  // Keep signal cards readable on phones by placing them below the image crop,
+  // then restoring the overlay treatment only once the image has room.
+  const source = readFileSync(processPagePath, 'utf8')
+  const signalListMatch = source.match(
+    /function ProcessImageSignals[\s\S]*?className="(?<classes>[^"]+)"/,
+  )
+
+  assert.ok(signalListMatch, 'Expected to find ProcessImageSignals classes')
+
+  const classes = signalListMatch.groups.classes
+
+  assert.match(
+    classes,
+    /\bstatic\b/,
+    'Expected process signal cards to use static mobile placement',
+  )
+
+  assert.match(
+    classes,
+    /\bmt-3\b/,
+    'Expected process signal cards to sit below the mobile image with spacing',
+  )
+
+  assert.match(
+    classes,
+    /\bsm:absolute\b/,
+    'Expected process signal cards to return to absolute overlay placement on wider screens',
+  )
+})

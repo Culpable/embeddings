@@ -3,8 +3,10 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
-
-const heroDataFlowPath = resolve(process.cwd(), 'src/components/HeroDataFlow.jsx')
+const heroDataFlowPath = resolve(
+  process.cwd(),
+  'src/components/HeroDataFlow.jsx',
+)
 const heroDesktopDataFlowPath = resolve(
   process.cwd(),
   'src/components/HeroDesktopDataFlow.jsx',
@@ -18,7 +20,6 @@ const responsiveServiceAnimationPath = resolve(
   process.cwd(),
   'src/components/ResponsiveServiceAnimation.jsx',
 )
-
 
 test('public hero keeps the original desktop svg animation in its desktop module', () => {
   // Preserve the frontpage hero animation while allowing the wrapper to
@@ -60,7 +61,6 @@ test('public hero keeps the original desktop svg animation in its desktop module
     'Expected no replacement summary or legacy split for the original hero animation',
   )
 })
-
 
 test('mobile service timeline does not server-render hidden desktop animations', () => {
   // Require the service timeline to reference desktop animations through the
@@ -111,5 +111,20 @@ test('mobile service timeline does not server-render hidden desktop animations',
     responsiveSource,
     /data-service-animation/,
     'Expected service animation shells to reserve the target area before loading',
+  )
+  assert.doesNotMatch(
+    responsiveSource,
+    /document\.querySelector/,
+    'Expected service animation visibility to observe the rendered target ref instead of querying the document per instance',
+  )
+  assert.equal(
+    [...responsiveSource.matchAll(/new IntersectionObserver/g)].length,
+    1,
+    'Expected service animations to share one IntersectionObserver implementation',
+  )
+  assert.match(
+    responsiveSource,
+    /useSyncExternalStore/,
+    'Expected service animation viewport state to use a shared external subscription',
   )
 })
