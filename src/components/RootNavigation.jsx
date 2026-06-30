@@ -1,17 +1,9 @@
 'use client'
 
-import dynamic from 'next/dynamic'
 import { useCallback, useId, useRef, useState } from 'react'
 
 import { NavigationButton } from '@/components/NavigationButton'
-
-const RootNavigationPanel = dynamic(
-  () =>
-    import('@/components/RootNavigationPanel').then(
-      (module) => module.RootNavigationPanel,
-    ),
-  { ssr: false },
-)
+import { RootNavigationPanel } from '@/components/RootNavigationPanel'
 
 
 export function RootNavigation() {

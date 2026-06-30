@@ -65,7 +65,7 @@ test('root header delegates only the menu control to a client island', () => {
 
 test('root header intentionally keeps route links in the menu panel', () => {
   // Preserve the intentionally minimal header chrome: logo, contact CTA, and
-  // menu trigger only. Route discovery belongs in the lazily loaded panel.
+  // menu trigger only. Route discovery belongs in the dedicated menu panel.
   const headerSource = readFileSync(rootHeaderPath, 'utf8')
   const panelSource = readFileSync(rootNavigationPanelPath, 'utf8')
   const agentsSource = readFileSync(agentsPath, 'utf8')
@@ -106,22 +106,28 @@ test('root header intentionally keeps route links in the menu panel', () => {
   )
 })
 
-test('root navigation lazy-loads the full overlay panel after menu intent', () => {
-  // Keep offices, route highlighting, and focus-trap work out of the initial
-  // global menu button island until the visitor opens navigation.
+test('root navigation renders the full overlay panel without an async loading gap', () => {
+  // Keep the overlay available when the visitor opens navigation so the menu
+  // trigger does not disappear while a client-only chunk loads.
   const navigationSource = readFileSync(rootNavigationPath, 'utf8')
   const panelSource = readFileSync(rootNavigationPanelPath, 'utf8')
 
-  assert.match(
+  assert.doesNotMatch(
     navigationSource,
-    /dynamic\(/,
-    'Expected RootNavigation.jsx to lazy-load the overlay panel',
+    /from\s+['"]next\/dynamic['"]/,
+    'Expected RootNavigation.jsx not to lazy-load the overlay panel through next/dynamic',
   )
 
   assert.match(
     navigationSource,
-    /@\/components\/RootNavigationPanel/,
-    'Expected RootNavigation.jsx to load RootNavigationPanel dynamically',
+    /import\s+\{\s*RootNavigationPanel\s*\}\s+from\s+['"]@\/components\/RootNavigationPanel['"]/,
+    'Expected RootNavigation.jsx to import RootNavigationPanel synchronously',
+  )
+
+  assert.doesNotMatch(
+    navigationSource,
+    /ssr\s*:\s*false/,
+    'Expected RootNavigation.jsx not to create a client-only panel loading gap',
   )
 
   assert.doesNotMatch(
@@ -133,13 +139,13 @@ test('root navigation lazy-loads the full overlay panel after menu intent', () =
   assert.match(
     panelSource,
     /usePathname/,
-    'Expected the dynamically loaded panel to retain route highlighting',
+    'Expected the menu panel to retain route highlighting',
   )
 
   assert.match(
     panelSource,
     /Offices/,
-    'Expected the dynamically loaded panel to retain office links',
+    'Expected the menu panel to retain office links',
   )
 })
 
