@@ -25,8 +25,8 @@ source ~/.zshrc  # or source ~/.bash_profile
 ```
 
 ### Node.js
-Required version: v22.11.0
-- Version specified in `.nvmrc`
+Required version: v22.17.0
+- The exact version is specified in `.nvmrc` and enforced before development, builds, and tests
 - While in project directory, install correct version: `nvm install` and switch to installed version: `nvm use`
 
 ## Getting started
@@ -44,7 +44,7 @@ Required version: v22.11.0
    ```bash
    npm run dev
    ```
-5. Access [http://localhost:3000](http://localhost:3000)
+5. Access [http://localhost:3002](http://localhost:3002)
 
 
 ## Deployment
@@ -58,7 +58,7 @@ git push origin main
 
 **Automated deployment process:**
 1. GitHub Actions runner starts on Ubuntu latest
-2. Sets up Node.js environment (v20.10.0)
+2. Sets up the Node.js environment from `.nvmrc` (v22.17.0)
 3. Installs dependencies using `npm ci`
 4. Builds static site using `npm run build`
 5. Deploys built files to `gh-pages` branch using `peaceiris/actions-gh-pages`

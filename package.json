@@ -3,11 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://embeddings.au",
+  "engines": {
+    "node": "22.17.0"
+  },
   "scripts": {
+    "check:node": "node scripts/check-node-version.mjs",
+    "predev": "npm run check:node",
     "dev": "next dev -p 3002",
+    "prebuild": "npm run check:node",
     "build": "rm -rf .next out && node src/scripts/generate-sitemap.js && next build",
     "start": "next start",
     "lint": "next lint",
+    "pretest": "npm run check:node",
     "test": "node --test",
     "deploy": "npm run build && gh-pages -d out",
     "generate-sitemap": "node src/scripts/generate-sitemap.js"

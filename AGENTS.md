@@ -97,7 +97,7 @@ src/app/_disabled_pages/
 <technical_requirements>
 - Next.js 14 with App Router
 - Tailwind CSS for styling
-- Node.js v22.11.0 required
+- Node.js v22.17.0 required
 - Automatic deployment via GitHub Actions on push to main branch
 - Static site deployment to GitHub Pages:
   - Builds to `/out` directory
