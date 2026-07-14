@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow:
+
+# Sitemap
+Sitemap: https://embeddings.au/sitemap.xml 
