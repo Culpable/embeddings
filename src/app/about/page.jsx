@@ -51,7 +51,7 @@ function IntroProofBand() {
       {proofSignals.map(({ label, value }) => (
         <div
           key={label}
-          className="rounded-2xl border border-neutral-950/10 bg-white/80 px-4 py-4 shadow-[0_1px_0_rgba(23,23,23,0.04)]"
+          className="surface-elevation-light rounded-2xl bg-white/80 px-4 py-4"
         >
           <p className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
             {label}
@@ -94,7 +94,7 @@ function ProofLedger() {
               {proofSignals.map(({ label, value }) => (
                 <div
                   key={label}
-                  className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
+                  className="surface-elevation-dark rounded-2xl bg-white/[0.04] px-4 py-4"
                 >
                   <p className="text-xs font-semibold uppercase tracking-wider text-white/40">
                     {label}

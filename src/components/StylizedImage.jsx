@@ -33,7 +33,7 @@ export function StylizedImage({ shape = 0, className, ...props }) {
     >
       <svg viewBox={`0 0 ${width} ${height}`} fill="none" className="h-full">
         <g clipPath={`url(#${id}-clip)`} className="group">
-          <g className="origin-center scale-100 transition duration-500 motion-safe:group-hover:scale-105">
+          <g className="origin-center scale-100 transition-transform duration-500 group-hover:scale-105">
             <foreignObject width={width} height={height}>
               <Image
                 alt=""
@@ -45,8 +45,8 @@ export function StylizedImage({ shape = 0, className, ...props }) {
           </g>
           <use
             href={`#${id}-shape`}
-            strokeWidth="2"
-            className="stroke-neutral-950/10"
+            strokeWidth="1"
+            className="stroke-black/10"
           />
         </g>
         <defs>

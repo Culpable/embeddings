@@ -128,57 +128,90 @@ const scaleUpVariants = {
 }
 
 function SourceLink({ href, label, invert = false }) {
+  // Dark timeline cards keep the original full-height pill: it sits beside
+  // oversized display type, so its scale is proportionate there.
+  if (invert) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        className="mt-5 inline-flex min-h-11 w-fit items-center rounded-full border border-white/15 bg-white/[0.03] pl-3 pr-2.5 text-xs font-semibold text-white/65 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-[transform,border-color,background-color,color,box-shadow] duration-200 ease-out hover:border-white/25 hover:bg-white/[0.06] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950 active:scale-[0.96] sm:min-h-10"
+      >
+        Source · {label}
+        <span
+          className="ml-1 inline-flex -translate-y-px items-center text-[0.65rem]"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+      </a>
+    )
+  }
+
+  // Light cards pair the pill with smaller supporting copy, so keep the
+  // 44px/40px responsive tap target on the link while rendering a compact
+  // visual pill inside it.
   return (
     <a
       href={href}
       target="_blank"
       rel="noreferrer"
-      className={
-        invert
-          ? 'mt-5 inline-flex min-h-8 w-fit items-center rounded-full border border-white/15 bg-white/[0.03] px-3 py-1 text-xs font-semibold text-white/65 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition hover:border-white/25 hover:bg-white/[0.06] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950'
-          : 'mt-5 inline-flex min-h-8 w-fit items-center rounded-full border border-neutral-950/10 bg-white px-3 py-1 text-xs font-semibold text-neutral-600 shadow-[0_1px_0_rgba(23,23,23,0.04)] transition hover:border-neutral-950/20 hover:text-neutral-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2'
-      }
+      className="group/source mt-3 inline-flex min-h-11 w-fit items-center transition-transform duration-200 ease-out focus-visible:outline-none active:scale-[0.96] sm:min-h-10"
     >
-      Source · {label}
-      <span className="ml-1 text-[0.65rem]" aria-hidden="true">
-        ↗
+      <span className="inline-flex items-center rounded-full border border-neutral-950/10 bg-white py-1 pl-3 pr-2.5 text-xs font-semibold leading-4 text-neutral-600 shadow-[0_1px_0_rgba(23,23,23,0.04)] transition-[border-color,color] duration-200 ease-out group-hover/source:border-neutral-950/20 group-hover/source:text-neutral-950 group-focus-visible/source:ring-2 group-focus-visible/source:ring-neutral-950 group-focus-visible/source:ring-offset-2">
+        Source · {label}
+        <span
+          className="ml-1 inline-flex -translate-y-px items-center text-[0.65rem]"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
       </span>
     </a>
   )
 }
 
+
 function HeroProofSignals() {
   return (
     <ul
       role="list"
-      className="mt-8 grid max-w-3xl grid-cols-1 gap-2 rounded-2xl border border-neutral-950/10 bg-white/75 p-1.5 shadow-[0_1px_0_rgba(23,23,23,0.04)] sm:grid-cols-3 sm:gap-3 sm:rounded-none sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none"
+      className="mt-8 grid max-w-3xl grid-cols-1 gap-2 rounded-[18px] border border-neutral-950/10 bg-white/75 p-1.5 shadow-[0_1px_0_rgba(23,23,23,0.04)] sm:grid-cols-3 sm:gap-3 sm:rounded-none sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none"
       aria-label="Agentic commerce proof points"
     >
       {heroProofSignals.map(({ stat, label, source }, index) => (
         <li
           key={stat}
-          className="group relative grid grid-cols-[auto_1fr_auto] items-center gap-x-3 overflow-hidden rounded-xl px-3 py-2.5 transition duration-300 hover:-translate-y-0.5 hover:bg-white sm:block sm:rounded-2xl sm:border sm:border-neutral-950/10 sm:bg-white/70 sm:px-4 sm:py-3 sm:shadow-[0_1px_0_rgba(23,23,23,0.04)] sm:hover:border-neutral-950/20 sm:hover:shadow-lg"
+          className="surface-elevation-light surface-elevation-light-hover group relative grid grid-cols-[auto_1fr_auto] items-center gap-x-3 overflow-hidden rounded-xl bg-white/70 px-3 py-2.5 transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-white sm:block sm:rounded-2xl sm:px-4 sm:py-3"
         >
           <div
             className={`absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r ${urgencyGradients[index]}`}
             aria-hidden="true"
           />
-          <p className="font-display text-base font-semibold tracking-tight text-neutral-950 sm:text-lg">
+          <p className="font-display text-lg font-semibold tracking-tight text-neutral-950 sm:text-xl">
             {stat}
           </p>
           <p className="text-xs leading-5 text-neutral-500 sm:mt-1 sm:text-xs">
             {label}
           </p>
+          {/* Keep the 44px/40px responsive tap target on the link while the
+              visible pill inside stays compact next to the small card copy. */}
           <a
             href={source.href}
             target="_blank"
             rel="noreferrer"
             aria-label={`Source: ${source.label}`}
-            className="inline-flex min-h-7 max-w-[8.5rem] shrink-0 items-center rounded-full border border-neutral-950/10 bg-white px-2.5 text-[0.625rem] font-semibold text-neutral-500 shadow-[0_1px_0_rgba(23,23,23,0.04)] transition hover:border-neutral-950/20 hover:text-neutral-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 sm:mt-3 sm:max-w-full sm:text-xs"
+            className="group/source inline-flex min-h-11 max-w-[8.5rem] shrink-0 items-center transition-transform duration-200 ease-out focus-visible:outline-none active:scale-[0.96] sm:mt-1.5 sm:min-h-10 sm:max-w-full"
           >
-            <span className="truncate">Source · {source.label}</span>
-            <span className="ml-1 text-[0.6rem]" aria-hidden="true">
-              ↗
+            <span className="inline-flex min-w-0 max-w-full items-center rounded-full border border-neutral-950/10 bg-white py-1 pl-2.5 pr-2 text-[0.625rem] font-semibold leading-4 text-neutral-500 shadow-[0_1px_0_rgba(23,23,23,0.04)] transition-[border-color,color] duration-200 ease-out group-hover/source:border-neutral-950/20 group-hover/source:text-neutral-950 group-focus-visible/source:ring-2 group-focus-visible/source:ring-neutral-950 group-focus-visible/source:ring-offset-2 sm:text-xs">
+              <span className="truncate">Source · {source.label}</span>
+              <span
+                className="ml-1 inline-flex -translate-y-px items-center text-[0.6rem]"
+                aria-hidden="true"
+              >
+                ↗
+              </span>
             </span>
           </a>
         </li>
@@ -222,7 +255,7 @@ function AgenticTimeline() {
                 index,
               ) => (
                 <FadeIn key={date} variants={scaleUpVariants}>
-                  <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.1] bg-white/[0.05] shadow-[0_8px_32px_rgba(0,0,0,0.12)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.08] hover:shadow-xl">
+                  <article className="surface-elevation-dark surface-elevation-dark-hover group relative flex h-full flex-col overflow-hidden rounded-2xl bg-white/[0.05] backdrop-blur-xl transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-1 hover:bg-white/[0.08]">
                     {/* Top gradient accent bar — urgency escalation with coloured glow */}
                     <div
                       className={`h-1 w-full bg-gradient-to-r ${urgencyGradients[index]} ${urgencyGlows[index]}`}
@@ -373,10 +406,10 @@ function WhyNow() {
         <FadeInStagger className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {whyNowCards.map(({ stat, statLabel, title, body, source }) => (
             <FadeIn key={title} className="flex" variants={scaleUpVariants}>
-              <article className="group relative flex h-full w-full flex-col overflow-hidden rounded-3xl bg-white p-8 shadow-sm ring-1 ring-neutral-950/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-neutral-950/10 sm:p-10">
+              <article className="surface-elevation-light surface-elevation-light-hover group relative flex h-full w-full flex-col overflow-hidden rounded-3xl bg-white p-8 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 sm:p-10">
                 {/* Top accent bar — animated gradient shimmer on hover */}
                 <div
-                  className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-neutral-300 via-neutral-950 to-neutral-300 bg-[length:200%_100%] opacity-30 transition-all duration-300 group-hover:h-0.5 group-hover:animate-[shimmerBorder_1.5s_ease-in-out_infinite] group-hover:opacity-60"
+                  className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-neutral-300 via-neutral-950 to-neutral-300 bg-[length:200%_100%] opacity-30 transition-[height,opacity,background-position] duration-300 group-hover:h-0.5 group-hover:animate-[shimmerBorder_1.5s_ease-in-out_infinite] group-hover:opacity-60"
                   aria-hidden="true"
                 />
 
@@ -395,7 +428,7 @@ function WhyNow() {
 
                 {/* Divider */}
                 <div
-                  className="mt-4 h-px w-10 bg-neutral-200 transition-all duration-300 group-hover:w-16 group-hover:bg-neutral-950/30"
+                  className="mt-4 h-px w-10 bg-neutral-200 transition-[width,background-color] duration-300 group-hover:w-16 group-hover:bg-neutral-950/30"
                   aria-hidden="true"
                 />
 
@@ -477,7 +510,7 @@ export default function Home() {
             <Button href="/contact">Contact us</Button>
             <Link
               href="/process"
-              className="inline-flex min-h-11 items-center rounded-full px-5 py-2 text-sm font-semibold text-neutral-950 ring-1 ring-neutral-950/10 transition hover:bg-neutral-50 hover:ring-neutral-950/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
+              className="inline-flex min-h-11 items-center rounded-full px-5 py-2 text-sm font-semibold text-neutral-950 ring-1 ring-neutral-950/10 transition-[transform,background-color,box-shadow] duration-200 ease-out hover:bg-neutral-50 hover:ring-neutral-950/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 active:scale-[0.96]"
             >
               <span className="relative top-px">Learn how it works</span>
             </Link>

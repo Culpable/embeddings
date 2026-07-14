@@ -57,9 +57,9 @@ test('root header delegates only the menu control to a client island', () => {
   )
 
   assert.doesNotMatch(
-    `${headerSource}\n${navigationSource}`,
+    headerSource,
     /framer-motion/,
-    'Expected root navigation chrome to use CSS transitions instead of framer-motion layout animation',
+    'Expected static root header chrome to remain free of client-side motion',
   )
 })
 
@@ -67,6 +67,7 @@ test('root header intentionally keeps route links in the menu panel', () => {
   // Preserve the intentionally minimal header chrome: logo, contact CTA, and
   // menu trigger only. Route discovery belongs in the dedicated menu panel.
   const headerSource = readFileSync(rootHeaderPath, 'utf8')
+  const navigationSource = readFileSync(rootNavigationPath, 'utf8')
   const panelSource = readFileSync(rootNavigationPanelPath, 'utf8')
   const agentsSource = readFileSync(agentsPath, 'utf8')
 
@@ -197,18 +198,28 @@ test('dark-section noise uses a shared css texture', () => {
   )
 })
 
-test('navigation menu entrance does not leave a persistent height cap', () => {
-  // The open mobile menu can be taller than the entrance target, so max-height
-  // must not remain applied after the animation completes.
-  const source = readFileSync(componentsCssPath, 'utf8')
-  const navigationRule = source.match(
-    /\.navigation-panel-enter\s*\{(?<body>[\s\S]*?)\}/,
+test('navigation menu uses interruptible enter and exit motion', () => {
+  // Keep the full overlay mounted through its short exit instead of restoring
+  // the previous one-way max-height animation that could not reverse cleanly.
+  const cssSource = readFileSync(componentsCssPath, 'utf8')
+  const navigationSource = readFileSync(rootNavigationPath, 'utf8')
+  const panelSource = readFileSync(rootNavigationPanelPath, 'utf8')
+
+  assert.doesNotMatch(
+    cssSource,
+    /navigationPanelEnter|navigation-panel-enter/,
+    'Expected the obsolete one-way max-height keyframe to stay removed',
   )
 
-  assert.ok(navigationRule, 'Expected a navigation panel entrance rule')
-  assert.doesNotMatch(
-    navigationRule.groups.body,
-    /animation:[^;]*(?:both|forwards)/,
-    'Expected the navigation entrance animation not to persist max-height after completion',
+  assert.match(
+    panelSource,
+    /onTransitionEnd/,
+    'Expected the panel to unmount only after its opacity exit completes',
+  )
+
+  assert.match(
+    panelSource,
+    /-translate-y-3 opacity-0 duration-150/,
+    'Expected the navigation exit to move up no more than 12px within 150ms',
   )
 })

@@ -3,6 +3,7 @@ import clsx from 'clsx'
 
 export function Button({
   invert = false,
+  static: isStatic = false,
   className,
   children,
   trackingLabel,
@@ -17,8 +18,9 @@ export function Button({
 
   className = clsx(
     className,
-    'inline-flex min-h-11 items-center justify-center rounded-full px-5 py-2 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2',
+    'inline-flex min-h-11 items-center justify-center rounded-full px-5 py-2 text-sm font-semibold transition-[transform,background-color,color,box-shadow] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2',
     isDisabled && 'cursor-not-allowed opacity-55',
+    !isStatic && !isDisabled && 'active:scale-[0.96]',
     invert
       ? 'bg-white text-neutral-950 hover:bg-neutral-200 focus-visible:ring-white focus-visible:ring-offset-neutral-950'
       : 'bg-neutral-950 text-white hover:bg-neutral-800',

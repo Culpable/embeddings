@@ -67,7 +67,7 @@ function AttributeTag({ children, muted = false }) {
 
 function BeforeCard() {
   return (
-    <div className="relative rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:p-8">
+    <div className="surface-elevation-light surface-elevation-light-hover relative rounded-2xl bg-white p-6 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 sm:p-8">
       {/* Left accent border — amber/red for "needs work" */}
       <div
         className="absolute inset-y-4 left-0 w-1 rounded-full bg-gradient-to-b from-amber-400 to-red-400"
@@ -125,7 +125,7 @@ function BeforeCard() {
 
 function AfterCard() {
   return (
-    <div className="relative rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:p-8">
+    <div className="surface-elevation-light surface-elevation-light-hover relative rounded-2xl bg-white p-6 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 sm:p-8">
       {/* Left accent border — green for "optimised" */}
       <div
         className="absolute inset-y-4 left-0 w-1 rounded-full bg-gradient-to-b from-emerald-400 to-green-500"

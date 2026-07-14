@@ -1,5 +1,29 @@
 import clsx from 'clsx'
+import { AnimatePresence, motion } from 'framer-motion'
 
+const iconMotion = {
+  initial: {
+    opacity: 0,
+    scale: 0.25,
+    filter: 'blur(4px)',
+  },
+  animate: {
+    opacity: 1,
+    scale: 1,
+    filter: 'blur(0px)',
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.25,
+    filter: 'blur(4px)',
+  },
+}
+
+const iconTransition = {
+  type: 'spring',
+  duration: 0.3,
+  bounce: 0,
+}
 
 function XIcon(props) {
   return (
@@ -10,7 +34,6 @@ function XIcon(props) {
   )
 }
 
-
 function MenuIcon(props) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
@@ -19,13 +42,13 @@ function MenuIcon(props) {
   )
 }
 
-
 export function NavigationButton({
   panelId,
   expanded,
   onToggle,
   toggleRef,
   invert = false,
+  className,
 }) {
   const Icon = expanded ? XIcon : MenuIcon
 
@@ -37,21 +60,36 @@ export function NavigationButton({
       aria-expanded={expanded ? 'true' : 'false'}
       aria-controls={panelId}
       className={clsx(
-        'group -m-2.5 rounded-full p-2.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-4',
+        className,
+        'group -m-2.5 rounded-full p-2.5 transition-[transform,background-color,box-shadow] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-4 active:scale-[0.96]',
         invert
           ? 'hover:bg-white/10 focus-visible:ring-white focus-visible:ring-offset-neutral-950'
           : 'hover:bg-neutral-950/10',
       )}
       aria-label={expanded ? 'Close navigation' : 'Open navigation'}
     >
-      <Icon
-        className={clsx(
-          'h-6 w-6 transition',
-          invert
-            ? 'fill-white group-hover:fill-neutral-200'
-            : 'fill-neutral-950 group-hover:fill-neutral-700',
-        )}
-      />
+      <span className="relative block h-6 w-6">
+        <AnimatePresence initial={false}>
+          <motion.span
+            key={expanded ? 'close' : 'menu'}
+            className="absolute inset-0"
+            variants={iconMotion}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={iconTransition}
+          >
+            <Icon
+              className={clsx(
+                'h-6 w-6 transition-[fill] duration-200',
+                invert
+                  ? 'fill-white group-hover:fill-neutral-200'
+                  : 'fill-neutral-950 group-hover:fill-neutral-700',
+              )}
+            />
+          </motion.span>
+        </AnimatePresence>
+      </span>
     </button>
   )
 }

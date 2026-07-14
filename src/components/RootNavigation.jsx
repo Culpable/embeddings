@@ -9,39 +9,51 @@ import { RootNavigationPanel } from '@/components/RootNavigationPanel'
 export function RootNavigation() {
   const panelId = useId()
   const [expanded, setExpanded] = useState(false)
-  const openRef = useRef(null)
-  const closeRef = useRef(null)
+  const [panelMounted, setPanelMounted] = useState(false)
+  const navigationRef = useRef(null)
+  const toggleRef = useRef(null)
 
   const openPanel = useCallback(() => {
+    setPanelMounted(true)
     setExpanded(true)
   }, [])
 
   const closePanel = useCallback(() => {
     setExpanded(false)
-
-    window.setTimeout(() => {
-      openRef.current?.focus({ preventScroll: true })
-    })
   }, [])
 
-  return (
-    <>
-      {!expanded && (
-        <NavigationButton
-          panelId={panelId}
-          toggleRef={openRef}
-          expanded={false}
-          onToggle={openPanel}
-        />
-      )}
+  const finishPanelExit = useCallback(() => {
+    if (!expanded) {
+      setPanelMounted(false)
+      toggleRef.current?.focus({ preventScroll: true })
+    }
+  }, [expanded])
 
-      {expanded && (
+  return (
+    <div
+      ref={navigationRef}
+      role={panelMounted ? 'dialog' : undefined}
+      aria-modal={panelMounted ? 'true' : undefined}
+      aria-label={panelMounted ? 'Site navigation' : undefined}
+    >
+      <NavigationButton
+        panelId={`${panelId}-panel`}
+        toggleRef={toggleRef}
+        expanded={expanded}
+        invert={panelMounted}
+        onToggle={expanded ? closePanel : openPanel}
+        className="relative z-[60]"
+      />
+
+      {panelMounted && (
         <RootNavigationPanel
-          panelId={panelId}
-          closeRef={closeRef}
+          panelId={`${panelId}-panel`}
+          expanded={expanded}
+          focusScopeRef={navigationRef}
           onClose={closePanel}
+          onExitComplete={finishPanelExit}
         />
       )}
-    </>
+    </div>
   )
 }

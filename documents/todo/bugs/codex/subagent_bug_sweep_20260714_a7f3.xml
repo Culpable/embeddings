@@ -1,0 +1,42 @@
+<bug_1>
+<summary>
+<title>[Interactions] No defects found</title>
+<one_line_description>No reproducible interaction or state defect was found in the scoped UI polish implementation.</one_line_description>
+</summary>
+<file_locations>
+- src/components/Button.jsx – shared button press and disabled-state behaviour, Lines 4-43
+- src/components/NavigationButton.jsx – menu and close icon transition, Lines 4-95
+- src/components/RootNavigation.jsx – mounted navigation lifecycle and focus return, Lines 9-59
+- src/components/RootNavigationPanel.jsx – panel transition, focus containment, Escape, and link-close behaviour, Lines 38-274
+- src/app/contact/ContactForm.jsx – validation, submission, contextual panels, and form reset behaviour, Lines 98-752
+- src/app/contact/ContactDetails.jsx – contact email hit area and preserved details contract, Lines 6-50
+- test/ui-interaction-polish.test.mjs – interaction polish source contracts, Lines 38-162
+- test/contact-form-contract.test.mjs – contact field, copy, validation, and status contracts, Lines 18-276
+- test/root-layout-inert-attribute.test.mjs – navigation dialog and focus containment contracts, Lines 35-82
+- test/root-layout-server-shell.test.mjs – navigation architecture and interruptible transition contracts, Lines 24-225
+</file_locations>
+<issue_description>
+<description>
+The read-only sweep traced shared button press handling, menu icon replacement, navigation panel mount and unmount state, reversal during entry and exit, focus trapping, Escape closure, focus return, link-triggered closure, contact field validation, first-invalid-field focus, controlled budget selection, loading, error and success replacement, and reset behaviour. The implementation preserves the required contact fields and stable contact details copy. No code path in the reviewed scope produced a confirmed defect against the UI polish plan. The focused interaction, navigation, accessibility, and contact source-contract suite passed 22 of 22 tests.
+</description>
+<code_example>
+
+```text
+No defective code example is available because the scoped sweep found no reproducible defect.
+Focused validation: 22 tests passed, 0 failed.
+```
+
+</code_example>
+<expected_vs_actual>
+
+| Aspect | Expected | Actual |
+|--------|----------|--------|
+| Press feedback | Pressable shared controls scale to 0.96 unless static or disabled | Scoped controls provide the required press state and explicit transform transition |
+| Navigation lifecycle | Entry and exit remain interruptible while focus stays contained and returns after closure | Mounted state, transition completion, focus trap, Escape handling, and focus return follow the required flow |
+| Contact validation | Invalid submission exposes accessible errors and immediately focuses the first invalid field | Error summary and field semantics remain present while visual messages animate independently |
+| Contact submission | Loading, error, success, and reset states preserve fields, copy, and live-region behaviour | Submission states use contextual motion without changing the form or copy contract |
+| Automated evidence | Related focused tests pass | 22 passed and 0 failed |
+
+</expected_vs_actual>
+</issue_description>
+</bug_1>

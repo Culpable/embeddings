@@ -66,7 +66,7 @@ const services = [
 
 function MobileServiceStoryboard({ step, eyebrow, mobileSummary }) {
   return (
-    <div className="rounded-2xl border border-neutral-950/10 bg-white p-4 shadow-[0_1px_0_rgba(23,23,23,0.04)] sm:hidden">
+    <div className="surface-elevation-light rounded-2xl bg-white p-4 sm:hidden">
       <div className="flex items-center justify-between gap-3">
         <p className="font-display text-xs font-semibold uppercase tracking-wider text-neutral-950">
           {eyebrow}
@@ -92,7 +92,7 @@ function ServiceLoopOverview() {
           ({ step, eyebrow, loopTitle, signal, mobileSummary }) => (
             <li
               key={step}
-              className="group relative overflow-hidden rounded-2xl bg-white p-5 ring-1 ring-neutral-950/5 transition duration-300 hover:-translate-y-1 hover:ring-neutral-950/15"
+              className="surface-elevation-light surface-elevation-light-hover group relative overflow-hidden rounded-2xl bg-white p-5 transition-[transform,box-shadow] duration-300 hover:-translate-y-1"
             >
               <div className="flex items-center justify-between gap-4">
                 <span className="font-display text-sm font-semibold text-neutral-950">

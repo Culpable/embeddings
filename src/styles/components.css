@@ -26,8 +26,26 @@
   }
 }
 
-.navigation-panel-enter {
-  animation: navigationPanelEnter 500ms cubic-bezier(0.22, 1, 0.36, 1);
+.surface-elevation-light {
+  box-shadow:
+    0 0 0 1px oklch(0 0 0 / 0.06),
+    0 1px 2px -1px oklch(0 0 0 / 0.06),
+    0 2px 4px 0 oklch(0 0 0 / 0.04);
+}
+
+.surface-elevation-light-hover:hover {
+  box-shadow:
+    0 0 0 1px oklch(0 0 0 / 0.08),
+    0 1px 2px -1px oklch(0 0 0 / 0.08),
+    0 2px 4px 0 oklch(0 0 0 / 0.06);
+}
+
+.surface-elevation-dark {
+  box-shadow: 0 0 0 1px oklch(1 0 0 / 0.08);
+}
+
+.surface-elevation-dark-hover:hover {
+  box-shadow: 0 0 0 1px oklch(1 0 0 / 0.13);
 }
 
 .noise-overlay {
@@ -63,16 +81,6 @@
 @media (max-width: 639px) {
   .service-timeline-step {
     contain-intrinsic-size: 32rem;
-  }
-}
-
-@keyframes navigationPanelEnter {
-  from {
-    max-height: 0;
-  }
-
-  to {
-    max-height: 90rem;
   }
 }
 

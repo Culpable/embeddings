@@ -4,8 +4,10 @@ const expectedH1 =
 const expectedTitle = 'About Us / Embeddings'
 const expectedUrl = 'http://localhost:3002/about'
 const results = []
+const pageName = 'contact-about-navigation-regression'
 
-const page = await browser.getPage('contact-about-navigation-regression')
+const page = await browser.getPage(pageName)
+try {
 await page.setViewportSize({ width: 390, height: 900 })
 
 
@@ -153,4 +155,7 @@ if (failedIterations.length > 0) {
   throw new Error(
     `Navigation regression failed in ${failedIterations.length} of ${iterationCount} iterations`,
   )
+}
+} finally {
+  await browser.closePage(pageName)
 }

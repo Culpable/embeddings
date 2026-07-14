@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
@@ -8,7 +8,6 @@ import clsx from 'clsx'
 import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
 import { Logo, Logomark } from '@/components/Logo'
-import { NavigationButton } from '@/components/NavigationButton'
 import { Offices } from '@/components/Offices'
 
 const navigationRows = [
@@ -44,11 +43,15 @@ function getFocusableElements(container) {
 }
 
 
-function NavigationPanelHeader({ panelId, onClose, closeRef }) {
+function NavigationPanelHeader() {
   return (
     <Container>
       <div className="flex items-center justify-between">
-        <Link href="/" aria-label="Home" className="group/logo">
+        <Link
+          href="/"
+          aria-label="Home"
+          className="group/logo inline-flex min-h-11 min-w-11 items-center sm:min-h-10 sm:min-w-10"
+        >
           <Logomark className="h-8 sm:hidden" invert />
           <Logo className="hidden h-8 sm:block" invert fillOnHover />
         </Link>
@@ -56,12 +59,9 @@ function NavigationPanelHeader({ panelId, onClose, closeRef }) {
           <Button href="/contact" invert>
             Contact us
           </Button>
-          <NavigationButton
-            invert
-            panelId={panelId}
-            toggleRef={closeRef}
-            expanded
-            onToggle={onClose}
+          <span
+            className="block min-h-11 min-w-11 sm:min-h-10 sm:min-w-10"
+            aria-hidden="true"
           />
         </div>
       </div>
@@ -96,7 +96,7 @@ function NavigationItem({ href, children, isCurrent = false }) {
       href={href}
       aria-current={isCurrent ? 'page' : undefined}
       className={clsx(
-        'group relative isolate -mx-6 bg-neutral-950 px-6 py-8 transition even:mt-px sm:mx-0 sm:px-0 sm:py-12 sm:odd:pr-16 sm:even:mt-0 sm:even:border-l sm:even:border-neutral-800 sm:even:pl-16',
+        'group relative isolate -mx-6 bg-neutral-950 px-6 py-8 even:mt-px sm:mx-0 sm:px-0 sm:py-12 sm:odd:pr-16 sm:even:mt-0 sm:even:border-l sm:even:border-neutral-800 sm:even:pl-16',
         isCurrent && 'text-white',
       )}
     >
@@ -142,14 +142,21 @@ function Navigation() {
 }
 
 
-export function RootNavigationPanel({ panelId, closeRef, onClose }) {
+export function RootNavigationPanel({
+  panelId,
+  expanded,
+  focusScopeRef,
+  onClose,
+  onExitComplete,
+}) {
   const panelRef = useRef(null)
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    window.setTimeout(() => {
-      closeRef.current?.focus({ preventScroll: true })
-    })
-  }, [closeRef])
+    // Retarget the mounted panel after its first paint so enter and exit use
+    // the same interruptible opacity and transform transition.
+    setVisible(expanded)
+  }, [expanded])
 
   useEffect(() => {
     function onClick(event) {
@@ -177,11 +184,11 @@ export function RootNavigationPanel({ panelId, closeRef, onClose }) {
         return
       }
 
-      if (event.key !== 'Tab' || !panelRef.current) {
+      if (event.key !== 'Tab' || !focusScopeRef.current) {
         return
       }
 
-      const focusableElements = getFocusableElements(panelRef.current)
+      const focusableElements = getFocusableElements(focusScopeRef.current)
       const firstElement = focusableElements[0]
       const lastElement = focusableElements[focusableElements.length - 1]
 
@@ -190,7 +197,7 @@ export function RootNavigationPanel({ panelId, closeRef, onClose }) {
         return
       }
 
-      if (!panelRef.current.contains(document.activeElement)) {
+      if (!focusScopeRef.current.contains(document.activeElement)) {
         event.preventDefault()
         firstElement.focus()
         return
@@ -213,24 +220,31 @@ export function RootNavigationPanel({ panelId, closeRef, onClose }) {
     return () => {
       window.removeEventListener('keydown', onKeyDown)
     }
-  }, [onClose])
+  }, [focusScopeRef, onClose])
 
   return (
     <div
       ref={panelRef}
       id={panelId}
-      role="dialog"
-      aria-modal="true"
-      aria-label="Site navigation"
-      className="navigation-panel-enter fixed inset-x-0 top-0 z-50 max-h-screen overflow-y-auto overflow-x-hidden bg-neutral-950 pt-2"
+      onTransitionEnd={(event) => {
+        if (
+          event.target === event.currentTarget &&
+          event.propertyName === 'opacity' &&
+          !visible
+        ) {
+          onExitComplete()
+        }
+      }}
+      className={clsx(
+        'fixed inset-x-0 top-0 z-50 max-h-screen overflow-y-auto overflow-x-hidden bg-neutral-950 pt-2 transition-[opacity,transform]',
+        visible
+          ? 'translate-y-0 opacity-100 duration-300 ease-out'
+          : '-translate-y-3 opacity-0 duration-150 ease-in',
+      )}
     >
       <div className="bg-neutral-800">
         <div className="bg-neutral-950 pb-16 pt-14">
-          <NavigationPanelHeader
-            panelId={panelId}
-            closeRef={closeRef}
-            onClose={onClose}
-          />
+          <NavigationPanelHeader />
         </div>
         <Navigation />
         <div className="relative bg-neutral-950 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-neutral-800">

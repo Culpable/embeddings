@@ -264,7 +264,13 @@ test('contact form validates fields inline before submission', () => {
 
   assert.match(
     source,
-    /id=\{index === 0 \? 'budget-field' : undefined\}/,
+    /index === 0[\s\S]*?\? 'budget-field'/,
     'Expected the budget summary target to focus the first budget radio',
+  )
+
+  assert.match(
+    source,
+    /`budget-field-\$\{value\}`/,
+    'Expected every remaining budget label to target its own radio',
   )
 })

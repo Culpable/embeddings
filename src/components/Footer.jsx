@@ -55,12 +55,15 @@ function Navigation() {
             <div className="font-display text-base font-semibold tracking-wider text-neutral-950">
               {section.title}
             </div>
-            <ul role="list" className="mt-4 text-sm text-neutral-700">
+            <ul
+              role="list"
+              className="mt-4 flex flex-col gap-1 text-sm text-neutral-700"
+            >
               {section.links.map((link, linkIndex) => (
-                <li key={linkIndex} className="mt-4">
+                <li key={linkIndex}>
                   <Link
                     href={link.href}
-                    className="transition hover:text-neutral-950"
+                    className="inline-flex min-h-11 min-w-11 items-center transition-colors hover:text-neutral-950 sm:min-h-10 sm:min-w-10"
                   >
                     {link.title}
                   </Link>
@@ -90,7 +93,11 @@ export function Footer() {
           </div>
         </div>
         <div className="mb-20 mt-24 flex flex-wrap items-end justify-between gap-x-6 gap-y-4 border-t border-neutral-950/10 pt-12">
-          <Link href="/" aria-label="Home">
+          <Link
+            href="/"
+            aria-label="Home"
+            className="inline-flex min-h-11 min-w-11 items-center sm:min-h-10 sm:min-w-10"
+          >
             <Logo className="h-8" fillOnHover />
           </Link>
           <p className="text-sm text-neutral-700">

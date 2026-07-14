@@ -21,7 +21,7 @@ export default function ThankYou() {
 
       <Container className="mt-16">
         <FadeIn>
-          <div className="max-w-2xl rounded-3xl border border-neutral-950/10 bg-white p-8 shadow-sm sm:p-10">
+          <div className="surface-elevation-light max-w-2xl rounded-3xl bg-white p-8 sm:p-10">
             <h2 className="font-display text-xl font-semibold tracking-tight text-neutral-950">
               What to expect
             </h2>
@@ -39,7 +39,7 @@ export default function ThankYou() {
               <Button href="/">Back to home</Button>
               <Link
                 href="/#services"
-                className="inline-flex min-h-11 items-center rounded-full px-5 py-2 text-sm font-semibold text-neutral-950 ring-1 ring-neutral-950/10 transition hover:bg-neutral-50 hover:ring-neutral-950/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
+                className="inline-flex min-h-11 items-center rounded-full px-5 py-2 text-sm font-semibold text-neutral-950 ring-1 ring-neutral-950/10 transition-[transform,background-color,box-shadow] duration-200 ease-out hover:bg-neutral-50 hover:ring-neutral-950/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 active:scale-[0.96]"
               >
                 <span className="relative top-px">Review services</span>
               </Link>

@@ -1,0 +1,35 @@
+<bug_1>
+<summary>
+<title>[Process imagery] Reduced-motion hover gate resolved</title>
+<one_line_description>The audit found and the implementation removed a reduced-motion gate that suppressed process-image hover scaling.</one_line_description>
+</summary>
+<file_locations>
+- src/components/StylizedImage.jsx - function: `StylizedImage`, Line 36
+- test/ui-interaction-polish.test.mjs - process-image interaction contract, Lines 131-137
+</file_locations>
+<issue_description>
+<description>
+The post-change visual-system sweep found that the clipped process image applied its `group-hover:scale-105` state through Tailwind’s `motion-safe` variant. Tailwind compiles that variant into a `prefers-reduced-motion: no-preference` media query, so the scale state was omitted whenever a user enabled reduced motion at operating-system level. This contradicted the repository requirement that animations remain consistent for all users and the UI polish plan’s requirement to preserve the existing process-image hover-scale interaction. The implementation removed only the `motion-safe` prefix, retained the same `scale(1.05)` value, duration, transform-only transition, clip path, grayscale treatment and dimensions, and added a regression assertion that rejects future `motion-safe` use in this component. The interaction/state worker reported no other reproducible defects.
+</description>
+<code_example>
+
+```jsx
+// File: src/components/StylizedImage.jsx, Line 36
+// RESOLVED: The hover response now applies consistently without a media-query gate.
+
+&lt;g className="origin-center scale-100 transition-transform duration-500 group-hover:scale-105"&gt;
+```
+
+</code_example>
+<expected_vs_actual>
+
+| Aspect | Expected | Actual after resolution |
+|--------|----------|-------------------------|
+| **Hover behaviour** | Every pointer user receives the existing `scale(1.05)` image response | The hover scale applies without a reduced-motion condition |
+| **Animation policy** | Animation setup contains no reduced-motion gating | `motion-safe` was removed and a regression assertion now rejects it |
+| **Visual contract** | Clipping, grayscale, outline and hover scale remain consistent | All four behaviours remain present with the corrected 1px neutral outline |
+| **Validation** | Focused and repository checks pass after the correction | 7/7 focused tests, 67/67 full tests, lint and static export passed |
+
+</expected_vs_actual>
+</issue_description>
+</bug_1>

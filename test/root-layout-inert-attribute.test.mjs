@@ -47,34 +47,35 @@ test('root layout does not pass empty strings to the inert prop', () => {
 
 test('mobile navigation overlay contains keyboard focus while open', () => {
   // Keep the fixed navigation panel from exposing hidden focus behind the overlay.
-  const source = readFileSync(rootNavigationPanelPath, 'utf8')
+  const navigationSource = readFileSync(rootNavigationPath, 'utf8')
+  const panelSource = readFileSync(rootNavigationPanelPath, 'utf8')
 
   assert.match(
-    source,
-    /role="dialog"/,
-    'Expected open navigation panel to use dialog semantics',
+    navigationSource,
+    /role=\{panelMounted \? 'dialog' : undefined\}/,
+    'Expected the persistent navigation focus scope to use dialog semantics while open',
   )
 
   assert.match(
-    source,
-    /aria-modal="true"/,
+    navigationSource,
+    /aria-modal=\{panelMounted \? 'true' : undefined\}/,
     'Expected open navigation panel to mark the background as modal to assistive technology',
   )
 
   assert.match(
-    source,
+    panelSource,
     /event\.key\s*===\s*['"]Escape['"]/,
     'Expected Escape to close the open navigation panel',
   )
 
   assert.match(
-    source,
+    panelSource,
     /event\.key\s*!==\s*['"]Tab['"]/,
     'Expected Tab handling to keep focus inside the open navigation panel',
   )
 
   assert.match(
-    source,
+    panelSource,
     /getFocusableElements/,
     'Expected the open navigation panel to calculate focusable descendants',
   )

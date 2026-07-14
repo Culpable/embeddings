@@ -1,0 +1,35 @@
+<bug_1>
+<summary>
+<title>[Process imagery] Reduced-motion setting disables hover scaling</title>
+<one_line_description>Process image hover scaling is unavailable to users whose operating system requests reduced motion.</one_line_description>
+</summary>
+<file_locations>
+- src/components/StylizedImage.jsx - function: `StylizedImage`, Line 36
+</file_locations>
+<issue_description>
+<description>
+The clipped process image applies its `group-hover:scale-105` state through Tailwind's `motion-safe` variant. Tailwind compiles that variant into a `prefers-reduced-motion: no-preference` media query, so the scale state is omitted whenever the user has enabled reduced motion at operating-system level. This makes the same pointer hover produce different visual behaviour for different users, contrary to the repository animation standard that animations must work consistently and must not be gated by reduced-motion conditionals. The UI polish plan also requires the existing process-image hover-scale interaction to remain available while changing only its transition specificity and outline treatment.
+
+Recommendation: remove the reduced-motion gate from the existing hover-scale class while retaining the same `scale(1.05)` value, duration, transform-only transition, clip path, grayscale treatment, and image dimensions.
+</description>
+<code_example>
+
+```jsx
+// File: src/components/StylizedImage.jsx, Line 36
+// BUG: motion-safe compiles to a reduced-motion media query that can suppress hover scale.
+
+&lt;g className="origin-center scale-100 transition-transform duration-500 motion-safe:group-hover:scale-105"&gt;
+```
+
+</code_example>
+<expected_vs_actual>
+
+| Aspect | Expected | Actual |
+|--------|----------|--------|
+| **Hover behaviour** | Every pointer user receives the existing `scale(1.05)` image response | Users with reduced motion enabled receive no hover scale |
+| **Animation policy** | Animation setup contains no reduced-motion gating | `motion-safe` generates a `prefers-reduced-motion: no-preference` conditional |
+| **Visual contract** | Process image clipping, grayscale, outline, and hover scale remain consistent | Clipping, grayscale, and outline remain consistent, but hover scale varies by user preference |
+
+</expected_vs_actual>
+</issue_description>
+</bug_1>

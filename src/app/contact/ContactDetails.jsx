@@ -28,7 +28,7 @@ export function ContactDetails() {
                 <dd>
                   <Link
                     href={`mailto:${email}`}
-                    className="text-neutral-600 hover:text-neutral-950"
+                    className="inline-flex min-h-11 items-center text-neutral-600 transition-colors hover:text-neutral-950 sm:min-h-10"
                   >
                     {email}
                   </Link>

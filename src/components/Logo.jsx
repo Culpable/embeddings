@@ -14,7 +14,7 @@ export function Logomark({
       <rect
         clipPath={`url(#${id}-clip)`}
         className={clsx(
-          'h-8 transition-all duration-300',
+          'h-8 transition-[width] duration-300',
           invert ? 'fill-white' : 'fill-neutral-950',
           filled ? 'w-8' : 'w-0 group-hover/logo:w-8',
         )}
