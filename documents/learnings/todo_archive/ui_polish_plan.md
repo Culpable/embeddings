@@ -1,5 +1,7 @@
 # Embeddings UI Polish Plan
 
+> **Implemented status (verified 2026-07-19):** Implemented and ready to archive from documents/todo. Evidence: `src/components/Button.jsx`, `src/components/RootNavigationPanel.jsx`, `src/app/contact/ContactForm.jsx`, `test/ui-interaction-polish.test.mjs`, and commit `2261ca1`.
+
 <critical_warning>
 > **CRITICAL WARNING:** Preserve the minimal global header, contact page copy and field contract, and every existing front-page animation design. Do not replace, simplify, remove, or retime `HeroDataFlow.jsx`, `CatalogueTransformation.jsx` staged effects, the service timeline animations, or `ContactSection.jsx` floating snippets. UI polish must be limited to surfaces, hit areas, optical alignment, press feedback, transition specificity, and state transitions that do not alter those animation narratives.
 </critical_warning>

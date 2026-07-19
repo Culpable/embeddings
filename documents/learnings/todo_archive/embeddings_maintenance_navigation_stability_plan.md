@@ -1,5 +1,7 @@
 # Embeddings Maintenance and Navigation Stability Plan
 
+> **Implemented status (verified 2026-07-19):** Implemented and ready to archive from documents/todo. Evidence: `package-lock.json`, `scripts/browser/contact-about-navigation.dev-browser.js`, and commit `775b338`.
+
 <critical_warning>
 > **CRITICAL WARNING:** Application navigation code must remain unchanged unless the mobile contact-to-about abort reproduces deterministically and evidence identifies a repository-owned race. Preserve the existing IntersectionObserver and `content-visibility` design, and do not treat offscreen blank regions in full-page captures as an application defect.
 </critical_warning>
