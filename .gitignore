@@ -20,3 +20,6 @@ yarn-error.log*
 
 # This is handled by gh-pages
 /out
+
+# HyperFrames video projects
+videos/
