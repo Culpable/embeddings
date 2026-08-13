@@ -23,3 +23,5 @@ yarn-error.log*
 
 # HyperFrames video projects
 videos/
+
+documents/todo/bugs/codex/*
