@@ -1,19 +1,21 @@
-# ~~Site Hero Video — "One Conversation" Plan~~ ✅ **COMPLETED**
+# Site Hero Video — "One Conversation" Plan 🔄 **IN PROGRESS**
 
 <important_note>
 > # ▶ START HERE — read this entire block before opening any other file
 >
 > ## Current status
 >
-> **Revision R8 completed on 2026-08-12.** It fixes the nine reported visual and timing issues plus
-> the pause-unsafe checkout confirmation state found during the first R8 encoded audit.
+> **Revision R10 is in progress on 2026-08-14.** It addresses the closing brand rule, the scale and
+> spacing of the catalogue-foundation scene, the confirmation checkmark treatment, and the return
+> label request copy. The R9 master remains definitive until the R10 candidate passes the complete
+> render and independent-review gates.
 >
 > The definitive master is `renders/video.mp4`, SHA-256
-> `82a0a18134a8f02e304d51b5624d19de433efa5702f35627e53cdb5222754562`. Three fresh independent
-> reviewers inspected all 1,800 encoded frames through 300 labelled six-frame sheets and reported
-> zero defects. Read `## R8 implemented solution` at the end of this file for the exact fixes,
-> evidence and validation record. The remaining instructions in this block are retained as the
-> historical R3 execution contract.
+> `8a43320e39cca33f400f0ebc95240bc39ea983a97cc34815e1b515bbd0eeff21`. Read
+> `## R9 implemented solution` at the end of this file for the exact fixes, evidence, the two
+> independent review verdicts and the validation record. `## R8 implemented solution` immediately
+> above it remains the record of the preceding revision. The remaining instructions in this block are
+> retained as the historical R3 execution contract.
 >
 > ## What this project is
 >
@@ -120,7 +122,7 @@
 </important_note>
 
 <critical_warning>
-> **CRITICAL WARNING:** No competitor may appear in the finished video. Google, Bunnings Buddy, and any other named vendor MUST NOT be named, shown, implied, or paraphrased in on-screen copy. The source brief (`documents/reference/ai-shopping-agent.md`) is an internal opportunity document whose competitive claims are explicitly hedged ("reportedly", "as described in the transcript"). Nothing from it that names or characterises a competitor may reach the screen.
+> **CRITICAL WARNING:** No competitor may appear in the finished video. Google, Bunnings Buddy, and any other named vendor MUST NOT be named, shown, implied, or paraphrased in on-screen copy. The source brief (`documents/reference/ai_shopping_agent.md`) is an internal opportunity document whose competitive claims are explicitly hedged ("reportedly", "as described in the transcript"). Nothing from it that names or characterises a competitor may reach the screen.
 </critical_warning>
 
 <critical_warning>
@@ -201,7 +203,7 @@ The video is titled **"One Conversation"**. Its entire argument is a single unbr
 
 ### Why this concept
 
-Embeddings is changing direction. The current site sells fear of disintermediation: AI agents shop on behalf of consumers, so fix your catalogue or become invisible. The new direction (`documents/reference/ai-shopping-agent.md`) sells ownership: you run the agent, on your site, in your brand, launched in days rather than as a multi-quarter engineering project. The antagonist changes from "the AI agent" to "the slow, engineer-gated widget you were offered".
+Embeddings is changing direction. The current site sells fear of disintermediation: AI agents shop on behalf of consumers, so fix your catalogue or become invisible. The new direction (`documents/reference/ai_shopping_agent.md`) sells ownership: you run the agent, on your site, in your brand, launched in days rather than as a multi-quarter engineering project. The antagonist changes from "the AI agent" to "the slow, engineer-gated widget you were offered".
 
 Four concepts were considered and rejected for the hero position (§ 4.2). "One Conversation" won on three grounds:
 
@@ -271,7 +273,7 @@ The new direction is a **product**, not a consultancy service, and products are 
 | Motion blueprints | `/Users/sacino/.agents/skills/hyperframes-animation/blueprints-index.md` | 22 proven shot shapes; one per frame, named in § 5 |
 | Frame worker contract | `/Users/sacino/.agents/skills/hyperframes-core/references/frame-worker-core.md` | Prepended into `_role.md` by the packet builder |
 | Storyboard format | `/Users/sacino/.agents/skills/hyperframes-core/references/storyboard-format.md` | Required frontmatter and per-frame keys |
-| New direction brief | `/Users/sacino/embeddings/documents/reference/ai-shopping-agent.md` | The product being sold; source of every capability claim |
+| New direction brief | `/Users/sacino/embeddings/documents/reference/ai_shopping_agent.md` | The product being sold; source of every capability claim |
 | Live site | `https://embeddings.au` | Capture target for brand colours, type, and assets |
 
 ---
@@ -287,8 +289,8 @@ The new direction is a **product**, not a consultancy service, and products are 
 - **REQ-5 (MUST)**: The storefront and the agent wear a **fictional** retailer's brand, not Embeddings' brand, because the product's whole claim is that the agent wears the retailer's identity. Retailer name: **Yardline Hardware**. Embeddings' own brand appears only on the closing card.
 - **REQ-6 (MUST NOT)**: No real retailer's name, logo, trade dress, or product photography appears. No real product brand appears on any product card. All product names, prices, and specifications are invented.
 - **REQ-7 (MUST NOT)**: No competitor is named, shown, or implied, and no marketing statistic appears (see the two critical warnings above).
-- **REQ-8 (MUST)**: The video shows all four differentiators from `documents/reference/ai-shopping-agent.md` § Customer Value Proposition, by demonstration rather than by claim: **more capability** (checkout in-thread, order status, returns), **more control** (self-service prompt and branding edits), **works with existing systems** (the connected catalogue, search, and API layer), and **faster launch** (stated only qualitatively on the closing card, with no figure).
-- **REQ-9 (MUST)**: The catalogue foundation appears as its own beat. `documents/reference/ai-shopping-agent.md` § Connection to the Existing Embeddings Business positions catalogue enrichment as the entry product with the agent as the higher-value layer on top; without this beat the video sells a chat widget rather than the stack underneath it.
+- **REQ-8 (MUST)**: The video shows all four differentiators from `documents/reference/ai_shopping_agent.md` § Customer Value Proposition, by demonstration rather than by claim: **more capability** (checkout in-thread, order status, returns), **more control** (self-service prompt and branding edits), **works with existing systems** (the connected catalogue, search, and API layer), and **faster launch** (stated only qualitatively on the closing card, with no figure).
+- **REQ-9 (MUST)**: The catalogue foundation appears as its own beat. `documents/reference/ai_shopping_agent.md` § Connection to the Existing Embeddings Business positions catalogue enrichment as the entry product with the agent as the higher-value layer on top; without this beat the video sells a chat widget rather than the stack underneath it.
 - **REQ-10 (MUST)**: The HyperFrames project lives at `/Users/sacino/embeddings/videos/embeddings-shopping-agent/` and `videos/` is added to `/Users/sacino/embeddings/.gitignore`.
 - **REQ-11 (MUST NOT)**: No file under `videos/` is staged or committed.
 - **REQ-12 (MUST)**: No site source file, component, page, or existing document is modified. The only tracked file this plan changes is `.gitignore`.
@@ -358,7 +360,7 @@ The user also accepted two calls made on their behalf:
 
 ### 4.2 Background and Decisions
 
-**The direction change.** Five concepts were pitched against the new direction in `documents/reference/ai-shopping-agent.md`. Four were rejected. Recording them here so the executor understands what "One Conversation" is deliberately not:
+**The direction change.** Five concepts were pitched against the new direction in `documents/reference/ai_shopping_agent.md`. Four were rejected. Recording them here so the executor understands what "One Conversation" is deliberately not:
 
 | Rejected concept | What it was | Why it lost |
 | --- | --- | --- |
@@ -371,7 +373,7 @@ An earlier round of five concepts was pitched against the **old** positioning (c
 
 **Domain background the executor needs.** Under the new direction, Embeddings proposes a configurable, retailer-controlled shopping agent platform installed as a JavaScript widget. Its capabilities, per the brief: product search and discovery, integration with existing product catalogues, support for multiple and retailer-owned search providers, self-service prompt and canned-response management, custom branding, reporting, PII scrubbing, custom API and tool integrations, order-status and return-status queries, and in-session checkout. The agent sits on top of an enriched, indexed catalogue. That ladder — enrich, index, agent, connect APIs — is the company's whole offer, and Frames 4, 5 and 6 exist to show its top three rungs.
 
-**A documentation tension, deliberately out of scope.** `documents/agentic-shopping-positioning.md` describes the old catalogue-readiness positioning and is now partly superseded by `documents/reference/ai-shopping-agent.md`. `AGENTS.md` explicitly forbids updating the positioning document from code changes, and reconciling site messaging is not part of this plan. **Do not edit either document.** Neither of the two system architecture documents named in `AGENTS.md` (`documents/service-section-animations.md`, `documents/agentic-shopping-positioning.md`) is made inaccurate by this plan, because no site code changes, so no documentation update step is required.
+**A documentation tension, deliberately out of scope.** `documents/agentic-shopping-positioning.md` describes the old catalogue-readiness positioning and is now partly superseded by `documents/reference/ai_shopping_agent.md`. `AGENTS.md` explicitly forbids updating the positioning document from code changes, and reconciling site messaging is not part of this plan. **Do not edit either document.** Neither of the two system architecture documents named in `AGENTS.md` (`documents/service-section-animations.md`, `documents/agentic-shopping-positioning.md`) is made inaccurate by this plan, because no site code changes, so no documentation update step is required.
 
 **Why `broadside` and not a lighter preset.** The captured brand is a near-black canvas (`neutral-950`) with white type and hairline structure. Presets with cream paper and serif display (`cartesian`, `cobalt-grid`, `code-editorial`, `capsule`) fight that. `broadside` ships the two-register dark surface, the flat plane, and the 1px hairline divider system that UI frames need.
 
@@ -687,7 +689,7 @@ This plan builds a new asset rather than fixing a reported defect, so there is n
 
 | Artefact | Path | Why it is relevant | Expected outcome |
 | --- | --- | --- | --- |
-| New direction brief | `/Users/sacino/embeddings/documents/reference/ai-shopping-agent.md` | The definitive list of what the agent does. Every capability shown must appear in § Proposed Product or § Longer-Term Product Scope | Frames 2, 3, 4, 5, 6 each map to a listed capability. No frame shows a capability absent from this document |
+| New direction brief | `/Users/sacino/embeddings/documents/reference/ai_shopping_agent.md` | The definitive list of what the agent does. Every capability shown must appear in § Proposed Product or § Longer-Term Product Scope | Frames 2, 3, 4, 5, 6 each map to a listed capability. No frame shows a capability absent from this document |
 | Old positioning | `/Users/sacino/embeddings/documents/agentic-shopping-positioning.md` | Establishes catalogue enrichment as the entry product, which Frame 5 depends on | Frame 5's layer labels match the catalogue services described here. This file is **read-only** for this plan |
 | Project rules | `/Users/sacino/embeddings/AGENTS.md` | British English, `’` apostrophes, and the mandatory validation commands | All on-screen copy uses British English and `’`. All three validation commands run in Step 8 |
 | Captured brand tokens | `videos/embeddings-shopping-agent/capture/extracted/tokens.json` | The real brand colours and fonts the frames must use | `frame.md` carries at least one colour from this file |
@@ -1268,7 +1270,7 @@ Frame 6's Scene 4 slot is refilled by the save/live confirmation beat in § 7.5.
 
 - **The agent gets a name and wears it from Frame 1.** The conversation panel carries a header
   throughout Frames 1 to 4 and 6: an avatar dot, the title **`Yardline Assistant`** in Mona Sans 500,
-  and a small `Online` state chip. This is on-brief — `documents/reference/ai-shopping-agent.md`
+  and a small `Online` state chip. This is on-brief — `documents/reference/ai_shopping_agent.md`
   § Proposed Product lists "Custom branding and interface design" as a shipped capability, so a
   retailer-set agent name is a real feature, not decoration.
 - **The config panel gets a title too.** Its header reads `Shopping agent` with a `Settings`
@@ -2237,7 +2239,7 @@ Two notes on why these are shaped the way they are, both learned by running them
 | v1 contact sheets | `snapshots-v1-dark/` | Evidence for every root cause in § 7.3 |
 | Capture colour stats | `capture/extracted/tokens.json` → `colorStats` | Proves the brand is light-ground (§ 7.1) and drives `build-frame.mjs`'s polarity decision (§ 7.4.4) |
 | Preset source | `/Users/sacino/.agents/skills/hyperframes-creative/frame-presets/blue-professional/FRAME.md` | The radii, card and pill vocabulary R2 inherits |
-| Product brief | `documents/reference/ai-shopping-agent.md` | Still the ceiling on capability claims. "Custom branding and interface design" is what licenses the agent name in R2-D7c |
+| Product brief | `documents/reference/ai_shopping_agent.md` | Still the ceiling on capability claims. "Custom branding and interface design" is what licenses the agent name in R2-D7c |
 
 ---
 
@@ -4213,3 +4215,123 @@ architecture documents cover the public site service animations and marketing po
 standalone video, so they require no change. The verified master is promoted locally. The public site
 still has no video element or source reference, and `videos/` remains gitignored, so external
 publication is outside this task.
+
+---
+
+## R9 implemented solution
+
+Revision R9 completed on 2026-08-13. It implements the four reported closing-card and cadence changes
+and promotes the local master only after two independent reviewers inspected the encoded frames of
+every changed window.
+
+### Definitive artefact
+
+- Master: `videos/embeddings-shopping-agent/renders/video.mp4`
+- Preserved candidate: `videos/embeddings-shopping-agent/renders/video-r9-final-candidate.mp4`
+- Render output: `videos/embeddings-shopping-agent/renders/embeddings-shopping-agent_2026-08-13_10-16-01.mp4`
+- SHA-256: `8a43320e39cca33f400f0ebc95240bc39ea983a97cc34815e1b515bbd0eeff21`
+- Size: 4,891,221 bytes
+- Media: H.264 High, level 4.0, 1920x1080, yuv420p BT.709, 30fps, exactly 1,800 frames,
+  60.000 seconds, no B-frames and no audio stream
+- Full FFmpeg decode: pass
+- Frame MD5 manifest: exactly 1,800 records, at
+  `renders/verification-r9-media/video.framemd5`
+
+### User-reported changes
+
+| Requirement | Implemented result | Encoded evidence |
+| --- | --- | --- |
+| The rule above `embeddings.au` is still not an Embeddings colour and does not match the site | Replaced R8's two-stop `#93C5FD` to `#6EE7B7` blend with the site's own hero connector gradient: Tailwind blue-300 `#93C5FD`, neutral-300 `#D4D4D4`, emerald-300 `#6EE7B7`. `src/components/HeroDataFlow.jsx` renders that exact three-stop rule under the homepage hero | At frame 1797 the rule samples `#99C4F3` at x 920, `#D5D3D1` at x 960 and `#74E5BC` at x 998, all inside normal H.264 chroma drift of the targets. Without the neutral mid-stop the two ends blended into a saturated cyan that appears nowhere on the site |
+| A mouse appears between 12s and 14s although nothing is clicked | Removed every pointer node, style rule and tween from Frame 2. The frame answers a question and selects nothing, so it now paints no pointer at all | No pointer in any frame from 330 to 510 (t 11.0s to 17.0s). An independent reviewer confirmed this twice, by eye and by template-matching the real cursor sprite lifted from t 50.0s: known cursor frames score 1.000 and 0.903, every frame in the window peaks at 0.799 to 0.810, the same noise floor as known cursor-free frames |
+| Clear all text before Embeddings appears, and give the wordmark and URL their own vertically and horizontally centred screen | Frame 7 is now two screens. The four promises accumulate in the unchanged left-aligned column, clear together over 0.42s, the frame holds completely empty white for 0.30s, then the wordmark, rule and URL enter as one absolutely positioned layer centred on both axes. The promise copy, spacing and cadence are untouched | Frame 1686 (t 56.2s) shows the promises with no brand material; frame 1707 (t 56.9s) contains no pixel darker than 245; frame 1728 (t 57.6s) shows the wordmark on an otherwise empty frame. The resolved brand group's ink bounds are x 750-1169 and y 465-613, so its centre is (959.5, 539.0) against a frame centre of (960, 540) |
+| The `Every answer...` scene passes too quickly to read; take the time from the next scene, which drags after `Save`, and speed up the 30-to-60 day change | Extended Frame 5's settled hold from 1.0s to 2.5s and paid for it out of Frame 6: the caret now lands at local 1.35s, the three-state edit runs in 1.8s instead of 2.76s, and the scene leaves 0.96s after the `Live` state instead of 2.41s. The film is still exactly 60.000s | Frames 1254 to 1336 (t 41.8s to 44.53s) are static apart from encoder noise, so the resolved three-line statement holds 2.5s before the cut. `Returns accepted within 60 days.` is first visible at frame 1401 (t 46.7s), 0.75s after the caret. `Live` resolves at t 51.0s and the white bridge is complete by t 52.0s |
+
+### Retime budget
+
+The 60-second total and the 1,800-frame count are fixed, so every second added was taken from a
+neighbouring scene rather than from the end of the film.
+
+| Scene | R8 window | R9 window | Change |
+| --- | --- | --- | --- |
+| Frame 5 — Underneath | 35.999s to 43.5s, 7.501s | 35.999s to 45.0s, 9.001s | +1.5s, all of it read hold on the settled statement |
+| Frame 6 — Yours To Change | 43.0s to 53.0s, 10s | 44.5s to 52.0s, 7.5s | -2.5s, taken from the laboured edit and the dead post-`Save` tail |
+| Frame 7 — Close | 53.0s to 60.0s, 7s | 52.0s to 60.0s, 8s | +1s, which pays for the blank beat and the separate brand screen |
+
+Frames 1 to 4 are unchanged. The foundation cut moved from 43.0s to 44.5s and the control scene's
+fade-in from 43.22s to 44.72s, preserving the established 0.18s clear plus 0.04s white breath.
+
+### Source and contract changes
+
+- `index.html` retimes the last three scenes and carries the new cut positions.
+- `compositions/frames/02-discovery.html` contains no pointer markup, style or tween.
+- `compositions/frames/05-underneath.html` extends its root and clip durations to 9s and holds the
+  settled statement from 6.0s to 9.0s.
+- `compositions/frames/06-yours-to-change.html` compresses to 7.5s: caret at 1.35s, a 1.8s edit
+  driver from 1.5s, the mint click beat at 3.5s to 5.25s, `Save` pressed at 6.05s, `Live` at 6.19s
+  and the white bridge from 7.15s to 7.5s.
+- `compositions/frames/07-close.html` owns the two-screen close, the separately centred
+  `.frame-07-close-brand-screen` layer and the site's three-stop brand rule.
+- `test/r9-cadence-and-close.test.mjs` pins the read hold, the prompt edit, the short post-`Save`
+  tail, the two-screen structure with its blank beat, the exact gradient and the 1,800-frame total.
+  Its wordmark assertion was rewritten to isolate the promise column and the brand screen as
+  addressable blocks, because the original pattern matched the closing tags of any nesting and so
+  could not pass on any structure.
+- `test/r8-visual-contract.test.mjs` and `scripts/verify-r3-source.mjs` were updated only where R9
+  deliberately supersedes an R8 decision: the gradient now requires the neutral mid-stop, the master
+  cut assertions follow the new positions, Frame 5's host duration is 9.001s, and the canonical
+  pointer contract now covers only the three frames that drive a real click while a new assertion
+  requires Frame 2 to contain no pointer at all.
+- `STORYBOARD.md` describes the new Frame 5, 6 and 7 scene windows and the two-screen close.
+
+### Independent review record
+
+Two reviewers received only the labelled encoded stills and the pass criteria, with no knowledge of
+who built the frames or what they were trying to do, in line with the no-self-grading rule in § 8.2.3.
+
+| Window | Stills | Criteria | Verdict |
+| --- | --- | --- | --- |
+| Close, t 52.0s to 59.6s | 20 frames at 0.4s | Two separate screens, a genuinely blank beat, both-axis centring, the gradient, craft | **PASS** on all five |
+| Pacing t 40.0s to 52.0s and pointer t 11.0s to 17.0s | 25 frames at 0.5s plus 13 frames at 0.5s | Read hold, prompt edit with synchronised panels, prompt exit after `Save`, no pointer, craft | **PASS** on all four requested items; craft criterion returned findings, all resolved below |
+
+The close reviewer raised three observations and rejected on none: the wordmark scales roughly 7%
+into place with its centre fixed, which is the storyboard's specified single restrained overshoot;
+the URL types on left-anchored inside its already-centred box, so its ink is briefly asymmetric; and
+one frame holds both the part-drawn rule and the first URL glyph. All three are authored entrance
+behaviour that resolves centred and still, and the last three sampled frames are pixel-identical.
+
+### Findings raised against the craft criterion
+
+| Finding | Assessment | Action |
+| --- | --- | --- |
+| Frames 324 to 406 (t 10.8s to 13.53s) are static, described as frozen film | Caused by the requested pointer removal. Measuring the R8 baseline over the same window shows the only motion between 10.8s and 13.6s was a 10 to 20 pixel object moving from t 12.2s to 12.9s — the reported mouse. Removing it merges a 1.4s hold and a 0.7s hold into one 2.77s hold on three complete product cards carrying three names, three specification lines, three prices and a proof line | Kept. This is a read beat on dense copy, not dead air, and it matches the film's existing pattern: R8 shipped a 2.47s static hold at t 33.7s to 36.13s that three independent reviewers passed. Nothing was requested to replace the pointer |
+| The settings card is fully drawn around an empty body at t 45.0s | Not an R9 regression. The headline at 0.2s and the settings body at 0.52s are the R8 entrance cadence, unchanged; the identical state existed at t 43.5s in R8 and passed a full 1,800-frame independent audit. The empty-body window is about 0.5s inside a staged reveal | Kept unchanged. Reordering an approved reveal was not requested and carries more risk than the state it removes |
+| The first product card is clipped by the chat viewport's scroll boundary from t 15.5s to 17.0s | Not an R9 regression. Frame 2's scroll geometry is byte-identical to R8 apart from the removed pointer | Recorded for a future revision |
+| The `Save` bloom at t 51.0s is not centred on the pill | Not an R9 regression. The burst element and its 2.7x scale are unchanged from R8; only its time moved from 50.14s to 50.69s | Recorded for a future revision |
+| The resolved `Live` state holds under 1s | Intended. The reported defect was that the scene dragged for too long after `Save`; the tail is now 0.96s by design and is pinned at 1.1s maximum by the R9 regression | No change |
+
+### Validation record
+
+- `npm run check` in the video project: pass. HyperFrames reports zero lint, runtime, layout and
+  motion errors, contrast is 101/101 against WCAG AA, the source verifier returns an empty failure
+  list for every gate, and the Node suite passes 28/28
+- HyperFrames warning count returned to the pre-existing 13 after removing an opacity tween that
+  shared a sample boundary on the `Save` burst
+- Static-run analysis across all 1,800 frames: every hold longer than 0.5s accounted for, and no
+  unintended freeze outside the read beats described above
+- Full FFmpeg decode and an 1,800-record frame MD5 manifest: pass
+- Encoded pixel probes for the brand rule and ink-bounds measurement of the brand group: pass
+- Root `npm run lint`: pass with zero warnings and zero errors under Node 22.17.0
+- Root `npm test`: pass, 95/95 tests
+- Root `npm run build`: pass, static export complete
+- No site source, component, page or root system architecture document was modified, so the site
+  behaviour gates carry over unchanged
+- Git hygiene: `videos/` remains ignored and no video path appears in repository status
+
+### Documentation and publication
+
+`STORYBOARD.md` now matches the shipped source for Frames 5, 6 and 7. `CHAT-SYSTEM.md` and
+`frame.md` describe geometry and shared-component contracts that R9 did not change, so they need no
+edit. The root system architecture documents cover the public site's service animations and marketing
+positioning, not this standalone video, so they require no change. The verified master is promoted
+locally. The public site still has no video element or source reference, and `videos/` remains
+gitignored, so external publication is outside this task.

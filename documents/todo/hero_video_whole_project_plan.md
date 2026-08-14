@@ -44,7 +44,7 @@ This matters because basic product search is now category baseline. Embeddings�
 
 ### 2.1 Current implementation overview
 
-`/Users/sacino/embeddings` is a statically exported Next.js marketing site. The live site still presents the earlier catalogue-readiness position. The new product source of truth is `/Users/sacino/embeddings/documents/reference/ai-shopping-agent.md`: a retailer-controlled shopping agent installed on the retailer’s site, connected to its catalogue and systems, and capable of product discovery, checkout, order queries, and return queries.
+`/Users/sacino/embeddings` is a statically exported Next.js marketing site. The live site still presents the earlier catalogue-readiness position. The new product source of truth is `/Users/sacino/embeddings/documents/reference/ai_shopping_agent.md`: a retailer-controlled shopping agent installed on the retailer’s site, connected to its catalogue and systems, and capable of product discovery, checkout, order queries, and return queries.
 
 One 60-second hero video already exists at `/Users/sacino/embeddings/videos/embeddings-shopping-agent/renders/video.mp4`. Its concept is “One Conversation”: a continuous thread spanning discovery, checkout, post-sale support, catalogue foundations, and a configuration change. It already proves the full breadth of the platform.
 
@@ -108,7 +108,7 @@ The existing “One Conversation” film cannot carry this idea without becoming
 | Infrastructure | Exact path | Use in this work |
 | --- | --- | --- |
 | Product launch workflow | `/Users/sacino/.agents/skills/product-launch-video/SKILL.md` | Setup, capture, design, storyboard, frame build, assembly, checks, and render |
-| Source brief | `/Users/sacino/embeddings/documents/reference/ai-shopping-agent.md` | Capability and positioning source of truth |
+| Source brief | `/Users/sacino/embeddings/documents/reference/ai_shopping_agent.md` | Capability and positioning source of truth |
 | Previous plan | `/Users/sacino/embeddings/documents/todo/hero_video_one_conversation_plan.md` | Established safety decisions and lessons from the first render |
 | Previous contact sheet | `/Users/sacino/embeddings/videos/embeddings-shopping-agent/snapshots/final/contact-sheet.jpg` | Visual continuity reference and duplication check |
 | Verified wordmark | `/Users/sacino/embeddings/videos/embeddings-shopping-agent/assets/logo-0b414dc9.svg` | Closing-card Embeddings identity |
@@ -216,7 +216,7 @@ Use the following viewer-facing copy and data. The storyboard may split a line a
 
 - **Project root:** `/Users/sacino/embeddings/videos/embeddings-whole-project/`.
 - **Capture target:** `https://embeddings.au` for brand tokens, fonts, and the Embeddings wordmark only. The live page’s older positioning is not a product-claim source.
-- **Product source of truth:** `/Users/sacino/embeddings/documents/reference/ai-shopping-agent.md`.
+- **Product source of truth:** `/Users/sacino/embeddings/documents/reference/ai_shopping_agent.md`.
 - **Style default:** `broadside`, remixed onto the fresh capture. This maintains suite continuity while the project-board composition creates the new visual identity.
 - **Capture fallback:** If capture exits non-zero, reports `ok: false`, or writes `capture/BLOCKED.md`, stop and report the recorded reason. Continue with the prior verified capture only after the user explicitly approves that switch.
 - **Wordmark fallback:** Prefer the verified source `/Users/sacino/embeddings/videos/embeddings-shopping-agent/assets/logo-0b414dc9.svg`. If that file is missing, select and visually verify the Embeddings wordmark from the successful fresh capture before staging it.
@@ -403,7 +403,7 @@ HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes capture "https://embeddings.au" -o "/U
 - Immediately inspect the command result and `capture/`. Treat a non-zero exit, JSON `ok: false`, or `capture/BLOCKED.md` as a hard stop. Do not use partial capture output.
 - Confirm the capture contains `tokens.json`, `visible-text.txt`, `asset-descriptions.md`, and `capture/assets/`.
 - Compare the fresh tokens with `/Users/sacino/embeddings/videos/embeddings-shopping-agent/capture/extracted/tokens.json`. Expected brand anchors are black, white, mint `#6EE7B7`, and Mona Sans. If the live brand has intentionally changed, use the successful fresh capture and note the change at the storyboard review.
-- Treat the capture as a brand and asset source only. Product capabilities come from `/Users/sacino/embeddings/documents/reference/ai-shopping-agent.md`.
+- Treat the capture as a brand and asset source only. Product capabilities come from `/Users/sacino/embeddings/documents/reference/ai_shopping_agent.md`.
 - Build the frame specification:
 
 ```bash
@@ -737,7 +737,7 @@ This is a new media asset, not a bug fix, so there is no failing production arte
 
 | Artefact | Why it matters | Expected verification outcome |
 | --- | --- | --- |
-| `/Users/sacino/embeddings/documents/reference/ai-shopping-agent.md` | Defines the supported agent capabilities and the new retailer-owned direction | Every shown capability maps to product discovery, catalogue integration, retailer systems, checkout, or retailer control in this brief |
+| `/Users/sacino/embeddings/documents/reference/ai_shopping_agent.md` | Defines the supported agent capabilities and the new retailer-owned direction | Every shown capability maps to product discovery, catalogue integration, retailer systems, checkout, or retailer control in this brief |
 | `/Users/sacino/embeddings/documents/todo/hero_video_one_conversation_plan.md` | Records settled safety decisions and lessons from the first video | New plan preserves silence, fictional identities, no competitors, no marketing statistics, and git isolation while using a different visual device |
 | `/Users/sacino/embeddings/videos/embeddings-shopping-agent/snapshots/final/contact-sheet.jpg` | Shows the established Embeddings video language and the existing chat-thread device | New contact sheet is visually coherent but does not recreate the continuous chat layout |
 | `/Users/sacino/embeddings/videos/embeddings-shopping-agent/capture/extracted/tokens.json` | Records the last verified site palette and font | Fresh capture either matches the black, white, mint, and Mona Sans anchors or the storyboard review states the verified brand change |
@@ -745,7 +745,7 @@ This is a new media asset, not a bug fix, so there is no failing production arte
 | `/Users/sacino/embeddings/AGENTS.md` | Defines British English, animation protection, Git safety, and required validation | All plan execution and checks conform to these rules |
 
 <critical_warning>
-> **CRITICAL WARNING:** Do not replace the product brief with invented capability claims or treat the live site’s older copy as the new product source. Fictional Yardline products may demonstrate supported capabilities, but the rendered story must remain within `/Users/sacino/embeddings/documents/reference/ai-shopping-agent.md`.
+> **CRITICAL WARNING:** Do not replace the product brief with invented capability claims or treat the live site’s older copy as the new product source. Fictional Yardline products may demonstrate supported capabilities, but the rendered story must remain within `/Users/sacino/embeddings/documents/reference/ai_shopping_agent.md`.
 </critical_warning>
 
 ### 6.2 Automated checks
