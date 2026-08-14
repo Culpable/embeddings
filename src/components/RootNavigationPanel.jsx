@@ -8,6 +8,7 @@ import clsx from 'clsx'
 import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
 import { Logo, Logomark } from '@/components/Logo'
+import { navigationButtonFootprintClassName } from '@/components/NavigationButton'
 import { Offices } from '@/components/Offices'
 
 const navigationRows = [
@@ -59,8 +60,13 @@ function NavigationPanelHeader() {
           <Button href="/contact" invert>
             Contact us
           </Button>
+          {/*
+            Stand in for the real toggle button, which floats above this panel on
+            its own stacking context. Match its layout footprint exactly so the
+            "Contact us" button keeps the same position when the panel opens.
+          */}
           <span
-            className="block min-h-11 min-w-11 sm:min-h-10 sm:min-w-10"
+            className={clsx('block', navigationButtonFootprintClassName)}
             aria-hidden="true"
           />
         </div>

@@ -1,6 +1,13 @@
 import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 
+// Reserve the toggle's layout footprint in one place. The button pulls its own
+// padding back with `-m-2.5 p-2.5`, so the 44px hit area overflows the flex row
+// and only this 24px icon box takes up space. Any placeholder that stands in for
+// the toggle (the navigation panel header) must use the same box, otherwise the
+// neighbouring "Contact us" button shifts sideways when the panel opens.
+export const navigationButtonFootprintClassName = 'h-6 w-6'
+
 const iconMotion = {
   initial: {
     opacity: 0,
@@ -68,7 +75,9 @@ export function NavigationButton({
       )}
       aria-label={expanded ? 'Close navigation' : 'Open navigation'}
     >
-      <span className="relative block h-6 w-6">
+      <span
+        className={clsx('relative block', navigationButtonFootprintClassName)}
+      >
         <AnimatePresence initial={false}>
           <motion.span
             key={expanded ? 'close' : 'menu'}
