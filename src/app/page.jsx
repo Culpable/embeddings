@@ -78,8 +78,9 @@ const timelineItems = [
   },
 ]
 
-// Urgency gradient colours mapped to card index (cool → warm)
-// Urgency gradient colours mapped to card index (cool → warm)
+// Gradient colours mapped to card index (cool → warm). The timeline cards use
+// the ramp to escalate urgency; the hero proof pills reuse the same palette
+// purely for visual progression.
 const urgencyGradients = [
   'from-blue-400/80 to-blue-500/80', // cool — early signal
   'from-blue-400/80 to-violet-500/80', // transitioning

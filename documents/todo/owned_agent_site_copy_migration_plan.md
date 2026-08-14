@@ -520,3 +520,60 @@ Screenshots captured at `/Users/sacino/.dev-browser/tmp/verified-{home,process,a
 **Validation note:** an intermediate sweep reported console 404s and 113px mobile overflow. Root cause was a degraded dev-server HMR state after many hot reloads (stale chunk requests 404ing, which left the page unstyled), not a code regression. After a clean dev-server restart the sweep returned 0 errors and 0 overflow on all eight route/viewport combinations. Lint, build, and the full test suite pass independently of the dev server.
 
 **Out-of-scope working-tree state:** `documents/todo/hero_video_one_conversation_plan.md` and `public/sitemap.xml` remain modified. The sitemap diff is only build-generated `lastmod` date bumps (2026-08-13 → 2026-08-14) from `npm run build`. A concurrent commit (`181c7d9`) landed during this work, committing the reference-guide rename, this plan file, and hero-video plan updates; it was left untouched.
+
+---
+
+## Post-Implementation Review (fresh-eyes pass)
+
+A second, independent pass over the shipped migration. Nine issues found and fixed; all fixes are small and targeted.
+
+### Correctness / accessibility
+
+1. **Invalid description list in `AnalyticsTiles`** (`AgentConversationShowcase.jsx`). The reporting tiles rendered `<dd>` before `<dt>`, which breaks the description-list contract and the term/definition pairing assistive technology relies on. It was also inconsistent with `ComparisonFact` in `CatalogueTransformation.jsx`, which puts `<dt>` first. **Fixed:** `<dt>` now precedes `<dd>` in the DOM; `flex flex-col-reverse` preserves the value-above-label appearance. Verified in-browser that the rendering is pixel-identical.
+2. **Conversation had no speaker attribution.** Sighted users read the speaker from bubble alignment and colour; screen-reader users heard an unattributed run of sentences, losing the discovery → checkout → support narrative that is the section's whole purpose. **Fixed:** `sr-only` `Customer:` / `Your agent:` prefixes in `CustomerBeat` / `AgentBeat`.
+3. **Nothing identified the storyboard as a mockup.** **Fixed:** an `sr-only` sentence now introduces the block as an example conversation, so the sample dialogue is not mistaken for live content.
+
+### Requirements
+
+4. **Service 2 still headlined external-agent readiness.** Its title remained `Fresh data keeps you in the recommendation set` while its new body read `…your agent never recommends what you can’t sell`, so the card contradicted itself, and a 4xl/5xl `<h3>` selling external-agent readiness violates REQ-12 ("not as a headline anywhere"). Plan Step 6 had frozen all four titles, but a numbered requirement outranks an implementation step. **Fixed:** retitled to `Fresh data keeps your agent accurate`, with `documents/service-section-animations.md` (AGENTS.md mandate) and the ASCII sample in `documents/service-timeline-approaches.md` updated in lockstep. The other three titles and every eyebrow, `loopTitle`, `signal`, `mobileSummary`, and `animationKey` remain unchanged.
+
+### Maintainability / consistency
+
+5. **Magic reveal delays.** Nine hard-coded millisecond values were scattered through the showcase JSX, so inserting or reordering a beat meant renumbering the sequence. **Fixed:** `BEAT_STEP_MS` / `TRAILING_STEP_MS` constants with `beatDelay()` and `trailingDelay()` helpers; the two different cadences are now documented rather than implicit.
+6. **`Reveal` built its class string with a template literal**, producing a trailing space and diverging from the `clsx` convention used by `FadeIn` and `SectionIntro`. **Fixed:** uses `clsx`.
+7. **Process page component names had drifted from their content** — `Discover` / `Build` / `Deliver` rendered stages titled Foundation / Deploy / Operate. **Fixed:** renamed to `Foundation` / `Deploy` / `Operate`.
+8. **`capabilities[2].body` on the About page was a JSX fragment wrapping plain text**, left over from when it contained entities, while its two siblings were plain strings. **Fixed:** converted to a string.
+9. **Duplicated comment line above `urgencyGradients`** (pre-existing), and the name now also covers the hero product pills. **Fixed:** de-duplicated and clarified that the timeline uses the ramp for urgency while the hero pills reuse the palette for visual progression only.
+
+### Test coverage added
+
+- **Shared-CSS contract guard.** AGENTS.md now protects this component's animation design, but nothing verified the class/keyframe contract between the component and `components.css`. Added a test asserting the component inlines no `@keyframes`, uses all four shared classes, that `components.css` defines each class and each `@keyframes`, that the stagger runs off `--agent-beat-delay`, and that the shared CSS contains no `prefers-reduced-motion` gate. Mirrors the existing `contact-section-snippet-opacity` precedent.
+- **Description-list ordering guard.** Asserts `<dt>` precedes `<dd>` in every showcase `<dl>`, so issue 1 cannot regress.
+- **Hardened claims guards.** The `up to` / `ROI` checks now use word boundaries so an unrelated word containing those letters cannot fail the guard later, and `uplift` was added. The site-wide scan now also covers `.md` under `src/` (verified the legacy `embeddings-description.md` is clean of every forbidden term), so the claims policy applies to all copy under `src/`, not only shipping components.
+- One knock-on: an explanatory comment in the showcase used the word "uplift" and tripped the new guard. The comment was reworded; the stronger guard was kept.
+
+### Verified as correct (no change needed)
+
+- Protected animations byte-identical vs pre-migration: `CatalogueTransformation.jsx`, `AuditXRayScanner.jsx`, `FreshnessPipelineFlow.jsx`, `EnrichmentTypewriter.jsx`, `OptimisationRipple.jsx`. `HeroDesktopDataFlow.jsx` changed exactly two lines (aria-label and the live text label); the commented Variant B/C archive blocks are untouched.
+- `documents/service-section-animations.md` § Section Copy matches all four code strings exactly (checked programmatically).
+- Source-order constraint holds: `// Services` occurs once, after `function WhyNow()`.
+- JSX renders `…or your own index. You are never tied…` with correct punctuation across the `</strong>` boundary.
+- `.agent-caret`'s `steps(1, end)` timing produces a correct 50/50 blink; the publish/live crossfade keyframes are complementary and the pill is sized by the wider `Publish` label, so there is no layout shift.
+- Contact form, contact details, and thank-you page untouched.
+
+### Root cause of the earlier "intermittent" browser errors
+
+Previously attributed to general HMR drift. The actual trigger is specific and reproducible: **running `npm run build` while `npm run dev` is running clobbers `.next/`**, so the dev server serves 404/500 chunk requests, the page loads unstyled, and every route reports ~113px of phantom horizontal overflow. Restarting the dev server after any build clears it completely. Worth remembering for future validation runs: build and dev must not share `.next/` concurrently.
+
+### Post-review validation
+
+| Check | Result |
+| --- | --- |
+| `npm run lint` (Node v22.17.0) | ✅ No ESLint warnings or errors |
+| `npm run build` | ✅ Static export completed, 10/10 pages, 2/2 exported |
+| `npm test` | ✅ **108/108 pass, 0 fail** (up from 106; two new guards) |
+| dev-browser sweep, 4 routes × 2 viewports, clean dev server | ✅ 8/8: 0px overflow, 0 console errors, 0 page errors |
+| Analytics tile rendering after the DOM reorder | ✅ Value still renders above label at both viewports; screenshot identical |
+| All showcase reveals settle | ✅ 0 elements left below full opacity |
+| Process stages render in order | ✅ Foundation → Deploy → Operate at both viewports |
+| Updated service title live | ✅ `Fresh data keeps your agent accurate` renders; `recommendation set` absent from the page |

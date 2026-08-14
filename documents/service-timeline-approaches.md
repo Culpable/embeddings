@@ -26,7 +26,7 @@ The timeline runs vertically along the left edge. Each step has a numbered circl
 |  └──────────────────────────────────────────┘
 |
 ●— Catalogue Freshness
-|  Fresh data keeps you in the recommendation set
+|  Fresh data keeps your agent accurate
 |  [body text ...]
 |
 |  ┌──────────────────────────────────────────┐

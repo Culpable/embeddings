@@ -6,10 +6,20 @@ import { resolve, join, extname } from 'node:path'
 const srcRoot = resolve(process.cwd(), 'src')
 const homePagePath = resolve(srcRoot, 'app/page.jsx')
 const showcasePath = resolve(srcRoot, 'components/AgentConversationShowcase.jsx')
+const componentsCssPath = resolve(srcRoot, 'styles/components.css')
 
-// Only text sources carry copy. Image binaries and the disabled routes are out
-// of scope for the claims policy.
-const textExtensions = new Set(['.js', '.jsx', '.ts', '.tsx', '.mjs', '.css'])
+// Only text sources carry copy, so image binaries are skipped. Markdown is
+// included because src/ still holds a legacy prose file, and the claims policy
+// applies to any copy that lives under src/ whether or not it ships today.
+const textExtensions = new Set([
+  '.js',
+  '.jsx',
+  '.ts',
+  '.tsx',
+  '.mjs',
+  '.css',
+  '.md',
+])
 
 
 function readSourceFiles() {
@@ -154,11 +164,91 @@ test('agent showcase avoids competitor naming and result claims', () => {
     )
   }
 
-  for (const forbidden of ['up to', 'ROI']) {
+  // Anchor on word boundaries so an unrelated word that merely contains these
+  // letters cannot fail the guard later.
+  for (const forbidden of ['up to', 'ROI', 'uplift']) {
     assert.doesNotMatch(
       source,
-      new RegExp(forbidden, 'i'),
+      new RegExp(`\\b${forbidden}\\b`, 'i'),
       `Did not expect the agent showcase to frame demo values as ${forbidden} claims`,
+    )
+  }
+})
+
+
+test('agent showcase animations stay in shared css', () => {
+  // AGENTS.md protects this component's animation design, so keep the class
+  // and keyframe contract between the component and components.css intact.
+  const source = readFileSync(showcasePath, 'utf8')
+  const cssSource = readFileSync(componentsCssPath, 'utf8')
+
+  assert.doesNotMatch(
+    source,
+    /@keyframes/,
+    'Expected the showcase to use shared CSS rather than inlining keyframes',
+  )
+
+  for (const className of [
+    'agent-beat',
+    'agent-caret',
+    'agent-publish-label',
+    'agent-live-label',
+  ]) {
+    assert.match(
+      source,
+      new RegExp(className),
+      `Expected the showcase to use the shared ${className} class`,
+    )
+    assert.match(
+      cssSource,
+      new RegExp(`\\.${className}`),
+      `Expected components.css to define .${className}`,
+    )
+  }
+
+  for (const keyframes of [
+    'agentBeatReveal',
+    'agentCaretBlink',
+    'agentPublishFade',
+    'agentLiveFade',
+  ]) {
+    assert.match(
+      cssSource,
+      new RegExp(`@keyframes ${keyframes}`),
+      `Expected components.css to define @keyframes ${keyframes}`,
+    )
+  }
+
+  assert.match(
+    cssSource,
+    /--agent-beat-delay/,
+    'Expected the stagger to be driven by the shared delay custom property',
+  )
+
+  assert.doesNotMatch(
+    cssSource,
+    /prefers-reduced-motion/,
+    'Expected shared CSS to animate consistently for all users',
+  )
+})
+
+
+test('agent showcase description lists put each term before its definition', () => {
+  // A <dd> ahead of its <dt> breaks the description-list contract and the
+  // term/definition pairing assistive technology relies on.
+  const source = readFileSync(showcasePath, 'utf8')
+  const lists = source.match(/<dl[\s\S]*?<\/dl>/g) ?? []
+
+  assert.ok(lists.length > 0, 'Expected the showcase to render description lists')
+
+  for (const list of lists) {
+    const firstTerm = list.indexOf('<dt')
+    const firstDefinition = list.indexOf('<dd')
+
+    assert.notEqual(firstTerm, -1, 'Expected every description list to define a term')
+    assert.ok(
+      firstTerm < firstDefinition,
+      'Expected <dt> to precede <dd> in every showcase description list',
     )
   }
 })

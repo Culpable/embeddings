@@ -20,12 +20,7 @@ const capabilities = [
   {
     index: '03',
     title: 'Retail Domain Expertise',
-    body: (
-      <>
-        We understand Google Merchant Centre specifications, GTIN standards,
-        product taxonomy, and the emerging standards of agentic commerce.
-      </>
-    ),
+    body: 'We understand Google Merchant Centre specifications, GTIN standards, product taxonomy, and the emerging standards of agentic commerce.',
   },
 ]
 

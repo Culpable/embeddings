@@ -53,9 +53,12 @@ All animations share these conventions:
 
 > **Owned-agent copy migration (2026-08-14):** Services 2 and 3 were re-copied so the
 > catalogue services read as the foundation for the retailer's own shopping agent rather
-> than as preparation for third-party agent recommendation. Only those two body strings
-> changed. Every eyebrow, title, `loopTitle`, `signal`, `mobileSummary`, and
-> `animationKey` value is unchanged, and none of the four animation components
+> than as preparation for third-party agent recommendation. Service 2's title also changed
+> ("Fresh data keeps you in the recommendation set" → "Fresh data keeps your agent
+> accurate") because the old headline sold external-agent readiness, which the migration
+> permits only as a single supporting clause in the services intro, never as a headline.
+> Every eyebrow, the other three titles, and every `loopTitle`, `signal`, `mobileSummary`,
+> and `animationKey` value is unchanged, and none of the four animation components
 > (`AuditXRayScanner.jsx`, `FreshnessPipelineFlow.jsx`, `EnrichmentTypewriter.jsx`,
 > `OptimisationRipple.jsx`) was touched: no timing, keyframe, geometry, or structural
 > change was made in this migration.
@@ -69,7 +72,7 @@ All animations share these conventions:
 ### Service 2: Catalogue Freshness
 
 - **Eyebrow:** "catalogue freshness"
-- **Title:** "Fresh data keeps you in the recommendation set"
+- **Title:** "Fresh data keeps your agent accurate"
 - **Body:** "AI agents penalise outdated catalogues. We build real-time integrations from your ERP, POS, and inventory systems so stock levels, pricing, and product status are always current. A fresh catalogue means your agent never recommends what you can’t sell."
 
 ### Service 3: Catalogue Enrichment

@@ -15,6 +15,8 @@
 // no client JavaScript to the homepage bundle.
 // ---------------------------------------------------------------------------
 
+import clsx from 'clsx'
+
 import { NoiseOverlay } from '@/components/NoiseOverlay'
 
 // ---------------------------------------------------------------------------
@@ -40,8 +42,9 @@ const recommendedProducts = [
   },
 ]
 
-// Sample reporting values. These are product-interface mockup figures, not
-// promised results, so they carry no uplift framing.
+// Sample reporting values. These illustrate the reporting surface only. They
+// are never presented as promised or achievable results, so they carry no
+// multiplier, percentage-gain, or return-on-investment framing.
 const analyticsTiles = [
   { label: 'sessions', value: '1,284' },
   { label: 'conversion', value: '4.8%' },
@@ -60,12 +63,31 @@ const capabilityChips = [
 // ---------------------------------------------------------------------------
 // Reveal helper — every showcase element uses the same staggered CSS keyframe
 // and only varies its delay.
+//
+// Delays are derived rather than hard-coded so a beat can be added, removed, or
+// reordered without renumbering the whole sequence. The conversation reveals on
+// a 260ms cadence; the retailer-facing panels and the capability chips follow on
+// a tighter 160ms cadence so the tail of the sequence does not drag.
 // ---------------------------------------------------------------------------
 
-function Reveal({ delay, className = '', children }) {
+const CONVERSATION_BEAT_COUNT = 6
+const BEAT_STEP_MS = 260
+const TRAILING_STEP_MS = 160
+
+function beatDelay(index) {
+  // Return the reveal delay for the nth conversation beat.
+  return index * BEAT_STEP_MS
+}
+
+function trailingDelay(index) {
+  // Return the reveal delay for the nth element after the conversation.
+  return CONVERSATION_BEAT_COUNT * BEAT_STEP_MS + index * TRAILING_STEP_MS
+}
+
+function Reveal({ delay, className, children }) {
   return (
     <div
-      className={`agent-beat ${className}`}
+      className={clsx('agent-beat', className)}
       style={{ '--agent-beat-delay': `${delay}ms` }}
     >
       {children}
@@ -77,10 +99,14 @@ function Reveal({ delay, className = '', children }) {
 // Conversation beats
 // ---------------------------------------------------------------------------
 
+// Sighted users read the speaker from bubble alignment and colour. Name the
+// speaker in screen-reader-only text so the exchange is still followable as a
+// conversation rather than a run of unattributed sentences.
 function CustomerBeat({ delay, children }) {
   return (
     <Reveal delay={delay} className="flex justify-end">
       <p className="max-w-[85%] rounded-2xl rounded-br-md bg-neutral-950 px-4 py-2.5 text-sm leading-6 text-white">
+        <span className="sr-only">Customer: </span>
         {children}
       </p>
     </Reveal>
@@ -91,6 +117,7 @@ function AgentBeat({ delay, children }) {
   return (
     <Reveal delay={delay} className="flex justify-start">
       <div className="max-w-[92%] rounded-2xl rounded-bl-md bg-neutral-100 px-4 py-3 text-sm leading-6 text-neutral-700">
+        <span className="sr-only">Your agent: </span>
         {children}
       </div>
     </Reveal>
@@ -141,13 +168,20 @@ function ConversationStoryboard() {
         </span>
       </div>
 
-      {/* Five conversation beats: ask, recommend, pay, confirm, follow up. */}
+      {/* Conversation beats: ask, recommend, pay, confirm, follow up. */}
       <div className="space-y-3 p-4 sm:p-6">
-        <CustomerBeat delay={0}>
+        {/* Tell assistive technology what this block is before it reads the
+            dialogue, so the sample exchange is not mistaken for live content. */}
+        <p className="sr-only">
+          Example conversation showing a customer buying from a retailer’s own
+          shopping agent, then asking about the order afterwards.
+        </p>
+
+        <CustomerBeat delay={beatDelay(0)}>
           I need a dress for a spring wedding, size 10, under $200
         </CustomerBeat>
 
-        <AgentBeat delay={260}>
+        <AgentBeat delay={beatDelay(1)}>
           <p>
             Two that suit an outdoor spring wedding and are in your size right
             now.
@@ -159,11 +193,11 @@ function ConversationStoryboard() {
           </div>
         </AgentBeat>
 
-        <CustomerBeat delay={520}>
+        <CustomerBeat delay={beatDelay(2)}>
           The sapphire one. Can I pay here?
         </CustomerBeat>
 
-        <AgentBeat delay={780}>
+        <AgentBeat delay={beatDelay(3)}>
           <p>Yes. Here is your order.</p>
           <dl className="mt-3 space-y-1.5 rounded-xl border border-neutral-950/10 bg-white p-3 text-xs">
             <div className="flex justify-between gap-3">
@@ -188,9 +222,9 @@ function ConversationStoryboard() {
           </p>
         </AgentBeat>
 
-        <CustomerBeat delay={1040}>Where’s my order?</CustomerBeat>
+        <CustomerBeat delay={beatDelay(4)}>Where’s my order?</CustomerBeat>
 
-        <AgentBeat delay={1300}>
+        <AgentBeat delay={beatDelay(5)}>
           <p>Order #8412 left the warehouse this morning.</p>
         </AgentBeat>
       </div>
@@ -265,18 +299,22 @@ function AnalyticsTiles() {
         </span>
       </div>
 
+      {/* Keep each term before its definition in the DOM, as the description
+          list contract requires, and flip the visual order with CSS so the
+          figure still reads above its label. Matches ComparisonFact in
+          CatalogueTransformation.jsx. */}
       <dl className="mt-5 grid grid-cols-3 gap-2">
         {analyticsTiles.map(({ label, value }) => (
           <div
             key={label}
-            className="rounded-2xl border border-white/10 bg-neutral-950 px-3 py-3"
+            className="flex flex-col-reverse rounded-2xl border border-white/10 bg-neutral-950 px-3 py-3"
           >
-            <dd className="font-display text-lg font-semibold tracking-tight text-white sm:text-xl">
-              {value}
-            </dd>
             <dt className="mt-1 text-[0.65rem] leading-4 text-white/45">
               {label}
             </dt>
+            <dd className="font-display text-lg font-semibold tracking-tight text-white sm:text-xl">
+              {value}
+            </dd>
           </div>
         ))}
       </dl>
@@ -305,17 +343,17 @@ export function AgentConversationShowcase() {
         <ConversationStoryboard />
 
         <div className="grid grid-cols-1 gap-6">
-          <Reveal delay={1560}>
+          <Reveal delay={trailingDelay(0)}>
             <ControlStrip />
           </Reveal>
-          <Reveal delay={1720}>
+          <Reveal delay={trailingDelay(1)}>
             <AnalyticsTiles />
           </Reveal>
         </div>
       </div>
 
       {/* Capability chips — the full product surface behind the storyboard. */}
-      <Reveal delay={1880}>
+      <Reveal delay={trailingDelay(2)}>
         <ul
           role="list"
           className="relative mt-8 flex flex-wrap gap-2"

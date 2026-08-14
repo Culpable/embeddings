@@ -28,7 +28,7 @@ const services = [
   {
     step: 2,
     eyebrow: 'catalogue freshness',
-    title: 'Fresh data keeps you in the recommendation set',
+    title: 'Fresh data keeps your agent accurate',
     body: 'AI agents penalise outdated catalogues. We build real-time integrations from your ERP, POS, and inventory systems so stock levels, pricing, and product status are always current. A fresh catalogue means your agent never recommends what you can’t sell.',
     loopTitle: 'Repair records',
     signal: 'schema map',

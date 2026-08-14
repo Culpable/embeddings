@@ -74,7 +74,7 @@ function Section({ title, image, signals = [], children }) {
   )
 }
 
-function Discover() {
+function Foundation() {
   return (
     <Section
       title="Foundation"
@@ -127,7 +127,7 @@ function Discover() {
   )
 }
 
-function Build() {
+function Deploy() {
   return (
     <Section
       title="Deploy"
@@ -171,7 +171,7 @@ function Build() {
   )
 }
 
-function Deliver() {
+function Operate() {
   return (
     <Section
       title="Operate"
@@ -303,9 +303,9 @@ export default function Process() {
       </PageIntro>
 
       <div className="mt-24 space-y-24 [counter-reset:section] sm:mt-32 sm:space-y-32 lg:mt-40 lg:space-y-40">
-        <Discover />
-        <Build />
-        <Deliver />
+        <Foundation />
+        <Deploy />
+        <Operate />
       </div>
 
       <Values />
