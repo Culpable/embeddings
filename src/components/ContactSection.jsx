@@ -52,21 +52,21 @@ const floatingSnippets = [
     opacity: '0.12',
   },
   {
-    text: 'stock: 142 units',
+    text: 'checkout: in conversation',
     x: '15%',
     delay: '4s',
     duration: '23s',
     opacity: '0.11',
   },
   {
-    text: 'AI traffic: +393% YoY',
+    text: 'order #8412: shipped',
     x: '65%',
     delay: '8s',
     duration: '17s',
     opacity: '0.14',
   },
   {
-    text: 'category: Dresses > Midi',
+    text: 'agent: on-brand reply sent',
     x: '35%',
     delay: '2s',
     duration: '25s',
@@ -119,11 +119,11 @@ export function ContactSection({ invert = false }) {
         <FadeIn>
           <div className="relative mx-auto max-w-3xl text-center">
             <h2 className="font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
-              Be the brand AI agents recommend first
+              Put your own agent in the conversation
             </h2>
             <p className="mt-6 text-base text-neutral-400">
-              The retailers preparing their catalogues today are building
-              advantages that compound tomorrow.
+              The retailers deploying their own shopping agents today are
+              building customer relationships that compound tomorrow.
             </p>
             <Button href="/contact" invert className="mt-8">
               Contact us

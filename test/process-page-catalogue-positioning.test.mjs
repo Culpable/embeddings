@@ -5,20 +5,24 @@ import { resolve } from 'node:path'
 
 const processPagePath = resolve(process.cwd(), 'src/app/process/page.jsx')
 
-test('process page speaks to catalogue readiness instead of generic AI consulting', () => {
-  // Keep the process route aligned with the homepage agentic commerce offer.
+test('process page describes the owned-agent journey instead of generic AI consulting', () => {
+  // Keep the process route aligned with the homepage owned-agent offer:
+  // catalogue foundation, agent deployment, then live operation.
   const source = readFileSync(processPagePath, 'utf8')
 
   for (const expectedPhrase of [
-    'How we make catalogues agentic-ready',
+    'How we take you from catalogue to live agent',
+    'title="Foundation"',
+    'title="Deploy"',
+    'title="Operate"',
     'Merchant Feed Audit',
     'GTIN Coverage',
-    'Built for agentic commerce, not generic AI adoption',
+    'Built for retail conversations, not generic AI adoption',
     'catalogue-readiness score',
   ]) {
     assert.match(
       source,
-      new RegExp(expectedPhrase),
+      new RegExp(expectedPhrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
       `Expected process page to include ${expectedPhrase}`,
     )
   }
@@ -27,11 +31,53 @@ test('process page speaks to catalogue readiness instead of generic AI consultin
     'future of work',
     'productivity gains',
     'strategic AI implementation',
+    'agentic-ready',
   ]) {
     assert.doesNotMatch(
       source,
       new RegExp(oldPhrase, 'i'),
       `Did not expect process page to retain generic phrase ${oldPhrase}`,
+    )
+  }
+})
+
+test('process page renders the three journey stages in order', () => {
+  // Guard the narrative order so the catalogue foundation always precedes the
+  // agent build, which in turn precedes live operation.
+  const source = readFileSync(processPagePath, 'utf8')
+
+  const foundationIndex = source.indexOf('title="Foundation"')
+  const deployIndex = source.indexOf('title="Deploy"')
+  const operateIndex = source.indexOf('title="Operate"')
+
+  assert.ok(
+    foundationIndex !== -1 && deployIndex !== -1 && operateIndex !== -1,
+    'Expected all three process stage titles to be present',
+  )
+
+  assert.ok(
+    foundationIndex < deployIndex && deployIndex < operateIndex,
+    'Expected process stages to render as Foundation, then Deploy, then Operate',
+  )
+})
+
+test('process page covers checkout, post-sales, control, and analytics', () => {
+  // Every owned-agent capability sold on the homepage must have a delivery
+  // stage behind it on the process page.
+  const source = readFileSync(processPagePath, 'utf8')
+
+  for (const expectedCapability of [
+    'checkout',
+    'order status',
+    'returns',
+    'assisted revenue',
+    'prompts, policies, and canned responses',
+    'Algolia, Coveo, Elasticsearch, Google Retail Search, or your own',
+  ]) {
+    assert.match(
+      source,
+      new RegExp(expectedCapability.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'),
+      `Expected process page to describe ${expectedCapability}`,
     )
   }
 })
@@ -47,8 +93,8 @@ test('process page prioritises the first visual after the intro', () => {
   )
 })
 
-test('process images include catalogue-readiness signal overlays', () => {
-  // Keep the process visuals tied to measurable catalogue work instead of generic stock imagery.
+test('process images include journey-stage signal overlays', () => {
+  // Keep the process visuals tied to measurable delivery work instead of generic stock imagery.
   const source = readFileSync(processPagePath, 'utf8')
 
   assert.match(
@@ -60,10 +106,10 @@ test('process images include catalogue-readiness signal overlays', () => {
   for (const expectedSignal of [
     '74/100 ready',
     '128 fixes',
-    'ERP + PIM sync',
-    'review queue',
-    '<15 min drift',
-    'trend pulse',
+    'plugged into your stack',
+    'in the conversation',
+    'assisted revenue',
+    'self-service',
   ]) {
     assert.match(
       source,

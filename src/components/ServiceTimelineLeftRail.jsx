@@ -29,7 +29,7 @@ const services = [
     step: 2,
     eyebrow: 'catalogue freshness',
     title: 'Fresh data keeps you in the recommendation set',
-    body: 'AI agents penalise outdated catalogues. We build real-time integrations from your ERP, POS, and inventory systems so stock levels, pricing, and product status are always current. A fresh catalogue means your products stay in the recommendation set.',
+    body: 'AI agents penalise outdated catalogues. We build real-time integrations from your ERP, POS, and inventory systems so stock levels, pricing, and product status are always current. A fresh catalogue means your agent never recommends what you can’t sell.',
     loopTitle: 'Repair records',
     signal: 'schema map',
     mobileSummary:
@@ -40,7 +40,7 @@ const services = [
     step: 3,
     eyebrow: 'catalogue enrichment',
     title: 'From thin listings to rich, AI-readable content',
-    body: 'Our LLM pipelines transform sparse product data into rich, brand-aligned descriptions, categories, and attributes. Thousands of SKUs enriched in hours, not months. If an AI agent can\u2019t understand your product data, your products don\u2019t exist in agentic commerce.',
+    body: 'Our LLM pipelines transform sparse product data into rich, brand-aligned descriptions, categories, and attributes. Thousands of SKUs enriched in hours, not months. If an agent can\u2019t understand your product data, it can\u2019t sell your products.',
     loopTitle: 'Add buying context',
     signal: 'review queue',
     mobileSummary:

@@ -19,7 +19,7 @@ These rules apply specifically to this repository and should be used for all cod
 - The business enquiry form fields are: name, email, company, phone, message, and budget.
 - Frontend improvements may change layout, styling, focus states, loading states, error states, success states, and fallback behaviour, but must not replace the field contract with catalogue-readiness, SKU, platform, feed source, or priority fields without explicit approval.
 - Keep the contact route and contact form helper copy broad and concise. Do not add catalogue-readiness-specific form guidance or contact side-panel "what happens next" workflow content unless the user explicitly requests that messaging change.
-- Preserve the stable contact page copy unless the user explicitly requests copy changes. The contact metadata description must stay "Contact us to learn how we can integrate AI into your business.", the contact PageIntro title must stay "Your AI advantage starts here", and the PageIntro body must stay "Ready to experience the future of work? Contact us to see how we can integrate AI into your business."
+- Preserve the stable contact page copy unless the user explicitly requests copy changes. The contact metadata description must stay "Contact us to put your own AI shopping agent on your site.", the contact PageIntro title must stay "Your agent starts here", and the PageIntro body must stay "Ready to own the conversation with your customers? Tell us about your catalogue and commerce stack, and we’ll map the fastest path to a live agent."
 - Preserve the existing contact details side panel copy and structure unless the user explicitly requests copy changes. Keep "our offices", "We’re based in Perth and Melbourne, and work with clients all over Australia.", "email us", and "business enquiries"; do not add new trust, process, readiness, workflow, or "what we handle" copy to that side panel without explicit approval.
 - Preserve the intentionally empty trailing `Border` placeholder in `src/app/contact/ContactDetails.jsx` unless the user explicitly requests its removal.
 </contact_form_rules>
@@ -32,7 +32,7 @@ These rules apply specifically to this repository and should be used for all cod
 
 <animation_standards>
 **NEVER add `prefers-reduced-motion` checks or similar accessibility media query conditionals to animation code.** Animations must work consistently for all users, so do not gate/short-circuit IntersectionObserver setup with accessibility or timing conditionals (including `requestAnimationFrame` wrappers).
-**Do not replace, simplify, remove, or rewrite existing frontpage animations unless the user explicitly asks for that exact animation change.** This includes `HeroDataFlow.jsx`, `CatalogueTransformation.jsx`, the service timeline animations, and `ContactSection.jsx` floating snippets. These animations are essential to the site experience; performance work must preserve the existing animation design.
+**Do not replace, simplify, remove, or rewrite existing frontpage animations unless the user explicitly asks for that exact animation change.** This includes `HeroDataFlow.jsx`, `CatalogueTransformation.jsx`, the service timeline animations, `AgentConversationShowcase.jsx` (staggered conversation reveal, edit caret, and publish/live crossfade), and `ContactSection.jsx` floating snippets. These animations are essential to the site experience; performance work must preserve the existing animation design.
 </animation_standards>
 
 Read the below only when asked to create git commit messages:
@@ -59,7 +59,8 @@ src/
 │   ├── RootLayout.jsx: Main navigation and site structure
 │   │   └── Navigation(): Main nav items
 │   │   └── Header(): Minimal logo, Contact us CTA, and menu trigger; no inline desktop nav by design
-│   ├── HeroDataFlow.jsx: Animated SVG showing catalogue → AI agent → consumer flow
+│   ├── HeroDataFlow.jsx: Animated SVG showing catalogue → your agent → your customer flow (retailer-owned)
+│   ├── AgentConversationShowcase.jsx: Owned-agent showcase — branded conversation storyboard (discovery → checkout → order status), self-service control strip, analytics tiles, and capability chips
 │   ├── CatalogueTransformation.jsx: Before/after catalogue cards with a four-step service pipeline
 │   ├── ContactSection.jsx: Homepage call-to-action section with floating catalogue data snippets
 │   ├── Testimonial.jsx: Testimonial section with light and dark variants
@@ -71,7 +72,7 @@ src/
 ├── lib/
 │   └── images.ts: Featured image configuration for social sharing/meta tags
 ├── app/
-│   ├── page.jsx: Homepage with hero flow, timeline, service transformation, and CTA sections
+│   ├── page.jsx: Homepage with hero flow, agent showcase (`#agent`), timeline, shift, proof, service transformation, and CTA sections
 │   ├── about/
 │   │   └── page.jsx: About page content and team info
 │   ├── process/

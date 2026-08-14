@@ -1,21 +1,21 @@
-# Site Hero Video — "One Conversation" Plan 🔄 **IN PROGRESS**
+# Site Hero Video — "One Conversation" Plan ✅ **COMPLETE**
 
 <important_note>
 > # ▶ START HERE — read this entire block before opening any other file
 >
 > ## Current status
 >
-> **Revision R10 is in progress on 2026-08-14.** It addresses the closing brand rule, the scale and
-> spacing of the catalogue-foundation scene, the confirmation checkmark treatment, and the return
-> label request copy. The R9 master remains definitive until the R10 candidate passes the complete
-> render and independent-review gates.
+> **Revision R10 completed on 2026-08-14.** It corrects the closing brand rule, enlarges and
+> re-spaces the catalogue-foundation scene, fills the confirmation check, and makes the return-label
+> request explicit. The complete rendered candidate passed source, browser, media and independent
+> whole-film review before promotion.
 >
 > The definitive master is `renders/video.mp4`, SHA-256
-> `8a43320e39cca33f400f0ebc95240bc39ea983a97cc34815e1b515bbd0eeff21`. Read
-> `## R9 implemented solution` at the end of this file for the exact fixes, evidence, the two
-> independent review verdicts and the validation record. `## R8 implemented solution` immediately
-> above it remains the record of the preceding revision. The remaining instructions in this block are
-> retained as the historical R3 execution contract.
+> `0afb233b69f048cc3e9388c4950455121edc8d9411c9c4b1dd631b2d1415cb11`. Read
+> `## R10 implemented solution` at the end of this file for the exact fixes, evidence, three
+> independent review verdicts and validation record. The R9 and R8 records remain as revision
+> history. The remaining instructions in this block are retained as the historical R3 execution
+> contract.
 >
 > ## What this project is
 >
@@ -4335,3 +4335,83 @@ edit. The root system architecture documents cover the public site's service ani
 positioning, not this standalone video, so they require no change. The verified master is promoted
 locally. The public site still has no video element or source reference, and `videos/` remains
 gitignored, so external publication is outside this task.
+
+---
+
+## R10 implemented solution
+
+Revision R10 completed on 2026-08-14. It implements the four reported visual and copy changes and
+promotes the master only after the complete 1,800-frame candidate passed primary and independent
+review.
+
+### Definitive artefact
+
+- Master: `videos/embeddings-shopping-agent/renders/video.mp4`
+- Preserved candidate: `videos/embeddings-shopping-agent/renders/video-r10-final-candidate.mp4`
+- SHA-256: `0afb233b69f048cc3e9388c4950455121edc8d9411c9c4b1dd631b2d1415cb11`
+- Media: H.264, 1920x1080, yuv420p, 30fps, exactly 1,800 frames, 60.000 seconds and no audio stream
+- Full FFmpeg decode: pass
+- Frame MD5 manifest: exactly 1,800 records at
+  `verification-r10-media/video-r10-candidate.framemd5`
+
+### User-reported changes
+
+| Requirement | Implemented result | Encoded evidence |
+| --- | --- | --- |
+| The rule above `embeddings.au` does not match the website colour scheme | Replaced the loading-shell colours with the live website semantic flow sequence: blue `#3B82F6`, black `#171717`, green `#10B981` | Frame 1797 samples the expected blue, black and green colour families after normal H.264 chroma drift. Frame 1799 holds the resolved rule and URL without movement |
+| The text at about 48 seconds is too small and cramped | Enlarged all three foundation plates to 120px, icons to 56px, titles to 26px and detail text to 20px. Enlarged the statement to 46px, widened it to 950px and aligned its three-line bottom with the chat panel | Frame 1260 shows the complete larger foundation diagram and three-line statement with stable plate spacing, clean connectors and no collision with the chat |
+| The confirmation check needs a filled background | Added the same solid mint fill and black tick to the shared confirmation icon contract in Frames 1 to 6 | Frame 720 shows a centred solid disc and tick. The icon stays complete while the confirmation moves and scrolls |
+| The return request should explicitly ask for a label | Changed the exact shopper copy to `Can I get a return label for the spare battery?` in Frames 4 and 5 and all derived contracts | Frames 949 to 1340 show the exact sentence on one line. Frame 1084 and the exclusive Frame 5 sample at 1085 retain identical message geometry |
+
+### Source, contract and documentation changes
+
+- `compositions/frames/01-the-ask.html` through `06-yours-to-change.html` share the solid confirmation
+  icon contract.
+- `compositions/frames/04-three-days-later.html` and `05-underneath.html` carry the exact return-label
+  request.
+- `compositions/frames/05-underneath.html` uses the enlarged plate and statement geometry while
+  preserving connector centres and the existing reveal cadence.
+- `compositions/frames/07-close.html` uses the live website blue-black-green rule.
+- `CHAT-SYSTEM.md`, `frame.md`, `STORYBOARD.md`, the Frame 4 packet and the source-gate snapshot now
+  describe the same shipped geometry, copy and colours.
+- `test/r10-brand-foundation-confirmation-copy.test.mjs` protects all four reported defects.
+  Existing R8 and R9 contracts and the source verifier were updated where R10 deliberately supersedes
+  their earlier values.
+
+### Verification record
+
+- Focused R10 reproduction: failed for all four previous states, then passed 4/4 after the fixes
+- `HYPERFRAMES_SKIP_SKILLS=1 npm run check`: pass with zero errors and 32 video assertions passing;
+  existing non-gating composition-size and duplicate-media authoring warnings remain
+- Complete candidate decode: pass, 1,800/1,800 frames
+- Native primary review: all changed windows, consecutive contact sheets, handoff boundaries and
+  suspicious samples passed spacing, padding, alignment, clipping, wrapping, icon and pause-safety
+  checks
+- Studio browser verification at 1440x900 and 390x900: pass with no console or page errors
+- Root `npm run lint`: pass with zero warnings and zero errors under Node 22.17.0
+- Root `npm run build`: pass, static export complete
+- Root `npm test`: pass, 99 tests
+
+### Independent whole-film review
+
+Three fresh reviewers received the exact candidate hash and non-overlapping frame ranges. Each
+losslessly decoded 600 native frames, created and inspected exactly 100 labelled six-frame sheets,
+and opened boundaries, temporal-difference peaks and suspicious frames at 1920x1080.
+
+| Encoded range | Exact coverage | Result | Report |
+| --- | --- | --- | --- |
+| 0000-0599 | 600/600 frames, 100/100 sheets | No defects | `subagent_bug_sweep_20260814_b5726ea0.xml` |
+| 0600-1199 | 600/600 frames, 100/100 sheets | No defects | `subagent_bug_sweep_20260814_ec996ea4.xml` |
+| 1200-1799 | 600/600 frames, 100/100 sheets | No defects | `subagent_bug_sweep_20260814_002ebd6d.xml` |
+
+Combined result: 1,800/1,800 encoded frames and 300/300 labelled sheets inspected with no open
+finding. The review explicitly covered spacing, padding, alignment, clipping, wrapping, copy, icon
+geometry, transition continuity, aesthetics and pause safety. The consolidated record is
+`documents/todo/bugs/codex/combined_bug_sweep_20260814_r10_final.xml` and passes `xmllint --noout`.
+
+### Documentation and publication
+
+The standalone video contracts and this plan match the promoted master. The root system architecture
+documents cover public-site service animations and marketing positioning, not this video, so they do
+not require changes. The public site still has no video source reference and `videos/` remains
+gitignored. External publication remains outside this task.

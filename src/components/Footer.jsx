@@ -26,6 +26,7 @@ const navigation = [
   {
     title: 'offer',
     links: [
+      { title: 'the agent', href: '/#agent' },
       { title: 'why now', href: '/#why-now' },
       { title: 'services', href: '/#services' },
       { title: 'proof', href: '/#proof' },

@@ -103,11 +103,15 @@ test('homepage proof strip and hero spacing stay mobile-readable', () => {
     'Expected hero proof signals to stack on mobile and become three columns on larger screens',
   )
 
-  assert.match(
-    source,
-    /<span className="truncate">Source · \{source\.label\}<\/span>/,
-    'Expected mobile source pills to include visible source names',
-  )
+  // The hero pills now carry product promises rather than duplicated market
+  // statistics, so they no longer render a third-party source pill.
+  for (const expectedPill of ['One chat', 'Yours', 'Weeks']) {
+    assert.match(
+      source,
+      new RegExp(`stat: '${expectedPill}'`),
+      `Expected the hero proof strip to include the ${expectedPill} product pill`,
+    )
+  }
 
   assert.match(
     source,

@@ -12,7 +12,7 @@ export function DesktopHeroDataFlow() {
     <div
       className="relative mt-10 w-full overflow-hidden sm:mt-16"
       role="img"
-      aria-label="Retail catalogue data moving through an AI agent into a consumer recommendation."
+      aria-label="Retail catalogue data powering the retailer’s own AI agent, which answers a customer in a branded chat."
     >
       <svg
         viewBox="0 0 960 320"
@@ -423,7 +423,7 @@ export function DesktopHeroDataFlow() {
               letterSpacing: '0.05em',
             }}
           >
-            AI agent
+            Your agent
           </text>
 
           {/* Ambient glow behind the mesh — dual-tone blue/emerald warmth */}

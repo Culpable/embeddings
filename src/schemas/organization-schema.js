@@ -8,11 +8,11 @@ export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "Embeddings",
-  "alternateName": "Embeddings: Generative AI for Australian Businesses",
+  "alternateName": "Embeddings: AI Shopping Agents for Australian Retailers",
   "url": "https://embeddings.au",
   "logo": "https://embeddings.au/images/embeddings-logo.png",
   "image": "https://embeddings.au/images/embeddings-agentic-shopping.png",
-  "description": "AI embeddings experts and consultants specialising in machine learning solutions.",
+  "description": "Australian consultancy that builds retailer-owned AI shopping agents and the enriched product catalogues that power them.",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "PO Box 155",

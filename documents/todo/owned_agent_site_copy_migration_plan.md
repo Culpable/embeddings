@@ -1,4 +1,4 @@
-# Owned-Agent Site Copy Migration Plan
+# ~~Owned-Agent Site Copy Migration Plan~~ ✅ **COMPLETED**
 
 <critical_warning>
 > **CRITICAL WARNING:** Superseded visual components must be COMMENTED OUT, never deleted. Comment out the external reference (import line and JSX usage) at the call site with a one-line note, and leave the component file on disk untouched. This is a hard user directive. Precedent already exists in the codebase: `HeroDesktopDataFlow.jsx` keeps its rejected "Variant B" as a commented block, and `documents/service-section-animations.md` records `OptimisationSeismograph.jsx` as retained-but-unwired.
@@ -214,7 +214,7 @@ Decisions made explicitly by the user for this migration (settled; do not reliti
 
 ## 5. Implementation Plan
 
-### Step 1: Metadata and structured data
+### ~~Step 1: Metadata and structured data~~ ✅ **COMPLETED**
 **Objective:** Search results, social shares, and JSON-LD lead with the owned agent before any page renders.
 
 #### 1.1 High-Level Approach
@@ -226,7 +226,7 @@ Decisions made explicitly by the user for this migration (settled; do not reliti
 - `src/schemas/organization-schema.js` contains the two strings above verbatim and no occurrence of "machine learning solutions"
 - `npm run build` completes and `grep -rn "AI Shopping Agents for Australian Retailers" out/index.html` matches
 
-### Step 2: Homepage hero copy
+### ~~Step 2: Homepage hero copy~~ ✅ **COMPLETED**
 **Objective:** The first viewport states the owned-agent offer.
 
 #### 2.1 High-Level Approach
@@ -241,7 +241,7 @@ Decisions made explicitly by the user for this migration (settled; do not reliti
 - `src/app/page.jsx` no longer contains `Be the brand AI agents recommend first` in the hero, nor `win that recommendation`
 - `heroProofSignals` contains exactly the three new entries; `HeroProofSignals` renders without a source pill when `source` is undefined; `npm run lint` passes
 
-### Step 3: Hero diagram relabel (D1 Option A)
+### ~~Step 3: Hero diagram relabel (D1 Option A)~~ ✅ **COMPLETED**
 **Objective:** The existing hero animation depicts the retailer-owned flow without changing its animation design.
 
 #### 3.1 High-Level Approach
@@ -253,7 +253,7 @@ Decisions made explicitly by the user for this migration (settled; do not reliti
 - `src/components/HeroDataFlow.jsx` contains `discover`, `checkout`, `support`, `Your customer`, and `Sold in one conversation`; contains no `audit`/`enrich`/`rank` chips and no `Recommendation-ready`
 - `test/hero-data-flow-second-consumer-bubble-padding-symmetry.test.mjs` and `test/responsive-heavy-visuals.test.mjs` still pass (structure untouched)
 
-### Step 4: New agent showcase section (D2 Option A)
+### ~~Step 4: New agent showcase section (D2 Option A)~~ ✅ **COMPLETED**
 **Objective:** Demonstrate the agent's capabilities by showing one conversation, immediately after the hero.
 
 #### 4.1 High-Level Approach
@@ -273,7 +273,7 @@ Decisions made explicitly by the user for this migration (settled; do not reliti
 - Analytics tile values read as product-UI mockup only: no `up to`, no `ROI`, no uplift multiplier anywhere in the component
 - Every capability shown maps to `documents/reference/ai_shopping_agent.md` § Proposed Product (manual check against the list in that file)
 
-### Step 5: Timeline and WhyNow reframe
+### ~~Step 5: Timeline and WhyNow reframe~~ ✅ **COMPLETED**
 **Objective:** Market urgency now argues for owning the conversation instead of feeding external agents.
 
 #### 5.1 High-Level Approach
@@ -285,7 +285,7 @@ Decisions made explicitly by the user for this migration (settled; do not reliti
 - All three `whyNowCards` retain their `stat`, `statLabel`, and `source` values unchanged
 - Every assertion in `test/homepage-stat-source-links.test.mjs` passes except the hero-pill `truncate">Source ·` assertion, which is updated in Step 11 (all timeline/WhyNow/JSON-LD/spacing assertions pass without modification)
 
-### Step 6: Services section reframe (foundation framing)
+### ~~Step 6: Services section reframe (foundation framing)~~ ✅ **COMPLETED**
 **Objective:** Catalogue services read as the agent's foundation and entry product, with external-agent readiness as the single supporting benefit.
 
 #### 6.1 High-Level Approach
@@ -298,7 +298,7 @@ Decisions made explicitly by the user for this migration (settled; do not reliti
 - `src/components/ServiceTimelineLeftRail.jsx` diffs touch only the two body strings; `git diff` for `CatalogueTransformation.jsx` and the four animation components is empty
 - `test/catalogue-transformation-responsive-steps.test.mjs` passes unmodified
 
-### Step 7: ContactSection CTA and snippets (D5 Option A)
+### ~~Step 7: ContactSection CTA and snippets (D5 Option A)~~ ✅ **COMPLETED**
 **Objective:** The site-wide closing CTA sells ownership.
 
 #### 7.1 High-Level Approach
@@ -309,7 +309,7 @@ Decisions made explicitly by the user for this migration (settled; do not reliti
 - `src/components/ContactSection.jsx` contains the new h2/body and the three new snippet strings; snippet array length is still 10; `snippetOpacityBoost`/`maxSnippetOpacity` untouched
 - `test/contact-section-snippet-opacity.test.mjs` passes unmodified (verified during planning: it asserts opacity values and the shared keyframe class only, never the snippet text)
 
-### Step 8: Process page full journey reframe (REQ-7)
+### ~~Step 8: Process page full journey reframe (REQ-7)~~ ✅ **COMPLETED**
 **Objective:** `/process` describes catalogue-to-live-agent delivery in three stages.
 
 #### 8.1 High-Level Approach
@@ -325,7 +325,7 @@ Decisions made explicitly by the user for this migration (settled; do not reliti
 - The page mentions checkout, order-status or returns connections, self-service control, and analytics at least once each; `How we make catalogues agentic-ready` no longer appears
 - `test/process-page-catalogue-positioning.test.mjs` is updated in the same change (Step 11) and passes; `test/process-page-image-wrapper-responsive-width.test.mjs` passes unmodified
 
-### Step 9: About page reframe
+### ~~Step 9: About page reframe~~ ✅ **COMPLETED**
 **Objective:** `/about` positions the team as the builders of retailer-owned agents on a data-engineering foundation.
 
 #### 9.1 High-Level Approach
@@ -339,7 +339,7 @@ Decisions made explicitly by the user for this migration (settled; do not reliti
 - All three `StatList` entries keep their values and source links
 - `npm run lint` passes
 
-### Step 10: Contact and thank-you copy
+### ~~Step 10: Contact and thank-you copy~~ ✅ **COMPLETED**
 **Objective:** Contact page speaks the new direction; form contract untouched.
 
 #### 10.1 High-Level Approach
@@ -352,7 +352,7 @@ Decisions made explicitly by the user for this migration (settled; do not reliti
 - `git diff` for `ContactForm.jsx`, `ContactDetails.jsx`, and `thank-you/page.jsx` is empty
 - `test/contact-form-contract.test.mjs` passes after its coordinated update in Step 11
 
-### Step 11: Navigation, footer, AGENTS.md, and test updates (coordinated)
+### ~~Step 11: Navigation, footer, AGENTS.md, and test updates (coordinated)~~ ✅ **COMPLETED**
 **Objective:** Discovery routes point at the new section, and every self-referential contract (AGENTS.md rules, copy-assertion tests) matches the shipped copy in one atomic change.
 
 #### 11.1 High-Level Approach
@@ -366,7 +366,7 @@ Decisions made explicitly by the user for this migration (settled; do not reliti
 - `AGENTS.md` contains the new contact strings and `AgentConversationShowcase.jsx` in both `<key_templates>` and `<animation_standards>`
 - `node --test test/process-page-catalogue-positioning.test.mjs test/contact-form-contract.test.mjs test/homepage-stat-source-links.test.mjs test/homepage-owned-agent-positioning.test.mjs` passes
 
-### Step 12: Documentation updates
+### ~~Step 12: Documentation updates~~ ✅ **COMPLETED**
 **Objective:** No project document contradicts the shipped site.
 
 #### 12.1 High-Level Approach
@@ -377,7 +377,7 @@ Decisions made explicitly by the user for this migration (settled; do not reliti
 - `documents/service-section-animations.md` § Section Copy strings match `ServiceTimelineLeftRail.jsx` exactly (diff by eye or grep per string)
 - `documents/agentic-shopping-positioning.md` contains the ownership hierarchy, the claims policy, and a reference to `documents/reference/ai_shopping_agent.md`; no longer states "catalogue data quality is the single most important factor"
 
-### Step 13: Full validation
+### ~~Step 13: Full validation~~ ✅ **COMPLETED**
 **Objective:** Prove the migration against the project's validation gate.
 
 #### 13.1 High-Level Approach
@@ -442,3 +442,81 @@ Decisions made explicitly by the user for this migration (settled; do not reliti
 | `HeroProofSignals` (repurposed) | Homepage hero | Product promise pills replacing duplicated market stats | Source pill omitted when no source |
 | `ContactSection` (re-copied) | All routes, closing CTA | Ownership CTA with 3 conversation-flavoured snippets | Existing float animation unchanged |
 | Process stage sections (re-copied) | `/process` | Foundation / Deploy / Operate journey | Existing layout and images unchanged |
+
+---
+
+## Implemented Solution
+
+All 13 steps implemented and validated. Migration shipped the owned-agent narrative across all four public routes, metadata, JSON-LD, navigation, project rules, and documentation.
+
+### New files
+
+- **`src/components/AgentConversationShowcase.jsx`** — static Server Component (no `'use client'`, no client JS added to the homepage bundle). Three parts per REQ-3:
+  - *Conversation storyboard*: five beats inside a mock retailer-branded browser window (`yourstore.com.au` + `your brand` chip). Discovery (`I need a dress for a spring wedding, size 10, under $200`) → two product cards reusing the Sapphire Blue A-Line Midi Dress / GTIN `0614141123456` / `$189.00` demo data plus a second Blush Crepe Wrap Midi → `The sapphire one. Can I pay here?` → order summary with `Paid · order #8412 confirmed` → `Where’s my order?` / `Order #8412 left the warehouse this morning.`
+  - *Control strip*: `your controls`, a `tone rule` field mid-edit (`Always offer the in-store pickup option`) with a blinking caret, a `Publish` label crossfading to a green `Live` state, a `live in seconds` chip, and the caption `No ticket. No release cycle. Your team changes the agent’s prompts, tone, and rules directly.` The animated Publish/Live pair is `aria-hidden` with an `sr-only` equivalent.
+  - *Analytics tiles*: `sessions 1,284`, `conversion 4.8%`, `assisted revenue $42k` under a `your reporting` header with a `SAMPLE` chip and the caption `Reporting your team can act on.`
+  - Capability chips: `conversational discovery`, `checkout in the chat`, `order & returns support`, `bring your own search`, `self-service control`, `revenue analytics`.
+- **`test/homepage-owned-agent-positioning.test.mjs`** — 5 tests: hero H1 + `#agent` anchor + named-platform sentence present and old-frame phrases gone; showcase is a Server Component with no `prefers-reduced-motion`; every conversation beat, control-strip string, analytics label, and capability chip present; no `Google`/`OpenAI`/`Bunnings`/`Buddy`/`up to`/`ROI` in the showcase; and a recursive `src/` scan enforcing the REQ-4/REQ-13 claims policy (no competitor names, guide figures, or pricing language).
+
+### Modified files
+
+| File | Change |
+| --- | --- |
+| `src/lib/metadata.js` | Site title → `Embeddings: AI Shopping Agents for Australian Retailers`; site and home descriptions rewritten to the owned agent |
+| `src/schemas/organization-schema.js` | `description` and `alternateName` rewritten. `image` left untouched (deferred per §4.1 item 9) |
+| `src/app/page.jsx` | Hero H1 `The shopping agent that’s actually yours` + new subhead; `heroProofSignals` repurposed to `One chat` / `Yours` / `Weeks` with sources dropped and `HeroProofSignals` rendering the source pill conditionally (ternary, `rendering-conditional-render`); new `AgentShowcase()` section (`id="agent"`, eyebrow `the agent`, named-platform sentence incl. `Google Retail Search`) rendered between the hero and `<AgenticTimeline />`; timeline closing statement, WhyNow title/body, all three WhyNow card bodies, and the Services intro reframed. All timeline/WhyNow stats and source links unchanged |
+| `src/components/HeroDesktopDataFlow.jsx` | Live centre label `AI agent` → `Your agent`; wrapper aria-label reworded. Commented-out Variant B/C blocks left byte-identical |
+| `src/components/HeroDataFlow.jsx` | Both aria-labels reworded; mobile cards re-copied (badge `gaps found` → `enriched` with amber → emerald tint, list → `complete attributes / rich descriptions / live stock signal`, `AI agent` → `Your agent`, chips → `discover / checkout / support`, `Consumer answer` → `Your customer`, bubble → checkout offer, footer → `Sold in one conversation`) |
+| `src/components/ServiceTimelineLeftRail.jsx` | Two body strings only (services 2 and 3). All eyebrows, titles, `loopTitle`, `signal`, `mobileSummary`, `animationKey` unchanged |
+| `src/components/ContactSection.jsx` | h2 → `Put your own agent in the conversation`; body reframed; three snippet strings swapped. Array length still 10; all positional/timing/opacity values unchanged |
+| `src/app/process/page.jsx` | Metadata, PageIntro, and three stages retitled `Foundation` / `Deploy` / `Operate` with rewritten bodies and new signal overlays (`plugged into your stack`, `in the conversation`, `assisted revenue`, `self-service`); Operate list items retitled; Values intro and three grid items reframed. `ProcessImageSignals`, images, and `priority: true` preserved |
+| `src/app/about/page.jsx` | Metadata, PageIntro title and both paragraphs, founding/outcome paragraphs, `proofSignals.focus` → `retailer-owned shopping agents`, ProofLedger body, capability 01 retitled `Agent & LLM Pipeline Engineering`, capability 03 generalised, Culture intro reframed. All three `StatList` values and source links unchanged |
+| `src/app/contact/page.jsx` | Metadata description and PageIntro title/body only. `ContactForm.jsx`, `ContactDetails.jsx`, and `thank-you/page.jsx` untouched (verified: empty `git diff`) |
+| `src/components/Footer.jsx` | `offer` section gains `the agent` (`/#agent`) as its first link; `why now` retained |
+| `src/components/RootNavigationPanel.jsx` | `why now` replaced by `the agent` (six links, three rows preserved); panel helper copy reframed off `catalogue-readiness` |
+| `src/styles/components.css` | Added `.agent-beat` staggered reveal keyframes, `.agent-caret` blink, and the `.agent-publish-label` / `.agent-live-label` crossfade. No `prefers-reduced-motion` gates |
+| `AGENTS.md` | `<contact_form_rules>` locked copy strings updated to the shipped contact copy; `AgentConversationShowcase.jsx` added to `<key_templates>` and to the `<animation_standards>` protected list; `page.jsx` and `HeroDataFlow.jsx` descriptions updated |
+| `documents/service-section-animations.md` | § Section Copy services 2 and 3 bodies updated verbatim, plus a migration note recording that no animation component changed |
+| `documents/agentic-shopping-positioning.md` | Rewritten as the owned-agent positioning reference: ownership hierarchy, product-naming decision, binding claims policy, full Messaging Priority Matrix, owned-agent primary-visual section, reframed problem/what-we-do sections, new home-page section order, updated messaging principles and copy conventions, `documents/reference/ai_shopping_agent.md` named as product source of truth. Corrected the stale Adobe figure (758% → 393%) to match the shipped site |
+
+### Test changes
+
+- `test/process-page-catalogue-positioning.test.mjs` — expectations moved to the new stage titles and signals; `agentic-ready` added to the forbidden list; two new tests added (stage order Foundation → Deploy → Operate, and coverage of checkout / order status / returns / analytics / control / named search platforms). Structural assertions (`ProcessImageSignals`, `priority: true`, mobile-safe overlay classes) unchanged.
+- `test/contact-form-contract.test.mjs` — only the locked copy-string expectations moved to the new contact strings. Every field-contract, forbidden-field, Formspree, `/thank-you`, accessibility, and validation assertion is unchanged.
+- `test/homepage-stat-source-links.test.mjs` — the single `truncate">Source ·` pill-markup assertion replaced with assertions for the three product pills. All other assertions untouched.
+- `test/root-layout-server-shell.test.mjs` — **not anticipated by the plan.** Its `root header intentionally keeps route links in the menu panel` test asserted `/#why-now` in the panel; updated to `/#agent` to match the panel's new link set. No other assertion changed.
+
+### Deviations from the plan (deliberate)
+
+1. **Hero SVG label location.** The plan named `HeroDesktopDataFlow.jsx:773` and `:851` as the two `AI agent` labels, and set success criteria of `grep -c "Your agent"` = 2 / `grep -c ">AI agent<"` = 0. Those two lines are inside the commented-out Variant B and Variant C reference blocks; the only *live* label is the multi-line `<text>` at line 426. The plan also instructs that the commented Variant B block stay untouched. Resolved in favour of the explicit preservation instruction: the live label was changed to `Your agent` and the archived variant blocks were left byte-identical. Current state: `grep -c "Your agent"` = 1, and `>AI agent<` survives only inside commented archive markup.
+2. **Analytics `conversion` tile value.** The plan suggested `+18%`. A signed delta reads as an uplift claim, which REQ-4 forbids and which the plan's own success criterion ("no uplift multiplier anywhere in the component") rules out. Shipped `4.8%` instead — a plain conversion rate that reads unambiguously as dashboard UI. A `SAMPLE` chip was added to the reporting panel header to reinforce the mockup framing.
+3. **Mobile hero badge colour.** Copy changed from `gaps found` to `enriched`, so the badge tint moved from amber (problem) to emerald (complete). Colour-only follow-on from the mandated copy change; no animation or layout change.
+4. **`RootNavigationPanel` helper copy.** Not listed in the plan, but the panel's `catalogue-readiness conversation` sentence contradicted the shipped narrative, so it was reframed. Lowercase nav labels preserved.
+5. **Right column left at natural height.** Stretching the control strip and analytics panels to match the taller conversation column was tried and reverted: it pushed each panel's caption to the card floor and left visible voids inside the cards. Natural heights with trailing dark space read better; a code comment records the decision.
+
+### Explicitly not changed (per plan)
+
+- `src/lib/images.ts`, `public/images/`, and the JSON-LD `image` value (deferred follow-up, §4.1 item 9).
+- `CatalogueTransformation.jsx` and all four service animation components (D3/D4) — verified empty `git diff`.
+- `ContactForm.jsx`, `ContactDetails.jsx`, `thank-you/page.jsx`, `src/app/embeddings-description.md` (legacy, unreferenced, absent from every built page), `_disabled_pages/`, and the completed hero-video plan documents.
+- The homepage testimonial (catalogue audit/enrichment story retained as entry-product proof).
+
+### Validation
+
+| Check | Result |
+| --- | --- |
+| `npm run lint` (Node v22.17.0) | ✅ No ESLint warnings or errors |
+| `npm run build` | ✅ Static export completed, 10/10 pages generated, 2/2 exported. Homepage first-load JS 115 kB |
+| `npm test` | ✅ 106/106 pass, 0 fail (5 of them from the new positioning guard) |
+| Built-output copy check | ✅ `out/index.html` contains the new title, hero H1, and `id="agent"`; all four routes carry the new copy; no `’` escape leaked into rendered text |
+| dev-browser sweep, 4 routes × 2 viewports (1440×900, 390×900) | ✅ 8/8: 0px horizontal overflow, 0 console errors, 0 page errors |
+| `#agent` / `#why-now` / `#services` / `#proof` anchors | ✅ All land at 96px (`scroll-mt-24`) at both viewports |
+| Navigation link sets | ✅ Footer offer = the agent / why now / services / proof; panel = 6 links in 3 rows |
+| Showcase render check | ✅ All five beats, control strip, `live in seconds`, all three analytics tiles, and all six chips render at both viewports; no forbidden claim language in rendered text |
+| Claims-policy greps (§3.3) | ✅ All empty. `Google` in `src/` appears only in sourced market data, existing source URLs, Merchant Centre / Trends service names, referral-tracking internals, and the allowed `Google Retail Search` integration phrase in `page.jsx` and `process/page.jsx`; zero occurrences in `AgentConversationShowcase.jsx` |
+
+Screenshots captured at `/Users/sacino/.dev-browser/tmp/verified-{home,process,about,contact}-{desktop,mobile}.png` plus isolated section captures at `agent-section-final-{desktop,mobile}.png`.
+
+**Validation note:** an intermediate sweep reported console 404s and 113px mobile overflow. Root cause was a degraded dev-server HMR state after many hot reloads (stale chunk requests 404ing, which left the page unstyled), not a code regression. After a clean dev-server restart the sweep returned 0 errors and 0 overflow on all eight route/viewport combinations. Lint, build, and the full test suite pass independently of the dev server.
+
+**Out-of-scope working-tree state:** `documents/todo/hero_video_one_conversation_plan.md` and `public/sitemap.xml` remain modified. The sitemap diff is only build-generated `lastmod` date bumps (2026-08-13 → 2026-08-14) from `npm run build`. A concurrent commit (`181c7d9`) landed during this work, committing the reference-guide rename, this plan file, and hero-video plan updates; it was left untouched.

@@ -8,6 +8,7 @@ import { FadeIn, FadeInStagger } from '@/components/FadeIn'
 import { SectionIntro } from '@/components/SectionIntro'
 import { Testimonial } from '@/components/Testimonial'
 import { HeroDataFlow } from '@/components/HeroDataFlow'
+import { AgentConversationShowcase } from '@/components/AgentConversationShowcase'
 import { CatalogueTransformation } from '@/components/CatalogueTransformation'
 import { AnimatedStat } from '@/components/AnimatedStat'
 import { NoiseOverlay } from '@/components/NoiseOverlay'
@@ -94,30 +95,21 @@ const urgencyGlows = [
   'shadow-[0_4px_12px_rgba(239,68,68,0.15)]', // red glow
 ]
 
+// Hero proof pills state the product promise rather than repeating the market
+// statistics already shown on the timeline cards below. Entries omit `source`
+// because these are product signals, not third-party claims.
 const heroProofSignals = [
   {
-    stat: '700M+',
-    label: 'weekly users',
-    source: {
-      label: 'OpenAI',
-      href: 'https://openai.com/index/buy-it-in-chatgpt/',
-    },
+    stat: 'One chat',
+    label: 'discovery to checkout',
   },
   {
-    stat: 'UCP',
-    label: 'protocol live',
-    source: {
-      label: 'Google',
-      href: 'https://blog.google/products/ads-commerce/agentic-commerce-ai-tools-protocol-retailers-platforms/',
-    },
+    stat: 'Yours',
+    label: 'brand, prompts, data',
   },
   {
-    stat: '$3–5T',
-    label: 'by 2030',
-    source: {
-      label: 'McKinsey',
-      href: 'https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-automation-curve-in-agentic-commerce',
-    },
+    stat: 'Weeks',
+    label: 'from catalogue to live',
   },
 ]
 
@@ -178,12 +170,12 @@ function HeroProofSignals() {
     <ul
       role="list"
       className="mt-8 grid max-w-3xl grid-cols-1 gap-2 rounded-[18px] border border-neutral-950/10 bg-white/75 p-1.5 shadow-[0_1px_0_rgba(23,23,23,0.04)] sm:grid-cols-3 sm:gap-3 sm:rounded-none sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none"
-      aria-label="Agentic commerce proof points"
+      aria-label="Your shopping agent at a glance"
     >
       {heroProofSignals.map(({ stat, label, source }, index) => (
         <li
           key={stat}
-          className="surface-elevation-light surface-elevation-light-hover group relative grid grid-cols-[auto_1fr_auto] items-center gap-x-3 overflow-hidden rounded-xl bg-white/70 px-3 py-2.5 transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-white sm:block sm:rounded-2xl sm:px-4 sm:py-3"
+          className="surface-elevation-light surface-elevation-light-hover group relative grid grid-cols-[auto_1fr] items-center gap-x-3 overflow-hidden rounded-xl bg-white/70 px-3 py-3 transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-white sm:block sm:rounded-2xl sm:px-4 sm:py-3"
         >
           <div
             className={`absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r ${urgencyGradients[index]}`}
@@ -195,28 +187,60 @@ function HeroProofSignals() {
           <p className="text-xs leading-5 text-neutral-500 sm:mt-1 sm:text-xs">
             {label}
           </p>
-          {/* Keep the 44px/40px responsive tap target on the link while the
-              visible pill inside stays compact next to the small card copy. */}
-          <a
-            href={source.href}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={`Source: ${source.label}`}
-            className="group/source inline-flex min-h-11 max-w-[8.5rem] shrink-0 items-center transition-transform duration-200 ease-out focus-visible:outline-none active:scale-[0.96] sm:mt-1.5 sm:min-h-10 sm:max-w-full"
-          >
-            <span className="inline-flex min-w-0 max-w-full items-center rounded-full border border-neutral-950/10 bg-white py-1 pl-2.5 pr-2 text-[0.625rem] font-semibold leading-4 text-neutral-500 shadow-[0_1px_0_rgba(23,23,23,0.04)] transition-[border-color,color] duration-200 ease-out group-hover/source:border-neutral-950/20 group-hover/source:text-neutral-950 group-focus-visible/source:ring-2 group-focus-visible/source:ring-neutral-950 group-focus-visible/source:ring-offset-2 sm:text-xs">
-              <span className="truncate">Source · {source.label}</span>
-              <span
-                className="ml-1 inline-flex -translate-y-px items-center text-[0.6rem]"
-                aria-hidden="true"
-              >
-                ↗
+          {/* Product-promise pills carry no third-party source. Render the
+              source pill only for entries that still cite one, keeping the
+              44px/40px responsive tap target on the link when present. */}
+          {source ? (
+            <a
+              href={source.href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Source: ${source.label}`}
+              className="group/source inline-flex min-h-11 max-w-[8.5rem] shrink-0 items-center transition-transform duration-200 ease-out focus-visible:outline-none active:scale-[0.96] sm:mt-1.5 sm:min-h-10 sm:max-w-full"
+            >
+              <span className="inline-flex min-w-0 max-w-full items-center rounded-full border border-neutral-950/10 bg-white py-1 pl-2.5 pr-2 text-[0.625rem] font-semibold leading-4 text-neutral-500 shadow-[0_1px_0_rgba(23,23,23,0.04)] transition-[border-color,color] duration-200 ease-out group-hover/source:border-neutral-950/20 group-hover/source:text-neutral-950 group-focus-visible/source:ring-2 group-focus-visible/source:ring-neutral-950 group-focus-visible/source:ring-offset-2 sm:text-xs">
+                <span className="truncate">Source · {source.label}</span>
+                <span
+                  className="ml-1 inline-flex -translate-y-px items-center text-[0.6rem]"
+                  aria-hidden="true"
+                >
+                  ↗
+                </span>
               </span>
-            </span>
-          </a>
+            </a>
+          ) : null}
         </li>
       ))}
     </ul>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// The agent — owned shopping agent showcase (conversation, controls, reporting)
+// ---------------------------------------------------------------------------
+
+function AgentShowcase() {
+  return (
+    <section id="agent" className="scroll-mt-24">
+      <SectionIntro
+        eyebrow="the agent"
+        title="One conversation from ‘I’m looking for…’ to ‘it’s on its way’"
+        className="mt-24 sm:mt-32 lg:mt-40"
+      >
+        <p>
+          Your agent greets customers on your site, speaks in your brand, and
+          answers from your enriched catalogue. It recommends, checks stock,
+          takes payment in the conversation, and handles the follow-up questions
+          that usually cost a support ticket. You control the prompts, the tone,
+          and the rules, without waiting on anyone. And it plugs into the search
+          you already run: Algolia, Coveo, Elasticsearch, Google Retail Search,
+          or your own index.
+        </p>
+      </SectionIntro>
+      <Container className="mt-16">
+        <AgentConversationShowcase />
+      </Container>
+    </section>
   )
 }
 
@@ -337,10 +361,11 @@ function AgenticTimeline() {
         <FadeIn>
           <div className="mt-16 border-t border-white/10 pt-10 text-center">
             <p className="font-display text-base font-medium tracking-tight text-white sm:text-lg">
-              Retailers who aren&rsquo;t agentic-ready risk falling behind.
+              Retailers who own the conversation keep the customer.
             </p>
             <p className="mt-2 text-sm text-neutral-500">
-              The ones who are? They&rsquo;re capturing market share right now.
+              The rest are handing their relationships to someone else&rsquo;s
+              agent.
             </p>
           </div>
         </FadeIn>
@@ -358,7 +383,7 @@ const whyNowCards = [
     stat: '$5T',
     statLabel: 'in commerce AI agents could mediate by 2030',
     title: 'Disintermediation',
-    body: 'AI agents become the storefront. Retailers lose direct customer relationships, loyalty programme activation, and the data that powers personalisation.',
+    body: 'AI agents become the storefront. If the agent belongs to a platform, the customer relationship, loyalty activation, and first-party data go with it. Your own agent keeps them.',
     source: {
       label: 'McKinsey',
       href: 'https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-automation-curve-in-agentic-commerce',
@@ -367,8 +392,8 @@ const whyNowCards = [
   {
     stat: '393%',
     statLabel: 'YoY growth in AI-driven retail traffic in Q1 2026',
-    title: 'The data quality gap',
-    body: 'Most retail catalogues have missing descriptions, outdated inventory, inconsistent taxonomy, and no trend-aligned content. AI agents can\u2019t recommend what they can\u2019t understand.',
+    title: 'The data foundation',
+    body: 'An agent is only as good as the catalogue behind it. Missing descriptions, stale inventory, and inconsistent taxonomy produce wrong answers, whether the agent is yours or a platform\u2019s.',
     source: {
       label: 'Adobe Digital Insights',
       href: 'https://business.adobe.com/blog/ai-traffic-surge-retail-sites-not-machine-readable',
@@ -378,7 +403,7 @@ const whyNowCards = [
     stat: '81%',
     statLabel: 'of retail executives say AI will weaken brand loyalty',
     title: 'The race is on',
-    body: 'Your competitors are already preparing their catalogues for Google\u2019s Universal Commerce Protocol. Every day without action is market share lost to retailers with richer product data.',
+    body: 'Early movers are already putting branded agents in front of their customers. Every month without one is a month of conversations, and conversions, happening somewhere else.',
     source: {
       label: 'Deloitte 2026 outlook',
       href: 'https://www.deloitte.com/us/en/insights/industry/retail-distribution/retail-distribution-industry-outlook.html',
@@ -391,15 +416,14 @@ function WhyNow() {
     <>
       <SectionIntro
         eyebrow="the shift"
-        title="Your customers aren&rsquo;t shopping anymore &mdash; their AI agents are"
+        title="Your customers will talk to an AI agent. Make sure it’s yours"
         className="mt-24 sm:mt-32 lg:mt-40"
       >
         <p>
-          When a customer asks ChatGPT to &ldquo;find me the best running shoes
-          under $200&rdquo;, the AI agent scans product catalogues, compares
-          attributes, and recommends &mdash; all without visiting your website.
-          If your catalogue data is incomplete, inconsistent, or stale, your
-          products won&rsquo;t be recommended. You become invisible.
+          When shopping moves into a third-party chat, the platform owns the
+          relationship, the data, and the follow-up sale. A shopping agent you
+          own keeps discovery, checkout, and after-sales support on your site,
+          in your brand, answering from your catalogue.
         </p>
       </SectionIntro>
       <Container className="mt-16">
@@ -455,14 +479,15 @@ function Services() {
     <section id="services" className="scroll-mt-24">
       <SectionIntro
         eyebrow="services"
-        title="Your catalogue is your competitive moat &mdash; we make it unassailable"
+        title="Your catalogue is your agent’s brain. We make it complete."
         className="mt-24 sm:mt-32 lg:mt-40"
       >
         <p>
-          From audit to real-time optimisation, our four services transform your
-          product catalogue into an asset AI agents can read, trust, and
-          recommend. No other consultancy in Australia has this combination of
-          LLM pipeline expertise and data engineering capability.
+          Everything your agent says starts with your product data. Our four
+          services turn the catalogue into an asset an agent can read, trust,
+          and sell from, and the same enriched data keeps you visible wherever
+          external AI agents shop. No other consultancy in Australia has this
+          combination of LLM pipeline expertise and data engineering capability.
         </p>
       </SectionIntro>
       <Container className="mt-16">
@@ -499,12 +524,13 @@ export default function Home() {
       <Container className="mt-20 sm:mt-28 md:mt-40 lg:mt-44">
         <FadeIn className="max-w-3xl">
           <h1 className="font-display text-5xl font-medium tracking-tight text-neutral-950 [text-wrap:balance] sm:text-7xl">
-            Be the brand AI agents recommend first
+            The shopping agent that’s actually yours
           </h1>
           <p className="mt-6 text-xl text-neutral-600">
-            Google and OpenAI agents already shop for 700 million consumers. We
-            help Australian retailers win that recommendation, starting with
-            your catalogue.
+            We build shopping agents that Australian retailers own. Grounded in
+            your enriched catalogue and connected to your commerce systems, your
+            agent takes customers from first question to checkout, and keeps
+            helping after the sale.
           </p>
           <div className="mt-8 flex flex-wrap gap-3 sm:gap-4">
             <Button href="/contact">Contact us</Button>
@@ -522,6 +548,9 @@ export default function Home() {
           <HeroDataFlow />
         </FadeIn>
       </Container>
+
+      {/* The agent — conversation storyboard, controls, and reporting */}
+      <AgentShowcase />
 
       {/* Agentic Shopping Timeline */}
       <AgenticTimeline />

@@ -22,7 +22,7 @@ function DesktopHeroDataFlowShell() {
     <div
       className="relative mt-16 hidden aspect-[3/1] w-full overflow-hidden rounded-[2rem] border border-neutral-950/10 bg-white/70 shadow-[0_1px_0_rgba(23,23,23,0.04)] sm:block"
       role="img"
-      aria-label="Retail catalogue data moving through an AI agent into a consumer recommendation."
+      aria-label="Retail catalogue data powering the retailer’s own AI agent, which answers a customer in a branded chat."
     >
       <div className="absolute inset-6 rounded-[1.5rem] bg-gradient-to-r from-blue-50 via-white to-emerald-50" />
       <div className="absolute left-[8%] top-1/2 h-20 w-28 -translate-y-1/2 rounded-2xl border border-neutral-950/10 bg-white shadow-sm" />
@@ -38,7 +38,7 @@ function MobileHeroDataFlow() {
     <div
       className="mt-10 sm:hidden"
       role="img"
-      aria-label="Retail catalogue gaps moving through an AI agent into a recommendation-ready consumer answer."
+      aria-label="Enriched retail catalogue data powering the retailer’s own AI agent, which sells to a customer in one conversation."
     >
       <div className="grid grid-cols-1 gap-3">
         <div className="rounded-2xl border border-neutral-950/10 bg-white p-4 shadow-[0_1px_0_rgba(23,23,23,0.04)]">
@@ -46,8 +46,8 @@ function MobileHeroDataFlow() {
             <p className="font-display text-xs font-semibold uppercase tracking-wider text-neutral-950">
               Your catalogue
             </p>
-            <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[0.65rem] font-medium text-amber-700">
-              gaps found
+            <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[0.65rem] font-medium text-emerald-700">
+              enriched
             </span>
           </div>
           <div className="mt-4 grid grid-cols-[4rem_1fr] gap-3">
@@ -58,9 +58,9 @@ function MobileHeroDataFlow() {
               <div className="mt-1.5 h-1.5 w-12 rounded bg-neutral-950/25" />
             </div>
             <div className="space-y-2 text-xs text-neutral-500">
-              <p>GTIN missing</p>
-              <p>thin description</p>
-              <p>stale stock signal</p>
+              <p>complete attributes</p>
+              <p>rich descriptions</p>
+              <p>live stock signal</p>
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@ function MobileHeroDataFlow() {
         <div className="rounded-2xl border border-neutral-950/10 bg-neutral-950 p-4 text-white shadow-xl">
           <div className="flex items-center justify-between">
             <p className="font-display text-xs font-semibold uppercase tracking-wider">
-              AI agent
+              Your agent
             </p>
             <span className="relative flex h-2.5 w-2.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300 opacity-60" />
@@ -81,13 +81,13 @@ function MobileHeroDataFlow() {
           </div>
           <div className="mt-4 grid grid-cols-3 gap-2 text-center text-[0.7rem] font-medium text-white/70">
             <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
-              audit
+              discover
             </span>
             <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
-              enrich
+              checkout
             </span>
             <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
-              rank
+              support
             </span>
           </div>
         </div>
@@ -98,14 +98,14 @@ function MobileHeroDataFlow() {
 
         <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 shadow-[0_1px_0_rgba(23,23,23,0.04)]">
           <p className="font-display text-xs font-semibold uppercase tracking-wider text-neutral-950">
-            Consumer answer
+            Your customer
           </p>
           <div className="mt-4 rounded-2xl bg-white p-3 text-xs leading-5 text-neutral-600 shadow-sm">
-            Based on complete catalogue data, recommend the in-stock product
-            with the clearest fit.
+            Found it. Sapphire Blue Midi, size 10, in stock. Checkout here in
+            this chat?
           </div>
           <p className="mt-3 text-xs font-medium text-emerald-700">
-            Recommendation-ready
+            Sold in one conversation
           </p>
         </div>
       </div>

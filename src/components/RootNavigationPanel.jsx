@@ -12,7 +12,7 @@ import { Offices } from '@/components/Offices'
 
 const navigationRows = [
   [
-    { href: '/#why-now', label: 'why now' },
+    { href: '/#agent', label: 'the agent' },
     { href: '/#services', label: 'services' },
   ],
   [
@@ -261,8 +261,8 @@ export function RootNavigationPanel({
               </div>
               <div className="sm:border-l sm:border-transparent sm:pl-16">
                 <p className="max-w-sm text-sm leading-6 text-neutral-400">
-                  Jump straight to the offer, proof, process, or a
-                  catalogue-readiness conversation.
+                  Jump straight to the agent, the proof, the process, or a
+                  conversation about building your own.
                 </p>
               </div>
             </div>

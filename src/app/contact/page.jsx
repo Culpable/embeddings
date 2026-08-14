@@ -9,16 +9,17 @@ import { ContactDetails } from './ContactDetails'
 export const metadata = {
   title: 'Contact Us',
   description:
-    'Contact us to learn how we can integrate AI into your business.',
+    'Contact us to put your own AI shopping agent on your site.',
 }
 
 export default function Contact() {
   return (
     <>
-      <PageIntro eyebrow="contact us" title="Your AI advantage starts here">
+      <PageIntro eyebrow="contact us" title="Your agent starts here">
         <p>
-          Ready to experience the future of work? Contact us to see how we can
-          integrate AI into your business.
+          Ready to own the conversation with your customers? Tell us about your
+          catalogue and commerce stack, and we&rsquo;ll map the fastest path to
+          a live agent.
         </p>
       </PageIntro>
 

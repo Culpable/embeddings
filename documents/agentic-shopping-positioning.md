@@ -1,6 +1,68 @@
-# Agentic Shopping: Site Positioning & Business Context
+# Owned-Agent Positioning: Site Messaging & Business Context
 
 > **Purpose**: This document provides full context on what Embeddings does, the market problem we address, and why the home page is structured the way it is. Read this before making any changes to site messaging, copy, or structure.
+>
+> **Product source of truth**: `documents/reference/ai_shopping_agent.md`. That document defines the product and its capability ceiling. Nothing may be shown or claimed on the site unless it appears in its § Proposed Product or § Longer-Term Product Scope.
+
+---
+
+## The positioning hierarchy (read this first)
+
+Embeddings builds **AI shopping agents that retailers own**: the agent runs on the retailer's own site, in the retailer's own brand, grounded in the retailer's own enriched catalogue, and connected to the retailer's own commerce systems.
+
+Three layers, in strict order of prominence:
+
+1. **The owned agent leads.** It is the headline product on every page. Conversational discovery, in-conversation checkout, order and returns support, self-service retailer control, revenue analytics, and a pluggable search layer.
+2. **Catalogue enrichment is the credibility foundation and the entry product.** Everything the agent says starts with the product data. The four catalogue services are still sold, and they are still the way most engagements begin, but they are framed as the agent's brain rather than as the whole offer.
+3. **External-agent readiness is a supporting benefit, never the headline.** The same enriched data that makes an owned agent accurate also keeps a retailer visible when ChatGPT or a commerce agent shops on a customer's behalf. This appears exactly once, as a supporting clause in the services section.
+
+The old site inverted this: it sold only layer 2, framed by layer 3, and never mentioned layer 1. That framing is superseded.
+
+### Product naming
+
+The product is referred to **descriptively only**: "your shopping agent", "your AI shopping agent", "your agent". There is no invented product name and no brand mark for the agent anywhere on the site.
+
+---
+
+## Claims policy (binding)
+
+This policy exists because `documents/reference/ai_shopping_agent.md` is an internal opportunity assessment whose competitive figures are hedged ("reportedly", "as described in the transcript"). Those figures are not publishable claims.
+
+**Never on the site:**
+
+- Naming Google, Bunnings, or Buddy as a competitor or incumbent agent vendor.
+- Any performance or pricing figure taken from the internal guide: uplift multipliers, per-session pricing, ARR targets, or incumbent build-time claims.
+- Pricing of any kind. No figures, no pricing-model descriptions (no "per session", "platform fee", "usage-based", no tiers), and no "cheaper" or "lower cost" claims. Pricing is value-based and deliberately non-prescriptive; the contact CTA is the enquiry path.
+- The incumbent's operating model as a marketing message.
+
+**Allowed:**
+
+- Sourced third-party market evidence with its source link: the McKinsey, Deloitte, Adobe, OpenAI, and UCP timeline and stat cards. Google and OpenAI may be named there because that is ecosystem reporting, not competitor positioning.
+- Naming supported **search platforms** as integrations: Algolia, Coveo, Elasticsearch, Google Retail Search, and retailer-owned indexes. The exact phrase `Google Retail Search` in an integration list is an ecosystem mention. It appears only in the homepage agent section body and the process page Deploy stage, and never inside `AgentConversationShowcase.jsx`.
+- Qualitative statements about speed and flexibility of delivery ("weeks", "without waiting on anyone").
+- Demo product-interface values inside the agent showcase (sample session counts, conversion rate, assisted revenue). These must read as interface mockup, never as promised results: no "up to", no ROI framing, no uplift multipliers.
+
+**Contrast with the incumbent is implicit only**: "live in weeks", "change your own prompts", "no search lock-in". Never named.
+
+---
+
+## Messaging Priority Matrix (binding for all site copy)
+
+The incumbent-problem areas in `documents/reference/ai_shopping_agent.md` § Customer Problems are **not** equal-weight marketing messages. This matrix is the settled priority policy.
+
+| Message area | Policy | Where it lands on the site |
+| --- | --- | --- |
+| Customer control (incl. change velocity) | Highlight AND show. Change velocity folds into control ("no ticket, no release cycle") | Hero pill `Yours`; agent showcase control strip; process Operate |
+| In-conversation checkout | Highlight prominently; hardest to build, strongest differentiator | Hero pill `One chat`; showcase checkout beat; capability chip; process Deploy |
+| Post-sales support | Highlight; easy to understand, high customer value | Showcase order-status beat; `order & returns support` chip; process Operate |
+| User experience / branding | Highlight; easy to understand, high customer value | Hero H1 and subhead; showcase rendered in retailer brand; process Deploy |
+| Search openness (anti lock-in) | Highlight; name supported platforms once; flavour: open, flexible, never tied to one search index | Agent section body and process Deploy named-platform line; `bring your own search` chip |
+| Integrations | Highlight (orders, returns, inventory, commerce APIs) | Showcase beats; process Deploy |
+| Analytics | Highlight; straightforward, high value | Showcase control-strip stat tiles; `revenue analytics` chip; process Operate |
+| Speed/flexibility of delivery | Qualitative only ("weeks", "without waiting"); never present "implementation" as a feature in itself | Hero pill `Weeks`; process page framing |
+| Pricing | OFF copy entirely: no figures, no pricing-model descriptions, no "cheaper" claim. Pricing is value-based and deliberately non-prescriptive; the contact CTA is the enquiry path | Nothing to write; enforced by the claims policy above |
+| Operating model | Not a marketing message at all | Absent from all copy |
+| Implementation mechanics | Not highlighted directly | Absent except as speed/flexibility above |
 
 ---
 
@@ -14,6 +76,8 @@ Agentic shopping is a paradigm shift in e-commerce where AI agents — not human
 
 The consumer never sees your brand, your website, or your marketing. The AI agent is the storefront.
 
+**This is why owning the agent matters.** If the agent belongs to a platform, the customer relationship, the loyalty activation, and the first-party data belong to the platform too. An agent the retailer owns keeps discovery, checkout, and after-sales support on the retailer's own site, in the retailer's own brand, answering from the retailer's own catalogue. The market shift below is real, and it argues for owning the conversation rather than only feeding someone else's.
+
 ### Key milestones
 
 | Date | Event |
@@ -21,12 +85,22 @@ The consumer never sees your brand, your website, or your marketing. The AI agen
 | Sep 2025 | OpenAI launches Instant Checkout in ChatGPT (700M+ weekly users) |
 | Jan 2026 | Google launches Universal Commerce Protocol (UCP) with Walmart, Target, Shopify |
 | 2026 | 81% of retail executives say AI will weaken brand loyalty (Deloitte) |
-| 2026 | AI-driven e-commerce traffic grew 758% year-on-year (Adobe) |
+| 2026 | AI-driven retail traffic grew 393% year-on-year in Q1 (Adobe) |
 | 2030 | McKinsey projects $3–5 trillion in agentic commerce globally |
 
 ---
 
 ## Visual storytelling priorities
+
+### The owned agent (primary visual)
+
+The single most important visual on the site is the `#agent` section on the home page (`src/components/AgentConversationShowcase.jsx`). It **shows** the product instead of describing it, in three parts:
+
+1. **Conversation storyboard** — one continuous, retailer-branded conversation: a customer asks for a dress for a spring wedding, the agent recommends from the enriched catalogue with stock and price, the customer pays inside the chat, and later asks where the order is and gets a real answer. Discovery, checkout, and post-sales support in a single thread.
+2. **Control strip** — a canned-response rule being edited by the retailer's own team, publishing straight to live. This shows customer control and change velocity rather than claiming them: "No ticket. No release cycle."
+3. **Analytics tiles** — sample sessions, conversion, and assisted-revenue reporting, framed as product interface, not as promised results.
+
+The rule for this section: every capability shown must map to `documents/reference/ai_shopping_agent.md` § Proposed Product. Show, do not tell.
 
 ### Agentic shopping experience
 
@@ -62,11 +136,11 @@ AI agents become the new storefront. When a customer delegates shopping to an AI
 - **Loyalty programme activation** — there's no opportunity to incentivise repeat purchases through traditional loyalty mechanics
 - **First-party data** — the behavioural and preference data that powers personalisation flows to the AI platform instead
 
-The retailer becomes a commodity supplier behind an AI intermediary.
+The retailer becomes a commodity supplier behind an AI intermediary. The answer is not to fight the shift, it is to own an agent of your own so the conversation, and everything that flows from it, stays with the retailer.
 
-### 2. The catalogue data quality gap
+### 2. The catalogue data foundation
 
-AI agents can only recommend products they can understand. Most Australian retail catalogues have critical data quality problems:
+An agent is only as good as the catalogue behind it, and that is true whether the agent belongs to the retailer or to a platform. Most Australian retail catalogues have critical data quality problems:
 
 - **Missing or thin descriptions** — products with no meaningful text for an AI agent to parse
 - **Outdated inventory and pricing** — stale data that causes AI agents to deprioritise or exclude products
@@ -74,19 +148,31 @@ AI agents can only recommend products they can understand. Most Australian retai
 - **Malformed identifiers** — incorrect or missing GTINs, MPNs, and other machine-readable product identifiers
 - **No trend alignment** — product descriptions that don't reflect current consumer search language and purchasing patterns
 
-If an AI agent can't parse your product data, your products don't exist in agentic commerce. You become invisible.
+Missing descriptions, stale inventory, and inconsistent taxonomy produce wrong answers. A retailer's own agent that recommends an out-of-stock product or misdescribes a garment damages trust faster than no agent at all. This is why catalogue enrichment is the foundation and the entry product rather than an optional extra.
 
 ### 3. The competitive race
 
-Retailers who prepare their catalogues for agentic commerce gain a compounding advantage — their products surface in AI recommendations, generating sales data that further improves their ranking. Retailers who delay fall further behind with every passing day. This is a winner-takes-most dynamic.
+Early movers are already putting branded agents in front of their customers. Every month without one is a month of conversations, and conversions, happening somewhere else. Retailers who move gain a compounding advantage: better conversations produce better data, which produces better answers.
 
 ---
 
 ## What Embeddings does
 
-Embeddings helps Australian retailers make their product catalogues agentic-ready. We have a unique combination of **LLM pipeline expertise** (to enrich catalogues at scale using large language models) and **data engineering capability** (to keep catalogues fresh and connected to live signals) that no other consultancy in Australia offers.
+Embeddings builds **AI shopping agents that Australian retailers own**, and enriches the product catalogues those agents run on. We have a unique combination of **LLM pipeline expertise** (to build the agent and enrich catalogues at scale using large language models) and **data engineering capability** (to keep catalogues fresh and connected to live commerce systems) that no other consultancy in Australia offers.
 
-### Four services
+### The agent
+
+The headline product is a configurable, retailer-controlled shopping agent covering conversational discovery and recommendation, a pluggable search layer, custom branding and interface design, self-service prompt and policy management, custom API integrations for orders, returns, loyalty, and inventory, in-conversation cart and checkout, analytics, and governance. The full capability list, and the ceiling on what may be claimed, is `documents/reference/ai_shopping_agent.md` § Proposed Product.
+
+Delivery runs in three stages, which is exactly how `/process` is structured:
+
+1. **Foundation** — catalogue audit, LLM enrichment, and freshness pipelines.
+2. **Deploy** — ground the agent on the enriched catalogue, integrate the retailer's existing search, brand the interface into their design system, configure prompts and guardrails, and connect cart, checkout, order-status, and returns APIs.
+3. **Operate** — conversation and revenue analytics, trend-responsive catalogue optimisation, and self-service handover.
+
+### Four catalogue services
+
+These are the foundation layer. They remain a sold offer and the usual entry point, and they are what makes the agent trustworthy.
 
 Australian retailers operate catalogues containing tens of thousands to hundreds of thousands of SKUs. These catalogues are the foundation of agentic commerce readiness, but most have significant data quality problems that prevent AI agents from understanding and recommending their products. Our four services address this systematically.
 
@@ -272,22 +358,25 @@ This is the difference between being reactive and being positioned. Reactive ret
 
 ## Home page structure rationale
 
-The home page follows a narrative arc designed to move a retail executive from awareness to action:
+The home page follows a narrative arc designed to move a retail executive from awareness to action. The offer comes first, the market argument second:
 
-1. **Hero** — leads with the $3T market size to establish scale, then immediately positions Embeddings as the solution for Australian retailers
-2. **Agentic Timeline** — creates urgency by showing this isn't a future problem; it's happening now, with real products from Google and OpenAI already in market
-3. **Why Now (The Shift)** — explains the three risks (disintermediation, data quality gap, competitive race) so the reader understands the consequences of inaction
-4. **Testimonial** — social proof from a retail executive who has been through the process
-5. **Services** — the four concrete services Embeddings offers, structured as a clear path from audit to ongoing optimisation
-6. **Contact CTA** — direct call to action
+1. **Hero** — states the owned-agent offer directly ("The shopping agent that's actually yours") with three product-promise pills: `One chat` (discovery to checkout), `Yours` (brand, prompts, data), `Weeks` (from catalogue to live). The hero diagram shows catalogue → your agent → your customer.
+2. **The agent (`#agent`)** — the showcase described above. It sits immediately after the hero because a visitor must be able to discover the headline product in the first two viewports.
+3. **Agentic Timeline** — creates urgency by showing this isn't a future problem; it's happening now, with real products already in market. Closes on ownership: retailers who own the conversation keep the customer.
+4. **Why Now (The Shift)** — "Your customers will talk to an AI agent. Make sure it's yours." Explains the three arguments (disintermediation, the data foundation, the race) so the reader understands the consequences of inaction.
+5. **Testimonial** — social proof from a retail executive. This remains a catalogue audit and enrichment story, which is the correct proof for the entry product. Do not invent agent-deployment testimony; no such client exists.
+6. **Services** — the four catalogue services, framed as the agent's brain, with external-agent readiness as the single supporting benefit clause.
+7. **Contact CTA** — "Put your own agent in the conversation."
 
 ### Key messaging principles
 
-- **Catalogue is the moat**: The central thesis is that catalogue data quality is the single most important factor in agentic commerce readiness. Everything on the page reinforces this.
+- **Own the conversation**: The central thesis is that the retailer should own the agent, not merely be visible to someone else's. Catalogue quality is what makes that agent trustworthy, so it is the foundation, not the headline.
+- **Show, don't tell**: Differentiators that are easy to claim and hard to build (in-conversation checkout, self-service control, post-sales support) are demonstrated in the agent showcase rather than asserted in prose.
 - **Urgency without fear-mongering**: The timeline and statistics create urgency, but the tone is consultative and authoritative, not alarmist.
-- **Specificity over generality**: We name Google UCP, OpenAI Instant Checkout, McKinsey, Deloitte, and Adobe by name. Specificity builds credibility.
+- **Specificity over generality, within the claims policy**: We name UCP, Instant Checkout, McKinsey, Deloitte, and Adobe as sourced market evidence, and we name supported search platforms as integrations. We never name a competitor or an incumbent agent vendor.
 - **Australian focus**: We are explicitly positioned for Australian retailers. This is a deliberate market constraint that builds trust and relevance.
 - **Real-world examples**: The Taylor Swift dress, heavy metals scandal, and SPF sunscreen recall are concrete, recent examples that Australian retail executives will recognise. Specificity builds urgency.
+- **One coherent product universe**: The Sapphire Blue A-Line Midi Dress (GTIN 0614141123456, $189.00 AUD) is the shared demo product across the catalogue before/after visual, the agent conversation, and the floating CTA snippets. Reuse it rather than inventing new demo data.
 
 ---
 
@@ -295,7 +384,9 @@ The home page follows a narrative arc designed to move a retail executive from a
 
 - All text uses **British English** (analyse, organisation, capitalise, programme, catalogue, etc.)
 - Apostrophes in user-facing text use the **right single quotation mark** (`'`, U+2019), not the typewriter apostrophe (`'`, U+0027). e.g. "isn't", "won't", "Google's"
-- Em dashes are used for parenthetical breaks and list separators
+- New body copy avoids em dashes; use commas or full stops instead. Existing untouched strings keep their current punctuation
+- Main navigation and footer link labels are intentionally lowercase
+- The product is named descriptively only ("your shopping agent", "your agent"); never invent a product name
 
 ---
 
@@ -304,7 +395,7 @@ The home page follows a narrative arc designed to move a retail executive from a
 These statistics are referenced on the home page and should be kept current:
 
 - **$3–5 trillion by 2030**: McKinsey, agentic commerce market projection
-- **758% YoY growth**: Adobe, AI-driven e-commerce traffic
+- **393% YoY growth**: Adobe, AI-driven retail traffic in Q1 2026
 - **81% of retail executives**: Deloitte, belief that generative AI will weaken brand loyalty by 2027
 - **700M+ weekly users**: OpenAI, ChatGPT active user base at time of Instant Checkout launch
 - **Google UCP partners**: Walmart, Target, Shopify (launch partners, January 2026)

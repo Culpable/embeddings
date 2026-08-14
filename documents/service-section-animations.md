@@ -51,6 +51,15 @@ All animations share these conventions:
 
 ## Section Copy (British English, right single quotation marks)
 
+> **Owned-agent copy migration (2026-08-14):** Services 2 and 3 were re-copied so the
+> catalogue services read as the foundation for the retailer's own shopping agent rather
+> than as preparation for third-party agent recommendation. Only those two body strings
+> changed. Every eyebrow, title, `loopTitle`, `signal`, `mobileSummary`, and
+> `animationKey` value is unchanged, and none of the four animation components
+> (`AuditXRayScanner.jsx`, `FreshnessPipelineFlow.jsx`, `EnrichmentTypewriter.jsx`,
+> `OptimisationRipple.jsx`) was touched: no timing, keyframe, geometry, or structural
+> change was made in this migration.
+
 ### Service 1: Catalogue Audit
 
 - **Eyebrow:** "catalogue audit"
@@ -61,13 +70,13 @@ All animations share these conventions:
 
 - **Eyebrow:** "catalogue freshness"
 - **Title:** "Fresh data keeps you in the recommendation set"
-- **Body:** "AI agents penalise outdated catalogues. We build real-time integrations from your ERP, POS, and inventory systems so stock levels, pricing, and product status are always current. A fresh catalogue means your products stay in the recommendation set."
+- **Body:** "AI agents penalise outdated catalogues. We build real-time integrations from your ERP, POS, and inventory systems so stock levels, pricing, and product status are always current. A fresh catalogue means your agent never recommends what you can’t sell."
 
 ### Service 3: Catalogue Enrichment
 
 - **Eyebrow:** "catalogue enrichment"
 - **Title:** "From thin listings to rich, AI-readable content"
-- **Body:** "Our LLM pipelines transform sparse product data into rich, brand-aligned descriptions, categories, and attributes. Thousands of SKUs enriched in hours, not months. If an AI agent can’t understand your product data, your products don’t exist in agentic commerce."
+- **Body:** "Our LLM pipelines transform sparse product data into rich, brand-aligned descriptions, categories, and attributes. Thousands of SKUs enriched in hours, not months. If an agent can’t understand your product data, it can’t sell your products."
 
 ### Service 4: Contextual Catalogue Optimisation
 

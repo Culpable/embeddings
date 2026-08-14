@@ -163,10 +163,11 @@ test('contact page copy no longer asks for removed catalogue fields', () => {
   }
 
   for (const stablePhrase of [
-    'Contact us to learn how we can integrate AI into your business.',
-    'Your AI advantage starts here',
-    'Ready to experience the future of work? Contact us to see how we can',
-    'integrate AI into your business.',
+    'Contact us to put your own AI shopping agent on your site.',
+    'Your agent starts here',
+    'Ready to own the conversation with your customers? Tell us about your',
+    'catalogue and commerce stack, and we&rsquo;ll map the fastest path to',
+    'a live agent.',
     'our offices',
     'We’re based in Perth and Melbourne, and work with clients all over',
     'Australia.',

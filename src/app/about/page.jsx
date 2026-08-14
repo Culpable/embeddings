@@ -9,8 +9,8 @@ import { StatList, StatListItem } from '@/components/StatList'
 const capabilities = [
   {
     index: '01',
-    title: 'LLM Pipeline Engineering',
-    body: 'We build and operate large language model pipelines that enrich product catalogues at scale — generating descriptions, categories, and attributes from raw product data and images. Thousands of SKUs processed in hours.',
+    title: 'Agent & LLM Pipeline Engineering',
+    body: 'We build the shopping agent and the pipelines that feed it: grounding answers in your catalogue, connecting your search and commerce systems, and enriching product data at scale so descriptions, categories, and attributes are complete. Thousands of SKUs processed in hours.',
   },
   {
     index: '02',
@@ -23,8 +23,7 @@ const capabilities = [
     body: (
       <>
         We understand Google Merchant Centre specifications, GTIN standards,
-        product taxonomy, and the emerging requirements of Google&rsquo;s
-        Universal Commerce Protocol and OpenAI&rsquo;s Instant Checkout.
+        product taxonomy, and the emerging standards of agentic commerce.
       </>
     ),
   },
@@ -33,7 +32,7 @@ const capabilities = [
 const proofSignals = [
   {
     label: 'focus',
-    value: 'catalogue readiness',
+    value: 'retailer-owned shopping agents',
   },
   {
     label: 'built from',
@@ -85,7 +84,7 @@ function ProofLedger() {
               </h2>
               <p className="mt-5 text-base leading-7 text-neutral-400">
                 The consultancy story resolves into three concrete signals:
-                catalogue-readiness depth, engineering delivery, and Australian
+                shopping-agent depth, engineering delivery, and Australian
                 retail proximity.
               </p>
             </div>
@@ -117,14 +116,15 @@ function Culture() {
     <div className="mt-24 rounded-4xl bg-neutral-950 py-24 sm:mt-32 lg:mt-40 lg:py-32">
       <SectionIntro
         eyebrow="our approach"
-        title="Built for catalogues, not generic AI consulting"
+        title="Built for retail conversations, not generic AI consulting"
         invert
       >
         <p>
           Most AI consultancies offer broad capability across dozens of use
-          cases. We chose a different path — deep, vertical expertise in the one
-          problem that determines whether retailers survive the agentic shift:
-          catalogue data quality.
+          cases. We chose a different path: deep, vertical expertise in one
+          problem. Putting a trustworthy agent between a retailer and their
+          customer, on the retailer&rsquo;s terms, grounded in the
+          retailer&rsquo;s own product data.
         </p>
       </SectionIntro>
       <Container className="mt-16">
@@ -175,7 +175,7 @@ function Culture() {
 export const metadata = {
   title: 'About Us',
   description:
-    'The only Australian consultancy combining LLM pipeline engineering and data infrastructure at scale — purpose-built to make retail catalogues agentic-ready.',
+    'The Australian consultancy building retailer-owned AI shopping agents, combining LLM pipeline engineering and data infrastructure at scale.',
 }
 
 export default function About() {
@@ -183,19 +183,18 @@ export default function About() {
     <>
       <PageIntro
         eyebrow="about us"
-        title="The team behind Australia&rsquo;s first agentic commerce consultancy"
+        title="The team building Australia&rsquo;s retailer-owned shopping agents"
       >
         <p>
           Embeddings was founded on a single conviction: the retailers who win
-          in agentic commerce will be the ones with the best product data.
-          We&rsquo;re the only Australian consultancy that combines LLM pipeline
-          engineering with data infrastructure at scale — purpose-built for
-          catalogue readiness.
+          in agentic commerce will be the ones who own the conversation and have
+          the best product data behind it. We combine LLM pipeline engineering
+          with data infrastructure at scale to deliver both.
         </p>
         <p style={{ marginTop: '1rem' }}>
-          We don&rsquo;t hand you a strategy deck and wish you luck. We audit,
-          enrich, and operationalise your catalogue so AI agents from Google and
-          OpenAI recommend your products first.
+          We don&rsquo;t hand you a strategy deck and wish you luck. We enrich
+          your catalogue, build your agent on top of it, and hand you the
+          controls.
         </p>
         <IntroProofBand />
         <div className="mt-10 max-w-2xl space-y-6 text-base">
@@ -204,18 +203,17 @@ export default function About() {
             language model pipelines and enterprise data systems. When agentic
             shopping emerged — AI agents autonomously researching and purchasing
             on behalf of consumers — we saw the critical gap: retailers had
-            decades of product data locked in formats that AI agents
-            couldn&rsquo;t parse. Rich product knowledge trapped in PDFs,
-            spreadsheets, and legacy ERPs. We built Embeddings to solve that
-            problem.
+            decades of product data locked in formats AI couldn&rsquo;t parse,
+            and no way to put their own agent in front of customers. Rich
+            product knowledge trapped in PDFs, spreadsheets, and legacy ERPs. We
+            built Embeddings to solve that problem.
           </p>
           <p>
             Our approach is engineering-led and outcome-driven. We measure
             success in catalogue completeness scores, enrichment coverage, and
             freshness latency — not slide counts. Every engagement begins with a
-            quantitative audit and ends with a catalogue that&rsquo;s ready for
-            Google&rsquo;s Universal Commerce Protocol, OpenAI&rsquo;s Instant
-            Checkout, and whatever comes next.
+            quantitative audit and ends with an enriched catalogue and a
+            shopping agent your team controls.
           </p>
         </div>
       </PageIntro>

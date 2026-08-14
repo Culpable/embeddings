@@ -77,7 +77,7 @@ function Section({ title, image, signals = [], children }) {
 function Discover() {
   return (
     <Section
-      title="Audit"
+      title="Foundation"
       image={{ src: imageWhiteboard, priority: true }}
       signals={[
         { label: 'scorecard', value: '74/100 ready' },
@@ -86,20 +86,29 @@ function Discover() {
     >
       <div className="space-y-6 text-base text-neutral-600">
         <p>
-          We start with the product catalogue because that is where agentic
-          commerce is won or lost. Our audit checks{' '}
+          We start with the product catalogue because your agent can only answer
+          from what it knows. Our audit checks{' '}
           <strong className="font-semibold text-neutral-950">
             GTIN coverage, taxonomy depth, image quality, descriptions, pricing,
             stock freshness, and merchant-feed readiness
           </strong>{' '}
-          against the standards AI agents already use to rank products.
+          against the standards both your own agent and external commerce agents
+          rely on.
         </p>
         <p>
-          You receive a prioritised remediation plan that shows which gaps block
-          recommendation eligibility, which fixes protect revenue first, and
-          which data owners need to be involved. The output is practical: a
+          You receive a prioritised remediation plan that shows which gaps
+          produce wrong answers, which fixes protect revenue first, and which
+          data owners need to be involved. The output is practical: a
           catalogue-readiness score, a risk register, and the fastest path to
           richer product data.
+        </p>
+        <p>
+          We then close the gaps. LLM enrichment pipelines fill missing
+          attributes, descriptions, and categories at scale, while real-time
+          integrations from your ERP, PIM, POS, and inventory systems keep
+          stock, price, and status current. Every generated field stays
+          traceable, so merchandising can review the data before it reaches a
+          live surface.
         </p>
       </div>
 
@@ -121,31 +130,35 @@ function Discover() {
 function Build() {
   return (
     <Section
-      title="Engineer"
+      title="Deploy"
       image={{ src: imageLaptop, shape: 1 }}
       signals={[
-        { label: 'pipeline', value: 'ERP + PIM sync' },
-        { label: 'governance', value: 'review queue' },
+        { label: 'search', value: 'plugged into your stack' },
+        { label: 'checkout', value: 'in the conversation' },
       ]}
     >
       <div className="space-y-6 text-base text-neutral-600">
         <p>
-          Once the gaps are clear, we build the pipelines that make catalogue
-          data durable. ERP, PIM, POS, and inventory signals are normalised into
-          product records that AI agents can read, compare, and trust without
-          waiting for manual spreadsheet clean-up.
+          We ground your agent on the enriched catalogue, then build it into the
+          site your customers already use. The interface is designed into your
+          brand and your design system, so the agent looks like part of your
+          store rather than a bolted-on chat box.
         </p>
         <p>
-          Our enrichment layer adds the content agents need: complete
-          attributes, clearer descriptions, better categorisation, and
-          trend-aware language that still sounds like your brand. Every field
-          stays traceable, so merchandising teams can review the data before it
-          reaches a live feed.
+          The agent integrates with the search you already run:{' '}
+          <strong className="font-semibold text-neutral-950">
+            Algolia, Coveo, Elasticsearch, Google Retail Search, or your own
+            index
+          </strong>
+          . You are never tied to one search index, and you can change providers
+          without rebuilding the agent.
         </p>
         <p>
-          We keep implementation narrow and measurable. The work is organised
-          around catalogue coverage, freshness latency, feed acceptance, and the
-          specific product categories with the highest commercial impact.
+          We configure prompts, canned responses, and guardrails with your
+          business, legal, and ecommerce teams, then connect the systems that
+          complete the journey: cart, checkout, order status, returns, and any
+          other API the conversation needs. Rollout is staged, with testing and
+          rollback at every step.
         </p>
       </div>
 
@@ -161,33 +174,33 @@ function Build() {
 function Deliver() {
   return (
     <Section
-      title="Optimise"
+      title="Operate"
       image={{ src: imageMeeting, shape: 2 }}
       signals={[
-        { label: 'freshness', value: '<15 min drift' },
-        { label: 'signals', value: 'trend pulse' },
+        { label: 'analytics', value: 'assisted revenue' },
+        { label: 'control', value: 'self-service' },
       ]}
     >
       <div className="space-y-6 text-base text-neutral-600">
         <p>
-          A catalogue is only agentic-ready if it stays current. We help teams
-          operate the new data layer in production, with monitoring for stale
-          inventory, rejected feed fields, missing product identifiers, and
-          content that drifts away from live search demand.
+          A live agent is a product, not a project. We report on sessions,
+          conversion, assisted revenue, search success, containment, and
+          drop-off, so you can see where the conversation earns money and where
+          it stalls.
         </p>
         <p>
-          Trend signals are folded back into the catalogue, so products can
-          respond to cultural demand, regulatory news, and seasonal shifts while
-          staying accurate. The goal is a living product data layer that
-          strengthens every recommendation surface.
+          Those signals feed straight back into the catalogue. Trend and demand
+          data keep product content aligned with what customers are actually
+          asking for, while monitoring catches stale inventory, missing
+          identifiers, and answers that drift away from product truth.
         </p>
         <p>
-          We continue measuring whether the catalogue{' '}
+          Then we hand over the controls. Your team changes{' '}
           <strong className="font-semibold text-neutral-950">
-            performs at scale
+            prompts, policies, and canned responses
           </strong>{' '}
-          across agentic shopping entry points, merchant feeds, and internal
-          commerce systems.
+          directly, with versioning, review, and rollback behind them, so
+          routine changes never wait on an engineering ticket.
         </p>
       </div>
 
@@ -195,19 +208,20 @@ function Deliver() {
         Included in this phase
       </h3>
       <List className="mt-8">
-        <ListItem title="Feed Monitoring">
-          We watch acceptance rates, stale records, rejected attributes, and
-          catalogue freshness so issues are fixed before they affect
-          recommendation quality.
+        <ListItem title="Conversation Analytics">
+          We report sessions, conversion, assisted revenue, drop-off, and
+          containment so the agent is measured on commercial outcomes rather
+          than message volume.
         </ListItem>
-        <ListItem title="Trend Response">
+        <ListItem title="Catalogue Optimisation">
           We connect product content to live demand signals, then update
           descriptions and attributes where the commercial opportunity justifies
           action.
         </ListItem>
-        <ListItem title="Merchandising Handover">
-          We document the workflow, review controls, and ownership model so
-          internal teams can keep improving the catalogue after launch.
+        <ListItem title="Self-Service Handover">
+          We document the workflow, review controls, and ownership model so your
+          team can change the agent and keep improving the catalogue after
+          launch.
         </ListItem>
       </List>
     </Section>
@@ -226,12 +240,13 @@ function Values() {
 
       <SectionIntro
         eyebrow="our values"
-        title="Built for agentic commerce, not generic AI adoption"
+        title="Built for retail conversations, not generic AI adoption"
       >
         <p>
-          Catalogue readiness is a technical, commercial, and operational
-          problem. These principles keep the work focused on recommendation
-          quality rather than broad AI theatre.
+          Putting a trustworthy agent between you and your customer is a
+          technical, commercial, and operational problem. These principles keep
+          the work focused on answer quality and revenue rather than broad AI
+          theatre.
         </p>
       </SectionIntro>
 
@@ -245,21 +260,21 @@ function Values() {
             Stock, price, availability, and status changes must reach commerce
             surfaces before stale data costs visibility.
           </GridListItem>
-          <GridListItem title="Measurable coverage">
-            Progress is tracked through catalogue completeness, feed acceptance,
-            enrichment quality, and freshness latency.
+          <GridListItem title="Measurable revenue">
+            Progress is tracked through sessions, conversion, and assisted
+            revenue, not message counts or activity dashboards.
           </GridListItem>
-          <GridListItem title="Brand-safe enrichment">
-            Generated content needs governance, review paths, and traceability
-            so product truth stays intact.
+          <GridListItem title="Brand-safe conversations">
+            Generated answers need governance, review paths, PII controls, and
+            traceability so product truth and customer trust stay intact.
           </GridListItem>
           <GridListItem title="Retail workflow fit">
             The system must work with merchandising, data, and commerce teams
             rather than creating a separate AI process.
           </GridListItem>
-          <GridListItem title="Live optimisation">
-            Trend signals, seasonality, and regulatory moments should improve
-            catalogue content while demand is still active.
+          <GridListItem title="Your controls">
+            Prompts, policies, and canned responses stay in your hands, with
+            versioning and rollback behind every change.
           </GridListItem>
         </GridList>
       </Container>
@@ -268,9 +283,9 @@ function Values() {
 }
 
 export const metadata = {
-  title: 'Catalogue Readiness Process',
+  title: 'From Catalogue to Live Agent',
   description:
-    'How Embeddings audits, enriches, and optimises retail catalogues for agentic commerce.',
+    'How Embeddings builds retailer-owned AI shopping agents: catalogue foundation, agent deployment, and live operation.',
 }
 
 export default function Process() {
@@ -278,13 +293,12 @@ export default function Process() {
     <>
       <PageIntro
         eyebrow="our process"
-        title="How we make catalogues agentic-ready"
+        title="How we take you from catalogue to live agent"
       >
         <p>
-          We turn retail catalogues into product data layers that Google,
-          OpenAI, and commerce agents can read, trust, and recommend. The
-          process moves from quantified gaps to live optimisation without
-          drifting into generic AI consulting.
+          We start with the product data, because your agent is only as good as
+          what it knows. Then we build the agent around it, connect your
+          commerce systems, and hand you the controls.
         </p>
       </PageIntro>
 
