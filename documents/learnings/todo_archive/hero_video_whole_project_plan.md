@@ -1,5 +1,7 @@
 # Site Hero Video - “The Whole Project” Implementation Plan ✅ **COMPLETED**
 
+> **Implemented status (verified 2026-08-16):** Implemented and ready to archive from documents/todo. Evidence: `videos/embeddings-whole-project/STORYBOARD.md` (six animated frames, `music: none`), `videos/embeddings-whole-project/renders/video.mp4` (1920×1080, 45 seconds, no audio), and the recorded HyperFrames, `npm run lint`, `npm run build`, and `npm test` validation below.
+
 <critical_warning>
 > **CRITICAL WARNING:** The finished video must not name, show, imply, or characterise a competitor. The product source brief names Google and Bunnings only as internal context. Those names, their products, their interfaces, and paraphrased comparisons must not appear in the storyboard, frame HTML, snapshots, or render.
 </critical_warning>

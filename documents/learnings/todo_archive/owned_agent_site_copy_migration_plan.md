@@ -1,5 +1,7 @@
 # ~~Owned-Agent Site Copy Migration Plan~~ ✅ **COMPLETED**
 
+> **Implemented status (verified 2026-08-16):** Implemented and ready to archive from documents/todo. Evidence: `src/app/page.jsx`, `src/app/process/page.jsx`, `src/app/about/page.jsx`, `src/app/contact/page.jsx`, `src/components/AgentConversationShowcase.jsx`, `documents/agentic-shopping-positioning.md`, and passing focused positioning, process, and contact-contract tests.
+
 <critical_warning>
 > **CRITICAL WARNING:** Superseded visual components must be COMMENTED OUT, never deleted. Comment out the external reference (import line and JSX usage) at the call site with a one-line note, and leave the component file on disk untouched. This is a hard user directive. Precedent already exists in the codebase: `HeroDesktopDataFlow.jsx` keeps its rejected "Variant B" as a commented block, and `documents/service-section-animations.md` records `OptimisationSeismograph.jsx` as retained-but-unwired.
 </critical_warning>

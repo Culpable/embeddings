@@ -1,5 +1,7 @@
 # ~~Homepage Copy Refinement Plan (Post-Migration Round 2)~~ ✅ **COMPLETED**
 
+> **Implemented status (verified 2026-08-16):** Implemented and ready to archive from documents/todo. Evidence: `src/app/page.jsx`, `src/components/HeroDataFlow.jsx`, `src/components/HeroDesktopDataFlow.jsx`, `src/components/AgentConversationShowcase.jsx`, `documents/agentic-shopping-positioning.md`, and passing focused tests in `test/homepage-owned-agent-positioning.test.mjs`, `test/homepage-stat-source-links.test.mjs`, `test/process-page-catalogue-positioning.test.mjs`, and `test/contact-form-contract.test.mjs`.
+
 <critical_warning>
 > **CRITICAL WARNING:** The claims policy from the completed owned-agent migration remains binding on every string this plan touches. No site file may name Google, Bunnings, or Buddy as a competitor or incumbent (the exact phrase `Google Retail Search` is allowed ONLY in the search-platform integration lists in `src/app/page.jsx` and `src/app/process/page.jsx`, never inside `AgentConversationShowcase.jsx`). No uplift figures, per-session pricing, ARR figures, "cheaper"/"lower cost" claims, or pricing-model descriptions anywhere. Competitor contrast stays implicit ("not rented", "live in weeks", "change it yourself"). Demo/reporting values must read as product-UI mockup, never as promised results (no "up to", no "ROI", no "uplift" — a kept test enforces this). The sitewide claims-scan test (`test/homepage-owned-agent-positioning.test.mjs`, final test block) is KEPT by this plan and must pass.
 </critical_warning>
