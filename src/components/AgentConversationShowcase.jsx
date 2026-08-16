@@ -18,6 +18,7 @@
 import clsx from 'clsx'
 
 import { NoiseOverlay } from '@/components/NoiseOverlay'
+import { PaidOrderBadge } from '@/components/PaidOrderBadge'
 
 // ---------------------------------------------------------------------------
 // Demo data — kept consistent with the catalogue demo product used by
@@ -51,13 +52,17 @@ const analyticsTiles = [
   { label: 'assisted revenue', value: '$42k' },
 ]
 
+// Capability chips carry a short mobile label and the full label from `sm` up.
+// The full wording wraps to one chip per row on a 390px screen, which reads as
+// a stacked list rather than a chip row, so the short label keeps the group to
+// two or three compact rows without dropping the capability itself.
 const capabilityChips = [
-  'conversational discovery',
-  'checkout in the chat',
-  'order & returns support',
-  'bring your own search',
-  'self-service control',
-  'revenue analytics',
+  { short: 'discovery', full: 'conversational discovery' },
+  { short: 'in-chat checkout', full: 'checkout in the chat' },
+  { short: 'order support', full: 'order & returns support' },
+  { short: 'your own search', full: 'bring your own search' },
+  { short: 'self-service', full: 'self-service control' },
+  { short: 'analytics', full: 'revenue analytics' },
 ]
 
 // ---------------------------------------------------------------------------
@@ -214,13 +219,11 @@ function ConversationStoryboard() {
               <dd className="font-semibold text-neutral-950">$198.95</dd>
             </div>
           </dl>
-          <p className="mt-3 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
-            <span className="relative flex h-2 w-2" aria-hidden="true">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-            </span>
-            Paid · order #8412 confirmed
-          </p>
+          {/* Shared with the hero data flow via PaidOrderBadge so the paid
+              state looks identical wherever a demo conversation reaches
+              checkout. The order number lives in the follow-up beat below,
+              which keeps this pill on one line at 390px. */}
+          <PaidOrderBadge className="mt-3" />
         </AgentBeat>
 
         <CustomerBeat delay={beatDelay(4)}>Where’s my order?</CustomerBeat>
@@ -308,8 +311,13 @@ function AnalyticsTiles() {
         {analyticsTiles.map(({ label, value }) => (
           <div
             key={label}
-            className="flex flex-col-reverse rounded-2xl border border-white/10 bg-neutral-950 px-3 py-3"
+            className="flex flex-col-reverse justify-end rounded-2xl border border-white/10 bg-neutral-950 px-3 py-3"
           >
+            {/* `justify-end` packs a column-reverse tile toward its top edge,
+                so every figure and the first line of every label sit on the
+                same row. Without it the content packs to the bottom, and a
+                label that wraps to two lines (`assisted revenue` at 390px)
+                lifts its figure above the figures in the other tiles. */}
             <dt className="mt-1 text-xs leading-4 text-white/70">
               {label}
             </dt>
@@ -381,12 +389,15 @@ export function AgentConversationShowcase() {
           className="relative mt-8 flex flex-wrap gap-2"
           aria-label="What your agent does"
         >
-          {capabilityChips.map((chip) => (
+          {capabilityChips.map(({ short, full }) => (
             <li
-              key={chip}
-              className="rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-white/70"
+              key={full}
+              className="rounded-full border border-white/15 bg-white/[0.04] px-2.5 py-1 text-[11px] font-medium text-white/70 sm:px-3 sm:py-1.5 sm:text-xs"
             >
-              {chip}
+              {/* `display: none` also hides the unused label from assistive
+                  technology, so only one wording is ever announced. */}
+              <span className="sm:hidden">{short}</span>
+              <span className="hidden sm:inline">{full}</span>
             </li>
           ))}
         </ul>

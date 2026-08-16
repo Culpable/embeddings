@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 
+import { PaidOrderBadge } from '@/components/PaidOrderBadge'
+
 // Load the large desktop SVG only for viewports that can display it. This
 // keeps the mobile first route from parsing hidden desktop-only vector markup
 // while preserving the original desktop animation module unchanged.
@@ -206,27 +208,12 @@ function MobileHeroDataFlow() {
                 </div>
               </div>
               {/* Centred status pill ends the conversation the way chat apps
-                  confirm delivery, styled in the same emerald badge family as
-                  the enriched badge and the showcase's paid state so payment
-                  reads as a system outcome, not another message. */}
+                  confirm delivery. It shares PaidOrderBadge with
+                  AgentConversationShowcase, so the paid state is identical on
+                  both surfaces and reads as a system outcome, not another
+                  message. */}
               <p className="flex justify-center pt-0.5">
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[0.7rem] font-semibold text-emerald-700">
-                  <svg
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    stroke="currentColor"
-                    className="h-3 w-3"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M2.5 6.5 5 9l4.5-5"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  Paid · order confirmed
-                </span>
+                <PaidOrderBadge />
               </p>
             </div>
           </div>
