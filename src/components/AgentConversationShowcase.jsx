@@ -2,9 +2,10 @@
 // AgentConversationShowcase — Demonstrates the retailer-owned shopping agent
 // instead of describing it. The section has three parts:
 //
-//   1. Conversation storyboard (customer facing): five beats covering
-//      discovery, recommendation, in-conversation checkout, and a post-sale
-//      order-status follow-up, rendered inside a mock retailer-branded window.
+//   1. Conversation storyboard (customer facing): discovery, recommendation,
+//      and in-conversation checkout, then a "3 days later" time divider that
+//      sets up the post-sale order-status follow-up, all rendered inside a
+//      mock retailer-branded window.
 //   2. Control strip (retailer facing): a canned-response rule mid-edit that
 //      publishes straight to live, showing self-service control and change
 //      velocity rather than claiming them.
@@ -75,7 +76,7 @@ const capabilityChips = [
 // a tighter 160ms cadence so the tail of the sequence does not drag.
 // ---------------------------------------------------------------------------
 
-const CONVERSATION_BEAT_COUNT = 6
+const CONVERSATION_BEAT_COUNT = 7
 const BEAT_STEP_MS = 260
 const TRAILING_STEP_MS = 160
 
@@ -129,6 +130,22 @@ function AgentBeat({ delay, children }) {
   )
 }
 
+// Time divider — a centred pill between hairlines, matching the day divider in
+// the embeddings-shopping-agent video (videos/embeddings-shopping-agent). The
+// jump in time is what makes the order-status follow-up read as post-sale
+// support rather than an instant reply to the payment confirmation.
+function TimeDivider({ delay, children }) {
+  return (
+    <Reveal delay={delay} className="flex items-center gap-3">
+      <span className="h-px flex-1 bg-neutral-950/10" aria-hidden="true" />
+      <p className="rounded-full bg-neutral-100 px-3 py-1 text-[0.65rem] font-semibold text-neutral-600 ring-1 ring-inset ring-neutral-950/10">
+        {children}
+      </p>
+      <span className="h-px flex-1 bg-neutral-950/10" aria-hidden="true" />
+    </Reveal>
+  )
+}
+
 function ProductCard({ name, price, detail, swatch }) {
   return (
     <div className="flex items-center gap-3 rounded-xl border border-neutral-950/10 bg-white p-2.5">
@@ -174,13 +191,14 @@ function ConversationStoryboard() {
         </span>
       </div>
 
-      {/* Conversation beats: ask, recommend, pay, confirm, follow up. */}
+      {/* Conversation beats: ask, recommend, pay, confirm, time jump, follow
+          up. */}
       <div className="space-y-3 p-4 sm:p-6">
         {/* Tell assistive technology what this block is before it reads the
             dialogue, so the sample exchange is not mistaken for live content. */}
         <p className="sr-only">
           Example conversation showing a customer buying from a retailer’s own
-          shopping agent, then asking about the order afterwards.
+          shopping agent, then asking about the order three days later.
         </p>
 
         <CustomerBeat delay={beatDelay(0)}>
@@ -189,8 +207,8 @@ function ConversationStoryboard() {
 
         <AgentBeat delay={beatDelay(1)}>
           <p>
-            Two that suit an outdoor spring wedding and are in your size right
-            now.
+            Lovely occasion. These two suit an outdoor spring wedding, and both
+            are in your size right now.
           </p>
           <div className="mt-3 grid grid-cols-1 gap-2">
             {recommendedProducts.map((product) => (
@@ -204,7 +222,7 @@ function ConversationStoryboard() {
         </CustomerBeat>
 
         <AgentBeat delay={beatDelay(3)}>
-          <p>Yes. Here is your order.</p>
+          <p>Of course. Here’s your order.</p>
           <dl className="mt-3 space-y-1.5 rounded-xl border border-neutral-950/10 bg-white p-3 text-xs">
             <div className="flex justify-between gap-3">
               <dt className="text-neutral-500">Sapphire Blue A-Line Midi</dt>
@@ -226,10 +244,18 @@ function ConversationStoryboard() {
           <PaidOrderBadge className="mt-3" />
         </AgentBeat>
 
-        <CustomerBeat delay={beatDelay(4)}>Where’s my order?</CustomerBeat>
+        {/* The time jump is what turns the follow-up into post-sale support.
+            Without it, "Where’s my order?" reads as an instant reply to the
+            payment confirmation directly above. */}
+        <TimeDivider delay={beatDelay(4)}>3 days later</TimeDivider>
 
-        <AgentBeat delay={beatDelay(5)}>
-          <p>Order #8412 left the warehouse this morning.</p>
+        <CustomerBeat delay={beatDelay(5)}>Where’s my order?</CustomerBeat>
+
+        <AgentBeat delay={beatDelay(6)}>
+          <p>
+            Good news. Order #8412 is out for delivery and should be with you
+            today.
+          </p>
         </AgentBeat>
       </div>
     </div>
