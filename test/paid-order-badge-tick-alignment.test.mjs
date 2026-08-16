@@ -147,10 +147,80 @@ test('paid order badge tick ink is vertically centred inside its own viewBox', (
 })
 
 
+test('paid order badge trims the label line box down to the cap band', () => {
+  // A line box carries ascent, descent, and half-leading on top of the glyphs,
+  // and engines disagree on how much: the baseline sits 12.00px into the same
+  // 16px line box in Chromium, 11.80px in WebKit, and about 10.95px on iOS
+  // Safari. Trimming the box to the cap band removes that variable, so ordinary
+  // centring lands on the type itself.
+  const source = readPaidOrderBadgeSource()
+
+  assert.match(
+    source,
+    /supports-\[text-box-trim:trim-both\]:\[text-box:trim-both_cap_alphabetic\]/,
+    'Expected the label to trim its line box to the cap band where supported',
+  )
+
+  // The trim has to sit on the element that directly contains the text.
+  // text-box-trim is not inherited, so it would never reach an anonymous flex
+  // item created by bare text inside the pill.
+  assert.match(
+    source,
+    /\[text-box:trim-both_cap_alphabetic\]"\s*>\s*\n\s*Paid · order confirmed/,
+    'Expected the trim to sit on the element that directly wraps the label text',
+  )
+})
+
+
+test('paid order badge keeps one pill height on both the trimmed and untrimmed paths', () => {
+  // Untrimmed, the 16px line box is the tallest flex item and py-1 pads it to
+  // 26px. Trimmed, the label shrinks to the cap band and the 1em tick becomes
+  // the tallest item, so the padding grows to 0.5em: 6 + 12 + 6 + 2px border.
+  const source = readPaidOrderBadgeSource()
+
+  assert.match(
+    source,
+    /(^|\s|')py-1(\s|')/,
+    'Expected py-1 as the untrimmed fallback padding',
+  )
+
+  assert.match(
+    source,
+    /supports-\[text-box-trim:trim-both\]:py-\[0\.5em\]/,
+    'Expected 0.5em padding on the trimmed path so the pill stays 26px tall',
+  )
+})
+
+
+test('paid order badge centres the tick on the cap band once the label is trimmed', () => {
+  // With the label box trimmed to the cap band, plain centring is exact and
+  // needs no baseline synthesis, which WebKit resolves 0.2px differently from
+  // Chromium. The baseline anchoring below stays for engines without the trim.
+  const source = readPaidOrderBadgeSource()
+  const svgMatch = source.match(/<svg[\s\S]*?className="([^"]+)"/)
+
+  assert.notEqual(svgMatch, null, 'Expected a className on the tick icon')
+
+  const svgClasses = svgMatch[1]
+
+  assert.match(
+    svgClasses,
+    /supports-\[text-box-trim:trim-both\]:self-center/,
+    'Expected the tick to centre on the trimmed cap band where supported',
+  )
+
+  assert.match(
+    svgClasses,
+    /supports-\[text-box-trim:trim-both\]:translate-y-0/,
+    'Expected the untrimmed optical offset to be cancelled on the trimmed path',
+  )
+})
+
+
 test('paid order badge tick is anchored to the label baseline, not the line box', () => {
-  // Centring the icon box against the line box makes alignment depend on font
-  // metrics and half-leading, which differ between browsers. Baseline anchoring
-  // ties the icon to where the glyphs actually sit.
+  // Fallback path for engines without text-box-trim. Centring the icon box
+  // against the line box makes alignment depend on font metrics and
+  // half-leading, so the icon is tied to where the glyphs actually sit.
   const source = readPaidOrderBadgeSource()
   const svgMatch = source.match(/<svg[\s\S]*?className="([^"]+)"/)
 
