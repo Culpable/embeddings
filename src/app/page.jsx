@@ -45,8 +45,8 @@ const timelineItems = [
   {
     date: 'Jan 2026',
     stat: 'UCP',
-    statLabel: 'protocol launched',
-    text: 'Google launches Universal Commerce Protocol',
+    statLabel: 'agent checkout standard',
+    text: 'Google launches UCP, an open standard for agent checkout',
     source: {
       label: 'Google UCP',
       href: 'https://blog.google/products/ads-commerce/agentic-commerce-ai-tools-protocol-retailers-platforms/',
@@ -96,21 +96,22 @@ const urgencyGlows = [
   'shadow-[0_4px_12px_rgba(239,68,68,0.15)]', // red glow
 ]
 
-// Hero proof pills state the product promise rather than repeating the market
-// statistics already shown on the timeline cards below. Entries omit `source`
-// because these are product signals, not third-party claims.
+// Hero proof pills state the product promise in three beats: the sale happens
+// in one conversation, the agent is owned rather than rented, and it goes live
+// in weeks. Entries omit `source` because these are product signals, not
+// third-party claims.
 const heroProofSignals = [
   {
-    stat: 'One chat',
-    label: 'discovery to checkout',
+    stat: 'Sold',
+    label: 'in one conversation',
   },
   {
     stat: 'Yours',
-    label: 'brand, prompts, data',
+    label: 'not rented',
   },
   {
-    stat: 'Weeks',
-    label: 'from catalogue to live',
+    stat: 'Live',
+    label: 'in weeks',
   },
 ]
 
@@ -229,13 +230,14 @@ function AgentShowcase() {
         className="mt-24 sm:mt-32 lg:mt-40"
       >
         <p>
-          Your agent greets customers on your site, speaks in your brand, and
-          answers from your enriched catalogue. It recommends, checks stock,
-          takes payment in the conversation, and handles the follow-up questions
-          that usually cost a support ticket. You control the prompts, the tone,
-          and the rules, without waiting on anyone. And it plugs into the search
-          you already run: Algolia, Coveo, Elasticsearch, Google Retail Search,
-          or your own index.
+          Your agent greets customers on your site, answers from your
+          catalogue, takes payment in the chat, and handles the follow-ups,
+          from ‘where’s my order?’ to returns.
+        </p>
+        <p className="mt-4 text-base text-neutral-600">
+          It plugs into the search you already run:
+          Algolia, Coveo, Elasticsearch, Google Retail Search, or your own
+          index.
         </p>
       </SectionIntro>
       <Container className="mt-16">
@@ -257,7 +259,7 @@ function AgenticTimeline() {
         {/* Section header */}
         <FadeIn className="flex items-center gap-x-8">
           <h2 className="text-center font-display text-sm font-semibold tracking-wider text-white sm:text-left">
-            Agentic shopping isn&rsquo;t coming &mdash; it&rsquo;s here
+            Agentic shopping isn&rsquo;t coming. It&rsquo;s here.
           </h2>
           <div className="h-px flex-auto bg-neutral-800" />
         </FadeIn>
@@ -381,8 +383,9 @@ function AgenticTimeline() {
 
 const whyNowCards = [
   {
-    stat: '$5T',
-    statLabel: 'in commerce AI agents could mediate by 2030',
+    // Title-led card: the McKinsey $3–5T figure already renders on the
+    // timeline above, so this card leads with its title instead of
+    // duplicating the stat one viewport apart.
     title: 'Disintermediation',
     body: 'AI agents become the storefront. If the agent belongs to a platform, the customer relationship, loyalty activation, and first-party data go with it. Your own agent keeps them.',
     source: {
@@ -401,8 +404,9 @@ const whyNowCards = [
     },
   },
   {
-    stat: '81%',
-    statLabel: 'of retail executives say AI will weaken brand loyalty',
+    // Title-led card: the Deloitte 81% figure already renders on the
+    // timeline above, so this card leads with its title instead of
+    // duplicating the stat one viewport apart.
     title: 'The race is on',
     body: 'Early movers are already putting branded agents in front of their customers. Every month without one is a month of conversations, and conversions, happening somewhere else.',
     source: {
@@ -417,7 +421,7 @@ function WhyNow() {
     <>
       <SectionIntro
         eyebrow="the shift"
-        title="Your customers will talk to an AI agent. Make sure it’s yours"
+        title="Your customers will talk to an AI agent. Make sure it’s yours."
         className="mt-24 sm:mt-32 lg:mt-40"
       >
         <p>
@@ -438,18 +442,32 @@ function WhyNow() {
                   aria-hidden="true"
                 />
 
-                {/* Oversized stat — render final sourced values as server text */}
-                <p className="bg-gradient-to-b from-neutral-950 to-neutral-950/60 bg-clip-text font-display text-6xl font-medium tracking-tight text-transparent sm:text-7xl">
-                  {stat}
-                </p>
-                <p className="mt-2 min-h-[2.5rem] text-sm leading-snug text-neutral-500">
-                  {statLabel}
-                </p>
+                {/* Cards with a unique sourced stat keep the oversized figure
+                    ahead of the title; the remaining cards lead with their
+                    title at display scale so no market claim renders twice on
+                    the homepage. */}
+                {stat ? (
+                  <>
+                    {/* Oversized stat — render final sourced values as server text */}
+                    <p className="bg-gradient-to-b from-neutral-950 to-neutral-950/60 bg-clip-text font-display text-6xl font-medium tracking-tight text-transparent sm:text-7xl">
+                      {stat}
+                    </p>
+                    <p className="mt-2 min-h-[2.5rem] text-sm leading-snug text-neutral-500">
+                      {statLabel}
+                    </p>
 
-                {/* Title */}
-                <h3 className="mt-8 font-display text-xl font-semibold tracking-tight text-neutral-950 sm:text-2xl">
-                  {title}
-                </h3>
+                    {/* Title */}
+                    <h3 className="mt-8 font-display text-xl font-semibold tracking-tight text-neutral-950 sm:text-2xl">
+                      {title}
+                    </h3>
+                  </>
+                ) : (
+                  // Title-led card — the title takes the leading slot at
+                  // display scale, with no stat block above it.
+                  <h3 className="font-display text-3xl font-medium tracking-tight text-neutral-950 sm:text-4xl">
+                    {title}
+                  </h3>
+                )}
 
                 {/* Divider */}
                 <div
@@ -486,9 +504,8 @@ function Services() {
         <p>
           Everything your agent says starts with your product data. Our four
           services turn the catalogue into an asset an agent can read, trust,
-          and sell from, and the same enriched data keeps you visible wherever
-          external AI agents shop. No other consultancy in Australia has this
-          combination of LLM pipeline expertise and data engineering capability.
+          and sell from. The same enriched data keeps you visible wherever
+          external AI agents shop.
         </p>
       </SectionIntro>
       <Container className="mt-16">
@@ -528,10 +545,9 @@ export default function Home() {
             The shopping agent that’s actually yours
           </h1>
           <p className="mt-6 text-xl text-neutral-600">
-            We build shopping agents that Australian retailers own. Grounded in
-            your enriched catalogue and connected to your commerce systems, your
-            agent takes customers from first question to checkout, and keeps
-            helping after the sale.
+            We build shopping agents that Australian retailers own. Your agent
+            takes customers from first question to checkout, and
+            keeps helping after the sale.
           </p>
           <div className="mt-8 flex flex-wrap gap-3 sm:gap-4">
             <Button href="/contact">Contact us</Button>

@@ -973,7 +973,7 @@ export function DesktopHeroDataFlow() {
               letterSpacing: '0.05em',
             }}
           >
-            Consumer
+            Your customer
           </text>
 
           {/* Chat window frame */}
@@ -1012,7 +1012,7 @@ export function DesktopHeroDataFlow() {
             className="fill-neutral-950"
             style={{ fontSize: '8px', fontWeight: 500, opacity: 0.7 }}
           >
-            Find me the best running
+            Wedding guest dress,
           </text>
           <text
             x="770"
@@ -1020,7 +1020,7 @@ export function DesktopHeroDataFlow() {
             className="fill-neutral-950"
             style={{ fontSize: '8px', fontWeight: 500, opacity: 0.7 }}
           >
-            shoes under $200
+            size 10, under $200?
           </text>
 
           {/* AI response — product recommendation */}
@@ -1053,7 +1053,7 @@ export function DesktopHeroDataFlow() {
             className="fill-neutral-950"
             style={{ fontSize: '7.5px', fontWeight: 400 }}
           >
-            Based on 12 catalogues, I
+            Found it: Sapphire Blue
             <animate
               attributeName="opacity"
               values="0.15;0.5;0.5;0.15"
@@ -1070,7 +1070,7 @@ export function DesktopHeroDataFlow() {
             className="fill-neutral-950"
             style={{ fontSize: '7.5px', fontWeight: 400 }}
           >
-            recommend the Nike Pegasus
+            Midi, size 10, in stock.
             <animate
               attributeName="opacity"
               values="0.15;0.5;0.5;0.15"
@@ -1087,7 +1087,7 @@ export function DesktopHeroDataFlow() {
             className="fill-neutral-950"
             style={{ fontSize: '7.5px', fontWeight: 400 }}
           >
-            41 — $189, in stock, 4.8<tspan fill="#10b981">★</tspan>
+            $189. Pay here in the chat?
             <animate
               attributeName="opacity"
               values="0.15;0.5;0.5;0.15"

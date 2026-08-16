@@ -124,7 +124,7 @@ function AgentBeat({ delay, children }) {
   )
 }
 
-function ProductCard({ name, price, detail, gtin, swatch }) {
+function ProductCard({ name, price, detail, swatch }) {
   return (
     <div className="flex items-center gap-3 rounded-xl border border-neutral-950/10 bg-white p-2.5">
       <div
@@ -137,9 +137,6 @@ function ProductCard({ name, price, detail, gtin, swatch }) {
         </p>
         <p className="mt-0.5 text-xs text-neutral-500">
           {price} · {detail}
-        </p>
-        <p className="mt-0.5 font-mono text-[0.625rem] text-neutral-400">
-          GTIN {gtin}
         </p>
       </div>
     </div>
@@ -246,7 +243,7 @@ function ControlStrip() {
       {/* Canned-response rule mid-edit, with a live caret to show the field is
           being typed by the retailer's own team. */}
       <div className="mt-5 rounded-2xl border border-white/10 bg-neutral-950 p-4">
-        <p className="text-[0.65rem] font-semibold uppercase tracking-widest text-white/35">
+        <p className="text-[0.65rem] font-semibold uppercase tracking-widest text-white/60">
           tone rule
         </p>
         <p className="mt-2 font-mono text-xs leading-6 text-white/85">
@@ -267,21 +264,19 @@ function ControlStrip() {
               Live
             </span>
           </span>
-          <span
-            className="rounded-full border border-white/15 px-2.5 py-1 text-[0.65rem] font-medium text-white/60"
-            aria-hidden="true"
-          >
-            live in seconds
-          </span>
           <span className="sr-only">
             Publishing a rule takes it live in seconds.
           </span>
         </div>
       </div>
 
-      <p className="mt-5 text-sm leading-6 text-neutral-400">
-        No ticket. No release cycle. Your team changes the agent’s prompts,
-        tone, and rules directly.
+      {/* Promoted control message — this is the section's key claim, so it
+          renders in display type rather than as fine print. */}
+      <p className="mt-5 font-display text-lg font-medium tracking-tight text-white sm:text-xl">
+        Change it yourself. Live in seconds.
+      </p>
+      <p className="mt-2 text-sm leading-6 text-neutral-400">
+        Your team edits the agent’s prompts, tone, and rules directly.
       </p>
     </div>
   )
@@ -294,7 +289,7 @@ function AnalyticsTiles() {
         <p className="font-display text-xs font-semibold uppercase tracking-widest text-white/50">
           your reporting
         </p>
-        <span className="rounded-full border border-white/15 px-2 py-0.5 text-[0.6rem] font-medium uppercase tracking-widest text-white/40">
+        <span className="rounded-full border border-white/15 px-2 py-0.5 text-[0.6rem] font-medium uppercase tracking-widest text-white/60">
           sample
         </span>
       </div>
@@ -309,19 +304,40 @@ function AnalyticsTiles() {
             key={label}
             className="flex flex-col-reverse rounded-2xl border border-white/10 bg-neutral-950 px-3 py-3"
           >
-            <dt className="mt-1 text-[0.65rem] leading-4 text-white/45">
+            <dt className="mt-1 text-xs leading-4 text-white/70">
               {label}
             </dt>
-            <dd className="font-display text-lg font-semibold tracking-tight text-white sm:text-xl">
+            <dd className="font-display text-base font-semibold tracking-tight text-white sm:text-lg">
               {value}
             </dd>
           </div>
         ))}
       </dl>
 
-      <p className="mt-5 text-sm leading-6 text-neutral-400">
+      {/* Promoted reporting message — actionability leads, so the headline
+          gets display type and the numbers above stay one size step down. */}
+      <p className="mt-5 font-display text-lg font-medium tracking-tight text-white sm:text-xl">
         Reporting your team can act on.
       </p>
+
+      {/* Sample insight row — links a metric to the action it triggered, in
+          the same product-UI register as the tiles above. Demo data only:
+          never framed as a promised result. */}
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <span className="rounded-full border border-white/15 px-2.5 py-1 text-xs text-white/70">
+          drop-off: delivery questions
+        </span>
+        <span className="text-xs text-white/50" aria-hidden="true">
+          →
+        </span>
+        <span className="rounded-full border border-white/15 px-2.5 py-1 text-xs text-emerald-300">
+          reply updated · live
+        </span>
+        <span className="sr-only">
+          Example insight: customers drop off at delivery questions, and the
+          corrected reply is already live.
+        </span>
+      </div>
     </div>
   )
 }

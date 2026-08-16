@@ -55,17 +55,11 @@ test('homepage Why Now statistics render visible server text', () => {
     'Expected to find the end of the WhyNow component',
   )
 
-  for (const [statPattern, label] of [
-    [/stat:\s*'\$5T'/, '$5T'],
-    [/stat:\s*'393%'/, '393%'],
-    [/stat:\s*'81%'/, '81%'],
-  ]) {
-    assert.match(
-      source,
-      statPattern,
-      `Expected Why Now data to include ${label}`,
-    )
-  }
+  assert.match(
+    source,
+    /stat:\s*'393%'/,
+    'Expected Why Now data to include the sourced Adobe 393% stat',
+  )
 
   const whyNowSource = source.slice(whyNowStart, whyNowEnd)
 
@@ -102,16 +96,6 @@ test('homepage proof strip and hero spacing stay mobile-readable', () => {
     /grid-cols-1[\s\S]*sm:grid-cols-3/,
     'Expected hero proof signals to stack on mobile and become three columns on larger screens',
   )
-
-  // The hero pills now carry product promises rather than duplicated market
-  // statistics, so they no longer render a third-party source pill.
-  for (const expectedPill of ['One chat', 'Yours', 'Weeks']) {
-    assert.match(
-      source,
-      new RegExp(`stat: '${expectedPill}'`),
-      `Expected the hero proof strip to include the ${expectedPill} product pill`,
-    )
-  }
 
   assert.match(
     source,

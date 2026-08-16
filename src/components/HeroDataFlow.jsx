@@ -38,7 +38,7 @@ function MobileHeroDataFlow() {
     <div
       className="mt-10 sm:hidden"
       role="img"
-      aria-label="Enriched retail catalogue data powering the retailer’s own AI agent, which sells to a customer in one conversation."
+      aria-label="Enriched retail catalogue data powering the retailer’s own AI agent, which answers a customer in a branded chat and takes payment in the conversation."
     >
       <div className="grid grid-cols-1 gap-3">
         <div className="rounded-2xl border border-neutral-950/10 bg-white p-4 shadow-[0_1px_0_rgba(23,23,23,0.04)]">
@@ -58,9 +58,9 @@ function MobileHeroDataFlow() {
               <div className="mt-1.5 h-1.5 w-12 rounded bg-neutral-950/25" />
             </div>
             <div className="space-y-2 text-xs text-neutral-500">
-              <p>complete attributes</p>
-              <p>rich descriptions</p>
-              <p>live stock signal</p>
+              <p>full product details</p>
+              <p>descriptions that sell</p>
+              <p>live stock levels</p>
             </div>
           </div>
         </div>
@@ -100,12 +100,37 @@ function MobileHeroDataFlow() {
           <p className="font-display text-xs font-semibold uppercase tracking-wider text-neutral-950">
             Your customer
           </p>
-          <div className="mt-4 rounded-2xl bg-white p-3 text-xs leading-5 text-neutral-600 shadow-sm">
-            Found it. Sapphire Blue Midi, size 10, in stock. Checkout here in
-            this chat?
+          {/* Two-beat chat: the customer asks on the right, the retailer's
+              branded agent answers on the left, and the exchange ends in a
+              paid state. Bubble styling mirrors AgentConversationShowcase so
+              the chat idiom stays consistent across the site. */}
+          <div className="mt-4 space-y-2">
+            <div className="flex justify-end">
+              <p className="max-w-[85%] rounded-2xl rounded-br-md bg-neutral-950 px-3 py-2 text-xs leading-5 text-white">
+                <span className="sr-only">Customer: </span>
+                Wedding guest dress, size 10, under $200?
+              </p>
+            </div>
+            <div className="flex flex-col items-start gap-1">
+              <span
+                className="rounded-full bg-neutral-950 px-2.5 py-1 text-[0.65rem] font-semibold text-white"
+                aria-hidden="true"
+              >
+                your agent
+              </span>
+              <p className="max-w-[85%] rounded-2xl rounded-bl-md bg-white px-3 py-2 text-xs leading-5 text-neutral-600 shadow-sm">
+                <span className="sr-only">Your agent: </span>
+                Found it: Sapphire Blue Midi, size 10, in stock. Pay here in
+                the chat?
+              </p>
+            </div>
           </div>
-          <p className="mt-3 text-xs font-medium text-emerald-700">
-            Sold in one conversation
+          <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-3 py-1 text-xs font-semibold text-emerald-700">
+            <span
+              className="h-2 w-2 rounded-full bg-emerald-500"
+              aria-hidden="true"
+            />
+            Paid · order confirmed
           </p>
         </div>
       </div>

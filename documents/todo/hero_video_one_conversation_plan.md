@@ -1,21 +1,19 @@
-# Site Hero Video — "One Conversation" Plan ✅ **COMPLETE**
+# Site Hero Video — "One Conversation" Plan ✅ **IMPLEMENTED**
 
 <important_note>
 > # ▶ START HERE — read this entire block before opening any other file
 >
 > ## Current status
 >
-> **Revision R10 completed on 2026-08-14.** It corrects the closing brand rule, enlarges and
-> re-spaces the catalogue-foundation scene, fills the confirmation check, and makes the return-label
-> request explicit. The complete rendered candidate passed source, browser, media and independent
-> whole-film review before promotion.
+> **Revision R14 completed on 2026-08-16.** It replaces the Frame 5 foundation jargon with the
+> approved plain-language product, shopper and live-data argument. It also removes an unrelated
+> five-pixel geometry jump at the Frame 3 to Frame 4 cut before `3 days later` appears.
 >
 > The definitive master is `renders/video.mp4`, SHA-256
-> `0afb233b69f048cc3e9388c4950455121edc8d9411c9c4b1dd631b2d1415cb11`. Read
-> `## R10 implemented solution` at the end of this file for the exact fixes, evidence, three
-> independent review verdicts and validation record. The R9 and R8 records remain as revision
-> history. The remaining instructions in this block are retained as the historical R3 execution
-> contract.
+> `7d7b01b506d44216a57a9fc44f102c7419a69fcc5747f5ff415f4e2e1a8c9a2c`. Read
+> `## R14 implemented solution` near the end of this file for the exact fixes and verification
+> evidence. Earlier implementation records remain as revision history. The remaining instructions
+> in this block are retained as the historical R3 contract.
 >
 > ## What this project is
 >
@@ -26,8 +24,8 @@
 > compositions assembled into one `index.html` and rendered to MP4.
 >
 > - **`PROJECT_ROOT` = `/Users/sacino/embeddings/videos/embeddings-shopping-agent`**
-> - The current `renders/video.mp4` is the pre-R8 **R7** baseline. The preserved rejected R3 master
->   is `renders/video-r3-rejected.mp4`; the preserved R2 master is `renders/video-r2-light.mp4`.
+> - The current `renders/video.mp4` is the verified R14 master. The preserved rejected R3 master is
+>   `renders/video-r3-rejected.mp4`; the preserved R2 master is `renders/video-r2-light.mp4`.
 > - `videos/` is gitignored. **Nothing under it may ever be staged or committed.**
 >
 > ## Reading order — do not deviate
@@ -4415,3 +4413,506 @@ The standalone video contracts and this plan match the promoted master. The root
 documents cover public-site service animations and marketing positioning, not this video, so they do
 not require changes. The public site still has no video source reference and `videos/` remains
 gitignored. External publication remains outside this task.
+
+---
+
+## 11. Revision R11 - Monochrome brand close, balanced foundation, and credible agent control
+
+Revision R11 responds to the 15-item feedback round supplied on 2026-08-15. The screenshots are
+visual evidence only. The requirements in this section come from the user's written feedback and
+the three choices confirmed before this section was written.
+
+### 11.1 Approved decisions
+
+| Decision | Approved direction |
+| --- | --- |
+| Closing rule | Black with one restrained light-grey break; the white canvas supplies the white brand register |
+| Agent control | Replace `Canned response` with `Response guidance` so the edit changes how the AI should answer, not a fixed reply |
+| Storefront category | `Power tools` |
+| Middle suggested action | `Compare products` |
+| Accent edit | Start on Mint and change to an explicitly named Ocean blue |
+| Preview emphasis | Use a targeted soft pulse on the affected right-side element; animate paint only, never geometry |
+| Thinking state | Replace all loading copy with a stable assistant-owned three-dot thinking indicator |
+
+### 11.2 Reproduced defect and change register
+
+| ID | Required outcome |
+| --- | --- |
+| R11-D1 | Replace the blue-black-green closing rule with the approved monochrome rule and remove the false website-colour claim from source contracts |
+| R11-D2 | Give all three foundation plates one continuous horizontal connector to a shared rail; remove the detached third horizontal and vertical fragments |
+| R11-D3 | Move the complete foundation composition down into a vertically balanced frame, increase statement line-height, reveal the statement during the pull-back at about global 38s, and keep it visible for the full foundation beat |
+| R11-D4 | Increase the vertical gaps between the three foundation plates without crowding the statement or chat panel |
+| R11-D5 | Replace `Canned response` with `Response guidance` and edit guidance that demonstrates non-deterministic AI behaviour |
+| R11-D6 | Increase vertical separation between the settings panel's agent, guidance, accent and action sections without vertically centring the panel body |
+| R11-D7 | Show at least five accent choices, remove black, default to Mint, and demonstrate Mint to Ocean rather than Neutral to Mint across the settings and live preview |
+| R11-D8 | Replace the editor headline with `Customise your shopping agent.` |
+| R11-D9 | Add stable, targeted right-side update emphasis for the changed response and accent controls, using opacity, colour, outline or shadow only so nothing moves |
+| R11-D10 | Give `Low stock` a yellow warning treatment in every shared storefront instance |
+| R11-D11 | Replace the storefront promo copy with the approved `Power tools` category heading |
+| R11-D12 | Remove the three customer-facing loading phrases and use one assistant-owned three-dot thinking animation with fixed dimensions |
+| R11-D13 | Replace the plain order-confirmation tick with a thicker rounded path inside the existing filled mint disc |
+| R11-D14 | Strengthen the `3 days later` divider with restrained neutral emphasis and no geometry change during its hold |
+| R11-D15 | Increase the suggestion row's top margin and replace `Plan a deck rebuild` with `Compare products` in every shared chat instance |
+
+### 11.3 Implementation steps
+
+### Step R11-1: Reproduce every reported state ✅ **COMPLETE**
+
+- Add focused source and rendered-state regressions for R11-D1 to R11-D15.
+- Run the focused test before implementation and confirm it fails on the R10 baseline for the
+  expected reasons.
+- Capture native baseline frames for the close, foundation, editor, storefront, thinking,
+  confirmation, day divider and suggestion row.
+
+### Step R11-2: Update shared storefront and chat contracts ✅ **COMPLETE**
+
+- Update shared storefront copies and warning-colour tokens in Frames 1 to 5 and `CHAT-SYSTEM.md`.
+- Replace the loading-message sequence with one fixed-size thinking indicator in Frame 2.
+- Update the suggested actions, divider emphasis and confirmation tick in every frame that carries
+  those shared components.
+
+### Step R11-3: Recompose the foundation scene ✅ **COMPLETE**
+
+- Move the complete two-column composition down to balance its top and bottom whitespace.
+- Increase plate gaps, rebuild each connector as one plate-owned horizontal segment to one shared
+  vertical rail, and keep the rail-to-chat bridge continuous.
+- Reveal the statement during the pull-back at about global 38s, increase its line-height, and hold
+  it through the scene while the three plates and connectors reveal in order.
+
+### Step R11-4: Rebuild the agent-control demonstration ✅ **COMPLETE**
+
+- Use the exact headline `Customise your shopping agent.`.
+- Replace the fixed-response editor with `Response guidance`, expand its section spacing, and bind
+  the guidance edit to a clear response change in the preview.
+- Render at least six swatches: Neutral, Mint, Ocean, Coral, Sun and Violet. Start on Mint, remove
+  black, then change Mint to Ocean.
+- Emphasise only the affected right-side preview element with a soft paint-only pulse, preserving
+  every panel and message bound.
+
+### Step R11-5: Correct the monochrome close ✅ **COMPLETE**
+
+- Use a black rule with one restrained light-grey break on the white brand screen.
+- Preserve the approved closing copy, cumulative cadence, blank transition and centred wordmark and
+  URL geometry.
+
+### Step R11-6: Render and validate the complete film ✅ **COMPLETE**
+
+- Run the focused R11 test, the complete video-project gate, HyperFrames keyframe diagnostics and
+  targeted browser snapshots.
+- Render a new 60-second candidate and verify 1920x1080, 30fps, exactly 1,800 frames, no audio and a
+  full decode without errors.
+- Inspect every encoded frame for spacing, padding, alignment, wrapping, clipping, connector
+  continuity, motion continuity, contrast, copy and pause safety. Reproduce and fix any related
+  defect before promotion.
+- Run the root lint, build and test commands, update the video contracts and record the final R11
+  implemented solution and report.
+
+### 11.4 Completion gate
+
+R11 is complete. Every R11-D1 to R11-D15 regression passes, the candidate satisfies the media
+contract, every one of the 1,800 encoded frames was inspected, the video-project and root
+validations pass, and the implemented-solution record below names the final artefact hash and
+verification evidence.
+
+---
+
+## R11 implemented solution
+
+### Delivered changes
+
+- The closing rule now uses only black and a restrained light-grey break on white.
+- The foundation scene now uses three evenly spaced plates, one direct connector per plate, a shared
+  rail, a lower balanced composition, and an early statement that remains visible throughout the
+  plate sequence with more line spacing.
+- The settings scene now says `Customise your shopping agent.`, edits `Response guidance`, starts
+  with Mint selected, exposes six named colour choices, and changes the full preview to Ocean blue.
+  Paint-only emphasis makes both right-side updates clear without changing layout geometry.
+- The shared storefront and chat contracts now use a yellow `Low stock` pill, the `Power tools`
+  category, a fixed-width three-dot thinking state, a thicker rounded confirmation tick, stronger
+  neutral emphasis for `3 days later`, more suggestion spacing, and `Compare products`.
+- `STORYBOARD.md`, `CHAT-SYSTEM.md`, the copy manifest, the source verifier, handoff snapshots and
+  regression tests now describe and enforce the R11 film.
+
+### Rendered artefact
+
+| Property | Verified value |
+| --- | --- |
+| Master | `renders/video.mp4` |
+| Candidate | `renders/video-r11-candidate.mp4` |
+| SHA-256, both files | `56461bbbe52262932faf01095d113f76d69420ec1679226a942f9258c1c66703` |
+| Video | H.264 High, 1920x1080, progressive BT.709, yuv420p |
+| Timing | Exactly 30fps, 1,800 frames, 60.000 seconds |
+| Audio | No audio stream |
+
+### Verification record
+
+- The focused R11 reproduction failed on the R10 states for the expected reasons, then passed all
+  6 contract groups after implementation.
+- `HYPERFRAMES_SKIP_SKILLS=1 npm run check` passed with zero errors. The source verifier passed all
+  G1 to G15 gates, and the complete video suite passed 38/38 tests.
+- Root `npm run lint` passed with zero warnings and errors. Root `npm run build` completed the static
+  export. Root `npm test` passed 117/117 tests.
+- The candidate losslessly decoded to exactly 1,800 native 1920x1080 PNGs. All 1,800 frames were
+  inspected in exactly 300 labelled six-frame sheets, grouped into 75 review boards with no gaps or
+  overlap. Scene boundaries, interaction thresholds and the 30 highest temporal-difference frames
+  were also opened at native resolution. No spacing, padding, alignment, wrapping, clipping,
+  connector, copy, motion-continuity, transition or pause-safety defect remained.
+- HyperFrames Studio was checked at 1440x900 and 390x900. Both viewports showed the output canvas
+  without console or page errors. The editor timeline keeps its own 674px minimum width on mobile,
+  but the page contains it and the fixed 1920x1080 film is unaffected.
+- The candidate and promoted master are byte-identical. Their matching SHA-256 is recorded above.
+
+### Documentation and publication
+
+The standalone video contracts and this plan match the promoted R11 master. The root architecture
+documents cover public-site service animations and marketing positioning, not this standalone
+video, so they required no change. The public site still has no video source reference and
+`videos/` remains gitignored. External publication remains outside this task.
+
+---
+
+## R12 implemented solution
+
+Revision R12 completed on 2026-08-16. It replaces the closing rule above `embeddings.au`, which the
+user reported as still looking bad after R11: the 88x8px black pill with a hard-edged `#D4D4D4`
+break at 42–58% read as two floating dashes on the white brand screen, like a stalled loading bar.
+
+### Approved decision
+
+Four replacement options were mocked at exact close-frame geometry and screenshotted for a visual
+choice (`videos/embeddings-shopping-agent/mockups/end-line-options.html`). The user chose
+**Option A: one slim solid black rule** over no line, a wordmark-width hairline, and a mint stub.
+
+### Delivered change
+
+- `.frame-07-close-accent` in `compositions/frames/07-close.html` is now `112px` wide, `3px` tall,
+  fully rounded, and solid `#0A0A0A` with no gradient and no break. The entrance tween, timing and
+  centred geometry are unchanged.
+
+### Source, contract and documentation changes
+
+- `compositions/frames/07-close.html` carries the new rule and an updated authoring comment.
+- `test/r8-visual-contract.test.mjs`, `test/r9-cadence-and-close.test.mjs`,
+  `test/r10-brand-foundation-confirmation-copy.test.mjs` and
+  `test/r11-foundation-agent-details.test.mjs` now pin the `112px`/`3px`/`#0A0A0A` contract in place
+  of the superseded black-grey-black gradient.
+- `scripts/verify-r3-source.mjs` gate G-close enforces the same solid rule.
+- `STORYBOARD.md` Scene 7 describes the slim solid black bar with no break.
+
+### Rendered artefact
+
+| Property | Verified value |
+| --- | --- |
+| Master | `renders/video.mp4` |
+| Candidate | `renders/video-r12-candidate.mp4` |
+| SHA-256, both files | `576d98216d8969bed76c05bbc4e85cf5e4518effea7ad32cf50696de258b1c63` |
+| Video | H.264, 1920x1080, yuv420p, 30fps, exactly 1,800 frames, 60.000 seconds, no audio |
+
+### Verification record
+
+- `HYPERFRAMES_SKIP_SKILLS=1 npm run check`: pass with zero errors, empty failure lists on every
+  source gate, 100/100 WCAG AA text checks, and 38/38 video suite tests. The pre-existing 13
+  non-gating authoring warnings remain.
+- Full FFmpeg decode of the candidate: pass, 1,800/1,800 frames.
+- Encoded pixel probe at frame 1797 (t 59.9s): the rule row at y 561 samples `rgb(6, 9, 8)`
+  continuously from x 906 to x 1014, which is 112px centred on x 960 inside normal H.264 drift of
+  `#0A0A0A`, with pure white either side and no grey break at centre. The bar spans y 560–562.
+- Root `npm run lint`: pass with zero warnings and errors. Root `npm test`: pass, 117/117 under
+  Node v22.17.0. Root `npm run build`: pass, static export complete.
+- The candidate and promoted master are byte-identical; the matching SHA-256 is recorded above.
+
+### Documentation and publication
+
+The standalone video contracts and this plan match the promoted R12 master. The root architecture
+documents cover public-site service animations and marketing positioning, not this standalone
+video, so they required no change. The public site still has no video source reference and
+`videos/` remains gitignored. External publication remains outside this task.
+
+---
+
+## R13 implementation plan
+
+Revision R13 addresses two user-confirmed defects without changing the approved 60-second structure.
+
+### Defect 1: third foundation connector originates from the wrong place
+
+The current animation extends the shared vertical rail below `Search index` before the third
+horizontal branch appears. This makes the line look as if it originates at the shared join and drops
+down towards `Orders, returns and stock`.
+
+The corrected sequence must:
+
+1. Reveal the complete `Orders, returns and stock` plate.
+2. Grow one uninterrupted horizontal branch from that plate to the shared rail.
+3. Extend the shared rail down from the second branch until it meets the waiting third branch.
+4. End the rail exactly at that intersection, with no line below it.
+
+### Defect 2: guidance and answer changes are incompatible
+
+The current edit changes the policy fact from 30 days to 60 days even though the control only changes
+response guidance. It then adds the vague sentence `I can help with the next step.`, which does not
+show what the new guidance changed.
+
+The approved pair is:
+
+| State | Response guidance | Yardline Assistant answer |
+| --- | --- | --- |
+| Before | `Explain the returns policy clearly.` | `Power tools can be returned within 30 days.` |
+| After | `Explain the returns policy clearly and offer to start a return.` | `Power tools can be returned within 30 days. Would you like me to start a return?` |
+
+The policy fact remains 30 days in every intermediate state. Only the assistant action changes.
+
+### Verification gates
+
+- Add focused source regressions that fail on the R12 ordering and copy.
+- Run the focused tests after the implementation and the complete HyperFrames check.
+- Render an R13 candidate, inspect all 1,800 encoded frames, and inspect the connector and editor
+  sequences at native 1920x1080 resolution.
+- Verify the candidate in HyperFrames Studio at 1440x900 and 390x900.
+- Run root lint, build and Node tests.
+- Promote the candidate only after all source, render and visual gates pass.
+
+---
+
+## R13 implemented solution
+
+Revision R13 completed on 2026-08-16. The verified candidate was promoted only after the source,
+render, visual and repository gates passed.
+
+### Delivered connector behaviour
+
+The third foundation branch now grows from the `Orders, returns and stock` plate towards the shared
+rail. Only after that horizontal branch is complete does the shared rail extend down from the second
+branch to meet it. The rail ends at the third intersection and never appears below it.
+
+### Delivered guidance mapping
+
+| State | Response guidance | Yardline Assistant answer |
+| --- | --- | --- |
+| Before | `Explain the returns policy clearly.` | `Power tools can be returned within 30 days.` |
+| After | `Explain the returns policy clearly and offer to start a return.` | `Power tools can be returned within 30 days. Would you like me to start a return?` |
+
+The 30-day policy fact stays unchanged throughout the edit. The only semantic change is the new
+offer to start a return, so the guidance and the visible answer now demonstrate the same change.
+
+### Source, contract and regression changes
+
+- `compositions/frames/05-underneath.html` starts the third branch at local 4.82s and completes the
+  shared rail only after the branch reaches the join.
+- `compositions/frames/06-yours-to-change.html` keeps the policy at 30 days in every state and maps
+  the approved final guidance to the approved final answer.
+- `test/r13-connector-guidance.test.mjs` reproduces both R12 defects and protects the corrected
+  ordering and exact before-and-after copy.
+- `scripts/verify-r3-source.mjs`, `scripts/r3-copy-manifest.json`,
+  `snapshots/r3-source-gates.json`, `STORYBOARD.md` and `CHAT-SYSTEM.md` now enforce and document the
+  R13 behaviour.
+- Existing R8 and R11 regressions were updated only where R13 deliberately supersedes their
+  connector or guidance expectations.
+
+### Rendered artefact
+
+| Property | Verified value |
+| --- | --- |
+| Master | `renders/video.mp4` |
+| Candidate | `renders/video-r13-candidate.mp4` |
+| SHA-256, both files | `f9cd48a2e6a06282339c9be6cf8bd71ec3e070e124b29aa84f6d86a08bedccb7` |
+| Video | H.264 High, 1920x1080, yuv420p, 30fps, exactly 1,800 frames, 60.000 seconds, no audio |
+
+### Verification record
+
+- The focused regression failed on both R12 defects before the fix and passed 2/2 after the fix.
+- `HYPERFRAMES_SKIP_SKILLS=1 npm run check`: pass with zero errors, empty source-gate failure lists,
+  and 40/40 video tests. The pre-existing 13 non-gating authoring warnings remain.
+- Full FFmpeg decode: pass, exactly 1,800/1,800 encoded frames. FFmpeg black-frame detection found
+  no black frames.
+- Every encoded frame in the changed connector window was inspected as a 61-frame sequence at
+  native 1920x1080 source resolution. The third branch completes before the rail moves down.
+- Every encoded frame in the changed guidance window was inspected as a 71-frame sequence at native
+  1920x1080 source resolution. The copy stays aligned, the 30-day fact remains fixed, and the final
+  guidance and answer fit without clipping or a geometry jump.
+- HyperFrames Studio was checked at 1440x900 and 390x900. The fixed 1920x1080 canvas remains fully
+  contained in both views. The Studio timeline keeps its pre-existing 674px mobile minimum width;
+  this does not affect the rendered film.
+- Root `npm run lint`: pass with zero warnings and errors. Root `npm run build`: pass, static export
+  complete. Root `npm test`: pass, 119/119 tests under Node v22.17.0.
+- The candidate and promoted master are byte-identical.
+
+### Documentation and publication
+
+The standalone video contracts and this plan match the promoted R13 master. The root architecture
+documents cover public-site service animations and marketing positioning, not this standalone
+video, so they require no change. The public site still has no video source reference and `videos/`
+remains gitignored. External publication remains outside this task.
+
+---
+
+## R14 implementation plan - plain-language foundation copy
+
+**Status: completed on 2026-08-16.** This section preserves the approved scope that was implemented.
+R14 follows the completed R13 connector revision, which edits the same frame; changes were anchored
+by selector and copy string rather than by line number.
+
+### Reported problem
+
+The Frame 5 foundation scene explains the agent in data-pipeline jargon. `Enriched catalogue`,
+`Search index` and `Intent, synonyms and product relevance` name infrastructure artefacts, and the
+statement recaps the same jargon (`enriched, indexed`). Executives reading the scene have to
+translate twice, and the vocabulary does not stay consistent between the plates and the statement.
+
+### Approved decisions
+
+| Decision | Approved direction |
+| --- | --- |
+| Scope | Change both the three plates and the statement together so they share one vocabulary. The statement is the thesis; the plates echo its terms in the same order |
+| Wording | Direction 1, verb-led: what the agent does, not what the pipeline is |
+| Keep | `Orders, returns and stock` survives, moving from plate 3’s title to its detail line. Plate copy that is already plain is reused rather than rewritten for its own sake |
+
+### Approved copy
+
+| Element | Current | Approved R14 |
+| --- | --- | --- |
+| Plate 1 title | `Enriched catalogue` | `Knows your products` |
+| Plate 1 detail | `Names, specifications and compatibility` | `Every name, specification and compatible part` |
+| Plate 2 title | `Search index` | `Understands your shoppers` |
+| Plate 2 detail | `Intent, synonyms and product relevance` | `Everyday questions matched to the right products` |
+| Plate 3 title | `Orders, returns and stock` | `Works from live data` |
+| Plate 3 detail | `Live states from your commerce platforms` | `Orders, returns and stock from your own systems` |
+| Statement | `Every answer comes from your catalogue - enriched, indexed, and connected to the systems you already run.` | `Your agent knows your products, understands your shoppers and works from your live systems.` |
+
+The statement’s three verbs (knows, understands, works from) repeat the plate titles in reveal
+order, so the sentence and the cards read as one argument. The new statement also removes the
+dangling line-start hyphen produced by the current wrap. No other frame uses `catalogue`, `index`
+or `enriched` in visible copy, so no cross-frame vocabulary breaks.
+
+### Change register - visible copy
+
+All in `compositions/frames/05-underneath.html`, visible text only. No id, class, geometry or
+timing changes:
+
+1. `.frame-05-underneath-plate-title` and `-detail` inside `#frame-05-underneath-plate-catalogue`
+   (currently lines 1169-1170).
+2. The same pair inside `#frame-05-underneath-plate-index` (currently lines 1183-1184).
+3. The same pair inside `#frame-05-underneath-plate-systems` (currently lines 1198-1199).
+4. `#frame-05-underneath-close` statement text (currently line 1205).
+
+### Change register - pinned contracts and documentation
+
+1. `test/r8-visual-contract.test.mjs` (currently line 191): regex pins the exact old statement
+   inside `#frame-05-underneath-close`; repin to the new statement.
+2. `scripts/verify-r3-source.mjs` (currently line 998): the `unchangedStatement` constant holds the
+   old statement; replace with the new statement. The surrounding gate (no `-close-chunk` spans,
+   `top: 690px`, `width: 950px`, `font-size: 46px`, `line-height: 1.25`, entrance at 1.36s) stays.
+3. `STORYBOARD.md` (currently lines 401-407): plate and closing-line copy list.
+4. `CHAT-SYSTEM.md` (currently lines 1089-1091): foundation plate copy table.
+5. `.hyperframes/frame-packets/05-underneath.md` (currently lines 36-43): packet copy list. Note
+   its closing-line entry still carries an em dash from an earlier revision; the replacement string
+   removes it.
+6. `snapshots/r3-source-gates.json` (currently lines 419-425): recorded copy inventory; hand-update
+   the seven strings. Its only automated consumer (`test/r10-brand-foundation-confirmation-copy.test.mjs`)
+   checks the unaffected return-label string.
+7. Add a focused R14 regression that fails on the current jargon copy and passes on the approved
+   set, following the per-revision test pattern.
+8. No change: `scripts/r3-copy-manifest.json` (does not carry foundation plate copy) and `BRIEF.md`
+   (historical creative brief; nothing reads it programmatically).
+9. Optional, no contract impact: the authoring comment at `05-underneath.html` line 1343 and the
+   assertion message in `test/r13-connector-guidance.test.mjs` mention `Orders, returns and stock`
+   as a title; update wording only if touched anyway.
+
+### Verification gates
+
+- New statement is 92 characters against the current 109 on the same 950px, 46px measure. Check the
+  encoded wrap for an orphaned final word (a lone `systems.` line). If one appears, balance with
+  `text-wrap: balance` on `.frame-05-underneath-close` rather than authored break spans, which the
+  source verifier forbids.
+- Confirm the shorter statement (likely two lines instead of three) does not unbalance the R11-D3
+  vertical composition; the scene was balanced around a three-line block at top 690px.
+- Confirm each plate title fits its plate at 26px, in particular `Understands your shoppers`.
+- British English scan: the approved copy contains no em dash and no straight apostrophe.
+- Then the standard pipeline: focused regression red on current copy, all contract updates, full
+  HyperFrames check, render, all-frame inspection of the foundation window, Studio checks at
+  1440x900 and 390x900, root lint, build and tests, and promotion only after every gate passes.
+
+---
+
+## R14 implemented solution
+
+Revision R14 completed on 2026-08-16. The approved foundation copy and the newly reported
+26-second handoff defect were both reproduced, protected by a focused regression, fixed, rendered
+and verified before the candidate replaced the master.
+
+### Delivered foundation copy
+
+| Element | Delivered R14 copy |
+| --- | --- |
+| Plate 1 title | `Knows your products` |
+| Plate 1 detail | `Every name, specification and compatible part` |
+| Plate 2 title | `Understands your shoppers` |
+| Plate 2 detail | `Everyday questions matched to the right products` |
+| Plate 3 title | `Works from live data` |
+| Plate 3 detail | `Orders, returns and stock from your own systems` |
+| Statement | `Your agent knows your products, understands your shoppers and works from your live systems.` |
+
+The three plate titles and the statement now use the same verb sequence: knows, understands and
+works from. Each title and detail fits on one line in the settled plate layout. The statement uses
+three balanced lines with no dangling hyphen, orphaned word or clipped glyph.
+
+### 26-second handoff root cause and fix
+
+The last encoded Frame 3 pose used a message-stack translation of `-737px`. Frame 4 started at
+`-742px`. At the 26.000-second hard cut, this mismatch moved the shopper bubble and order
+confirmation exactly five pixels upward even though the panel, header and composer stayed fixed.
+The `3 days later` divider does not begin until 0.42 seconds later, so the movement had no narrative
+cause and read as a jitter.
+
+`compositions/frames/04-three-days-later.html` now starts the stack at `-737px`. The existing time
+jump animation remains unchanged. The cut therefore preserves the exact outgoing geometry until
+the divider begins its authored reveal.
+
+### Source, contract and regression changes
+
+- `compositions/frames/05-underneath.html` contains the seven approved R14 strings.
+- `compositions/frames/04-three-days-later.html` uses the corrected `-737px` initial stack pose.
+- `test/r14-foundation-copy-and-frame-03-04-handoff.test.mjs` reproduces both defects. Before the
+  fix, both tests failed for the expected reasons. After the fix, both pass.
+- `scripts/verify-r3-source.mjs`, `test/r8-visual-contract.test.mjs`,
+  `test/r13-connector-guidance.test.mjs`, `snapshots/r3-source-gates.json`, `STORYBOARD.md`,
+  `CHAT-SYSTEM.md` and `.hyperframes/frame-packets/05-underneath.md` now enforce or document the
+  R14 copy and handoff contract.
+
+### Rendered artefact
+
+| Property | Verified value |
+| --- | --- |
+| Master | `renders/video.mp4` |
+| Candidate | `renders/video-r14-candidate.mp4` |
+| SHA-256, both files | `7d7b01b506d44216a57a9fc44f102c7419a69fcc5747f5ff415f4e2e1a8c9a2c` |
+| Video | H.264 High, 1920x1080, yuv420p, 30fps, exactly 1,800 frames, 60.000 seconds, no audio |
+
+### Verification record
+
+- Focused R14 regression: failed 2/2 before the fix and passed 2/2 after the fix.
+- `HYPERFRAMES_SKIP_SKILLS=1 npm run check`: pass with zero errors, empty source-gate failure
+  lists and 42/42 video tests. The 13 existing non-gating authoring warnings remain.
+- Full FFmpeg decode: pass for exactly 1,800/1,800 encoded frames. Black-frame detection found no
+  black frames.
+- Native boundary check: encoded frames 779 and 780 preserve the same panel, header, composer,
+  shopper bubble and confirmation geometry. The prior five-pixel content jump is absent.
+- Native R14 copy check at encoded frame 1230: every plate title and detail is a single readable
+  line; the statement is balanced across three lines with no clipping.
+- Full-film visual sweep: exactly 1,800 native PNG frames were decoded, arranged into 300 labelled
+  six-frame sheets, then reviewed in 25 boards. No additional spacing, padding, alignment,
+  clipping, transition, black-frame or pause-safety defect was found.
+- HyperFrames Studio: checked at 1440x900 and 390x900, plus direct 26-second and 41-second scene
+  checks at 1440x900. The fixed 1920x1080 film canvas remains contained and no console or page error
+  occurred. The Studio editor retains its pre-existing 674px mobile minimum width; this does not
+  affect the rendered film.
+- Root `npm run lint`: pass with zero warnings and errors. Root `npm run build`: pass with the static
+  export complete. Root `npm test`: pass, 116/116 tests.
+- The R14 candidate and promoted master are byte-identical.
+
+### Documentation and publication
+
+The standalone video contracts and this plan match the promoted R14 master. The root architecture
+documents cover public-site service animations and marketing positioning, not this standalone
+video, so they require no change. The public site still has no video source reference and `videos/`
+remains gitignored. External publication remains outside this task.

@@ -52,14 +52,14 @@ The incumbent-problem areas in `documents/reference/ai_shopping_agent.md` § Cus
 
 | Message area | Policy | Where it lands on the site |
 | --- | --- | --- |
-| Customer control (incl. change velocity) | Highlight AND show. Change velocity folds into control ("no ticket, no release cycle") | Hero pill `Yours`; agent showcase control strip; process Operate |
-| In-conversation checkout | Highlight prominently; hardest to build, strongest differentiator | Hero pill `One chat`; showcase checkout beat; capability chip; process Deploy |
+| Customer control (incl. change velocity) | Highlight AND show. Change velocity folds into control ("Change it yourself. Live in seconds.") | Hero pill `Yours`; agent showcase control strip; process Operate |
+| In-conversation checkout | Highlight prominently; hardest to build, strongest differentiator | Hero pill `Sold`; showcase checkout beat; capability chip; process Deploy |
 | Post-sales support | Highlight; easy to understand, high customer value | Showcase order-status beat; `order & returns support` chip; process Operate |
 | User experience / branding | Highlight; easy to understand, high customer value | Hero H1 and subhead; showcase rendered in retailer brand; process Deploy |
 | Search openness (anti lock-in) | Highlight; name supported platforms once; flavour: open, flexible, never tied to one search index | Agent section body and process Deploy named-platform line; `bring your own search` chip |
 | Integrations | Highlight (orders, returns, inventory, commerce APIs) | Showcase beats; process Deploy |
 | Analytics | Highlight; straightforward, high value | Showcase control-strip stat tiles; `revenue analytics` chip; process Operate |
-| Speed/flexibility of delivery | Qualitative only ("weeks", "without waiting"); never present "implementation" as a feature in itself | Hero pill `Weeks`; process page framing |
+| Speed/flexibility of delivery | Qualitative only ("weeks", "without waiting"); never present "implementation" as a feature in itself | Hero pill `Live`; process page framing |
 | Pricing | OFF copy entirely: no figures, no pricing-model descriptions, no "cheaper" claim. Pricing is value-based and deliberately non-prescriptive; the contact CTA is the enquiry path | Nothing to write; enforced by the claims policy above |
 | Operating model | Not a marketing message at all | Absent from all copy |
 | Implementation mechanics | Not highlighted directly | Absent except as speed/flexibility above |
@@ -97,7 +97,7 @@ The consumer never sees your brand, your website, or your marketing. The AI agen
 The single most important visual on the site is the `#agent` section on the home page (`src/components/AgentConversationShowcase.jsx`). It **shows** the product instead of describing it, in three parts:
 
 1. **Conversation storyboard** — one continuous, retailer-branded conversation: a customer asks for a dress for a spring wedding, the agent recommends from the enriched catalogue with stock and price, the customer pays inside the chat, and later asks where the order is and gets a real answer. Discovery, checkout, and post-sales support in a single thread.
-2. **Control strip** — a canned-response rule being edited by the retailer's own team, publishing straight to live. This shows customer control and change velocity rather than claiming them: "No ticket. No release cycle."
+2. **Control strip** — a canned-response rule being edited by the retailer's own team, publishing straight to live. This shows customer control and change velocity rather than claiming them: "Change it yourself. Live in seconds."
 3. **Analytics tiles** — sample sessions, conversion, and assisted-revenue reporting, framed as product interface, not as promised results.
 
 The rule for this section: every capability shown must map to `documents/reference/ai_shopping_agent.md` § Proposed Product. Show, do not tell.
@@ -360,7 +360,7 @@ This is the difference between being reactive and being positioned. Reactive ret
 
 The home page follows a narrative arc designed to move a retail executive from awareness to action. The offer comes first, the market argument second:
 
-1. **Hero** — states the owned-agent offer directly ("The shopping agent that's actually yours") with three product-promise pills: `One chat` (discovery to checkout), `Yours` (brand, prompts, data), `Weeks` (from catalogue to live). The hero diagram shows catalogue → your agent → your customer.
+1. **Hero** — states the owned-agent offer directly ("The shopping agent that's actually yours") with three product-promise pills: `Sold` (in one conversation), `Yours` (not rented), `Live` (in weeks). The hero diagram shows catalogue → your agent → your customer.
 2. **The agent (`#agent`)** — the showcase described above. It sits immediately after the hero because a visitor must be able to discover the headline product in the first two viewports.
 3. **Agentic Timeline** — creates urgency by showing this isn't a future problem; it's happening now, with real products already in market. Closes on ownership: retailers who own the conversation keep the customer.
 4. **Why Now (The Shift)** — "Your customers will talk to an AI agent. Make sure it's yours." Explains the three arguments (disintermediation, the data foundation, the race) so the reader understands the consequences of inaction.

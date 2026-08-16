@@ -200,7 +200,7 @@ function Operate() {
             prompts, policies, and canned responses
           </strong>{' '}
           directly, with versioning, review, and rollback behind them, so
-          routine changes never wait on an engineering ticket.
+          routine changes never wait on anyone else.
         </p>
       </div>
 

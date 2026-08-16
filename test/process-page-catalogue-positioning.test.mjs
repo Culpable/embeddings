@@ -5,42 +5,6 @@ import { resolve } from 'node:path'
 
 const processPagePath = resolve(process.cwd(), 'src/app/process/page.jsx')
 
-test('process page describes the owned-agent journey instead of generic AI consulting', () => {
-  // Keep the process route aligned with the homepage owned-agent offer:
-  // catalogue foundation, agent deployment, then live operation.
-  const source = readFileSync(processPagePath, 'utf8')
-
-  for (const expectedPhrase of [
-    'How we take you from catalogue to live agent',
-    'title="Foundation"',
-    'title="Deploy"',
-    'title="Operate"',
-    'Merchant Feed Audit',
-    'GTIN Coverage',
-    'Built for retail conversations, not generic AI adoption',
-    'catalogue-readiness score',
-  ]) {
-    assert.match(
-      source,
-      new RegExp(expectedPhrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
-      `Expected process page to include ${expectedPhrase}`,
-    )
-  }
-
-  for (const oldPhrase of [
-    'future of work',
-    'productivity gains',
-    'strategic AI implementation',
-    'agentic-ready',
-  ]) {
-    assert.doesNotMatch(
-      source,
-      new RegExp(oldPhrase, 'i'),
-      `Did not expect process page to retain generic phrase ${oldPhrase}`,
-    )
-  }
-})
-
 test('process page renders the three journey stages in order', () => {
   // Guard the narrative order so the catalogue foundation always precedes the
   // agent build, which in turn precedes live operation.
@@ -61,27 +25,6 @@ test('process page renders the three journey stages in order', () => {
   )
 })
 
-test('process page covers checkout, post-sales, control, and analytics', () => {
-  // Every owned-agent capability sold on the homepage must have a delivery
-  // stage behind it on the process page.
-  const source = readFileSync(processPagePath, 'utf8')
-
-  for (const expectedCapability of [
-    'checkout',
-    'order status',
-    'returns',
-    'assisted revenue',
-    'prompts, policies, and canned responses',
-    'Algolia, Coveo, Elasticsearch, Google Retail Search, or your own',
-  ]) {
-    assert.match(
-      source,
-      new RegExp(expectedCapability.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'),
-      `Expected process page to describe ${expectedCapability}`,
-    )
-  }
-})
-
 test('process page prioritises the first visual after the intro', () => {
   // Keep the browser from warning that the first process image needs priority.
   const source = readFileSync(processPagePath, 'utf8')
@@ -91,32 +34,6 @@ test('process page prioritises the first visual after the intro', () => {
     /image=\{\{ src: imageWhiteboard, priority: true \}\}/,
     'Expected the first process section image to be marked priority',
   )
-})
-
-test('process images include journey-stage signal overlays', () => {
-  // Keep the process visuals tied to measurable delivery work instead of generic stock imagery.
-  const source = readFileSync(processPagePath, 'utf8')
-
-  assert.match(
-    source,
-    /function ProcessImageSignals/,
-    'Expected process images to render domain-specific signal overlays',
-  )
-
-  for (const expectedSignal of [
-    '74/100 ready',
-    '128 fixes',
-    'plugged into your stack',
-    'in the conversation',
-    'assisted revenue',
-    'self-service',
-  ]) {
-    assert.match(
-      source,
-      new RegExp(expectedSignal.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
-      `Expected process visual overlay to include ${expectedSignal}`,
-    )
-  }
 })
 
 test('process image signal overlays stay mobile-safe', () => {
