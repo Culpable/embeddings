@@ -119,10 +119,21 @@ test('shared surfaces and the hero proof group use the planned geometry', () => 
     assert.match(stylesSource, new RegExp(token.replace('.', '\\.')))
   }
 
-  assert.match(
-    homePageSource,
-    /rounded-\[18px\][\s\S]*?p-1\.5[\s\S]*?rounded-xl/,
+  // The hero proof group carries no wrapper chrome on mobile: the list is a bare
+  // grid and each pill supplies its own radius, so no outer border, background,
+  // padding or radius may reappear around the group.
+  const heroProofList = homePageSource.match(
+    /<ul\s+role="list"\s+className="([^"]*)"\s+aria-label="Your shopping agent at a glance"/,
   )
+  assert.ok(heroProofList, 'Expected to find the hero proof list element')
+  assert.doesNotMatch(
+    heroProofList[1],
+    /rounded-|border|bg-|shadow-|\bp-/,
+    'Expected the hero proof list to stay a bare grid with no wrapper chrome',
+  )
+
+  // Pills keep their own concentric radii across the mobile/desktop switch.
+  assert.match(homePageSource, /rounded-xl[\s\S]*?sm:rounded-2xl/)
 })
 
 test('source arrows and process images use exact optical edge treatment', () => {

@@ -99,7 +99,7 @@ test('homepage proof strip and hero spacing stay mobile-readable', () => {
 
   assert.match(
     source,
-    /mt-20 sm:mt-28 md:mt-40 lg:mt-44/,
+    /mt-12 sm:mt-28 md:mt-40 lg:mt-44/,
     'Expected the hero to start earlier in the first viewport',
   )
 

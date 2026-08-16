@@ -171,13 +171,18 @@ function HeroProofSignals() {
   return (
     <ul
       role="list"
-      className="mt-8 grid max-w-3xl grid-cols-1 gap-2 rounded-[18px] border border-neutral-950/10 bg-white/75 p-1.5 shadow-[0_1px_0_rgba(23,23,23,0.04)] sm:grid-cols-3 sm:gap-3 sm:rounded-none sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none"
+      className="mt-8 grid max-w-3xl grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-3"
       aria-label="Your shopping agent at a glance"
     >
       {heroProofSignals.map(({ stat, label, source }, index) => (
+        // Mobile pads asymmetrically (14px top / 10px bottom) to optically
+        // centre the text. The 18px stat sits in a 28px line box with no
+        // descenders, so its ink rides ~3px above the box centre, and the 2px
+        // gradient bar adds visual weight at the top. The 24px total keeps the
+        // 52px card height identical. The sm: stacked layout resets to py-3.
         <li
           key={stat}
-          className="surface-elevation-light surface-elevation-light-hover group relative grid grid-cols-[auto_1fr] items-center gap-x-3 overflow-hidden rounded-xl bg-white/70 px-3 py-3 transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-white sm:block sm:rounded-2xl sm:px-4 sm:py-3"
+          className="surface-elevation-light surface-elevation-light-hover group relative grid grid-cols-[auto_1fr] items-center gap-x-3 overflow-hidden rounded-xl bg-white/70 px-3 pb-2.5 pt-3.5 transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-white sm:block sm:rounded-2xl sm:px-4 sm:py-3"
         >
           <div
             className={`absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r ${urgencyGradients[index]}`}
@@ -538,13 +543,15 @@ export default function Home() {
         }}
       />
 
-      {/* Hero — headline + animated data flow SVG */}
-      <Container className="mt-20 sm:mt-28 md:mt-40 lg:mt-44">
+      {/* Hero — headline + animated data flow SVG. The mobile top margin is
+          deliberately tighter than desktop so the first flow card crests the
+          390px-tall fold and cues the visitor to scroll. */}
+      <Container className="mt-12 sm:mt-28 md:mt-40 lg:mt-44">
         <FadeIn className="max-w-3xl">
           <h1 className="font-display text-5xl font-medium tracking-tight text-neutral-950 [text-wrap:balance] sm:text-7xl">
             The shopping agent that’s actually yours
           </h1>
-          <p className="mt-6 text-xl text-neutral-600">
+          <p className="mt-6 text-lg text-neutral-600 sm:text-xl">
             We build shopping agents that Australian retailers own. Your agent
             takes customers from first question to checkout, and
             keeps helping after the sale.

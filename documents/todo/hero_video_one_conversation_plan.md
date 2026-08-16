@@ -5,13 +5,13 @@
 >
 > ## Current status
 >
-> **Revision R14 completed on 2026-08-16.** It replaces the Frame 5 foundation jargon with the
-> approved plain-language product, shopper and live-data argument. It also removes an unrelated
-> five-pixel geometry jump at the Frame 3 to Frame 4 cut before `3 days later` appears.
+> **Revision R15 was completed on 2026-08-16.** It corrects the remaining two-pixel Frame 3 to
+> Frame 4 message-position mismatch that R14’s source-only assumption missed. It also rebuilds the
+> Frame 5 composition around a centred upper group and a full-width statement below it.
 >
-> The definitive master is `renders/video.mp4`, SHA-256
-> `7d7b01b506d44216a57a9fc44f102c7419a69fcc5747f5ff415f4e2e1a8c9a2c`. Read
-> `## R14 implemented solution` near the end of this file for the exact fixes and verification
+> The definitive master is the R15 `renders/video.mp4`, SHA-256
+> `2e4ca6d54edb2d626d3b76a8b2d1f7e03349a7a941d68e6fbfcdc12570f5b837`. Read
+> `## R15 implemented solution` near the end of this file for the final fixes and verification
 > evidence. Earlier implementation records remain as revision history. The remaining instructions
 > in this block are retained as the historical R3 contract.
 >
@@ -24,7 +24,7 @@
 > compositions assembled into one `index.html` and rendered to MP4.
 >
 > - **`PROJECT_ROOT` = `/Users/sacino/embeddings/videos/embeddings-shopping-agent`**
-> - The current `renders/video.mp4` is the verified R14 master. The preserved rejected R3 master is
+> - The current `renders/video.mp4` is the verified R15 master. The preserved rejected R3 master is
 >   `renders/video-r3-rejected.mp4`; the preserved R2 master is `renders/video-r2-light.mp4`.
 > - `videos/` is gitignored. **Nothing under it may ever be staged or committed.**
 >
@@ -4743,6 +4743,100 @@ The standalone video contracts and this plan match the promoted R13 master. The 
 documents cover public-site service animations and marketing positioning, not this standalone
 video, so they require no change. The public site still has no video source reference and `videos/`
 remains gitignored. External publication remains outside this task.
+
+---
+
+## R15 implementation plan - exact pre-divider geometry and centred foundation
+
+**Status: completed on 2026-08-16.**
+
+### Reproduced problems
+
+1. The R14 source-only handoff assertion was wrong. Native encoded frame 779 ends with the
+   confirmation surface at y 338. Frame 780 starts the replacement surface at y 340. The header
+   and composer remain fixed, but the shopper message and confirmation move down two pixels before
+   any visible narrative event. A pixel crop comparison finds the best match at `dy: +2px` for both
+   message regions and `dy: 0px` for the header and composer.
+2. Frame 5 constrains the statement to a 950px left column at y 690 even though the lower canvas is
+   open. The plate stack also starts at x 120, so the upper argument reads left-heavy rather than as
+   one centred group beside the chat.
+
+### Approved implementation direction
+
+- Start Frame 4’s independently scaled message stack at `-738px`. This midpoint between the two
+  mismatched integer poses matches the painted Frame 3 landmarks. Do not move the stack again until
+  after the visible `3 days later` reveal begins.
+- Keep the chat scale and rendered width. Move its settled Frame 5 top from y 220 to y 190.
+- Move the three 850×120 plates to x 170 and y 270 / 426 / 582. This centres the combined plate and
+  chat group and increases the card gaps from 28px to 36px.
+- Rebuild the connector system from the new plate centres at y 330 / 486 / 642. Each plate-owned
+  branch must still reach the one shared rail before that rail grows towards another branch.
+- Set the statement to x 120, y 820, width 1680px, 52px type and 1.22 line height. Keep it as one
+  semantic paragraph with `text-wrap: balance` and no independently timed child lines.
+
+### Verification gates
+
+- A focused R15 regression must fail on the mismatched `-737px` and `-739px` poses and constrained
+  Frame 5 layout, then pass on the measured pose and new geometry.
+- The final candidate must match message landmarks across encoded frames 779 and 780 with zero
+  vertical offset. Inspect every encoded frame from 25.0 through 27.0 seconds at native resolution.
+- Inspect the complete Frame 5 reveal at native resolution. Confirm the upper group is centred, the
+  three plate gaps are equal, every connector touches, and the full statement is readable without
+  clipping or an orphaned final word.
+- Run the full HyperFrames check, root lint/build/tests, Studio checks at 1440×900 and 390×900, a
+  complete 1,800-frame decode and a full-film contact-sheet review before promoting the candidate.
+
+## R15 implemented solution
+
+### Root cause and correction
+
+Frame 3 and Frame 4 paint separate copies of the same chat at the 26-second cut. The header and
+composer already matched, but the independently scaled Frame 4 message stack opened at `-737px`.
+In the encoded film that put the confirmation surface at y 340 while Frame 3 ended at y 338. Moving
+the source to `-739px` over-corrected the encoded result to y 336. The exact rendered match is the
+midpoint, `-738px`. The message stack now opens there and remains fixed until the visible
+`3 days later` sequence starts.
+
+Frame 5 now treats the plates and chat as one centred upper group. The chat settles at y 190. The
+three 850×120 plates sit at x 170 and y 270 / 426 / 582, with equal 36px gaps. Plate branches start
+at each plate edge, meet one rail, and the rail joins the chat. The statement is one balanced
+paragraph at x 120, y 820 and width 1680px, so it uses the lower canvas instead of a narrow left
+column.
+
+### Files changed
+
+- `compositions/frames/04-three-days-later.html`: set the exact Frame 4 opening message-stack pose
+  and documented why the independently scaled stack needs the midpoint value.
+- `compositions/frames/05-underneath.html`: centred the upper foundation group, raised the chat,
+  rebuilt the connector geometry and expanded the statement across the full padded width.
+- `test/r15-pre-divider-and-foundation-layout.test.mjs`: added failing-first regressions for both
+  defects. The boundary test rejects `-737px` and `-739px`; the layout test pins the approved group,
+  connector and statement geometry.
+- Existing R8, R10, R11, R13 and R14 layout contracts, `scripts/verify-r3-source.mjs`,
+  `STORYBOARD.md`, `CHAT-SYSTEM.md` and `.hyperframes/frame-packets/05-underneath.md`: updated to
+  match the implemented R15 geometry and handoff contract.
+
+### Verification record
+
+- Final master: `renders/video.mp4`, SHA-256
+  `2e4ca6d54edb2d626d3b76a8b2d1f7e03349a7a941d68e6fbfcdc12570f5b837`.
+- Media contract: H.264 High, 1920×1080, yuv420p, BT.709, progressive, 30fps, exactly 60.000
+  seconds, exactly 1,800 frames and no audio stream.
+- Encoded boundary: frame 779 and frame 780 both place the confirmation surface at y 338. Header,
+  shopper message, confirmation and composer crops all match with `dy: 0px`. Frames 750 through
+  792 use one confirmation top value, y 338, until the intentional divider reveal.
+- Full HyperFrames `npm run check`: pass. HyperFrames reports zero errors, the source verifier has
+  zero failures and all 44 video tests pass. The 13 existing non-gating authoring warnings remain.
+- Root validation under Node v22.17.0: `npm run lint` passes with zero warnings and errors;
+  `npm run build` completes the static export; `npm test` passes all 118 tests.
+- Visual verification: all 1,800 encoded frames were losslessly decoded. All 300 labelled
+  six-frame sheets were inspected with no gaps or overlap. Native 1920×1080 boundary frames and
+  Frame 5 reveal/hold frames were also opened individually. No further spacing, padding, alignment,
+  clipping, connector, copy or transition defect was found.
+- HyperFrames Studio was checked at 1440×900 and 390×900. The rendered canvas remains contained and
+  the changed scenes have no page or console error. The Studio chrome retains its existing mobile
+  minimum width, which does not affect the film.
+- The candidate and promoted master are byte-identical.
 
 ---
 

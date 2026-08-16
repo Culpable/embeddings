@@ -33,6 +33,36 @@ function DesktopHeroDataFlowShell() {
   )
 }
 
+function FlowConnector({ label }) {
+  // Join two flow cards with a short labelled arrow so the mobile visual
+  // reads as one continuous diagram (catalogue feeds agent, agent answers
+  // customer) instead of three floating cards separated by bare lines.
+  return (
+    <div
+      className="flex flex-col items-center gap-0.5 py-0.5"
+      aria-hidden="true"
+    >
+      <span className="text-[0.6rem] font-medium uppercase tracking-[0.2em] text-neutral-400">
+        {label}
+      </span>
+      <svg
+        viewBox="0 0 12 12"
+        fill="none"
+        stroke="currentColor"
+        className="h-3 w-3 text-neutral-400"
+      >
+        <path
+          d="M2.5 4.5 6 8l3.5-3.5"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </div>
+  )
+}
+
+
 function MobileHeroDataFlow() {
   return (
     <div
@@ -40,37 +70,41 @@ function MobileHeroDataFlow() {
       role="img"
       aria-label="Enriched retail catalogue data powering the retailer’s own AI agent, which answers a customer in a branded chat and takes payment in the conversation."
     >
-      <div className="grid grid-cols-1 gap-3">
-        <div className="rounded-2xl border border-neutral-950/10 bg-white p-4 shadow-[0_1px_0_rgba(23,23,23,0.04)]">
-          <div className="flex items-center justify-between">
-            <p className="font-display text-xs font-semibold uppercase tracking-wider text-neutral-950">
-              Your catalogue
-            </p>
-            <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[0.65rem] font-medium text-emerald-700">
+      <div className="grid grid-cols-1 gap-2">
+        {/* Compact catalogue strip: the cause of the story gets one dense
+            row (thumbnail, promise line, enriched badge) so the customer
+            chat below keeps the majority of the visual's height. */}
+        <div className="rounded-2xl border border-neutral-950/10 bg-white p-3 shadow-[0_1px_0_rgba(23,23,23,0.04)]">
+          <div className="flex items-center gap-3">
+            <div
+              className="w-10 flex-none rounded-lg bg-blue-50 p-1.5"
+              aria-hidden="true"
+            >
+              <div className="h-5 rounded bg-white" />
+              <div className="mt-1 h-1 rounded bg-neutral-950/70" />
+              <div className="mt-0.5 h-1 w-5 rounded bg-neutral-950/35" />
+            </div>
+            <div className="min-w-0">
+              <p className="font-display text-xs font-semibold uppercase tracking-wider text-neutral-950">
+                Your catalogue
+              </p>
+              <p className="mt-0.5 truncate text-[0.7rem] text-neutral-500">
+                details · descriptions · live stock
+              </p>
+            </div>
+            <span className="ml-auto flex-none rounded-full bg-emerald-50 px-2 py-0.5 text-[0.65rem] font-medium text-emerald-700">
               enriched
             </span>
           </div>
-          <div className="mt-4 grid grid-cols-[4rem_1fr] gap-3">
-            <div className="rounded-xl bg-blue-50 p-2">
-              <div className="h-8 rounded-lg bg-white" />
-              <div className="mt-2 h-1.5 rounded bg-neutral-950/80" />
-              <div className="mt-1.5 h-1.5 w-10 rounded bg-neutral-950/45" />
-              <div className="mt-1.5 h-1.5 w-12 rounded bg-neutral-950/25" />
-            </div>
-            <div className="space-y-2 text-xs text-neutral-500">
-              <p>full product details</p>
-              <p>descriptions that sell</p>
-              <p>live stock levels</p>
-            </div>
-          </div>
         </div>
 
-        <div className="flex justify-center">
-          <div className="h-8 w-px bg-gradient-to-b from-blue-300 via-neutral-300 to-emerald-300" />
-        </div>
+        <FlowConnector label="feeds" />
 
-        <div className="rounded-2xl border border-neutral-950/10 bg-neutral-950 p-4 text-white shadow-xl">
-          <div className="flex items-center justify-between">
+        {/* Compact agent strip: title plus live indicator on the left and
+            capability chips on the right. flex-wrap lets the chips drop to a
+            second row on very narrow viewports without overflowing. */}
+        <div className="rounded-2xl border border-neutral-950/10 bg-neutral-950 p-3 text-white shadow-xl">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
             <p className="font-display text-xs font-semibold uppercase tracking-wider">
               Your agent
             </p>
@@ -78,60 +112,124 @@ function MobileHeroDataFlow() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300 opacity-60" />
               <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-300" />
             </span>
-          </div>
-          <div className="mt-4 grid grid-cols-3 gap-2 text-center text-[0.7rem] font-medium text-white/70">
-            <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
-              discover
-            </span>
-            <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
-              checkout
-            </span>
-            <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
-              support
+            <span className="ml-auto flex gap-1.5 text-[0.65rem] font-medium text-white/70">
+              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5">
+                discover
+              </span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5">
+                checkout
+              </span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5">
+                support
+              </span>
             </span>
           </div>
         </div>
 
-        <div className="flex justify-center">
-          <div className="h-8 w-px bg-gradient-to-b from-emerald-300 via-neutral-300 to-emerald-500" />
-        </div>
+        <FlowConnector label="answers" />
 
-        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 shadow-[0_1px_0_rgba(23,23,23,0.04)]">
-          <p className="font-display text-xs font-semibold uppercase tracking-wider text-neutral-950">
+        {/* Customer chat card: an emerald frame around a white chat panel.
+            The slim chrome header (traffic dots, retailer domain, brand chip)
+            is a miniature of AgentConversationShowcase's browser mockup, so
+            the hero teaches the same "chat on the retailer's own site" idiom
+            the showcase expands on further down the page. */}
+        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-3 shadow-[0_1px_0_rgba(23,23,23,0.04)]">
+          <p className="px-1 font-display text-xs font-semibold uppercase tracking-wider text-neutral-950">
             Your customer
           </p>
-          {/* Two-beat chat: the customer asks on the right, the retailer's
-              branded agent answers on the left, and the exchange ends in a
-              paid state. Bubble styling mirrors AgentConversationShowcase so
-              the chat idiom stays consistent across the site. */}
-          <div className="mt-4 space-y-2">
-            <div className="flex justify-end">
-              <p className="max-w-[85%] rounded-2xl rounded-br-md bg-neutral-950 px-3 py-2 text-xs leading-5 text-white">
-                <span className="sr-only">Customer: </span>
-                Wedding guest dress, size 10, under $200?
-              </p>
-            </div>
-            <div className="flex flex-col items-start gap-1">
-              <span
-                className="rounded-full bg-neutral-950 px-2.5 py-1 text-[0.65rem] font-semibold text-white"
-                aria-hidden="true"
-              >
-                your agent
+          <div className="mt-2.5 overflow-hidden rounded-xl border border-neutral-950/10 bg-white">
+            <div
+              className="flex items-center gap-2 border-b border-neutral-950/10 bg-neutral-50 px-3 py-2"
+              aria-hidden="true"
+            >
+              <span className="flex gap-1">
+                <span className="h-1.5 w-1.5 rounded-full bg-neutral-950/15" />
+                <span className="h-1.5 w-1.5 rounded-full bg-neutral-950/15" />
+                <span className="h-1.5 w-1.5 rounded-full bg-neutral-950/15" />
               </span>
-              <p className="max-w-[85%] rounded-2xl rounded-bl-md bg-white px-3 py-2 text-xs leading-5 text-neutral-600 shadow-sm">
-                <span className="sr-only">Your agent: </span>
-                Found it: Sapphire Blue Midi, size 10, in stock. Pay here in
-                the chat?
+              <span className="truncate rounded-full border border-neutral-950/10 bg-white px-2 py-0.5 text-[0.6rem] text-neutral-500">
+                yourstore.com.au
+              </span>
+              {/* White wordmark chip keeps the brand slot readable as site
+                  chrome: a black chip here reads as another dark speech
+                  bubble. The ✦ mark links the chip to the agent avatar in
+                  the thread below — one identity, two appearances. */}
+              <span className="ml-auto flex flex-none items-center gap-1 rounded-full border border-neutral-950/10 bg-white px-2 py-0.5 text-[0.6rem] font-semibold text-neutral-950">
+                <span className="text-[0.55rem]">✦</span>
+                your brand
+              </span>
+            </div>
+            {/* Three-beat thread: ask on the right, answer with catalogue
+                proof on the left, then a centred system line for the paid
+                state. Alignment and colour name the speakers for sighted
+                users; sr-only prefixes keep the exchange followable in
+                screen readers. Bubble colours mirror AgentConversationShowcase
+                (dark customer, neutral agent) so the chat idiom stays
+                consistent across the site. */}
+            <div className="space-y-2.5 p-3">
+              <div className="flex justify-end">
+                <p className="max-w-[75%] rounded-2xl rounded-br-sm bg-neutral-950 px-3 py-2 text-xs leading-5 text-white">
+                  <span className="sr-only">Customer: </span>
+                  Wedding guest dress, size 10, under $200?
+                </p>
+              </div>
+              <div className="flex items-end gap-1.5">
+                {/* Brand-dark avatar replaces the old "your agent" pill: the
+                    left-aligned bubble plus avatar reads as the agent without
+                    a third pseudo-speaker floating in the thread. */}
+                <span
+                  className="flex h-5 w-5 flex-none items-center justify-center rounded-full bg-neutral-950 text-[0.6rem] text-white"
+                  aria-hidden="true"
+                >
+                  ✦
+                </span>
+                <div className="max-w-[75%] rounded-2xl rounded-bl-sm bg-neutral-100 px-3 py-2 text-xs leading-5 text-neutral-700">
+                  <span className="sr-only">Your agent: </span>
+                  <p>Found it: in stock and in your size.</p>
+                  {/* Product row inside the reply shows enriched catalogue
+                      data doing the work, echoing the showcase's cards. */}
+                  <span className="mt-2 flex items-center gap-2 rounded-lg border border-neutral-950/10 bg-white p-1.5">
+                    <span
+                      className="h-8 w-6 flex-none rounded bg-gradient-to-b from-blue-500 to-indigo-600"
+                      aria-hidden="true"
+                    />
+                    <span className="min-w-0 text-[0.7rem] leading-4">
+                      <span className="block truncate font-semibold text-neutral-950">
+                        Sapphire Blue Midi
+                      </span>
+                      <span className="block truncate text-neutral-500">
+                        $189 · size 10 · in stock
+                      </span>
+                    </span>
+                  </span>
+                  <p className="mt-2">Pay here in the chat?</p>
+                </div>
+              </div>
+              {/* Centred status pill ends the conversation the way chat apps
+                  confirm delivery, styled in the same emerald badge family as
+                  the enriched badge and the showcase's paid state so payment
+                  reads as a system outcome, not another message. */}
+              <p className="flex justify-center pt-0.5">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[0.7rem] font-semibold text-emerald-700">
+                  <svg
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    stroke="currentColor"
+                    className="h-3 w-3"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M2.5 6.5 5 9l4.5-5"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  Paid · order confirmed
+                </span>
               </p>
             </div>
           </div>
-          <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-3 py-1 text-xs font-semibold text-emerald-700">
-            <span
-              className="h-2 w-2 rounded-full bg-emerald-500"
-              aria-hidden="true"
-            />
-            Paid · order confirmed
-          </p>
         </div>
       </div>
     </div>

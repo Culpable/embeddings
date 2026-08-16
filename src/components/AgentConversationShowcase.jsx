@@ -160,7 +160,11 @@ function ConversationStoryboard() {
         <span className="truncate rounded-full border border-neutral-950/10 bg-white px-3 py-1 text-[0.65rem] text-neutral-500">
           yourstore.com.au
         </span>
-        <span className="ml-auto rounded-full bg-neutral-950 px-2.5 py-1 text-[0.65rem] font-semibold text-white">
+        {/* White wordmark chip keeps the brand slot readable as site chrome:
+            a black chip here reads as another customer bubble. The ✦ mark
+            matches the hero's brand chip so the idiom stays consistent. */}
+        <span className="ml-auto flex items-center gap-1 rounded-full border border-neutral-950/10 bg-white px-2.5 py-1 text-[0.65rem] font-semibold text-neutral-950">
+          <span className="text-[0.6rem]">✦</span>
           your brand
         </span>
       </div>
@@ -247,8 +251,10 @@ function ControlStrip() {
           tone rule
         </p>
         <p className="mt-2 font-mono text-xs leading-6 text-white/85">
-          Always offer the in-store pickup option
-          <span className="agent-caret ml-0.5 inline-block h-4 w-px translate-y-0.5 bg-emerald-300 align-middle" />
+          Always offer the in-store pickup option.
+          {/* Size the caret in em units and drop it slightly below the baseline
+              so it tracks the text box instead of the line box. */}
+          <span className="agent-caret ml-0.5 inline-block h-[1em] w-px bg-emerald-300 align-[-0.15em]" />
         </p>
 
         <div className="mt-4 flex flex-wrap items-center gap-2">
