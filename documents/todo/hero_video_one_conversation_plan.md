@@ -1,17 +1,17 @@
-# Site Hero Video — "One Conversation" Plan ✅ **IMPLEMENTED**
+# Site Hero Video — "One Conversation" Plan ✅ **COMPLETED**
 
 <important_note>
 > # ▶ START HERE — read this entire block before opening any other file
 >
 > ## Current status
 >
-> **Revision R15 was completed on 2026-08-16.** It corrects the remaining two-pixel Frame 3 to
-> Frame 4 message-position mismatch that R14’s source-only assumption missed. It also rebuilds the
-> Frame 5 composition around a centred upper group and a full-width statement below it.
+> **Revision R17 was completed on 2026-08-16.** It keeps the completed purchase fixed while the
+> `3 days later` divider appears, then permits the conversation to move only when the later shopper
+> message begins using the space beneath that divider.
 >
-> The definitive master is the R15 `renders/video.mp4`, SHA-256
-> `2e4ca6d54edb2d626d3b76a8b2d1f7e03349a7a941d68e6fbfcdc12570f5b837`. Read
-> `## R15 implemented solution` near the end of this file for the final fixes and verification
+> The definitive master is the R17 `renders/video.mp4`, SHA-256
+> `222ae835a69d81e698ed09691348183e80250eba8b91a048df9324a9efc72c87`. Read
+> `## R17 implementation` near the end of this file for the final fix and verification
 > evidence. Earlier implementation records remain as revision history. The remaining instructions
 > in this block are retained as the historical R3 contract.
 >
@@ -24,7 +24,7 @@
 > compositions assembled into one `index.html` and rendered to MP4.
 >
 > - **`PROJECT_ROOT` = `/Users/sacino/embeddings/videos/embeddings-shopping-agent`**
-> - The current `renders/video.mp4` is the verified R15 master. The preserved rejected R3 master is
+> - The current `renders/video.mp4` is the verified R17 master. The preserved rejected R3 master is
 >   `renders/video-r3-rejected.mp4`; the preserved R2 master is `renders/video-r2-light.mp4`.
 > - `videos/` is gitignored. **Nothing under it may ever be staged or committed.**
 >
@@ -5010,3 +5010,124 @@ The standalone video contracts and this plan match the promoted R14 master. The 
 documents cover public-site service animations and marketing positioning, not this standalone
 video, so they require no change. The public site still has no video source reference and `videos/`
 remains gitignored. External publication remains outside this task.
+
+---
+
+## R16 implemented solution - eliminate the complete pre-divider jitter
+
+**Status: completed on 2026-08-16.**
+
+### Reproduced defect and why R15 missed it
+
+R15 compared selected chat landmarks at the 26-second cut. Those crops could report matching
+positions while the complete encoded image still changed. Exhaustive native-frame comparison found
+two separate mutations before the `3 days later` divider:
+
+1. Encoded frame 773 at 25.7667s changed 7,057 full-resolution pixels. Frame 3 ran a late
+   `will-change: auto` reset at local 8.75s, which rerasterised otherwise stationary text and edges.
+2. Encoded frame 780 at 26.0000s changed 25,029 full-resolution pixels. The master cut from Frame 3
+   to Frame 4’s independently rendered duplicate chat even though the time marker remained hidden
+   until frame 793.
+
+The user-visible symptom was therefore not one incorrect y-coordinate. It was a compositor reset
+followed by a premature scene replacement. Both changes lacked a narrative event and read as the
+whole video shifting before the time jump.
+
+### Implemented correction
+
+- `compositions/frames/03-checkout.html`: removed the late compositor reset and extended the root,
+  ground and world host duration from 9.0 to 9.42 seconds.
+- `index.html`: extended the Frame 3 host to 9.42 seconds and placed it at z-index 3 above Frame 4.
+  Frame 4 still starts at global 26.0s, but it initialises behind the unchanged outgoing scene.
+- `compositions/frames/04-three-days-later.html`: aligned the history opacity, cooler tint and day
+  divider starts at local 0.42s. Frame 3 ends at that same boundary, so the first scene replacement
+  is also the first visible narrative change.
+- `scripts/verify-r3-source.mjs`: added the overlap, z-index, duration and synchronised-start source
+  contract.
+- `test/r16-pre-divider-pixel-stability.test.mjs`: added a decoded-video regression over the full
+  1920×1080 image and a focused source-contract regression.
+- `STORYBOARD.md` and `CHAT-SYSTEM.md`: documented the protected hold and the encoded-frame gate.
+
+### Failing-first evidence
+
+- The initial encoded regression failed because frame 773 changed 7,057 pixels.
+- After only removing the compositor reset, it failed again because frame 780 changed 31,940 pixels
+  in the intermediate candidate. This independently proved the second cut defect.
+- After the overlap correction, both focused regressions pass.
+
+### Encoded acceptance gate
+
+- Compare every encoded frame from frame 750 through frame 792 with frame 750 using an RGB change
+  threshold of 5. Every frame must report zero changed pixels.
+- Frame 793 must be the first changed frame. Its visible change must be the faint entrance of the
+  `3 days later` divider.
+- Inspect frames 792 through 815 at native 1920×1080. The divider, history treatment and next shopper
+  message must reveal smoothly with no panel, header, confirmation, composer or background jump.
+- Run the complete HyperFrames check against the rendered candidate, compare all 1,800 frames with
+  the previous master, verify the 60-second media contract, then promote only the passing candidate.
+
+---
+
+## R17 implementation - anchor the completed purchase during the day-divider reveal
+
+**Status: completed on 2026-08-16.**
+
+### Reproduced defect
+
+The R16 gate correctly removed all unexplained movement before the `3 days later` reveal, but it
+allowed the complete Frame 3 DOM to be replaced by Frame 4 on the first divider frame. Native-frame
+alignment shows that this replacement moves the confirmation content up by two pixels and the
+shopper message down by one pixel while the divider appears. The divider itself does not need room
+from the content above it because the lower half of the chat is empty.
+
+### Required behaviour
+
+- Reveal `3 days later` in the existing empty space beneath the completed purchase.
+- Keep the header, shopper message, confirmation surface and composer fixed throughout the divider
+  entrance and reading hold.
+- Move the existing conversation upwards only when the later shopper message begins using the space
+  below the divider.
+- Prove the result against decoded 1920x1080 frames, not source timing or selected landmarks alone.
+
+### Validation gate
+
+- `test/r17-day-divider-anchor.test.mjs` must fail against the R16 master for the measured anchor
+  movement, then pass against the corrected candidate.
+- Encoded frames 792 through 822 must keep the shopper-message and confirmation anchors at a zero
+  vertical offset from frame 792 while the divider reveals and holds.
+- The intended later conversation movement may begin at encoded frame 823, after Frame 4 local time
+  reaches 1.4 seconds and the later chat starts consuming vertical space.
+
+### Implemented source correction
+
+- `compositions/frames/03-checkout.html`: added the shared `3 days later` divider to the existing
+  checkout message stack, revealed it at local 9.42s, and kept the root, ground and world clips alive
+  through local 10.42s.
+- `index.html`: kept Frame 3 above Frame 4 through encoded frame 822 so the completed purchase remains the
+  same painted DOM throughout the divider entrance and reading hold.
+- `compositions/frames/04-three-days-later.html`: aligned the next shopper-question entrance with
+  the existing upward stack movement at local 1.4s. The chat moves only when that later message
+  begins using the space beneath the divider.
+- `test/r17-day-divider-anchor.test.mjs`: added decoded-frame vertical-alignment checks over the
+  shopper message and confirmation, plus the source ownership and timing contract.
+- `scripts/verify-r3-source.mjs`, `STORYBOARD.md` and `CHAT-SYSTEM.md`: updated the source gate and
+  documented the handoff ownership rule.
+
+### Final encoded verification
+
+- The failing-first regression against the R16 master found 31,616 changed pixels outside the
+  divider region on encoded frame 793. This proved that the scene replacement moved existing chat
+  content while the divider entered.
+- The final R17 master keeps encoded frames 793 through 822 pixel-identical to frame 792 outside
+  the divider region. The header, shopper message, confirmation and composer all retain a zero-pixel
+  vertical offset throughout the divider entrance and hold.
+- Encoded frame 823 is the first permitted history change and the first frame that paints the later
+  shopper message. This ties the movement to new content rather than to the divider itself.
+- All 71 consecutive native frames from 780 through 850 were inspected in twelve labelled contact
+  sheets, with frames 822, 823 and 830 also inspected at native 1920x1080 resolution. No jump,
+  clipping, blank state or premature history movement remains.
+- The final master is exactly 1,800 frames, 1920x1080, 30 fps, 60.000 seconds, H.264/yuv420p and has
+  no audio stream. Its SHA-256 is
+  `222ae835a69d81e698ed09691348183e80250eba8b91a048df9324a9efc72c87`.
+- The source verifier, full HyperFrames check, all 49 video tests, root lint, static export build and
+  all 130 root tests pass.

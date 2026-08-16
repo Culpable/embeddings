@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 
+import { DressThumbnail } from '@/components/DressThumbnail'
 import { PaidOrderBadge } from '@/components/PaidOrderBadge'
 
 // Load the large desktop SVG only for viewports that can display it. This
@@ -191,9 +192,13 @@ function MobileHeroDataFlow() {
                   {/* Product row inside the reply shows enriched catalogue
                       data doing the work, echoing the showcase's cards. */}
                   <span className="mt-2 flex items-center gap-2 rounded-lg border border-neutral-950/10 bg-white p-1.5">
-                    <span
-                      className="h-8 w-6 flex-none rounded bg-gradient-to-b from-blue-500 to-indigo-600"
-                      aria-hidden="true"
+                    {/* Shared with the showcase cards via DressThumbnail so
+                        the sapphire dress looks identical in both demo
+                        chats. */}
+                    <DressThumbnail
+                      variant="sapphire"
+                      idPrefix="hero-chat"
+                      className="h-8 w-6 rounded"
                     />
                     <span className="min-w-0 text-[0.7rem] leading-4">
                       <span className="block truncate font-semibold text-neutral-950">

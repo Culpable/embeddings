@@ -18,6 +18,7 @@
 
 import clsx from 'clsx'
 
+import { DressThumbnail } from '@/components/DressThumbnail'
 import { NoiseOverlay } from '@/components/NoiseOverlay'
 import { PaidOrderBadge } from '@/components/PaidOrderBadge'
 
@@ -27,20 +28,23 @@ import { PaidOrderBadge } from '@/components/PaidOrderBadge'
 // site's fictional product universe stays coherent.
 // ---------------------------------------------------------------------------
 
+// Card prices drop the trailing .00 to keep the subtext light; the order
+// summary below keeps full cents ($189.00) so it lines up with the $9.95
+// delivery fee.
 const recommendedProducts = [
   {
     name: 'Sapphire Blue A-Line Midi Dress',
-    price: '$189.00',
+    price: '$189',
     detail: 'size 10 · in stock',
     gtin: '0614141123456',
-    swatch: 'from-blue-500 to-indigo-600',
+    dress: 'sapphire',
   },
   {
     name: 'Blush Crepe Wrap Midi Dress',
-    price: '$159.00',
+    price: '$159',
     detail: 'size 10 · 3 left',
     gtin: '0614141123791',
-    swatch: 'from-rose-300 to-rose-500',
+    dress: 'blush',
   },
 ]
 
@@ -146,18 +150,21 @@ function TimeDivider({ delay, children }) {
   )
 }
 
-function ProductCard({ name, price, detail, swatch }) {
+function ProductCard({ name, price, detail, dress }) {
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-neutral-950/10 bg-white p-2.5">
-      <div
-        className={`h-11 w-9 flex-none rounded-lg bg-gradient-to-b ${swatch}`}
-        aria-hidden="true"
+    <div className="flex items-center gap-3 rounded-xl border border-neutral-950/10 bg-white p-3">
+      <DressThumbnail
+        variant={dress}
+        idPrefix={`showcase-${dress}`}
+        className="h-11 w-9 rounded-lg"
       />
       <div className="min-w-0">
         <p className="text-xs font-semibold leading-snug text-neutral-950">
           {name}
         </p>
-        <p className="mt-0.5 text-xs text-neutral-500">
+        {/* mt-1 plus leading-5 opens up the gap under the title so the price
+            line reads as its own row rather than hugging the name. */}
+        <p className="mt-1 text-xs leading-5 text-neutral-500">
           {price} · {detail}
         </p>
       </div>
@@ -208,7 +215,7 @@ function ConversationStoryboard() {
         <AgentBeat delay={beatDelay(1)}>
           <p>
             Lovely occasion. These two suit an outdoor spring wedding, and both
-            are in your size right now.
+            are in your size right now:
           </p>
           <div className="mt-3 grid grid-cols-1 gap-2">
             {recommendedProducts.map((product) => (
@@ -217,12 +224,14 @@ function ConversationStoryboard() {
           </div>
         </AgentBeat>
 
+        {/* The customer asks for express delivery here so the $9.95 express
+            line in the order summary below reads as requested, not padded on. */}
         <CustomerBeat delay={beatDelay(2)}>
-          The sapphire one. Can I pay here?
+          The sapphire one, with express delivery please. Can I pay here?
         </CustomerBeat>
 
         <AgentBeat delay={beatDelay(3)}>
-          <p>Of course. Here’s your order.</p>
+          <p>Of course. Here’s your order:</p>
           <dl className="mt-3 space-y-1.5 rounded-xl border border-neutral-950/10 bg-white p-3 text-xs">
             <div className="flex justify-between gap-3">
               <dt className="text-neutral-500">Sapphire Blue A-Line Midi</dt>
