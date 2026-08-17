@@ -115,7 +115,7 @@ function Reveal({ delay, className, children }) {
 function CustomerBeat({ delay, children }) {
   return (
     <Reveal delay={delay} className="flex justify-end">
-      <p className="max-w-[85%] rounded-2xl rounded-br-md bg-neutral-950 px-4 py-2.5 text-sm leading-6 text-white">
+      <p className="max-w-[85%] rounded-2xl rounded-br-sm bg-neutral-950 px-4 py-2.5 text-sm leading-6 text-white">
         <span className="sr-only">Customer: </span>
         {children}
       </p>
@@ -125,8 +125,17 @@ function CustomerBeat({ delay, children }) {
 
 function AgentBeat({ delay, children }) {
   return (
-    <Reveal delay={delay} className="flex justify-start">
-      <div className="max-w-[92%] rounded-2xl rounded-bl-md bg-neutral-100 px-4 py-3 text-sm leading-6 text-neutral-700">
+    <Reveal delay={delay} className="flex items-end justify-start gap-2">
+      {/* Brand-dark ✦ avatar names the agent visually, matching the avatar
+          beside the agent bubble in the mobile hero chat so the agent carries
+          one identity across both demo conversations. */}
+      <span
+        className="flex h-6 w-6 flex-none items-center justify-center rounded-full bg-neutral-950 text-[0.65rem] text-white"
+        aria-hidden="true"
+      >
+        ✦
+      </span>
+      <div className="max-w-[92%] rounded-2xl rounded-bl-sm bg-neutral-100 px-4 py-3 text-sm leading-6 text-neutral-700">
         <span className="sr-only">Your agent: </span>
         {children}
       </div>
