@@ -996,7 +996,10 @@ export function DesktopHeroDataFlow() {
           <circle cx="748" cy="75" r="3" fill="#f59e0b" opacity="0.55" />
           <circle cx="758" cy="75" r="3" fill="#22c55e" opacity="0.55" />
 
-          {/* User message bubble — faint blue wash for raw input */}
+          {/* User message bubble — faint blue wash for raw input. The
+              customer asks about one specific product so the agent's
+              single-item "Found it" reply below is the exact answer to the
+              question, not one option among many. */}
           <rect
             x="760"
             y="100"
@@ -1012,7 +1015,7 @@ export function DesktopHeroDataFlow() {
             className="fill-neutral-950"
             style={{ fontSize: '8px', fontWeight: 500, opacity: 0.7 }}
           >
-            Wedding guest dress,
+            Do you have the Sapphire
           </text>
           <text
             x="770"
@@ -1020,7 +1023,7 @@ export function DesktopHeroDataFlow() {
             className="fill-neutral-950"
             style={{ fontSize: '8px', fontWeight: 500, opacity: 0.7 }}
           >
-            size 10, under $200?
+            Blue Midi in size 10?
           </text>
 
           {/* AI response — product recommendation */}

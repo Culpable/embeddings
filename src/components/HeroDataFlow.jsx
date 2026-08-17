@@ -104,25 +104,27 @@ function MobileHeroDataFlow() {
         <FlowConnector label="feeds" />
 
         {/* Compact agent strip: title plus live indicator on the left and
-            capability chips on the right. flex-wrap lets the chips drop to a
-            second row on very narrow viewports without overflowing. */}
+            capability chips on the right. The row is deliberately sized to
+            hold a single line on narrow phones: tight gaps, compact chip
+            padding, and nowrap chips keep title, pulse, and all three
+            capabilities on one row instead of wrapping. */}
         <div className="rounded-2xl border border-neutral-950/10 bg-neutral-950 p-3 text-white shadow-xl">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-            <p className="font-display text-xs font-semibold uppercase tracking-wider">
+          <div className="flex flex-nowrap items-center gap-x-2">
+            <p className="whitespace-nowrap font-display text-xs font-semibold uppercase tracking-wider">
               Your agent
             </p>
-            <span className="relative flex h-2.5 w-2.5">
+            <span className="relative flex h-2 w-2 flex-none">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300 opacity-60" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-300" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-300" />
             </span>
-            <span className="ml-auto flex gap-1.5 text-[0.65rem] font-medium text-white/70">
-              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5">
+            <span className="ml-auto flex gap-1 text-[0.6rem] font-medium text-white/70">
+              <span className="whitespace-nowrap rounded-full border border-white/10 bg-white/5 px-1.5 py-0.5">
                 discover
               </span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5">
+              <span className="whitespace-nowrap rounded-full border border-white/10 bg-white/5 px-1.5 py-0.5">
                 checkout
               </span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5">
+              <span className="whitespace-nowrap rounded-full border border-white/10 bg-white/5 px-1.5 py-0.5">
                 support
               </span>
             </span>
@@ -173,7 +175,7 @@ function MobileHeroDataFlow() {
               <div className="flex justify-end">
                 <p className="max-w-[75%] rounded-2xl rounded-br-sm bg-neutral-950 px-3 py-2 text-xs leading-5 text-white">
                   <span className="sr-only">Customer: </span>
-                  Wedding guest dress, size 10, under $200?
+                  Do you have the Sapphire Blue Midi in size 10?
                 </p>
               </div>
               <div className="flex items-end gap-1.5">
