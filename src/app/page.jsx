@@ -592,17 +592,11 @@ export default function Home() {
           }}
           dark
         >
-          We knew agentic shopping was coming but had no idea where to start.
-          Embeddings{' '}
+          We had no idea where to start with agentic shopping. Embeddings{' '}
           <span className="underline decoration-white/30 decoration-2 underline-offset-4">
-            audited our entire product catalogue in days
+            audited our catalogue in days
           </span>{' '}
-          and showed us exactly where we were falling short &mdash; missing
-          descriptions, stale inventory data, zero trend alignment. Their{' '}
-          <span className="underline decoration-white/30 decoration-2 underline-offset-4">
-            enrichment pipeline
-          </span>{' '}
-          transformed our catalogue from a static spreadsheet into a{' '}
+          and transformed it from a static spreadsheet into a{' '}
           <span className="underline decoration-white/30 decoration-2 underline-offset-4">
             living, AI-ready asset.
           </span>
