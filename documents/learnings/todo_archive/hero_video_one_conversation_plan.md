@@ -1,5 +1,7 @@
 # Site Hero Video — "One Conversation" Plan ✅ **COMPLETED**
 
+> **Implemented status (verified 2026-08-23):** Implemented and ready to archive from documents/todo. Evidence: `videos/embeddings-shopping-agent/renders/video.mp4`, `videos/embeddings-shopping-agent/STORYBOARD.md`, `videos/embeddings-shopping-agent/CHAT-SYSTEM.md`, `npm run check` (49 video tests passed), and the root `npm run lint`, `npm run build`, and `npm test` validations.
+
 <important_note>
 > # ▶ START HERE — read this entire block before opening any other file
 >
