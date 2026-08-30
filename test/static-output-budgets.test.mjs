@@ -10,6 +10,7 @@ test('static budget checker enforces route and asset ceilings', () => {
     'cssGzip > 15000',
     'htmlGzip > 40000',
     '220 * 1024',
+    'fontPaths',
     'fontBytes > 100000',
     "profileName === 'mobile' ? 90000 : 150000",
     'fullSessionBytes > 300000',

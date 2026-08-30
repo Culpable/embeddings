@@ -23,7 +23,7 @@ export default function Layout({ children }) {
         <link rel="describedby" href="/llms.txt" type="text/plain" />
         <link
           rel="preload"
-          href="/fonts/Mona-Sans-latin.var.woff2"
+          href="/fonts/Mona-Sans-display-latin.var.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"

@@ -40,7 +40,7 @@ module.exports = {
       fontFamily: {
         sans: ['Mona Sans', 'Mona Sans Fallback', ...defaultTheme.fontFamily.sans],
         display: [
-          ['Mona Sans', 'Mona Sans Fallback', ...defaultTheme.fontFamily.sans],
+          ['Mona Sans Display', 'Mona Sans Fallback', ...defaultTheme.fontFamily.sans],
           { fontVariationSettings: '"wdth" 125' },
         ],
       },

@@ -7,9 +7,19 @@ import { fileURLToPath } from 'node:url'
 const repositoryRoot = resolve(fileURLToPath(new URL('..', import.meta.url)))
 const inputPath = resolve(repositoryRoot, 'src/fonts/Mona-Sans.var.woff2')
 const outputDirectory = resolve(repositoryRoot, 'public/fonts')
-const outputPath = resolve(outputDirectory, 'Mona-Sans-latin.var.woff2')
 const temporaryDirectory = mkdtempSync(join(tmpdir(), 'embeddings-font-'))
-const rangedFontPath = resolve(temporaryDirectory, 'Mona-Sans-ranged.ttf')
+const fontVariants = [
+  {
+    label: 'body',
+    width: 100,
+    outputPath: resolve(outputDirectory, 'Mona-Sans-body-latin.var.woff2'),
+  },
+  {
+    label: 'display',
+    width: 125,
+    outputPath: resolve(outputDirectory, 'Mona-Sans-display-latin.var.woff2'),
+  },
+]
 const unicodeRanges = [
   'U+0000-007F',
   'U+0080-00FF',
@@ -37,46 +47,53 @@ function runFontTool(args) {
 }
 
 try {
-  // Remove the unused italic axis and restrict weight and width to the values
-  // used by the live site before subsetting glyphs. This keeps the variable
-  // font behaviour while removing variation data that browsers never request.
-  runFontTool([
-    '--from',
-    'fonttools==4.63.0',
-    '--with',
-    'brotli==1.1.0',
-    'fonttools',
-    'varLib.instancer',
-    inputPath,
-    'ital=0',
-    'wght=400:700',
-    'wdth=100:125',
-    '-o',
-    rangedFontPath,
-    '--no-recalc-timestamp',
-  ])
+  for (const variant of fontVariants) {
+    const rangedFontPath = resolve(
+      temporaryDirectory,
+      `Mona-Sans-${variant.label}-ranged.ttf`,
+    )
 
-  runFontTool([
-    '--from',
-    'fonttools==4.63.0',
-    '--with',
-    'brotli==1.1.0',
-    'pyftsubset',
-    rangedFontPath,
-    `--output-file=${outputPath}`,
-    '--flavor=woff2',
-    `--unicodes=${unicodeRanges}`,
-    '--layout-features=kern,liga,calt,case',
-    '--name-IDs=0,1,2,3,4,5,6,17',
-    '--name-languages=0x409',
-    '--notdef-glyph',
-    '--recommended-glyphs',
-    '--no-hinting',
-    '--drop-tables=',
-  ])
+    // Remove the unused italic and width axes, then restrict weight to the
+    // live range. Keep each rendered width exact so the critical display face
+    // remains small without changing the established typography.
+    runFontTool([
+      '--from',
+      'fonttools==4.63.0',
+      '--with',
+      'brotli==1.1.0',
+      'fonttools',
+      'varLib.instancer',
+      inputPath,
+      'ital=0',
+      'wght=400:700',
+      `wdth=${variant.width}`,
+      '-o',
+      rangedFontPath,
+      '--no-recalc-timestamp',
+    ])
+
+    runFontTool([
+      '--from',
+      'fonttools==4.63.0',
+      '--with',
+      'brotli==1.1.0',
+      'pyftsubset',
+      rangedFontPath,
+      `--output-file=${variant.outputPath}`,
+      '--flavor=woff2',
+      `--unicodes=${unicodeRanges}`,
+      '--layout-features=kern,liga,calt,case',
+      '--name-IDs=0,1,2,3,4,5,6,17',
+      '--name-languages=0x409',
+      '--notdef-glyph',
+      '--recommended-glyphs',
+      '--no-hinting',
+      '--drop-tables=',
+    ])
+
+    console.log(`Generated ${variant.outputPath}`)
+  }
 } finally {
   // Remove only the task-specific disposable font workspace.
   rmSync(temporaryDirectory, { recursive: true, force: true })
 }
-
-console.log(`Generated ${outputPath}`)

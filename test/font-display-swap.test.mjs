@@ -6,7 +6,7 @@ import { resolve } from 'node:path'
 const baseCssPath = resolve(process.cwd(), 'src/styles/base.css')
 const layoutPath = resolve(process.cwd(), 'src/app/layout.jsx')
 
-test('local display font uses swap instead of blocking text paint', () => {
+test('local body and display fonts use swap instead of blocking text paint', () => {
   // Require visible fallback text while Mona Sans downloads.
   const source = readFileSync(baseCssPath, 'utf8')
 
@@ -24,17 +24,23 @@ test('local display font uses swap instead of blocking text paint', () => {
 
   assert.match(
     source,
-    /url\('\/fonts\/Mona-Sans-latin\.var\.woff2'\)/u,
-    'Expected Mona Sans to use the stable public font URL',
+    /url\('\/fonts\/Mona-Sans-body-latin\.var\.woff2'\)/u,
+    'Expected Mona Sans body text to use the stable public font URL',
+  )
+  assert.match(
+    source,
+    /url\('\/fonts\/Mona-Sans-display-latin\.var\.woff2'\)/u,
+    'Expected Mona Sans display text to use the stable public font URL',
   )
   assert.match(source, /font-weight:\s*400 700;/u)
-  assert.match(source, /font-stretch:\s*100% 125%;/u)
+  assert.match(source, /font-stretch:\s*100%;/u)
+  assert.match(source, /font-stretch:\s*125%;/u)
 
   const layout = readFileSync(layoutPath, 'utf8')
   assert.match(
     layout,
-    /rel="preload"[\s\S]*href="\/fonts\/Mona-Sans-latin\.var\.woff2"[\s\S]*as="font"/u,
-    'Expected the shared layout to preload the LCP font',
+    /rel="preload"[\s\S]*href="\/fonts\/Mona-Sans-display-latin\.var\.woff2"[\s\S]*as="font"/u,
+    'Expected the shared layout to preload only the LCP display font',
   )
 })
 

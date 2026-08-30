@@ -5,8 +5,17 @@
   font-weight: 400 700;
   font-display: swap;
   font-style: normal;
-  font-stretch: 100% 125%;
-  src: url('/fonts/Mona-Sans-latin.var.woff2') format('woff2');
+  font-stretch: 100%;
+  src: url('/fonts/Mona-Sans-body-latin.var.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Mona Sans Display';
+  font-weight: 400 700;
+  font-display: swap;
+  font-style: normal;
+  font-stretch: 125%;
+  src: url('/fonts/Mona-Sans-display-latin.var.woff2') format('woff2');
 }
 
 @font-face {
