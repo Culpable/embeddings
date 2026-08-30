@@ -5,6 +5,7 @@ import { resolve } from 'node:path'
 
 const baseCssPath = resolve(process.cwd(), 'src/styles/base.css')
 const layoutPath = resolve(process.cwd(), 'src/app/layout.jsx')
+const pageIntroPath = resolve(process.cwd(), 'src/components/PageIntro.jsx')
 
 test('local body and display fonts use swap instead of blocking text paint', () => {
   // Require visible fallback text while Mona Sans downloads.
@@ -42,10 +43,17 @@ test('local body and display fonts use swap instead of blocking text paint', () 
     /rel="preload"[\s\S]*href="\/fonts\/Mona-Sans-display-latin\.var\.woff2"[\s\S]*as="font"/u,
     'Expected the shared layout to preload the display font',
   )
-  assert.match(
+  assert.doesNotMatch(
     layout,
-    /rel="preload"[\s\S]*href="\/fonts\/Mona-Sans-body-latin\.var\.woff2"[\s\S]*as="font"/u,
-    'Expected the shared layout to preload the body font',
+    /href="\/fonts\/Mona-Sans-body-latin\.var\.woff2"/u,
+    'Did not expect the homepage layout to preload the body font',
+  )
+
+  const pageIntro = readFileSync(pageIntroPath, 'utf8')
+  assert.match(
+    pageIntro,
+    /preload\('\/fonts\/Mona-Sans-body-latin\.var\.woff2',[\s\S]*as: 'font'/u,
+    'Expected content route introductions to preload the body font',
   )
 })
 

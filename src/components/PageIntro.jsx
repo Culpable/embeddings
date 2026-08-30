@@ -1,9 +1,18 @@
 import clsx from 'clsx'
+import { preload } from 'react-dom'
 
 import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
 
 export function PageIntro({ eyebrow, title, children, centered = false }) {
+  // Preload body copy only on routes that render this introduction. Keep the
+  // homepage display font as its sole critical font request.
+  preload('/fonts/Mona-Sans-body-latin.var.woff2', {
+    as: 'font',
+    type: 'font/woff2',
+    crossOrigin: 'anonymous',
+  })
+
   return (
     <Container
       className={clsx('mt-24 sm:mt-32 lg:mt-40', centered && 'text-center')}

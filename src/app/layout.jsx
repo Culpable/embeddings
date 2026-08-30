@@ -28,13 +28,6 @@ export default function Layout({ children }) {
           type="font/woff2"
           crossOrigin="anonymous"
         />
-        <link
-          rel="preload"
-          href="/fonts/Mona-Sans-body-latin.var.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
       </head>
       {/* Suppress hydration mismatch warnings when browser extensions inject transient body attributes. */}
       <body
