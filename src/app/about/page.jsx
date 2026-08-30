@@ -49,7 +49,7 @@ function IntroProofBand() {
           key={label}
           className="surface-elevation-light rounded-2xl bg-white/80 px-4 py-4"
         >
-          <p className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
+          <p className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
             {label}
           </p>
           <p className="mt-2 font-display text-lg font-medium tracking-tight text-neutral-950">
@@ -92,7 +92,7 @@ function ProofLedger() {
                   key={label}
                   className="surface-elevation-dark rounded-2xl bg-white/[0.04] px-4 py-4"
                 >
-                  <p className="text-xs font-semibold uppercase tracking-wider text-white/40">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-white/45">
                     {label}
                   </p>
                   <p className="mt-2 font-display text-xl font-medium tracking-tight text-white">
@@ -145,7 +145,7 @@ function Culture() {
                     />
 
                     {/* Ordinal index */}
-                    <span className="block font-display text-sm font-semibold tracking-widest text-white/40">
+                    <span className="block font-display text-sm font-semibold tracking-widest text-white/50">
                       {index}
                     </span>
 

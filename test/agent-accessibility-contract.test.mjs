@@ -14,6 +14,7 @@ const catalogueTransformation = readFileSync(
   'src/components/CatalogueTransformation.jsx',
   'utf8',
 )
+const aboutPage = readFileSync('src/app/about/page.jsx', 'utf8')
 
 test('navigation and footer relationships target mounted labelled content', () => {
   assert.match(navigation, /panelId=\{panelMounted \? `\$\{panelId\}-panel` : undefined\}/u)
@@ -34,6 +35,23 @@ test('catalogue comparison uses logical headings and readable small text', () =>
   assert.doesNotMatch(catalogueTransformation, /text-neutral-400/u)
   assert.match(catalogueTransformation, /text-red-600/u)
   assert.match(catalogueTransformation, /text-emerald-700/u)
+})
+
+test('about page uses readable proof and principle labels', () => {
+  assert.match(
+    aboutPage,
+    /text-xs font-semibold uppercase tracking-wider text-neutral-500/u,
+  )
+  assert.match(
+    aboutPage,
+    /text-xs font-semibold uppercase tracking-wider text-white\/45/u,
+  )
+  assert.match(
+    aboutPage,
+    /text-sm font-semibold tracking-widest text-white\/50/u,
+  )
+  assert.doesNotMatch(aboutPage, /tracking-wider text-white\/40/u)
+  assert.doesNotMatch(aboutPage, /tracking-widest text-white\/40/u)
 })
 
 test('contact form retains native validation and exposes a manual WebMCP tool', () => {

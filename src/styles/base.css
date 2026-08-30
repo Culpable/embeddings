@@ -2,10 +2,10 @@
 
 @font-face {
   font-family: 'Mona Sans';
-  font-weight: 200 900;
+  font-weight: 400 700;
   font-display: swap;
   font-style: normal;
-  font-stretch: 75% 125%;
+  font-stretch: 100% 125%;
   src: url('/fonts/Mona-Sans-latin.var.woff2') format('woff2');
 }
 

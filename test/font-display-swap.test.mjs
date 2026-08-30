@@ -27,6 +27,8 @@ test('local display font uses swap instead of blocking text paint', () => {
     /url\('\/fonts\/Mona-Sans-latin\.var\.woff2'\)/u,
     'Expected Mona Sans to use the stable public font URL',
   )
+  assert.match(source, /font-weight:\s*400 700;/u)
+  assert.match(source, /font-stretch:\s*100% 125%;/u)
 
   const layout = readFileSync(layoutPath, 'utf8')
   assert.match(
