@@ -40,7 +40,12 @@ test('local body and display fonts use swap instead of blocking text paint', () 
   assert.match(
     layout,
     /rel="preload"[\s\S]*href="\/fonts\/Mona-Sans-display-latin\.var\.woff2"[\s\S]*as="font"/u,
-    'Expected the shared layout to preload only the LCP display font',
+    'Expected the shared layout to preload the display font',
+  )
+  assert.match(
+    layout,
+    /rel="preload"[\s\S]*href="\/fonts\/Mona-Sans-body-latin\.var\.woff2"[\s\S]*as="font"/u,
+    'Expected the shared layout to preload the body font',
   )
 })
 
