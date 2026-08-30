@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-import { AnimatePresence, motion } from 'framer-motion'
 
 // Reserve the toggle's layout footprint in one place. The button pulls its own
 // padding back with `-m-2.5 p-2.5`, so the 44px hit area overflows the flex row
@@ -7,30 +6,6 @@ import { AnimatePresence, motion } from 'framer-motion'
 // the toggle (the navigation panel header) must use the same box, otherwise the
 // neighbouring "Contact us" button shifts sideways when the panel opens.
 export const navigationButtonFootprintClassName = 'h-6 w-6'
-
-const iconMotion = {
-  initial: {
-    opacity: 0,
-    scale: 0.25,
-    filter: 'blur(4px)',
-  },
-  animate: {
-    opacity: 1,
-    scale: 1,
-    filter: 'blur(0px)',
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.25,
-    filter: 'blur(4px)',
-  },
-}
-
-const iconTransition = {
-  type: 'spring',
-  duration: 0.3,
-  bounce: 0,
-}
 
 function XIcon(props) {
   return (
@@ -57,15 +32,13 @@ export function NavigationButton({
   invert = false,
   className,
 }) {
-  const Icon = expanded ? XIcon : MenuIcon
-
   return (
     <button
       ref={toggleRef}
       type="button"
       onClick={onToggle}
       aria-expanded={expanded ? 'true' : 'false'}
-      aria-controls={panelId}
+      aria-controls={panelId || undefined}
       className={clsx(
         className,
         'group -m-2.5 rounded-full p-2.5 transition-[transform,background-color,box-shadow] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-4 active:scale-[0.96]',
@@ -78,26 +51,31 @@ export function NavigationButton({
       <span
         className={clsx('relative block', navigationButtonFootprintClassName)}
       >
-        <AnimatePresence initial={false}>
-          <motion.span
-            key={expanded ? 'close' : 'menu'}
-            className="absolute inset-0"
-            variants={iconMotion}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            transition={iconTransition}
-          >
-            <Icon
+        {[MenuIcon, XIcon].map((Icon, index) => {
+          const visible = expanded ? index === 1 : index === 0
+
+          return (
+            <span
+              key={index === 0 ? 'menu' : 'close'}
               className={clsx(
-                'h-6 w-6 transition-[fill] duration-200',
-                invert
-                  ? 'fill-white group-hover:fill-neutral-200'
-                  : 'fill-neutral-950 group-hover:fill-neutral-700',
+                'absolute inset-0 transition-[opacity,transform,filter,visibility] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]',
+                visible
+                  ? 'visible scale-100 opacity-100 blur-0'
+                  : 'invisible scale-25 opacity-0 blur-[4px]',
               )}
-            />
-          </motion.span>
-        </AnimatePresence>
+              aria-hidden="true"
+            >
+              <Icon
+                className={clsx(
+                  'h-6 w-6 transition-[fill] duration-200',
+                  invert
+                    ? 'fill-white group-hover:fill-neutral-200'
+                    : 'fill-neutral-950 group-hover:fill-neutral-700',
+                )}
+              />
+            </span>
+          )
+        })}
       </span>
     </button>
   )

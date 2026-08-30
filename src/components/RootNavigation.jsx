@@ -44,7 +44,7 @@ export function RootNavigation() {
       aria-label={panelMounted ? 'Site navigation' : undefined}
     >
       <NavigationButton
-        panelId={`${panelId}-panel`}
+        panelId={panelMounted ? `${panelId}-panel` : undefined}
         toggleRef={toggleRef}
         expanded={expanded}
         invert={panelMounted}

@@ -3,11 +3,9 @@ import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
 import Link from 'next/link'
 import { PageIntro } from '@/components/PageIntro'
+import { buildPageMetadata } from '@/lib/metadata'
 
-export const metadata = {
-  title: 'Thank You',
-  description: 'Confirmation that Embeddings received your business enquiry.',
-}
+export const metadata = buildPageMetadata('thankYou')
 
 export default function ThankYou() {
   return (

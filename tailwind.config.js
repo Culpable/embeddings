@@ -38,9 +38,9 @@ module.exports = {
         shimmerBorder: 'shimmerBorder 1.5s ease-in-out infinite',
       },
       fontFamily: {
-        sans: ['Mona Sans', ...defaultTheme.fontFamily.sans],
+        sans: ['Mona Sans', 'Mona Sans Fallback', ...defaultTheme.fontFamily.sans],
         display: [
-          ['Mona Sans', ...defaultTheme.fontFamily.sans],
+          ['Mona Sans', 'Mona Sans Fallback', ...defaultTheme.fontFamily.sans],
           { fontVariationSettings: '"wdth" 125' },
         ],
       },

@@ -1,11 +1,14 @@
 const isDevelopment = process.env.NODE_ENV === 'development'
 const trackedPageViews = new Set()
+const pendingPageViews = new Set()
 const initialPagePath = typeof window === 'undefined' ? null : getPagePath()
 const analyticsStartEvents = ['pointerdown', 'keydown', 'scroll']
 const patchedHistoryMethods = new Set()
+const pendingAnalyticsEvents = []
 let analyticsClient = null
 let analyticsClientPromise = null
 let analyticsStarted = false
+let analyticsStartScheduled = false
 let removeAnalyticsStartTriggers = () => {}
 
 function scheduleWhenIdle(callback) {
@@ -37,11 +40,18 @@ function loadAnalyticsClient() {
 }
 
 function trackPageView(page = getPagePath()) {
-  if (isDevelopment || typeof window === 'undefined' || !analyticsClient) {
+  if (isDevelopment || typeof window === 'undefined') {
     return
   }
 
-  if (trackedPageViews.has(page)) {
+  if (trackedPageViews.has(page) || pendingPageViews.has(page)) {
+    return
+  }
+
+  // Preserve route changes that happen while the deferred analytics module is
+  // loading. Flush every distinct path after Mixpanel becomes ready.
+  if (!analyticsClient) {
+    pendingPageViews.add(page)
     return
   }
 
@@ -54,6 +64,44 @@ function trackPageView(page = getPagePath()) {
       timestamp: new Date().toISOString(),
     })
   })
+}
+
+
+function flushPendingPageViews() {
+  const pages = Array.from(pendingPageViews)
+
+  pendingPageViews.clear()
+
+  for (const page of pages) {
+    trackPageView(page)
+  }
+}
+
+
+function flushPendingAnalyticsEvents() {
+  if (!analyticsClient) return
+
+  for (const { eventName, properties } of pendingAnalyticsEvents.splice(0)) {
+    analyticsClient.track(eventName, properties)
+  }
+}
+
+
+function handleAnalyticsEvent(event) {
+  const eventName = event.detail?.eventName
+
+  if (typeof eventName !== 'string' || eventName.length === 0) return
+
+  pendingAnalyticsEvents.push({
+    eventName,
+    properties: event.detail?.properties ?? {},
+  })
+  requestAnalyticsStart()
+}
+
+
+function trackCurrentPageView() {
+  trackPageView()
 }
 
 async function initialiseAnalytics() {
@@ -78,15 +126,15 @@ async function initialiseAnalytics() {
       return
     }
 
+    flushPendingPageViews()
+    flushPendingAnalyticsEvents()
+
     // Load referral attribution only after analytics is ready so the classifier
     // stays out of the initial client route work.
     const { initReferralTracking } = await import('@/lib/referralTracking')
 
-    initReferralTracking()
+    initReferralTracking(analyticsClient)
 
-    if (initialPagePath) {
-      trackPageView(initialPagePath)
-    }
   } catch (error) {
     console.error('Analytics initialisation failed:', error)
   }
@@ -114,8 +162,8 @@ function startNavigationTracking() {
   patchHistoryMethod('pushState')
   patchHistoryMethod('replaceState')
 
-  window.addEventListener('popstate', trackPageView, { passive: true })
-  window.addEventListener('embeddings:navigation', trackPageView)
+  window.addEventListener('popstate', trackCurrentPageView, { passive: true })
+  window.addEventListener('embeddings:navigation', trackCurrentPageView)
 }
 
 function startAnalytics() {
@@ -126,24 +174,32 @@ function startAnalytics() {
   analyticsStarted = true
   removeAnalyticsStartTriggers()
 
-  void initialiseAnalytics().then(() => {
-    if (isDevelopment || !analyticsClient) {
-      return
-    }
+  void initialiseAnalytics()
+}
 
-    startNavigationTracking()
+function requestAnalyticsStart() {
+  if (analyticsStarted || analyticsStartScheduled) {
+    return
+  }
+
+  analyticsStartScheduled = true
+
+  scheduleWhenIdle(() => {
+    analyticsStartScheduled = false
+    startAnalytics()
   })
 }
 
+
 function scheduleAnalyticsStart() {
   if (isDevelopment) {
-    return scheduleWhenIdle(startAnalytics)
+    return scheduleWhenIdle(requestAnalyticsStart)
   }
 
-  const fallbackId = window.setTimeout(startAnalytics, 12000)
+  const fallbackId = window.setTimeout(requestAnalyticsStart, 12000)
 
   for (const eventName of analyticsStartEvents) {
-    window.addEventListener(eventName, startAnalytics, {
+    window.addEventListener(eventName, requestAnalyticsStart, {
       once: true,
       passive: eventName !== 'keydown',
     })
@@ -153,11 +209,20 @@ function scheduleAnalyticsStart() {
     window.clearTimeout(fallbackId)
 
     for (const eventName of analyticsStartEvents) {
-      window.removeEventListener(eventName, startAnalytics)
+      window.removeEventListener(eventName, requestAnalyticsStart)
     }
   }
 }
 
 if (typeof window !== 'undefined') {
+  // Observe navigation immediately so the first route change cannot occur
+  // before history is patched during the deferred analytics start.
+  startNavigationTracking()
+
+  if (initialPagePath) {
+    trackPageView(initialPagePath)
+  }
+
+  window.addEventListener('embeddings:analytics-event', handleAnalyticsEvent)
   removeAnalyticsStartTriggers = scheduleAnalyticsStart()
 }

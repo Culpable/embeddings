@@ -31,7 +31,7 @@ test('process page prioritises the first visual after the intro', () => {
 
   assert.match(
     source,
-    /image=\{\{ src: imageWhiteboard, priority: true \}\}/,
+    /image=\{\{[\s\S]*?image:\s*processImages\.whiteboard,[\s\S]*?priority:\s*true,[\s\S]*?\}\}/u,
     'Expected the first process section image to be marked priority',
   )
 })

@@ -2,55 +2,24 @@
 
 import { useEffect, useId, useRef, useState } from 'react'
 import clsx from 'clsx'
-import { AnimatePresence, motion } from 'framer-motion'
 import { Button } from '@/components/Button'
 import { FadeIn } from '@/components/FadeIn'
+import { TransitionPresence } from '@/components/TransitionPresence'
 
 const FIELD_ERROR_STAGGER_SECONDS = 0.09
 
-const contextualPanelVariants = {
-  initial: {
-    opacity: 0,
-    y: 12,
-    filter: 'blur(4px)',
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
-  },
-  exit: {
-    opacity: 0,
-    y: -12,
-    filter: 'blur(4px)',
-    transition: { duration: 0.15, ease: [0.4, 0, 1, 1] },
-  },
-}
-
-const contextualIconVariants = {
-  initial: {
-    opacity: 0,
-    scale: 0.25,
-    filter: 'blur(4px)',
-  },
-  animate: {
-    opacity: 1,
-    scale: 1,
-    filter: 'blur(0px)',
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.25,
-    filter: 'blur(4px)',
-  },
-}
-
-const contextualIconTransition = {
-  type: 'spring',
-  duration: 0.3,
-  bounce: 0,
-}
+const panelEnterClassName =
+  'animate-[contact-panel-enter_300ms_cubic-bezier(0.22,1,0.36,1)_both]'
+const panelExitClassName =
+  'animate-[contact-panel-exit_150ms_cubic-bezier(0.4,0,1,1)_both]'
+const fieldEnterClassName =
+  'animate-[contact-field-enter_300ms_ease-out_both]'
+const fieldExitClassName =
+  'animate-[contact-field-exit_150ms_ease-in_both]'
+const iconEnterClassName =
+  'animate-[contact-icon-enter_300ms_cubic-bezier(0.22,1,0.36,1)_both]'
+const iconExitClassName =
+  'animate-[contact-icon-exit_150ms_cubic-bezier(0.4,0,1,1)_both]'
 
 const budgetRanges = [
   {
@@ -119,21 +88,19 @@ function validateFormData(formData) {
 
 
 function trackContactEvent(eventName, properties) {
-  // Load analytics only after a visitor interacts with the form, keeping the
-  // contact route’s first client chunk focused on validation and submission UI.
-  void import('@/lib/mixpanelClient')
-    .then(({ track }) => {
-      track(eventName, properties)
-    })
-    .catch((error) => {
-      if (process.env.NODE_ENV === 'development') {
-        console.warn('Contact analytics failed to load:', error)
-      }
-    })
+  // Ask the shared instrumentation entry to start analytics after form intent.
+  // This avoids compiling a second copy of the Mixpanel payload for this route.
+  window.dispatchEvent(
+    new CustomEvent('embeddings:analytics-event', {
+      detail: { eventName, properties },
+    }),
+  )
 }
 
 
 function focusFirstInvalidField(form, fieldName) {
+  if (!form) return
+
   const field = form.elements.namedItem(fieldName)
 
   if (field instanceof HTMLElement) {
@@ -144,7 +111,7 @@ function focusFirstInvalidField(form, fieldName) {
   field?.[0]?.focus()
 }
 
-function ErrorSummary({ errors }) {
+function ErrorSummary({ errors, className, onAnimationEnd }) {
   const entries = fieldOrder
     .filter((fieldName) => errors[fieldName])
     .map((fieldName) => [fieldName, errors[fieldName]])
@@ -154,14 +121,14 @@ function ErrorSummary({ errors }) {
   }
 
   return (
-    <motion.div
+    <div
       id="contact-error-summary"
       role="alert"
-      variants={contextualPanelVariants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      className="mt-6 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-700 shadow-sm"
+      className={clsx(
+        'mt-6 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-700 shadow-sm',
+        className,
+      )}
+      onAnimationEnd={onAnimationEnd}
     >
       <p className="font-semibold text-red-800">
         Fix these details before sending.
@@ -179,7 +146,7 @@ function ErrorSummary({ errors }) {
           </li>
         ))}
       </ul>
-    </motion.div>
+    </div>
   )
 }
 
@@ -238,27 +205,21 @@ function TextInput({
       <label htmlFor={id} className={labelClasses}>
         {label}
       </label>
-      <AnimatePresence initial={false}>
+      <TransitionPresence
+        enterClassName={fieldEnterClassName}
+        exitClassName={fieldExitClassName}
+      >
         {error ? (
-          <motion.p
+          <p
             key={errorId}
             id={errorId}
-            initial={{ opacity: 0, y: 6 }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              transition: {
-                duration: 0.3,
-                delay: errorIndex * FIELD_ERROR_STAGGER_SECONDS,
-              },
-            }}
-            exit={{ opacity: 0, y: -6, transition: { duration: 0.15 } }}
+            style={{ animationDelay: `${errorIndex * FIELD_ERROR_STAGGER_SECONDS}s` }}
             className="-mt-px border-x border-b border-red-300 bg-red-50 px-6 pb-3 pt-2 text-sm font-medium text-red-700 group-last:rounded-b-2xl"
           >
             {error}
-          </motion.p>
+          </p>
         ) : null}
-      </AnimatePresence>
+      </TransitionPresence>
     </div>
   )
 }
@@ -286,31 +247,45 @@ function RadioInput({ id, label, invalid = false, ...props }) {
   )
 }
 
-function StatusPanel({ status, message, panelRef }) {
+function StatusPanel({
+  status,
+  message,
+  panelRef,
+  className,
+  onAnimationEnd,
+}) {
+  const localPanelRef = useRef(null)
+  const isError = status === 'error'
+  const isSuccess = status === 'success'
+
+  useEffect(() => {
+    // Focus only after the keyed success panel becomes the displayed element.
+    // This avoids focusing the previous panel while its exit animation runs.
+    if (isSuccess) localPanelRef.current?.focus({ preventScroll: true })
+  }, [isSuccess])
+
   if (status === 'idle') {
     return null
   }
 
-  const isError = status === 'error'
-  const isSuccess = status === 'success'
-
   return (
-    <motion.div
-      ref={panelRef}
+    <div
+      ref={(node) => {
+        localPanelRef.current = node
+        panelRef.current = node
+      }}
       role={isError ? 'alert' : 'status'}
       aria-live={isError ? 'assertive' : 'polite'}
       tabIndex={-1}
-      variants={contextualPanelVariants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      className={
+      className={clsx(
         isError
           ? 'mt-6 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-700 shadow-sm'
           : isSuccess
             ? 'mt-6 rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-emerald-50 px-5 py-5 text-sm text-emerald-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-600/40'
-            : 'mt-6 overflow-hidden rounded-2xl border border-neutral-950/10 bg-white px-5 py-4 text-sm text-neutral-700 shadow-sm'
-      }
+            : 'mt-6 overflow-hidden rounded-2xl border border-neutral-950/10 bg-white px-5 py-4 text-sm text-neutral-700 shadow-sm',
+        className,
+      )}
+      onAnimationEnd={onAnimationEnd}
     >
       <div className="flex items-start gap-3">
         <span
@@ -352,7 +327,7 @@ function StatusPanel({ status, message, panelRef }) {
           <div className="h-full w-1/2 animate-[shimmerBorder_1.5s_ease-in-out_infinite] rounded-full bg-neutral-950" />
         </div>
       )}
-    </motion.div>
+    </div>
   )
 }
 
@@ -368,7 +343,9 @@ function getErrorMessage(status) {
 }
 
 export function ContactForm() {
+  const formRef = useRef(null)
   const statusPanelRef = useRef(null)
+  const restoreFormFocusRef = useRef(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [fieldErrors, setFieldErrors] = useState({})
   const [selectedBudget, setSelectedBudget] = useState('')
@@ -380,8 +357,15 @@ export function ContactForm() {
   const isSuccess = submitStatus.status === 'success'
 
   useEffect(() => {
-    if (isSuccess) {
-      statusPanelRef.current?.focus({ preventScroll: true })
+    // Enable custom client validation only after hydration so the server form
+    // retains native required and email checks when JavaScript is unavailable.
+    if (formRef.current) formRef.current.noValidate = true
+  }, [])
+
+  useEffect(() => {
+    if (!isSuccess && restoreFormFocusRef.current) {
+      restoreFormFocusRef.current = false
+      focusFirstInvalidField(formRef.current, 'name')
     }
   }, [isSuccess])
 
@@ -419,6 +403,13 @@ export function ContactForm() {
     event.preventDefault()
 
     const form = event.currentTarget
+    const nativeEvent = event.nativeEvent ?? event
+    const agentInvoked =
+      nativeEvent.agentInvoked === true || event.agentInvoked === true
+    const respondWith =
+      typeof nativeEvent.respondWith === 'function'
+        ? nativeEvent.respondWith.bind(nativeEvent)
+        : null
     const formData = new FormData(form)
     const validationErrors = validateFormData(formData)
     const firstInvalidField = fieldOrder.find(
@@ -436,6 +427,20 @@ export function ContactForm() {
       })
 
       focusFirstInvalidField(form, firstInvalidField)
+
+      if (agentInvoked && respondWith) {
+        respondWith(
+          Promise.resolve({
+            content: [
+              {
+                type: 'text',
+                text: `The enquiry needs these fields: ${Object.keys(validationErrors).join(', ')}.`,
+              },
+            ],
+          }),
+        )
+      }
+
       return
     }
 
@@ -465,55 +470,79 @@ export function ContactForm() {
       ).length,
     }
 
-    try {
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          Accept: 'application/json',
-        },
-      })
+    const submissionPromise = (async () => {
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            Accept: 'application/json',
+          },
+        })
 
-      if (!response.ok) {
-        throw new Error(getErrorMessage(response.status))
+        if (!response.ok) {
+          throw new Error(getErrorMessage(response.status))
+        }
+
+        setSubmitStatus({
+          status: 'success',
+          message: 'Message sent. We’ll get back to you soon.',
+        })
+
+        // Keep agent-prepared values intact until the WebMCP invocation promise
+        // resolves. The success panel hides them until the visitor starts again.
+        if (!agentInvoked) form.reset()
+        setSelectedBudget('')
+        setFieldErrors({})
+
+        trackContactEvent('Contact Form Submitted Successfully', {
+          form_type: 'business_enquiry',
+          ...formDataObject,
+          timestamp: new Date().toISOString(),
+        })
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: 'The business enquiry was submitted successfully.',
+            },
+          ],
+        }
+      } catch (error) {
+        const isNetworkFailure =
+          error instanceof TypeError || error.message === 'Failed to fetch'
+        const errorMessage = isNetworkFailure
+          ? getErrorMessage()
+          : error.message || getErrorMessage()
+
+        setSubmitStatus({
+          status: 'error',
+          message: errorMessage,
+        })
+
+        trackContactEvent('Contact Form Submission Failed', {
+          form_type: 'business_enquiry',
+          error_message: errorMessage,
+          timestamp: new Date().toISOString(),
+        })
+
+        return {
+          content: [{ type: 'text', text: errorMessage }],
+        }
+      } finally {
+        setIsSubmitting(false)
       }
+    })()
 
-      setSubmitStatus({
-        status: 'success',
-        message: 'Message sent. We’ll get back to you soon.',
-      })
-      form.reset()
-      setSelectedBudget('')
-      setFieldErrors({})
+    if (agentInvoked && respondWith) respondWith(submissionPromise)
 
-      trackContactEvent('Contact Form Submitted Successfully', {
-        form_type: 'business_enquiry',
-        ...formDataObject,
-        timestamp: new Date().toISOString(),
-      })
-    } catch (error) {
-      const isNetworkFailure =
-        error instanceof TypeError || error.message === 'Failed to fetch'
-      const errorMessage = isNetworkFailure
-        ? getErrorMessage()
-        : error.message || getErrorMessage()
-
-      setSubmitStatus({
-        status: 'error',
-        message: errorMessage,
-      })
-
-      trackContactEvent('Contact Form Submission Failed', {
-        form_type: 'business_enquiry',
-        error_message: errorMessage,
-        timestamp: new Date().toISOString(),
-      })
-    } finally {
-      setIsSubmitting(false)
-    }
+    await submissionPromise
   }
 
   function handleSendAnotherMessage() {
+    restoreFormFocusRef.current = true
+    formRef.current?.reset()
     setSubmitStatus({ status: 'idle', message: '' })
     setSelectedBudget('')
     setFieldErrors({})
@@ -522,10 +551,12 @@ export function ContactForm() {
   return (
     <FadeIn className="lg:order-last">
       <form
+        ref={formRef}
         action="https://formspree.io/f/xrbgdgwq"
         method="POST"
         onSubmit={handleSubmit}
-        noValidate
+        toolname="prepare_business_enquiry"
+        tooldescription="Prepare a business enquiry for review and manual submission to Embeddings."
         aria-busy={isSubmitting ? 'true' : 'false'}
         aria-describedby={
           hasFieldErrors
@@ -553,13 +584,7 @@ export function ContactForm() {
           name="_next"
           value="https://embeddings.au/thank-you"
         />
-        <input
-          type="text"
-          name="_gotcha"
-          tabIndex={-1}
-          autoComplete="off"
-          className="hidden"
-        />
+        <input type="hidden" name="_gotcha" value="" />
 
         {!isSuccess && (
           <fieldset
@@ -567,14 +592,17 @@ export function ContactForm() {
             className="mt-8 transition-opacity disabled:opacity-70"
           >
             <legend className="sr-only">Business enquiry details</legend>
-            <AnimatePresence initial={false}>
+            <TransitionPresence
+              enterClassName={panelEnterClassName}
+              exitClassName={panelExitClassName}
+            >
               {hasFieldErrors ? (
                 <ErrorSummary
                   key="contact-error-summary"
                   errors={fieldErrors}
                 />
               ) : null}
-            </AnimatePresence>
+            </TransitionPresence>
             <div className="isolate -space-y-px rounded-2xl bg-white/50 shadow-[0_1px_0_rgba(23,23,23,0.04)]">
               <TextInput
                 id="name-field"
@@ -582,6 +610,7 @@ export function ContactForm() {
                 name="name"
                 autoComplete="name"
                 required
+                toolparamdescription="The person’s full name."
                 error={fieldErrors.name}
                 errorIndex={0}
                 onBlur={(event) => handleFieldBlur('name', event)}
@@ -593,6 +622,7 @@ export function ContactForm() {
                 name="email"
                 autoComplete="email"
                 required
+                toolparamdescription="The email address Embeddings should reply to."
                 error={fieldErrors.email}
                 errorIndex={1}
                 onBlur={(event) => handleFieldBlur('email', event)}
@@ -603,6 +633,7 @@ export function ContactForm() {
                 name="company"
                 autoComplete="organization"
                 required
+                toolparamdescription="The organisation making the enquiry."
                 error={fieldErrors.company}
                 errorIndex={2}
                 onBlur={(event) => handleFieldBlur('company', event)}
@@ -614,6 +645,7 @@ export function ContactForm() {
                 name="phone"
                 autoComplete="tel"
                 required
+                toolparamdescription="A phone number for the business enquiry."
                 error={fieldErrors.phone}
                 errorIndex={3}
                 onBlur={(event) => handleFieldBlur('phone', event)}
@@ -623,6 +655,7 @@ export function ContactForm() {
                 label="Message"
                 name="message"
                 required
+                toolparamdescription="A concise description of the catalogue, commerce stack, and requested outcome."
                 multiline
                 rows={3}
                 error={fieldErrors.message}
@@ -649,31 +682,23 @@ export function ContactForm() {
                   <p className="mt-2 text-sm leading-6 text-neutral-500">
                     Select the closest planning range.
                   </p>
-                  <AnimatePresence initial={false}>
+                  <TransitionPresence
+                    enterClassName={fieldEnterClassName}
+                    exitClassName={fieldExitClassName}
+                  >
                     {fieldErrors.budget ? (
-                      <motion.p
+                      <p
                         key="budget-error"
                         id="budget-error"
-                        initial={{ opacity: 0, y: 6 }}
-                        animate={{
-                          opacity: 1,
-                          y: 0,
-                          transition: {
-                            duration: 0.3,
-                            delay: 5 * FIELD_ERROR_STAGGER_SECONDS,
-                          },
-                        }}
-                        exit={{
-                          opacity: 0,
-                          y: -6,
-                          transition: { duration: 0.15 },
+                        style={{
+                          animationDelay: `${5 * FIELD_ERROR_STAGGER_SECONDS}s`,
                         }}
                         className="mt-3 text-sm font-medium text-red-600"
                       >
                         {fieldErrors.budget}
-                      </motion.p>
+                      </p>
                     ) : null}
-                  </AnimatePresence>
+                  </TransitionPresence>
                   <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {budgetRanges.map(
                       ({ label, trackingValue, value }, index) => (
@@ -689,6 +714,11 @@ export function ContactForm() {
                           value={value}
                           checked={selectedBudget === value}
                           required
+                          toolparamdescription={
+                            index === 0
+                              ? 'The closest available planning budget range.'
+                              : undefined
+                          }
                           invalid={Boolean(fieldErrors.budget)}
                           onChange={() =>
                             handleBudgetChange(trackingValue, value)
@@ -703,7 +733,10 @@ export function ContactForm() {
           </fieldset>
         )}
 
-        <AnimatePresence initial={false}>
+        <TransitionPresence
+          enterClassName={panelEnterClassName}
+          exitClassName={panelExitClassName}
+        >
           {submitStatus.status !== 'idle' ? (
             <StatusPanel
               key={submitStatus.status}
@@ -712,7 +745,7 @@ export function ContactForm() {
               panelRef={statusPanelRef}
             />
           ) : null}
-        </AnimatePresence>
+        </TransitionPresence>
 
         {isSuccess ? (
           <Button type="button" className="mt-8" onClick={handleSendAnotherMessage}>
@@ -726,22 +759,20 @@ export function ContactForm() {
             trackingLabel="Send message"
           >
             <span className="inline-flex items-center gap-2">
-              <AnimatePresence initial={false}>
+              <TransitionPresence
+                enterClassName={iconEnterClassName}
+                exitClassName={iconExitClassName}
+              >
                 {isSubmitting ? (
-                  <motion.span
+                  <span
                     key="submit-spinner"
                     className="inline-flex"
-                    variants={contextualIconVariants}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    transition={contextualIconTransition}
                     aria-hidden="true"
                   >
                     <span className="h-3 w-3 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                  </motion.span>
+                  </span>
                 ) : null}
-              </AnimatePresence>
+              </TransitionPresence>
               {isSubmitting ? 'Sending' : 'Send message'}
             </span>
           </Button>

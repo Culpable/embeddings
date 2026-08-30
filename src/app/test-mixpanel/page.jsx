@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/Button';
-import { track, isMixpanelReady } from '@/lib/mixpanelClient';
 
 export default function TestMixpanel() {
   const [status, setStatus] = useState('checking');
@@ -10,7 +9,11 @@ export default function TestMixpanel() {
 
   useEffect(() => {
     const checkStatus = () => {
-      const isReady = isMixpanelReady();
+      const isReady = Boolean(
+        window.mixpanelLoaded &&
+        typeof window.mixpanel?.track === 'function' &&
+        window.mixpanel?.get_distinct_id?.(),
+      );
       setStatus(isReady ? 'ready' : 'not-ready');
       
       setDetails({
@@ -32,11 +35,18 @@ export default function TestMixpanel() {
   }, []);
 
   const sendTestEvent = () => {
-    track('Test Event from Debug Page', {
-      page: '/test-mixpanel',
-      timestamp: new Date().toISOString(),
-      userAgent: navigator.userAgent
-    });
+    window.dispatchEvent(
+      new CustomEvent('embeddings:analytics-event', {
+        detail: {
+          eventName: 'Test Event from Debug Page',
+          properties: {
+            page: '/test-mixpanel',
+            timestamp: new Date().toISOString(),
+            userAgent: navigator.userAgent,
+          },
+        },
+      }),
+    );
     alert('Test event sent! Check your Mixpanel dashboard.');
   };
 
@@ -66,4 +76,4 @@ export default function TestMixpanel() {
       </div>
     </div>
   );
-} 
+}

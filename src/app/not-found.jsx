@@ -1,6 +1,9 @@
 import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
+import { buildPageMetadata } from '@/lib/metadata'
+
+export const metadata = buildPageMetadata('notFound')
 
 export default function NotFound() {
   return (
@@ -18,11 +21,14 @@ export default function NotFound() {
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Button href="/">Go to the home page</Button>
           <Button
-            href="/#services"
+            href="/process"
             invert
             className="ring-1 ring-neutral-950/10"
           >
-            View services
+            View our process
+          </Button>
+          <Button href="/contact" invert className="ring-1 ring-neutral-950/10">
+            Contact us
           </Button>
         </div>
       </FadeIn>

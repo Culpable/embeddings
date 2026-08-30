@@ -1,5 +1,3 @@
-import { track, isMixpanelReady } from './mixpanelClient.js';
-
 /**
  * Referral Tracking System for Legal Genie and All Owned Domains
  * 
@@ -311,7 +309,7 @@ function determineReferralSource() {
  * - 100ms interval between attempts
  * - Graceful fallback if tracking fails
  */
-export function trackReferralSource() {
+export function trackReferralSource(track, isMixpanelReady) {
   // Configuration for polling mechanism
   const maxAttempts = 10;
   const interval = 100; // milliseconds
@@ -359,7 +357,7 @@ export function trackReferralSource() {
  * This function can be called from pages that need referral tracking.
  * It will automatically handle the sequencing and polling.
  */
-export function initReferralTracking() {
+export function initReferralTracking(analyticsClient) {
   // Only run in browser environment
   if (typeof window === 'undefined') {
     console.warn('Referral tracking can only run in browser environment');
@@ -367,5 +365,5 @@ export function initReferralTracking() {
   }
   
   // Start tracking process
-  trackReferralSource();
-} 
+  trackReferralSource(analyticsClient.track, analyticsClient.isMixpanelReady);
+}

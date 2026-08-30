@@ -70,7 +70,7 @@ test('homepage Why Now statistics render visible server text', () => {
   )
 })
 
-test('homepage emits static json ld without next script loader', () => {
+test('homepage emits shared static json ld without next script loader', () => {
   // Keep static structured data out of the route script-loader runtime.
   const source = readFileSync(homePagePath, 'utf8')
 
@@ -82,8 +82,8 @@ test('homepage emits static json ld without next script loader', () => {
 
   assert.match(
     source,
-    /<script\s+id="organization-schema"/,
-    'Expected organisation schema to render as a static script tag',
+    /<StructuredData routeKey="home" \/>/,
+    'Expected homepage structured data to use the safe shared component',
   )
 })
 

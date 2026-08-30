@@ -18,6 +18,27 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  webpack(config) {
+    const recordingPercent = Number(
+      process.env.NEXT_PUBLIC_MIXPANEL_RECORDING_PERCENT ?? '0',
+    )
+    const recorderEnabled =
+      (Number.isFinite(recordingPercent) && recordingPercent > 0) ||
+      process.env.NEXT_PUBLIC_MIXPANEL_RECORD_HEATMAPS === 'true'
+    const loaderFile = recorderEnabled
+      ? 'src/lib/mixpanelFullLoader.js'
+      : 'src/lib/mixpanelCoreLoader.js'
+
+    // Select exactly one Mixpanel package before webpack builds the dynamic
+    // chunk so disabled recording cannot emit dormant recorder assets.
+    config.resolve.alias['embeddings-mixpanel-active-loader'] =
+      path.resolve(loaderFile)
+    config.cache.version = `${config.cache.version ?? ''}|mixpanel-loader:${
+      recorderEnabled ? 'full' : 'core'
+    }`
+
+    return config
+  },
 }
 
 function remarkMDXLayout(source, metaName) {

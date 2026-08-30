@@ -1,40 +1,27 @@
 import { RootLayout } from '@/components/RootLayout'
-import { siteMetadata } from '@/lib/metadata'
+import { buildPageMetadata } from '@/lib/metadata'
+import { siteConfig } from '@/lib/site-config.mjs'
 
 import '@/styles/tailwind.css'
 
 export const metadata = {
+  metadataBase: new URL(siteConfig.origin),
+  ...buildPageMetadata('home'),
   title: {
     template: '%s / Embeddings',
-    default: siteMetadata.title,
-  },
-  description: siteMetadata.description,
-  openGraph: {
-    title: siteMetadata.title,
-    description: siteMetadata.description,
-    url: siteMetadata.siteUrl,
-    siteName: 'Embeddings',
-    images: [
-      {
-        url: siteMetadata.ogImage,
-        width: 1200,
-        height: 630,
-      },
-    ],
-    locale: 'en-AU',
-    type: 'website',
-  },
-  twitter: {
-    card: siteMetadata.twitter.cardType,
-    title: siteMetadata.title,
-    description: siteMetadata.description,
-    images: [siteMetadata.ogImage],
+    default: siteConfig.defaultTitle,
   },
 }
 
 export default function Layout({ children }) {
   return (
-    <html lang="en" className="h-full bg-neutral-950 text-base antialiased">
+    <html
+      lang={siteConfig.htmlLang}
+      className="h-full bg-neutral-950 text-base antialiased"
+    >
+      <head>
+        <link rel="describedby" href="/llms.txt" type="text/plain" />
+      </head>
       {/* Suppress hydration mismatch warnings when browser extensions inject transient body attributes. */}
       <body
         suppressHydrationWarning

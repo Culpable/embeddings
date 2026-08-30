@@ -5,6 +5,8 @@ import { GridList, GridListItem } from '@/components/GridList'
 import { PageIntro } from '@/components/PageIntro'
 import { SectionIntro } from '@/components/SectionIntro'
 import { StatList, StatListItem } from '@/components/StatList'
+import { StructuredData } from '@/components/StructuredData'
+import { buildPageMetadata } from '@/lib/metadata'
 
 const capabilities = [
   {
@@ -167,15 +169,12 @@ function Culture() {
   )
 }
 
-export const metadata = {
-  title: 'About Us',
-  description:
-    'The Australian consultancy building retailer-owned AI shopping agents, combining LLM pipeline engineering and data infrastructure at scale.',
-}
+export const metadata = buildPageMetadata('about')
 
 export default function About() {
   return (
     <>
+      <StructuredData routeKey="about" />
       <PageIntro
         eyebrow="about us"
         title="The team building Australia&rsquo;s retailer-owned shopping agents"

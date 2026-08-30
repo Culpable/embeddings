@@ -50,12 +50,9 @@ test('shared buttons expose exact press feedback with a static fallback', () => 
 test('navigation icons and panel use interruptible contextual motion', () => {
   // Require the exact Better UI icon values and asymmetric panel timing while
   // preventing a default menu-icon animation during initial hydration.
-  assert.match(navigationButtonSource, /<AnimatePresence initial=\{false\}/)
-  assert.match(navigationButtonSource, /opacity:\s*0/)
-  assert.match(navigationButtonSource, /scale:\s*0\.25/)
-  assert.match(navigationButtonSource, /filter:\s*'blur\(4px\)'/)
-  assert.match(navigationButtonSource, /duration:\s*0\.3/)
-  assert.match(navigationButtonSource, /bounce:\s*0/)
+  assert.doesNotMatch(navigationButtonSource, /framer-motion|AnimatePresence/)
+  assert.match(navigationButtonSource, /scale-25 opacity-0 blur-\[4px\]/)
+  assert.match(navigationButtonSource, /duration-300/)
 
   assert.match(rootNavigationSource, /panelMounted/)
   assert.match(rootNavigationPanelSource, /onTransitionEnd/)
@@ -150,13 +147,27 @@ test('source arrows and process images use exact optical edge treatment', () => 
 test('contact feedback preserves semantics while adding contextual motion', () => {
   // Ensure animation stays visual only: live regions and focus remain immediate
   // while panels, field messages and the loading icon receive exact timing.
-  assert.match(contactFormSource, /<AnimatePresence initial=\{false\}/)
+  assert.match(contactFormSource, /<TransitionPresence/)
+  assert.doesNotMatch(contactFormSource, /framer-motion|AnimatePresence/)
   assert.match(contactFormSource, /const \[selectedBudget, setSelectedBudget\]/)
   assert.match(contactFormSource, /checked=\{selectedBudget === value\}/)
   assert.match(contactFormSource, /`budget-field-\$\{value\}`/)
   assert.match(
     contactFormSource,
-    /if \(isSuccess\)[\s\S]*?statusPanelRef\.current\?\.focus/,
+    /if \(isSuccess\) localPanelRef\.current\?\.focus\(\{ preventScroll: true \}\)/,
+  )
+  assert.match(
+    contactFormSource,
+    /function ErrorSummary\(\{ errors, className, onAnimationEnd \}\)/,
+  )
+  assert.match(
+    contactFormSource,
+    /function StatusPanel\(\{[\s\S]*?className,[\s\S]*?onAnimationEnd,[\s\S]*?\}\)/,
+  )
+  assert.equal(
+    (contactFormSource.match(/onAnimationEnd=\{onAnimationEnd\}/g) || []).length,
+    2,
+    'Expected both custom transition panels to forward animation completion',
   )
   assert.match(contactFormSource, /role=\{isError \? 'alert' : 'status'\}/)
   assert.match(
@@ -167,9 +178,12 @@ test('contact feedback preserves semantics while adding contextual motion', () =
     contactFormSource,
     /focusFirstInvalidField\(form, firstInvalidField\)/,
   )
+  assert.match(
+    readFileSync('src/components/TransitionPresence.jsx', 'utf8'),
+    /phase === 'exit' \? '0s'/,
+  )
   assert.match(contactFormSource, /FIELD_ERROR_STAGGER_SECONDS\s*=\s*0\.09/)
-  assert.match(contactFormSource, /duration:\s*0\.15/)
-  assert.match(contactFormSource, /duration:\s*0\.3/)
-  assert.match(contactFormSource, /filter:\s*'blur\(4px\)'/)
-  assert.match(contactFormSource, /y:\s*-12/)
+  assert.match(contactFormSource, /contact-panel-exit_150ms/)
+  assert.match(contactFormSource, /contact-panel-enter_300ms/)
+  assert.match(contactFormSource, /contact-icon-enter_300ms/)
 })

@@ -29,7 +29,7 @@ test('thank-you page offers a services follow-up action', () => {
   )
 })
 
-test('not-found page offers home and service recovery actions', () => {
+test('not-found page offers home, process, and contact recovery actions', () => {
   // Keep unknown routes useful for visitors who still need to understand the offer.
   const source = readFileSync(notFoundPath, 'utf8')
 
@@ -41,13 +41,15 @@ test('not-found page offers home and service recovery actions', () => {
 
   assert.match(
     source,
-    /View services/,
-    'Expected the 404 page to include a services recovery action',
+    /View our process/,
+    'Expected the 404 page to include a process recovery action',
   )
 
   assert.match(
     source,
-    /href="\/#services"/,
-    'Expected the 404 services action to target the services section',
+    /href="\/process"/,
+    'Expected the 404 process action to target the process route',
   )
+
+  assert.match(source, /href="\/contact"/, 'Expected the 404 page to link to contact')
 })

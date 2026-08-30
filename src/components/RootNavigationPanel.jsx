@@ -129,7 +129,10 @@ function Navigation() {
   const pathname = usePathname()
 
   return (
-    <nav className="mt-px font-display text-4xl font-medium tracking-tight text-white sm:text-5xl">
+    <nav
+      aria-label="Primary navigation"
+      className="mt-px font-display text-4xl font-medium tracking-tight text-white sm:text-5xl"
+    >
       {navigationRows.map((row) => (
         <NavigationRow key={row.map((item) => item.href).join('-')}>
           {row.map(({ href, label }) => (

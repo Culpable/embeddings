@@ -9,9 +9,14 @@ import { PageIntro } from '@/components/PageIntro'
 import { SectionIntro } from '@/components/SectionIntro'
 import { StylizedImage } from '@/components/StylizedImage'
 import { TagList, TagListItem } from '@/components/TagList'
-import imageLaptop from '@/images/process/laptop.webp'
-import imageMeeting from '@/images/process/meeting.webp'
-import imageWhiteboard from '@/images/process/whiteboard.webp'
+import { StructuredData } from '@/components/StructuredData'
+import { buildPageMetadata } from '@/lib/metadata'
+import {
+  processImageSizes,
+  processImages,
+  sourceSet,
+} from '@/lib/process-image-config.mjs'
+import { preload } from 'react-dom'
 
 function ProcessImageSignals({ title, signals }) {
   if (signals.length === 0) {
@@ -41,16 +46,15 @@ function ProcessImageSignals({ title, signals }) {
   )
 }
 
-function Section({ title, image, signals = [], children }) {
+function Section({ id, title, image, signals = [], children }) {
   return (
-    <Container className="group/section [counter-increment:section]">
+    <Container id={id} className="group/section scroll-mt-24 [counter-increment:section]">
       <div className="lg:flex lg:items-center lg:justify-end lg:gap-x-8 lg:group-even/section:justify-start xl:gap-x-20">
         <div className="flex justify-center">
           <FadeIn className="w-full max-w-[33.75rem] flex-none lg:w-[45rem] lg:max-w-none">
             <div className="relative">
               <StylizedImage
                 {...image}
-                sizes="(min-width: 1024px) 41rem, 31rem"
                 className="justify-center lg:justify-end lg:group-even/section:justify-start"
               />
               <ProcessImageSignals title={title} signals={signals} />
@@ -77,8 +81,13 @@ function Section({ title, image, signals = [], children }) {
 function Foundation() {
   return (
     <Section
+      id="foundation"
       title="Foundation"
-      image={{ src: imageWhiteboard, priority: true }}
+      image={{
+        image: processImages.whiteboard,
+        priority: true,
+        sizes: processImageSizes.whiteboard,
+      }}
       signals={[
         { label: 'scorecard', value: '74/100 ready' },
         { label: 'gaps ranked', value: '128 fixes' },
@@ -130,8 +139,13 @@ function Foundation() {
 function Deploy() {
   return (
     <Section
+      id="deploy"
       title="Deploy"
-      image={{ src: imageLaptop, shape: 1 }}
+      image={{
+        image: processImages.laptop,
+        shape: 1,
+        sizes: processImageSizes.standard,
+      }}
       signals={[
         { label: 'search', value: 'plugged into your stack' },
         { label: 'checkout', value: 'in the conversation' },
@@ -174,8 +188,13 @@ function Deploy() {
 function Operate() {
   return (
     <Section
+      id="operate"
       title="Operate"
-      image={{ src: imageMeeting, shape: 2 }}
+      image={{
+        image: processImages.meeting,
+        shape: 2,
+        sizes: processImageSizes.standard,
+      }}
       signals={[
         { label: 'analytics', value: 'assisted revenue' },
         { label: 'control', value: 'self-service' },
@@ -282,15 +301,21 @@ function Values() {
   )
 }
 
-export const metadata = {
-  title: 'From Catalogue to Live Agent',
-  description:
-    'How Embeddings builds retailer-owned AI shopping agents: catalogue foundation, agent deployment, and live operation.',
-}
+export const metadata = buildPageMetadata('process')
 
 export default function Process() {
+  // Preload the first process image because it is the route's LCP candidate.
+  preload(processImages.whiteboard.avif[2].url, {
+    as: 'image',
+    type: 'image/avif',
+    imageSrcSet: sourceSet(processImages.whiteboard.avif),
+    imageSizes: processImageSizes.whiteboard,
+    fetchPriority: 'high',
+  })
+
   return (
     <>
+      <StructuredData routeKey="process" />
       <PageIntro
         eyebrow="our process"
         title="How we take you from catalogue to live agent"

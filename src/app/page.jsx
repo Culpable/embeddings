@@ -1,6 +1,5 @@
 import Link from 'next/link'
-import { organizationSchema } from '@/schemas/organization-schema'
-import { pageMetadata } from '@/lib/metadata'
+import { buildPageMetadata } from '@/lib/metadata'
 
 import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
@@ -13,6 +12,7 @@ import { CatalogueTransformation } from '@/components/CatalogueTransformation'
 import { AnimatedStat } from '@/components/AnimatedStat'
 import { NoiseOverlay } from '@/components/NoiseOverlay'
 import { ServiceTimelineLeftRail } from '@/components/ServiceTimelineLeftRail'
+import { StructuredData } from '@/components/StructuredData'
 
 import { Button } from '@/components/Button'
 
@@ -525,23 +525,12 @@ function Services() {
 // Page metadata & default export
 // ---------------------------------------------------------------------------
 
-export const metadata = {
-  title: {
-    absolute: pageMetadata.home.title,
-  },
-  description: pageMetadata.home.description,
-}
+export const metadata = buildPageMetadata('home')
 
 export default function Home() {
   return (
     <>
-      <script
-        id="organization-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(organizationSchema),
-        }}
-      />
+      <StructuredData routeKey="home" />
 
       {/* Hero — headline + animated data flow SVG. The mobile top margin is
           deliberately tighter than desktop so the first flow card crests the

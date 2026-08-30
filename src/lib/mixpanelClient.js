@@ -1,22 +1,15 @@
+import {
+  mixpanelRecorderEnabled,
+  mixpanelRecordingPercent,
+  mixpanelRecordsHeatmaps,
+} from '@/lib/analytics-config.mjs'
+
 const MIXPANEL_TOKEN = '48ebd83acf333df6efcfe970cfde6c5c'
 const isDevelopment = process.env.NODE_ENV === 'development'
-const recordingPercent = Number(
-  process.env.NEXT_PUBLIC_MIXPANEL_RECORDING_PERCENT ?? '0',
-)
-const shouldRecordHeatmaps =
-  process.env.NEXT_PUBLIC_MIXPANEL_RECORD_HEATMAPS === 'true'
 
 let mixpanelModulePromise = null
 let mixpanelInstance = null
 let mixpanelInitialisationPromise = null
-
-function clampRecordingPercent(value) {
-  if (!Number.isFinite(value)) {
-    return 0
-  }
-
-  return Math.min(100, Math.max(0, value))
-}
 
 function markMixpanelDisabled() {
   if (typeof window === 'undefined') {
@@ -33,8 +26,10 @@ async function loadMixpanelModule() {
   }
 
   if (!mixpanelModulePromise) {
-    mixpanelModulePromise = import('mixpanel-browser').then(
-      (module) => module.default ?? module,
+    // Resolve this stable module name to the core or full loader at build time.
+    // This prevents the inactive recorder package from entering the export.
+    mixpanelModulePromise = import('embeddings-mixpanel-active-loader').then(
+      (module) => (module.default ?? module).mixpanel,
     )
   }
 
@@ -79,20 +74,27 @@ export async function initMixpanel() {
         return false
       }
 
-      mixpanel.init(MIXPANEL_TOKEN, {
+      const options = {
         track_pageview: false,
         persistence: 'localStorage',
-        record_sessions_percent: clampRecordingPercent(recordingPercent),
-        record_heatmap_data: shouldRecordHeatmaps,
-        record_block_selector: '',
-        record_mask_text_selector: '.sensitive-data',
-        record_collect_fonts: false,
-        record_idle_timeout_ms: 600000,
-        record_min_ms: 3000,
         loaded(loadedMixpanel) {
           applyLoadedState(loadedMixpanel)
         },
-      })
+      }
+
+      if (mixpanelRecorderEnabled) {
+        Object.assign(options, {
+          record_sessions_percent: mixpanelRecordingPercent,
+          record_heatmap_data: mixpanelRecordsHeatmaps,
+          record_block_selector: '',
+          record_mask_text_selector: '.sensitive-data',
+          record_collect_fonts: false,
+          record_idle_timeout_ms: 600000,
+          record_min_ms: 3000,
+        })
+      }
+
+      mixpanel.init(MIXPANEL_TOKEN, options)
 
       mixpanelInstance = mixpanel
       window.mixpanel = mixpanel

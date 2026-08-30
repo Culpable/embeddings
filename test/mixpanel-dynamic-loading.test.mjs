@@ -26,8 +26,13 @@ test('mixpanel browser package is loaded with a dynamic import', () => {
 
   assert.match(
     source,
-    /import\(['"]mixpanel-browser['"]\)/,
-    'Expected mixpanel-browser to load through a dynamic import',
+    /import\(['"]embeddings-mixpanel-active-loader['"]\)/,
+    'Expected the build-selected Mixpanel loader to be deferred behind a dynamic import',
+  )
+
+  assert.match(
+    readFileSync(resolve(process.cwd(), 'src/lib/mixpanelCoreLoader.js'), 'utf8'),
+    /mixpanel-browser\/src\/loaders\/loader-module-core/,
   )
 })
 
@@ -98,8 +103,20 @@ test('client instrumentation preserves the initial landing page through delayed 
 
   assert.match(
     source,
-    /trackPageView\(initialPagePath\)/,
-    'Expected analytics initialisation to queue the original landing path',
+    /pendingPageViews\.add\(page\)/,
+    'Expected page views to queue while deferred analytics loads',
+  )
+
+  assert.match(
+    source,
+    /startNavigationTracking\(\)[\s\S]*trackPageView\(initialPagePath\)/,
+    'Expected navigation tracking and landing-path capture to start at module load',
+  )
+
+  assert.match(
+    source,
+    /function\s+trackCurrentPageView\(\)[\s\S]*trackPageView\(\)/,
+    'Expected navigation listeners to read the current URL instead of passing the Event object',
   )
 })
 
@@ -107,6 +124,10 @@ test('mixpanel replay defaults stay light for public marketing pages', () => {
   // Keep core analytics while avoiding full-session recording and heatmap work
   // for every visitor by default.
   const source = readFileSync(mixpanelClientPath, 'utf8')
+  const configSource = readFileSync(
+    resolve(process.cwd(), 'src/lib/analytics-config.mjs'),
+    'utf8',
+  )
 
   assert.match(
     source,
@@ -121,14 +142,14 @@ test('mixpanel replay defaults stay light for public marketing pages', () => {
   )
 
   assert.match(
-    source,
+    configSource,
     /NEXT_PUBLIC_MIXPANEL_RECORDING_PERCENT\s*\?\?\s*'0'/,
     'Expected Mixpanel replay sampling to default to 0 for public marketing visits',
   )
 
   assert.match(
     source,
-    /record_heatmap_data:\s*shouldRecordHeatmaps/,
+    /record_heatmap_data:\s*mixpanelRecordsHeatmaps/,
     'Expected heatmap recording to be opt-in',
   )
 
@@ -156,10 +177,16 @@ test('contact form loads analytics only after visitor form intent', () => {
     'Expected contact analytics calls to be centralised behind an intent loader',
   )
 
+  assert.match(source, /embeddings:analytics-event/u)
   assert.match(
+    readFileSync(instrumentationClientPath, 'utf8'),
+    /pendingAnalyticsEvents[\s\S]*requestAnalyticsStart\(\)/u,
+  )
+
+  assert.doesNotMatch(
     source,
     /import\(['"]@\/lib\/mixpanelClient['"]\)/,
-    'Expected the contact form to dynamically load the Mixpanel client',
+    'Expected the shared instrumentation entry to own the only Mixpanel import',
   )
 
   assert.match(

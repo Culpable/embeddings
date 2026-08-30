@@ -96,7 +96,7 @@ src/app/_disabled_pages/
 </key_templates>
 
 <technical_requirements>
-- Next.js 14 with App Router
+- Next.js 15.5.10 with App Router
 - Tailwind CSS for styling
 - Node.js v22.17.0 required
 - Automatic deployment via GitHub Actions on push to main branch

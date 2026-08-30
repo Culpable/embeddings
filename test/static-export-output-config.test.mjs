@@ -9,7 +9,7 @@ const deployWorkflowPath = resolve(
   process.cwd(),
   '.github/workflows/deploy.yml',
 )
-const sitemapConfigPath = resolve(process.cwd(), 'src/lib/sitemap.js')
+const siteConfigPath = resolve(process.cwd(), 'src/lib/site-config.mjs')
 const testMixpanelLayoutPath = resolve(
   process.cwd(),
   'src/app/test-mixpanel/layout.jsx',
@@ -36,25 +36,27 @@ test('static export keeps next internals out of the published out directory', ()
 
   assert.match(
     packageJson.scripts.build,
-    /rm -rf \.next out && node src\/scripts\/generate-sitemap\.js && next build/,
-    'Expected npm run build to clean stale build output and generate sitemap before exporting',
+    /node scripts\/build-static-site\.mjs/,
+    'Expected npm run build to use the explicit static-site orchestrator',
   )
 
-  assert.match(
+  assert.doesNotMatch(
     deployWorkflow,
-    /rm -rf \.next out[\s\S]*npm run build/,
-    'Expected deployment to clean stale build output before building',
+    /rm -rf|\/bin\/rm|\/usr\/bin\/rm/,
+    'Expected deployment not to use destructive recursive deletion',
   )
+
+  assert.match(deployWorkflow, /npm run lint[\s\S]*npm test[\s\S]*npm run build/)
 })
 
 
 test('sitemap excludes internal debug routes', () => {
   // Keep internal diagnostics out of crawlable production metadata.
-  const sitemapConfig = readFileSync(sitemapConfigPath, 'utf8')
+  const siteConfig = readFileSync(siteConfigPath, 'utf8')
 
   assert.match(
-    sitemapConfig,
-    /EXCLUDED_ROUTES\s*=\s*\[[\s\S]*['"]\/test-mixpanel['"]/,
+    siteConfig,
+    /testMixpanel:[\s\S]*path: '\/test-mixpanel'[\s\S]*includeInSitemap: false/,
     'Expected the internal Mixpanel debug page to be excluded from the public sitemap',
   )
 })
@@ -67,7 +69,7 @@ test('internal debug routes opt out of indexing', () => {
 
   assert.match(
     testMixpanelLayout,
-    /robots:\s*\{[\s\S]*index:\s*false[\s\S]*follow:\s*false/,
+    /buildPageMetadata\('testMixpanel'\)/,
     'Expected the internal Mixpanel debug route to declare noindex,nofollow metadata',
   )
 })

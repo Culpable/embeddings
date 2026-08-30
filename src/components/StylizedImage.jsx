@@ -1,6 +1,6 @@
 import { useId } from 'react'
-import Image from 'next/image'
 import clsx from 'clsx'
+import { sourceSet } from '@/lib/process-image-config.mjs'
 
 const shapes = [
   {
@@ -20,27 +20,56 @@ const shapes = [
   },
 ]
 
-export function StylizedImage({ shape = 0, className, ...props }) {
+export function StylizedImage({
+  image,
+  priority = false,
+  shape = 0,
+  sizes,
+  className,
+}) {
   let id = useId()
   let { width, height, path } = shapes[shape]
 
   return (
     <div
+      aria-hidden="true"
       className={clsx(
         className,
         'relative flex aspect-[719/680] w-full grayscale',
       )}
     >
-      <svg viewBox={`0 0 ${width} ${height}`} fill="none" className="h-full">
+      <svg
+        viewBox={`0 0 ${width} ${height}`}
+        fill="none"
+        focusable="false"
+        className="h-full"
+      >
         <g clipPath={`url(#${id}-clip)`} className="group">
           <g className="origin-center scale-100 transition-transform duration-500 group-hover:scale-105">
             <foreignObject width={width} height={height}>
-              <Image
-                alt=""
-                className="w-full bg-neutral-100 object-cover"
-                style={{ aspectRatio: `${width} / ${height}` }}
-                {...props}
-              />
+              <picture>
+                <source
+                  type="image/avif"
+                  srcSet={sourceSet(image.avif)}
+                  sizes={sizes}
+                />
+                <source
+                  type="image/webp"
+                  srcSet={sourceSet(image.webp)}
+                  sizes={sizes}
+                />
+                <img
+                  src={image.fallback}
+                  alt=""
+                  width={width}
+                  height={height}
+                  loading={priority ? 'eager' : 'lazy'}
+                  fetchPriority={priority ? 'high' : 'auto'}
+                  decoding="async"
+                  className="w-full bg-neutral-100 object-cover"
+                  style={{ aspectRatio: `${width} / ${height}` }}
+                />
+              </picture>
             </foreignObject>
           </g>
           <use

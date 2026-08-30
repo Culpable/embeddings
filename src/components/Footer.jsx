@@ -38,6 +38,7 @@ const navigation = [
       { title: 'our process', href: '/process' },
       { title: 'about us', href: '/about' },
       { title: 'contact us', href: '/contact' },
+      { title: 'privacy', href: '/privacy' },
     ],
   },
   // ! Social links in footer
@@ -49,30 +50,38 @@ const navigation = [
 
 function Navigation() {
   return (
-    <nav>
+    <nav aria-label="Footer navigation">
       <ul role="list" className="grid grid-cols-2 gap-8 sm:grid-cols-3">
-        {navigation.map((section, sectionIndex) => (
-          <li key={sectionIndex}>
-            <div className="font-display text-base font-semibold tracking-wider text-neutral-950">
-              {section.title}
-            </div>
-            <ul
-              role="list"
-              className="mt-4 flex flex-col gap-1 text-sm text-neutral-700"
-            >
-              {section.links.map((link, linkIndex) => (
-                <li key={linkIndex}>
-                  <Link
-                    href={link.href}
-                    className="inline-flex min-h-11 min-w-11 items-center transition-colors hover:text-neutral-950 sm:min-h-10 sm:min-w-10"
-                  >
-                    {link.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
+        {navigation.map((section) => {
+          const headingId = `footer-${section.title}-heading`
+
+          return (
+            <li key={section.title}>
+              <h2
+                id={headingId}
+                className="font-display text-base font-semibold tracking-wider text-neutral-950"
+              >
+                {section.title}
+              </h2>
+              <ul
+                role="list"
+                aria-labelledby={headingId}
+                className="mt-4 flex flex-col gap-1 text-sm text-neutral-700"
+              >
+                {section.links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="inline-flex min-h-11 min-w-11 items-center transition-colors hover:text-neutral-950 sm:min-h-10 sm:min-w-10"
+                    >
+                      {link.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          )
+        })}
       </ul>
     </nav>
   )

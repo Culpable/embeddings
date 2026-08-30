@@ -11,20 +11,21 @@
     "predev": "npm run check:node",
     "dev": "next dev -p 3002",
     "prebuild": "npm run check:node",
-    "build": "rm -rf .next out && node src/scripts/generate-sitemap.js && next build",
+    "build": "node scripts/build-static-site.mjs",
     "start": "next start",
     "lint": "next lint",
     "pretest": "npm run check:node",
     "test": "node --test",
     "deploy": "npm run build && gh-pages -d out",
-    "generate-sitemap": "node src/scripts/generate-sitemap.js"
+    "generate-public-artifacts": "node src/scripts/generate-public-artifacts.mjs",
+    "measure-static-output": "node scripts/measure-static-output.mjs"
   },
   "browserslist": "defaults, not ie <= 11",
   "dependencies": {
     "@leafac/rehype-shiki": "^2.2.1",
     "@mdx-js/loader": "^3.0.0",
     "@mdx-js/react": "^3.0.0",
-    "@next/mdx": "^14.0.4",
+    "@next/mdx": "15.5.10",
     "acorn": "^8.10.0",
     "acorn-jsx": "^5.3.2",
     "autoprefixer": "^10.4.7",
@@ -46,10 +47,11 @@
     "unified-conditional": "0.0.2"
   },
   "devDependencies": {
-    "eslint": "^8.56.0",
-    "eslint-config-next": "^14.0.4",
+    "eslint": "8.57.1",
+    "eslint-config-next": "15.5.10",
     "gh-pages": "^6.2.0",
     "prettier": "^3.3.2",
+    "parse5": "7.3.0",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "sharp": "0.33.1"
   }

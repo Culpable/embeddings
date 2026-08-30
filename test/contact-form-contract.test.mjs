@@ -193,15 +193,28 @@ test('contact form exposes accessible status states', () => {
 
   assert.match(
     source,
-    /statusPanelRef\.current\?\.focus/,
-    'Expected successful submission to focus the confirmation panel',
+    /if \(isSuccess\) localPanelRef\.current\?\.focus\(\{ preventScroll: true \}\)/,
+    'Expected the mounted success panel to receive focus',
   )
+
+  assert.match(source, /restoreFormFocusRef\.current = true/)
+  assert.match(source, /focusFirstInvalidField\(formRef\.current, 'name'\)/)
 
   assert.match(
     source,
     /Send another message/,
     'Expected successful submission to offer a clear reset action',
   )
+})
+
+test('contact form returns WebMCP submission results without automatic submission', () => {
+  const source = readFileSync(contactFormPath, 'utf8')
+
+  assert.match(source, /nativeEvent\.agentInvoked/u)
+  assert.match(source, /nativeEvent\.respondWith/u)
+  assert.match(source, /respondWith\(submissionPromise\)/u)
+  assert.doesNotMatch(source, /toolautosubmit=/u)
+  assert.match(source, /<input type="hidden" name="_gotcha" value="" \/>/u)
 })
 
 test('contact form validates fields inline before submission', () => {
