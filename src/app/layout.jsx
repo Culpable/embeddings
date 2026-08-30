@@ -21,6 +21,13 @@ export default function Layout({ children }) {
     >
       <head>
         <link rel="describedby" href="/llms.txt" type="text/plain" />
+        <link
+          rel="preload"
+          href="/fonts/Mona-Sans-latin.var.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
       </head>
       {/* Suppress hydration mismatch warnings when browser extensions inject transient body attributes. */}
       <body

@@ -93,7 +93,7 @@ for (const route of activeRoutes) {
   }
 }
 
-const fontPath = join(repositoryRoot, 'src/fonts/Mona-Sans-latin.var.woff2')
+const fontPath = join(repositoryRoot, 'public/fonts/Mona-Sans-latin.var.woff2')
 const fontBytes = statSync(fontPath).size
 if (fontBytes > 100000) fail('font', 'Mona Sans transfer', fontBytes, 100000)
 

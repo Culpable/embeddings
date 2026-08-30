@@ -1,10 +1,12 @@
 import { spawnSync } from 'node:child_process'
+import { mkdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const repositoryRoot = resolve(fileURLToPath(new URL('..', import.meta.url)))
 const inputPath = resolve(repositoryRoot, 'src/fonts/Mona-Sans.var.woff2')
-const outputPath = resolve(repositoryRoot, 'src/fonts/Mona-Sans-latin.var.woff2')
+const outputDirectory = resolve(repositoryRoot, 'public/fonts')
+const outputPath = resolve(outputDirectory, 'Mona-Sans-latin.var.woff2')
 const unicodeRanges = [
   'U+0000-007F',
   'U+0080-00FF',
@@ -13,6 +15,10 @@ const unicodeRanges = [
   'U+20A0-20CF',
   'U+2190-21FF',
 ].join(',')
+
+// Create the explicit public asset directory before the font tool writes its
+// deterministic subset.
+mkdirSync(outputDirectory, { recursive: true })
 
 const result = spawnSync(
   'uvx',

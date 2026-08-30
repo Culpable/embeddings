@@ -35,7 +35,7 @@ function ComparisonFact({ label, value, tone = 'neutral' }) {
 
   return (
     <div className="rounded-2xl border border-neutral-950/10 bg-neutral-50 px-3 py-2">
-      <dt className="text-[0.65rem] font-semibold uppercase tracking-widest text-neutral-400">
+      <dt className="text-[0.65rem] font-semibold uppercase tracking-widest text-neutral-500">
         {label}
       </dt>
       <dd className={`mt-1 text-sm font-semibold ${valueClasses}`}>{value}</dd>
@@ -52,7 +52,7 @@ function AttributeTag({ children, muted = false }) {
     <span
       className={
         muted
-          ? 'before-shimmer inline-grid h-7 place-items-center rounded-full border border-dashed border-neutral-300 px-3 text-xs text-neutral-400'
+          ? 'before-shimmer inline-grid h-7 place-items-center rounded-full border border-dashed border-neutral-300 px-3 text-xs text-neutral-500'
           : 'inline-grid h-7 place-items-center rounded-full bg-neutral-950/[0.06] px-3 text-xs font-medium text-neutral-700'
       }
     >
@@ -76,7 +76,7 @@ function BeforeCard() {
 
       {/* Status badge */}
       <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
+        <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
           Before
         </span>
         <span className="rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-medium text-amber-700">
@@ -85,13 +85,13 @@ function BeforeCard() {
       </div>
 
       {/* Product title — generic, thin */}
-      <h4 className="mt-5 font-display text-lg font-medium text-neutral-950">
+      <h3 className="mt-5 font-display text-lg font-medium text-neutral-950">
         Blue Dress
-      </h4>
+      </h3>
 
       {/* GTIN — missing (shimmer effect reinforces incomplete data) */}
       <div className="mt-3 flex items-center gap-2">
-        <span className="text-xs font-medium text-neutral-400">GTIN</span>
+        <span className="text-xs font-medium text-neutral-500">GTIN</span>
         <span className="before-shimmer inline-block h-4 w-24 rounded border border-dashed border-neutral-300" />
       </div>
 
@@ -114,7 +114,7 @@ function BeforeCard() {
       </div>
 
       {/* Last updated — stale */}
-      <p className="mt-5 text-xs text-red-500/80">Last updated: 8 months ago</p>
+      <p className="mt-5 text-xs text-red-600">Last updated: 8 months ago</p>
     </div>
   )
 }
@@ -134,7 +134,7 @@ function AfterCard() {
 
       {/* Status badge */}
       <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
+        <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
           After
         </span>
         <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-700">
@@ -143,14 +143,14 @@ function AfterCard() {
       </div>
 
       {/* Product title — rich, detailed */}
-      <h4 className="mt-5 font-display text-lg font-medium text-neutral-950">
+      <h3 className="mt-5 font-display text-lg font-medium text-neutral-950">
         Women&rsquo;s A-Line Midi Dress &mdash; Sapphire Blue, Taylor
         Swift-inspired
-      </h4>
+      </h3>
 
       {/* GTIN — populated */}
       <div className="mt-3 flex items-center gap-2">
-        <span className="text-xs font-medium text-neutral-400">GTIN</span>
+        <span className="text-xs font-medium text-neutral-500">GTIN</span>
         <span className="font-mono text-xs text-neutral-600">
           0614141123456
         </span>
@@ -192,7 +192,7 @@ function AfterCard() {
       </div>
 
       {/* Last updated — fresh */}
-      <p className="mt-4 text-xs text-emerald-600">Last updated: 2 hours ago</p>
+      <p className="mt-4 text-xs text-emerald-700">Last updated: 2 hours ago</p>
     </div>
   )
 }

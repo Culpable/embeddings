@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 const baseCssPath = resolve(process.cwd(), 'src/styles/base.css')
+const layoutPath = resolve(process.cwd(), 'src/app/layout.jsx')
 
 test('local display font uses swap instead of blocking text paint', () => {
   // Require visible fallback text while Mona Sans downloads.
@@ -19,6 +20,19 @@ test('local display font uses swap instead of blocking text paint', () => {
     source,
     /font-display:\s*block;/,
     'Did not expect blocking font display for Mona Sans',
+  )
+
+  assert.match(
+    source,
+    /url\('\/fonts\/Mona-Sans-latin\.var\.woff2'\)/u,
+    'Expected Mona Sans to use the stable public font URL',
+  )
+
+  const layout = readFileSync(layoutPath, 'utf8')
+  assert.match(
+    layout,
+    /rel="preload"[\s\S]*href="\/fonts\/Mona-Sans-latin\.var\.woff2"[\s\S]*as="font"/u,
+    'Expected the shared layout to preload the LCP font',
   )
 })
 
