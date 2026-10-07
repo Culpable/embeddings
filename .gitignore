@@ -25,3 +25,9 @@ yarn-error.log*
 videos/
 
 documents/todo/bugs/codex/*
+
+# Raw test and browser output (screenshots, traces, videos, reports, logs and JSON observations)
+# goes to .artifacts/<task>/<run>/ and stays on this machine.
+.artifacts/
+# Old screenshot folder: anything that recreates it, such as a replayed pre-move capture, stays local.
+/artifacts/

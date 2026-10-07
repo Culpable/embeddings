@@ -177,7 +177,7 @@ VALIDATION GATE (CRITICAL):
 Responsive verification viewports:
 - Desktop: 1440x900
 - Mobile: 390x900
-- Capture screenshots using absolute paths.
+- Save screenshots and other raw browser output to `.artifacts/<task>/<run>/` in the repo root, which Git ignores, or leave them in dev-browser's `~/.dev-browser/tmp/`. Record their absolute paths. Never save them in a folder Git can see; the old root `artifacts/` folder now lives at `.artifacts/ui-audits/`.
 - Check for horizontal overflow, console errors, page errors, and offscreen changed elements.
 
 IMPORTANT:
