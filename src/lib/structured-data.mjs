@@ -2,22 +2,28 @@ import { absoluteUrl, getRoute, siteConfig } from './site-config.mjs'
 
 const processServices = [
   {
-    id: `${absoluteUrl('/process')}#foundation`,
-    name: 'Foundation',
+    id: `${absoluteUrl('/process')}#discover`,
+    name: 'Discover',
     description:
-      'Audit and enrich the product catalogue, rank data gaps, and connect source systems for current stock, price, and status.',
+      'Map processes, data and systems, identify where AI will take the most work off the team, and deliver an implementation roadmap.',
+  },
+  {
+    id: `${absoluteUrl('/process')}#build`,
+    name: 'Build',
+    description:
+      'Build a working system on real data and test it with the people who will use it.',
   },
   {
     id: `${absoluteUrl('/process')}#deploy`,
     name: 'Deploy',
     description:
-      'Build a retailer-owned shopping agent into the existing site and connect search, cart, checkout, order status, and returns.',
+      'Connect the system to existing software, set guardrails, and roll it out into production in stages.',
   },
   {
     id: `${absoluteUrl('/process')}#operate`,
     name: 'Operate',
     description:
-      'Measure commercial outcomes, improve catalogue content from live demand, and give the retailer direct control of prompts and policies.',
+      'Support, monitor and improve the live system, and hand everyday controls to the client’s team.',
   },
 ]
 

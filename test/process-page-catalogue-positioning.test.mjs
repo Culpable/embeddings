@@ -5,23 +5,24 @@ import { resolve } from 'node:path'
 
 const processPagePath = resolve(process.cwd(), 'src/app/process/page.jsx')
 
-test('process page renders the three journey stages in order', () => {
-  // Guard the narrative order so the catalogue foundation always precedes the
-  // agent build, which in turn precedes live operation.
+test('process page renders the four journey stages in order', () => {
+  // Guard the narrative order so discovery always precedes the build, which in
+  // turn precedes deployment and ongoing operation.
   const source = readFileSync(processPagePath, 'utf8')
 
-  const foundationIndex = source.indexOf('title="Foundation"')
+  const discoverIndex = source.indexOf('title="Discover"')
+  const buildIndex = source.indexOf('title="Build"')
   const deployIndex = source.indexOf('title="Deploy"')
   const operateIndex = source.indexOf('title="Operate"')
 
   assert.ok(
-    foundationIndex !== -1 && deployIndex !== -1 && operateIndex !== -1,
-    'Expected all three process stage titles to be present',
+    [discoverIndex, buildIndex, deployIndex, operateIndex].every((index) => index !== -1),
+    'Expected all four process stage titles to be present',
   )
 
   assert.ok(
-    foundationIndex < deployIndex && deployIndex < operateIndex,
-    'Expected process stages to render as Foundation, then Deploy, then Operate',
+    discoverIndex < buildIndex && buildIndex < deployIndex && deployIndex < operateIndex,
+    'Expected process stages to render as Discover, Build, Deploy, then Operate',
   )
 })
 

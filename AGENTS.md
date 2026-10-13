@@ -4,6 +4,12 @@
 These rules apply specifically to this repository and should be used for all code within this project scope.
 </description>
 
+<site_positioning>
+- Current state (since 13 October 2026): Embeddings is positioned as broad, implementation-first AI consulting for organisations. The offer is knowledge assistants, customer chatbots, workflow automation, system integration and agent orchestration, plus deploying, operating and improving what is built.
+- E-commerce is one specialism, shown in the homepage `#ecommerce` section with the shopping demo. Shoppa (shoppa.au) is a separate packaged product, mentioned only through `ShoppaCard.jsx`; never make Embeddings read as the Shoppa product or add Shoppa feature, setup or pricing claims.
+- Read `documents/site-positioning.md` before changing messaging, page structure or metadata. It holds the page-by-page structure, messaging rules and the evidence rule for claims. `documents/agentic-shopping-positioning.md` is superseded history.
+</site_positioning>
+
 <content_rules>
 - All text must be in British English
 - Use ’ instead of ' as an apostrophe on any frontend words (words that display to the user). e.g. Let’s, not Let's, businesses’, not businesses'
@@ -19,7 +25,7 @@ These rules apply specifically to this repository and should be used for all cod
 - The business enquiry form fields are: name, email, company, phone, message, and budget.
 - Frontend improvements may change layout, styling, focus states, loading states, error states, success states, and fallback behaviour, but must not replace the field contract with catalogue-readiness, SKU, platform, feed source, or priority fields without explicit approval.
 - Keep the contact route and contact form helper copy broad and concise. Do not add catalogue-readiness-specific form guidance or contact side-panel "what happens next" workflow content unless the user explicitly requests that messaging change.
-- Preserve the stable contact page copy unless the user explicitly requests copy changes. The contact metadata description must stay "Contact us to put your own AI shopping agent on your site.", the contact PageIntro title must stay "Your agent starts here", and the PageIntro body must stay "Ready to own the conversation with your customers? Tell us about your catalogue and commerce stack, and we’ll map the fastest path to a live agent."
+- Preserve the stable contact page copy unless the user explicitly requests copy changes. The contact metadata description must stay "Contact us to learn how we can integrate AI into your business.", the contact PageIntro title must stay "Your AI advantage starts here", and the PageIntro body must stay "Ready to put AI to work in your business? Tell us about the work and the systems behind it, and we’ll map a practical path to a live system."
 - Preserve the existing contact details side panel copy and structure unless the user explicitly requests copy changes. Keep "our offices", "We’re based in Perth and Melbourne, and work with clients all over Australia.", "email us", and "business enquiries"; do not add new trust, process, readiness, workflow, or "what we handle" copy to that side panel without explicit approval.
 - Preserve the intentionally empty trailing `Border` placeholder in `src/app/contact/ContactDetails.jsx` unless the user explicitly requests its removal.
 </contact_form_rules>
@@ -78,11 +84,11 @@ src/
 ├── app/
 │   ├── page.jsx: Homepage for broad AI consulting: hero with assistant conversation, what we build (`#services`), e-commerce specialism with the shopping demo and Shoppa card (`#ecommerce`), how we work (`#how-we-work`), and CTA
 │   ├── about/
-│   │   └── page.jsx: About page content and team info
+│   │   └── page.jsx: About page — "Solutions, not slideshows" implementation-first story, what sets us apart, and expertise cards
 │   ├── process/
-│   │   └── page.jsx: Process page methodology
+│   │   └── page.jsx: Process page — Discover, Build, Deploy, Operate stages (matching the homepage timeline), each with a "You get" deliverable, then values
 │   ├── contact/
-│   │   ├── page.jsx: Contact page layout and static content
+│   │   ├── page.jsx: Contact page layout and static content ("Your AI advantage starts here")
 │   │   ├── ContactForm.jsx: Interactive contact form (Client Component)
 │   │   └── ContactDetails.jsx: Office locations and contact info
 │   └── test-mixpanel/
@@ -144,11 +150,13 @@ System architecture documentation (IMPORTANT):
 These are the only system documentation files for this repository. Read the relevant file when working in that area.
 
 - `documents/service-section-animations.md`: Technical reference for how the service section animations work (timing, triggers, and implementation behaviour).
-- `documents/agentic-shopping-positioning.md`: Marketing positioning reference for the agentic shopping narrative and messaging direction.
+- `documents/site-positioning.md`: Current marketing positioning, page-by-page structure, Shoppa boundary and messaging rules.
+- `documents/agentic-shopping-positioning.md`: Superseded owned-shopping-agent positioning, kept as history only.
 
 Documentation update rules:
 - Update `documents/service-section-animations.md` whenever code changes affect the service section animations.
-- Do not update `documents/agentic-shopping-positioning.md` based on code changes; it is marketing/positioning documentation only.
+- Update `documents/site-positioning.md` whenever page structure, headings, section anchors or site-wide messaging change.
+- Do not update `documents/agentic-shopping-positioning.md`; it is historical.
 
 </system_architecture_documentation>
 

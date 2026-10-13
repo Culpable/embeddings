@@ -24,7 +24,7 @@ test('indexable routes emit linked organisation, website, and page nodes', () =>
     buildStructuredData('process')['@graph']
       .filter((node) => node['@type'] === 'Service')
       .map((node) => node.name),
-    ['Foundation', 'Deploy', 'Operate'],
+    ['Discover', 'Build', 'Deploy', 'Operate'],
   )
 })
 

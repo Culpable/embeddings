@@ -4,7 +4,6 @@ import { FadeIn, FadeInStagger } from '@/components/FadeIn'
 import { GridList, GridListItem } from '@/components/GridList'
 import { PageIntro } from '@/components/PageIntro'
 import { SectionIntro } from '@/components/SectionIntro'
-import { StatList, StatListItem } from '@/components/StatList'
 import { StructuredData } from '@/components/StructuredData'
 import { buildPageMetadata } from '@/lib/metadata'
 
@@ -12,24 +11,24 @@ const capabilities = [
   {
     index: '01',
     title: 'Agent & LLM Pipeline Engineering',
-    body: 'We build the shopping agent and the pipelines that feed it: grounding answers in your catalogue, connecting your search and commerce systems, and enriching product data at scale so descriptions, categories, and attributes are complete. Thousands of SKUs processed in hours.',
+    body: 'We build assistants, agents and the pipelines behind them: grounding answers in your own documents and data, connecting them to the software your teams use, and processing information at scale.',
   },
   {
     index: '02',
     title: 'Data Infrastructure',
-    body: 'We integrate directly with your ERP, PIM, and inventory systems to keep catalogue data fresh and accurate. Real-time stock, pricing, and product status — because AI agents penalise stale data.',
+    body: 'We integrate directly with your ERP, CRM, document systems and custom software, so AI works from current, accurate data rather than stale copies.',
   },
   {
     index: '03',
-    title: 'Retail Domain Expertise',
-    body: 'We understand Google Merchant Centre specifications, GTIN standards, product taxonomy, and the emerging standards of agentic commerce.',
+    title: 'E-commerce Expertise',
+    body: 'For retailers, we bring product data and search experience, including Google Merchant Centre specifications, GTIN standards and product taxonomy.',
   },
 ]
 
 const proofSignals = [
   {
     label: 'focus',
-    value: 'retailer-owned shopping agents',
+    value: 'AI that runs in production',
   },
   {
     label: 'built from',
@@ -74,15 +73,15 @@ function ProofLedger() {
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1.15fr] lg:items-center">
             <div>
               <p className="font-display text-sm font-semibold tracking-wider text-white/50">
-                proof of focus
+                what sets us apart
               </p>
               <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
-                Built around one retail problem, not a broad AI menu
+                Built to work in the real world
               </h2>
               <p className="mt-5 text-base leading-7 text-neutral-400">
-                The consultancy story resolves into three concrete signals:
-                shopping-agent depth, engineering delivery, and Australian
-                retail proximity.
+                Three things shape every engagement: hands-on engineering,
+                connection to the systems you already run, and a team close
+                enough to work alongside yours.
               </p>
             </div>
 
@@ -112,16 +111,15 @@ function Culture() {
   return (
     <div className="mt-24 rounded-4xl bg-neutral-950 py-24 sm:mt-32 lg:mt-40 lg:py-32">
       <SectionIntro
-        eyebrow="our approach"
-        title="Built for retail conversations, not generic AI consulting"
+        eyebrow="our expertise"
+        title="Deep technical skill, applied to everyday work"
         invert
       >
         <p>
-          Most AI consultancies offer broad capability across dozens of use
-          cases. We chose a different path: deep, vertical expertise in one
-          problem. Putting a trustworthy agent between a retailer and their
-          customer, on the retailer&rsquo;s terms, grounded in the
-          retailer&rsquo;s own product data.
+          We combine deep technical knowledge with hands-on delivery, across
+          teams and industries. Whatever the problem, we start with your data
+          and systems, build something your team will use, and keep improving
+          it after launch.
         </p>
       </SectionIntro>
       <Container className="mt-16">
@@ -177,63 +175,35 @@ export default function About() {
       <StructuredData routeKey="about" />
       <PageIntro
         eyebrow="about us"
-        title="The team building Australia&rsquo;s retailer-owned shopping agents"
+        title="Solutions, not slideshows"
       >
         <p>
-          Embeddings was founded on a single conviction: the retailers who win
-          in agentic commerce will be the ones who own the conversation and have
-          the best product data behind it. We combine LLM pipeline engineering
-          with data infrastructure at scale to deliver both.
+          Our strength is an implementation-first approach. We focus on real,
+          measurable value from AI systems that run in production, inside the
+          software, documents and processes your organisation already uses.
         </p>
         <p style={{ marginTop: '1rem' }}>
-          We don&rsquo;t hand you a strategy deck and wish you luck. We enrich
-          your catalogue, build your agent on top of it, and hand you the
-          controls.
+          You won&rsquo;t just get a strategy deck and a demo. We specialise in
+          the implementation phase, where the real change happens.
         </p>
         <IntroProofBand />
         <div className="mt-10 max-w-2xl space-y-6 text-base">
           <p>
             Embeddings was founded by engineers who spent years building large
-            language model pipelines and enterprise data systems. When agentic
-            shopping emerged — AI agents autonomously researching and purchasing
-            on behalf of consumers — we saw the critical gap: retailers had
-            decades of product data locked in formats AI couldn&rsquo;t parse,
-            and no way to put their own agent in front of customers. Rich
-            product knowledge trapped in PDFs, spreadsheets, and legacy ERPs. We
-            built Embeddings to solve that problem.
+            language model pipelines and enterprise data systems. We saw that
+            while many consultancies talked about AI&rsquo;s potential, few
+            could deliver practical systems that run in production. We started
+            Embeddings to do exactly that.
           </p>
           <p>
-            Our approach is engineering-led and outcome-driven. We measure
-            success in catalogue completeness scores, enrichment coverage, and
-            freshness latency — not slide counts. Every engagement begins with a
-            quantitative audit and ends with an enriched catalogue and a
-            shopping agent your team controls.
+            We&rsquo;re more than consultants. We&rsquo;re partners in putting
+            AI to work in your organisation. Our team combines deep technical
+            expertise with hands-on implementation experience, so every system
+            we deliver is robust, secure and built to scale.
           </p>
         </div>
       </PageIntro>
       <ProofLedger />
-      <Container className="mt-16">
-        <StatList>
-          <StatListItem
-            value="393%"
-            label="YoY growth in AI-driven e-commerce"
-            sourceLabel="Adobe"
-            sourceHref="https://business.adobe.com/blog/ai-traffic-surge-retail-sites-not-machine-readable"
-          />
-          <StatListItem
-            value="$3–5T"
-            label="Projected agentic commerce by 2030"
-            sourceLabel="McKinsey"
-            sourceHref="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-automation-curve-in-agentic-commerce"
-          />
-          <StatListItem
-            value="81%"
-            label="Of retail execs say AI will weaken brand loyalty"
-            sourceLabel="Deloitte"
-            sourceHref="https://www.deloitte.com/us/en/insights/industry/retail-distribution/retail-distribution-industry-outlook.html"
-          />
-        </StatList>
-      </Container>
 
       <Culture />
 

@@ -655,7 +655,7 @@ export function ContactForm() {
                 label="Message"
                 name="message"
                 required
-                toolparamdescription="A concise description of the catalogue, commerce stack, and requested outcome."
+                toolparamdescription="A concise description of the work, the systems involved, and the requested outcome."
                 multiline
                 rows={3}
                 error={fieldErrors.message}

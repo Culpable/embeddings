@@ -1,5 +1,7 @@
 # Owned-Agent Positioning: Site Messaging & Business Context
 
+> **Superseded on 13 October 2026.** Embeddings is now positioned as broad AI consulting and implementation, with e-commerce as one specialism and Shoppa as a separate product. Use `documents/site-positioning.md` for current messaging. This document is kept as history only; do not follow it for site changes.
+
 > **Purpose**: This document provides full context on what Embeddings does, the market problem we address, and why the home page is structured the way it is. Read this before making any changes to site messaging, copy, or structure.
 >
 > **Product source of truth**: `documents/reference/ai_shopping_agent.md`. That document defines the product and its capability ceiling. Nothing may be shown or claimed on the site unless it appears in its § Proposed Product or § Longer-Term Product Scope.

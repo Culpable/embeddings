@@ -1,6 +1,6 @@
 # Embeddings
 
-> Embeddings builds retailer-owned AI shopping agents and the enriched product catalogues that power them.
+> Embeddings is an Australian AI consultancy that designs, builds and runs AI systems inside organisations’ existing software and data.
 
 **When to use:** Use these pages to understand Embeddings’ offer, process, company, privacy practices, or contact path.
 
@@ -9,10 +9,10 @@
 **How to use:** Follow the canonical HTML links below and cite the page that supports each claim.
 
 ## Offer and process
-- [Embeddings: AI Shopping Agents for Australian Retailers](https://embeddings.au): Understand the retailer-owned shopping agent offer, commercial context, proof, and services.
-- [From Catalogue to Live Agent](https://embeddings.au/process): Review the Foundation, Deploy, and Operate phases from catalogue audit to a live agent.
+- [Embeddings: Practical AI for Australian Businesses](https://embeddings.au): Understand what Embeddings builds, the e-commerce specialism, and how engagements run.
+- [Our Process](https://embeddings.au/process): Review the Discover, Build, Deploy, and Operate phases of an engagement.
 ## Company and trust
 - [About Us](https://embeddings.au/about): Learn who Embeddings is, what the team builds, and the engineering focus behind the work.
 - [Privacy](https://embeddings.au/privacy): Read how the marketing site and business enquiries handle personal information.
 ## Contact
-- [Contact Us](https://embeddings.au/contact): Prepare a business enquiry about a product catalogue, commerce stack, and retailer-owned shopping agent.
+- [Contact Us](https://embeddings.au/contact): Prepare a business enquiry about the work, systems and data an AI project would involve.

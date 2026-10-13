@@ -61,11 +61,11 @@ export const routes = {
   home: {
     path: '/',
     outputFile: 'index.html',
-    title: 'Embeddings: AI Shopping Agents for Australian Retailers',
+    title: 'Embeddings: Practical AI for Australian Businesses',
     description:
-      'We build AI shopping agents that Australian retailers own. Grounded in your enriched catalogue, connected to your systems, and live on your site in weeks.',
+      'We design, build and run AI systems inside your existing software and data, from internal assistants to agents that coordinate work across teams.',
     llmsDescription:
-      'Understand the retailer-owned shopping agent offer, commercial context, proof, and services.',
+      'Understand what Embeddings builds, the e-commerce specialism, and how engagements run.',
     llmsGroup: 'Offer and process',
     pageType: 'WebPage',
     expectedMarker: 'AI that works inside your organisation',
@@ -79,12 +79,12 @@ export const routes = {
     outputFile: 'about.html',
     title: 'About Us',
     description:
-      'Meet the Australian consultancy building retailer-owned AI shopping agents with LLM pipeline engineering and data infrastructure at scale.',
+      'We combine deep technical expertise with hands-on implementation to help Australian businesses put AI to work.',
     llmsDescription:
       'Learn who Embeddings is, what the team builds, and the engineering focus behind the work.',
     llmsGroup: 'Company and trust',
     pageType: 'AboutPage',
-    expectedMarker: 'The team building Australia’s retailer-owned shopping agents',
+    expectedMarker: 'Solutions, not slideshows',
     indexable: true,
     includeInSitemap: true,
     includeInLlms: true,
@@ -92,14 +92,14 @@ export const routes = {
   process: {
     path: '/process',
     outputFile: 'process.html',
-    title: 'From Catalogue to Live Agent',
+    title: 'Our Process',
     description:
-      'How Embeddings builds retailer-owned AI shopping agents: catalogue foundation, agent deployment, and live operation.',
+      'How we help Australian businesses put AI to work: find the opportunities, build on your real data, deploy it into production, and keep improving it.',
     llmsDescription:
-      'Review the Foundation, Deploy, and Operate phases from catalogue audit to a live agent.',
+      'Review the Discover, Build, Deploy, and Operate phases of an engagement.',
     llmsGroup: 'Offer and process',
     pageType: 'WebPage',
-    expectedMarker: 'How we take you from catalogue to live agent',
+    expectedMarker: 'How we work',
     indexable: true,
     includeInSitemap: true,
     includeInLlms: true,
@@ -108,12 +108,12 @@ export const routes = {
     path: '/contact',
     outputFile: 'contact.html',
     title: 'Contact Us',
-    description: 'Contact us to put your own AI shopping agent on your site.',
+    description: 'Contact us to learn how we can integrate AI into your business.',
     llmsDescription:
-      'Prepare a business enquiry about a product catalogue, commerce stack, and retailer-owned shopping agent.',
+      'Prepare a business enquiry about the work, systems and data an AI project would involve.',
     llmsGroup: 'Contact',
     pageType: 'ContactPage',
-    expectedMarker: 'Your agent starts here',
+    expectedMarker: 'Your AI advantage starts here',
     indexable: true,
     includeInSitemap: true,
     includeInLlms: true,
@@ -175,13 +175,13 @@ export const siteConfig = {
   openGraphLocale: 'en_AU',
   defaultTitle: routes.home.title,
   defaultDescription:
-    'We build AI shopping agents that retailers own. Your catalogue, your brand, your customer conversations. Discovery, checkout, and support on your own site.',
+    'We design, build and run AI systems inside your existing software and data, from internal assistants to agents that coordinate work across teams.',
   socialImage,
   organisation: {
     id: `${productionOrigin}/#organisation`,
     name: 'Embeddings',
     description:
-      'Australian consultancy that builds retailer-owned AI shopping agents and the enriched product catalogues that power them.',
+      'Australian AI consultancy that designs, builds and runs AI systems inside organisations’ existing software and data, including custom shopping assistants for retailers.',
     logo: `${productionOrigin}/images/embeddings-logo.png`,
   },
   websiteId: `${productionOrigin}/#website`,

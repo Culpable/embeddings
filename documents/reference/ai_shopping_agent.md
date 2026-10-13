@@ -1,5 +1,7 @@
 # Opportunity
 
+> **Historical reference (13 October 2026).** This opportunity became Shoppa, a separate product with its own site. It no longer defines what the Embeddings site may show or claim; use `documents/site-positioning.md`.
+
 Build an out-of-the-box AI shopping agent for online retailers. The agent helps customers find products, make purchase decisions, complete transactions, and access post-sale support.
 
 The platform would provide an equivalent or better experience than Bunnings’ Buddy and Google’s retail shopping agent, with faster implementation, lower costs, more retailer control, and broader integrations.

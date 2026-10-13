@@ -13,7 +13,7 @@ export default function ThankYou() {
       <PageIntro eyebrow="message received" title="We’ll review your enquiry">
         <p>
           Thanks for getting in touch. We’ll look at your context and respond
-          with the most useful next step for improving your catalogue data.
+          with the most useful next step.
         </p>
       </PageIntro>
 
@@ -25,8 +25,8 @@ export default function ThankYou() {
             </h2>
             <div className="mt-6 space-y-4 text-base leading-7 text-neutral-600">
               <p>
-                We’ll check whether an audit, enrichment sprint, freshness
-                integration, or live optimisation plan is the best first move.
+                We’ll check whether a discovery session, a small first build,
+                or a review of a system you already run is the best first move.
               </p>
               <p>
                 If anything is urgent, email solutions@embeddings.au directly

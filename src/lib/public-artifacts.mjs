@@ -21,7 +21,7 @@ export function renderLlmsTxt() {
   return [
     '# Embeddings',
     '',
-    '> Embeddings builds retailer-owned AI shopping agents and the enriched product catalogues that power them.',
+    '> Embeddings is an Australian AI consultancy that designs, builds and runs AI systems inside organisations’ existing software and data.',
     '',
     '**When to use:** Use these pages to understand Embeddings’ offer, process, company, privacy practices, or contact path.',
     '',

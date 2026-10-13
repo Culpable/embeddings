@@ -14,11 +14,11 @@ export default function Contact() {
   return (
     <>
       <StructuredData routeKey="contact" />
-      <PageIntro eyebrow="contact us" title="Your agent starts here">
+      <PageIntro eyebrow="contact us" title="Your AI advantage starts here">
         <p>
-          Ready to own the conversation with your customers? Tell us about your
-          catalogue and commerce stack, and we&rsquo;ll map the fastest path to
-          a live agent.
+          Ready to put AI to work in your business? Tell us about the work and
+          the systems behind it, and we&rsquo;ll map a practical path to a live
+          system.
         </p>
       </PageIntro>
 

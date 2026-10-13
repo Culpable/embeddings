@@ -1,4 +1,3 @@
-import { Blockquote } from '@/components/Blockquote'
 import { ContactSection } from '@/components/ContactSection'
 import { Container } from '@/components/Container'
 import { FadeIn } from '@/components/FadeIn'
@@ -46,21 +45,41 @@ function ProcessImageSignals({ title, signals }) {
   )
 }
 
-function Section({ id, title, image, signals = [], children }) {
+// Render one process stage: a photo (or, for stages without one, an aside
+// card) beside the stage number, title, deliverable and copy. Even stages
+// swap sides on desktop. `output` names what the client has at the end of the
+// stage, matching the "You get" lines in the homepage timeline.
+function Section({ id, title, output, image, aside, signals = [], children }) {
   return (
-    <Container id={id} className="group/section scroll-mt-24 [counter-increment:section]">
-      <div className="lg:flex lg:items-center lg:justify-end lg:gap-x-8 lg:group-even/section:justify-start xl:gap-x-20">
-        <div className="flex justify-center">
-          <FadeIn className="w-full max-w-[33.75rem] flex-none lg:w-[45rem] lg:max-w-none">
-            <div className="relative">
-              <StylizedImage
-                {...image}
-                className="justify-center lg:justify-end lg:group-even/section:justify-start"
-              />
-              <ProcessImageSignals title={title} signals={signals} />
-            </div>
-          </FadeIn>
-        </div>
+    <Container className="group/section [counter-increment:section]">
+      {/* Container does not forward `id`, so the stage anchor (linked from the
+          structured data, e.g. /process#deploy) sits on this inner wrapper. */}
+      <div
+        id={id}
+        className="scroll-mt-24 lg:flex lg:items-center lg:justify-end lg:gap-x-8 lg:group-even/section:justify-start xl:gap-x-20"
+      >
+        {/* Photos keep a fixed width and bleed past the text column on
+            purpose. An aside card instead fills the space left beside the
+            text, so it never runs past the container edge. */}
+        {image ? (
+          <div className="flex justify-center">
+            <FadeIn className="w-full max-w-[33.75rem] flex-none lg:w-[45rem] lg:max-w-none">
+              <div className="relative">
+                <StylizedImage
+                  {...image}
+                  className="justify-center lg:justify-end lg:group-even/section:justify-start"
+                />
+                <ProcessImageSignals title={title} signals={signals} />
+              </div>
+            </FadeIn>
+          </div>
+        ) : (
+          <div className="flex justify-center lg:min-w-0 lg:flex-1">
+            <FadeIn className="w-full max-w-[33.75rem] lg:max-w-none">
+              {aside}
+            </FadeIn>
+          </div>
+        )}
         <div className="mt-12 lg:mt-0 lg:w-[37rem] lg:flex-none lg:group-even/section:order-first">
           <FadeIn>
             <div
@@ -70,6 +89,11 @@ function Section({ id, title, image, signals = [], children }) {
             <h2 className="mt-2 font-display text-3xl font-medium tracking-tight text-neutral-950 sm:text-4xl">
               {title}
             </h2>
+            {output ? (
+              <p className="mt-4 inline-flex rounded-full bg-neutral-100 px-3 py-1 text-sm font-medium text-neutral-700">
+                You get: {output}
+              </p>
+            ) : null}
             <div className="mt-6">{children}</div>
           </FadeIn>
         </div>
@@ -78,46 +102,39 @@ function Section({ id, title, image, signals = [], children }) {
   )
 }
 
-function Foundation() {
+function Discover() {
   return (
     <Section
-      id="foundation"
-      title="Foundation"
+      id="discover"
+      title="Discover"
+      output="A short list of opportunities, ranked by value and effort"
       image={{
         image: processImages.whiteboard,
         priority: true,
         sizes: processImageSizes.whiteboard,
       }}
       signals={[
-        { label: 'scorecard', value: '74/100 ready' },
-        { label: 'gaps ranked', value: '128 fixes' },
+        { label: 'scope', value: 'people, data and systems' },
+        { label: 'output', value: 'ranked opportunities' },
       ]}
     >
       <div className="space-y-6 text-base text-neutral-600">
         <p>
-          We start with the product catalogue because your agent can only answer
-          from what it knows. Our audit checks{' '}
+          Through process mapping and data analysis, we identify the{' '}
           <strong className="font-semibold text-neutral-950">
-            GTIN coverage, taxonomy depth, image quality, descriptions, pricing,
-            stock freshness, and merchant-feed readiness
+            key opportunities
           </strong>{' '}
-          against the standards both your own agent and external commerce agents
-          rely on.
+          where AI can take the most work off your team. We look at your
+          knowledge systems, document workflows and the software your people
+          use every day, and we’re clear about where AI won’t help.
         </p>
         <p>
-          You receive a prioritised remediation plan that shows which gaps
-          produce wrong answers, which fixes protect revenue first, and which
-          data owners need to be involved. The output is practical: a
-          catalogue-readiness score, a risk register, and the fastest path to
-          richer product data.
-        </p>
-        <p>
-          We then close the gaps. LLM enrichment pipelines fill missing
-          attributes, descriptions, and categories at scale, while real-time
-          integrations from your ERP, PIM, POS, and inventory systems keep
-          stock, price, and status current. Every generated field stays
-          traceable, so merchandising can review the data before it reaches a
-          live surface.
+          You then receive an{' '}
+          <strong className="font-semibold text-neutral-950">
+            implementation roadmap
+          </strong>
+          : the specific AI systems we recommend, the data and integrations
+          each one needs, and how we’ll measure its value.
         </p>
       </div>
 
@@ -125,127 +142,165 @@ function Foundation() {
         Included in this phase
       </h3>
       <TagList className="mt-4">
-        <TagListItem>Merchant Feed Audit</TagListItem>
-        <TagListItem>GTIN Coverage</TagListItem>
-        <TagListItem>Attribute Gaps</TagListItem>
-        <TagListItem>Taxonomy Review</TagListItem>
-        <TagListItem>Freshness Risk</TagListItem>
-        <TagListItem>Revenue Priority</TagListItem>
+        <TagListItem>Production System Analysis</TagListItem>
+        <TagListItem>Integration Requirements</TagListItem>
+        <TagListItem>Solution Design</TagListItem>
+        <TagListItem>Security Assessment</TagListItem>
+        <TagListItem>Implementation Planning</TagListItem>
+        <TagListItem>Deployment Strategy</TagListItem>
       </TagList>
     </Section>
   )
 }
 
-function Deploy() {
+function Build() {
   return (
     <Section
-      id="deploy"
-      title="Deploy"
+      id="build"
+      title="Build"
+      output="A working system your team has already tried"
       image={{
         image: processImages.laptop,
         shape: 1,
         sizes: processImageSizes.standard,
       }}
       signals={[
-        { label: 'search', value: 'plugged into your stack' },
-        { label: 'checkout', value: 'in the conversation' },
+        { label: 'built on', value: 'your real data' },
+        { label: 'tested by', value: 'the people who use it' },
       ]}
     >
       <div className="space-y-6 text-base text-neutral-600">
         <p>
-          We ground your agent on the enriched catalogue, then build it into the
-          site your customers already use. The interface is designed into your
-          brand and your design system, so the agent looks like part of your
-          store rather than a bolted-on chat box.
+          We build a working version on your real data early, and test it with
+          the people who will use it. You see working software, not a demo
+          deck.
         </p>
         <p>
-          The agent integrates with the search you already run:{' '}
-          <strong className="font-semibold text-neutral-950">
-            Algolia, Coveo, Elasticsearch, Google Retail Search, or your own
-            index
-          </strong>
-          . You are never tied to one search index, and you can change providers
-          without rebuilding the agent.
+          We work in short cycles, showing you progress and adjusting as we
+          learn what works for your team.
         </p>
         <p>
-          We configure prompts, canned responses, and guardrails with your
-          business, legal, and ecommerce teams, then connect the systems that
-          complete the journey: cart, checkout, order status, returns, and any
-          other API the conversation needs. Rollout is staged, with testing and
-          rollback at every step.
+          Each client has a dedicated lead who keeps communication clear and
+          works closely with our engineers, so the system fits how your
+          organisation actually works.
         </p>
       </div>
-
-      <Blockquote className="mt-12">
-        Embeddings showed us which catalogue gaps were stopping our products
-        from being understood and gave our merchandising team a practical way to
-        fix them at scale.
-      </Blockquote>
     </Section>
   )
 }
 
-function Operate() {
+
+function Deploy() {
   return (
     <Section
-      id="operate"
-      title="Operate"
+      id="deploy"
+      title="Deploy"
+      output="A live system inside the tools your team already uses"
       image={{
         image: processImages.meeting,
         shape: 2,
         sizes: processImageSizes.standard,
       }}
       signals={[
-        { label: 'analytics', value: 'assisted revenue' },
-        { label: 'control', value: 'self-service' },
+        { label: 'runs in', value: 'your existing tools' },
+        { label: 'rollout', value: 'staged, with rollback' },
       ]}
     >
       <div className="space-y-6 text-base text-neutral-600">
         <p>
-          A live agent is a product, not a project. We report on sessions,
-          conversion, assisted revenue, search success, containment, and
-          drop-off, so you can see where the conversation earns money and where
-          it stalls.
-        </p>
-        <p>
-          Those signals feed straight back into the catalogue. Trend and demand
-          data keep product content aligned with what customers are actually
-          asking for, while monitoring catches stale inventory, missing
-          identifiers, and answers that drift away from product truth.
-        </p>
-        <p>
-          Then we hand over the controls. Your team changes{' '}
+          We don’t stop at strategy decks. We focus on the{' '}
           <strong className="font-semibold text-neutral-950">
-            prompts, policies, and canned responses
+            implementation phase
+          </strong>
+          , where real value is created: systems that work in production, not
+          just in a demo.
+        </p>
+        <p>
+          We connect the system to the software you already run:{' '}
+          <strong className="font-semibold text-neutral-950">
+            ERP, CRM, document systems, project tools and custom-built software
+          </strong>
+          . Guardrails are set with your business, legal and IT teams, so it
+          only does what it should.
+        </p>
+        <p>
+          Our team provides{' '}
+          <strong className="font-semibold text-neutral-950">
+            hands-on support
           </strong>{' '}
-          directly, with versioning, review, and rollback behind them, so
-          routine changes never wait on anyone else.
+          through rollout, so your people adopt the system and see results
+          early.
         </p>
       </div>
 
       <h3 className="mt-12 font-display text-base font-semibold text-neutral-950">
         Included in this phase
       </h3>
-      <List className="mt-8">
-        <ListItem title="Conversation Analytics">
-          We report sessions, conversion, assisted revenue, drop-off, and
-          containment so the agent is measured on commercial outcomes rather
-          than message volume.
-        </ListItem>
-        <ListItem title="Catalogue Optimisation">
-          We connect product content to live demand signals, then update
-          descriptions and attributes where the commercial opportunity justifies
-          action.
-        </ListItem>
-        <ListItem title="Self-Service Handover">
-          We document the workflow, review controls, and ownership model so your
-          team can change the agent and keep improving the catalogue after
-          launch.
-        </ListItem>
-      </List>
+      <TagList className="mt-4">
+        <TagListItem>Production Deployment</TagListItem>
+        <TagListItem>System Integration</TagListItem>
+        <TagListItem>Access Controls</TagListItem>
+        <TagListItem>Staged Rollout</TagListItem>
+        <TagListItem>Team Training</TagListItem>
+      </TagList>
     </Section>
   )
 }
+
+
+// The fourth stage has no photo, so the list of what's included takes the
+// photo's place as a card.
+function OperateIncluded() {
+  return (
+    <div className="surface-elevation-light rounded-3xl bg-white p-8 sm:p-10">
+      <h3 className="font-display text-base font-semibold text-neutral-950">
+        Included in this phase
+      </h3>
+      <List className="mt-8">
+        <ListItem title="Production Support">
+          We monitor usage, errors and answer quality, and fix problems before
+          your team has to report them.
+        </ListItem>
+        <ListItem title="Regular Improvements">
+          We extend and refine the system as you learn what works, from new
+          questions it should answer to new tasks it can take on.
+        </ListItem>
+        <ListItem title="Handover and Control">
+          We document the system and its controls, so your team can change
+          everyday settings directly, with review and rollback behind them.
+        </ListItem>
+      </List>
+    </div>
+  )
+}
+
+
+function Operate() {
+  return (
+    <Section
+      id="operate"
+      title="Operate"
+      output="Ongoing support and regular improvements"
+      aside={<OperateIncluded />}
+    >
+      <div className="space-y-6 text-base text-neutral-600">
+        <p>
+          A live AI system is a product, not a project. We keep supporting and
+          improving it so it{' '}
+          <strong className="font-semibold text-neutral-950">
+            performs at scale
+          </strong>{' '}
+          in production and changes as your business does.
+        </p>
+        <p>
+          We track where it helps and where it falls short, so you can see the
+          work it takes off your team and decide what to build next.
+        </p>
+      </div>
+    </Section>
+  )
+}
+
 
 function Values() {
   return (
@@ -259,41 +314,40 @@ function Values() {
 
       <SectionIntro
         eyebrow="our values"
-        title="Built for retail conversations, not generic AI adoption"
+        title="AI that earns its place in your business"
       >
         <p>
-          Putting a trustworthy agent between you and your customer is a
-          technical, commercial, and operational problem. These principles keep
-          the work focused on answer quality and revenue rather than broad AI
-          theatre.
+          We combine deep technical expertise with practical business sense.
+          Everything we build has to do real work for your team, and we measure
+          it that way.
         </p>
       </SectionIntro>
 
       <Container className="mt-24">
         <GridList>
-          <GridListItem title="Agent-readable data">
-            Product records need complete identifiers, attributes, descriptions,
-            and categories that agents can compare without guessing.
+          <GridListItem title="Technical Excellence">
+            Our team stays at the forefront of AI, so you get current, proven
+            techniques rather than last year’s approach.
           </GridListItem>
-          <GridListItem title="Freshness as a signal">
-            Stock, price, availability, and status changes must reach commerce
-            surfaces before stale data costs visibility.
+          <GridListItem title="Measurable Impact">
+            We measure success by the work a system takes off your team and
+            the time it gives back.
           </GridListItem>
-          <GridListItem title="Measurable revenue">
-            Progress is tracked through sessions, conversion, and assisted
-            revenue, not message counts or activity dashboards.
+          <GridListItem title="Practical Solutions">
+            We turn complex AI capabilities into systems that solve real
+            operational problems, inside the tools your team already uses.
           </GridListItem>
-          <GridListItem title="Brand-safe conversations">
-            Generated answers need governance, review paths, PII controls, and
-            traceability so product truth and customer trust stay intact.
+          <GridListItem title="Clear Communication">
+            We keep you informed at every step, with plain answers about what
+            AI can and can’t do for you.
           </GridListItem>
-          <GridListItem title="Retail workflow fit">
-            The system must work with merchandising, data, and commerce teams
-            rather than creating a separate AI process.
+          <GridListItem title="Safe by Design">
+            Access controls, review steps, privacy safeguards and traceability
+            are built in from the start.
           </GridListItem>
-          <GridListItem title="Your controls">
-            Prompts, policies, and canned responses stay in your hands, with
-            versioning and rollback behind every change.
+          <GridListItem title="Lasting Partnership">
+            We stay on after launch, supporting and extending your systems as
+            your organisation grows.
           </GridListItem>
         </GridList>
       </Container>
@@ -318,17 +372,17 @@ export default function Process() {
       <StructuredData routeKey="process" />
       <PageIntro
         eyebrow="our process"
-        title="How we take you from catalogue to live agent"
+        title="How we work"
       >
         <p>
-          We start with the product data, because your agent is only as good as
-          what it knows. Then we build the agent around it, connect your
-          commerce systems, and hand you the controls.
+          We take a systematic approach to AI implementation, so each system
+          delivers value early and gives you a foundation to build on.
         </p>
       </PageIntro>
 
       <div className="mt-24 space-y-24 [counter-reset:section] sm:mt-32 sm:space-y-32 lg:mt-40 lg:space-y-40">
-        <Foundation />
+        <Discover />
+        <Build />
         <Deploy />
         <Operate />
       </div>
