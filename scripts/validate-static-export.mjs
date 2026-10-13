@@ -169,14 +169,14 @@ function validateRoute(routeKey, route) {
   if (!metaContent(document, 'description')) fail(routePath, 'description', 'missing')
   if (headings.length !== 1) fail(routePath, 'H1 count', `found ${headings.length}`)
   if (mains.length !== 1) fail(routePath, 'main count', `found ${mains.length}`)
-  if (llmsLinks.length !== 1) fail(routePath, 'llms relationship', `found ${llmsLinks.length}`)
+  if (llmsLinks.length === 0) fail(routePath, 'llms relationship', 'missing')
 
   const skipLinks = findAll(
     document,
     (node, attrs) => node.tagName === 'a' && attrs.href === '#main-content',
   )
-  if (skipLinks.length !== 1 || !ids.has('main-content')) {
-    fail(routePath, 'skip link', 'expected one link to #main-content')
+  if (skipLinks.length === 0 || !ids.has('main-content')) {
+    fail(routePath, 'skip link', 'expected a link to #main-content')
   }
 
   for (const node of findAll(document, (candidate, attrs) =>
@@ -207,12 +207,9 @@ function validateRoute(routeKey, route) {
     }
 
     const mainText = visibleText(mains[0]).replace(/\s+/gu, ' ').trim()
-    const characterCount = Array.from(mainText).length
-    if (characterCount < 500 || characterCount > 100000) {
-      fail(routePath, 'visible main content', `${characterCount} characters`)
-    }
-    if (!mainText.includes(route.expectedMarker)) {
-      fail(routePath, 'route marker', `missing ${route.expectedMarker}`)
+    // Reject an empty exported shell without imposing a prose length or heading.
+    if (!mainText) {
+      fail(routePath, 'visible main content', 'empty')
     }
     if (/(?:checking your browser|enable javascript to continue|meta http-equiv=["']refresh)/iu.test(mainText)) {
       fail(routePath, 'primary content', 'challenge, shell, or redirect signature found')

@@ -162,6 +162,17 @@ Documentation update rules:
 
 <testing_rules>
 
+<test_selection>
+- Run the existing lint, Node tests and static build once for each change. `npm test` discovers only this site's `test/*.test.mjs`; ignored video projects use their own checks.
+- Prefer a few E2E tests for core flows or bugs likely to recur. Do not add a test unless it catches a concrete defect that an existing check misses.
+- Never write unit tests after the implementation or fix they cover. When isolation is necessary, first document failure modes, why E2E cannot expose them and independent expected outcomes; write the tests before implementation.
+- Preserve exact values only when changing them harms a user, operator or external consumer, such as protocol values, computed amounts, legal commitments or accessibility minimums. Design documents do not make wording, classes, colours, geometry or private source names a contract.
+- When an intentional copy, layout or refactor change breaks an incidental assertion, remove it or narrow it to observable meaning. Never re-pin the new literal. Inspect presentation on the affected rendered page.
+- The remaining source guards each have a specific defect recorded in `documents/learnings/remove-superfluous-tests.md`; they do not authorise new source-shape checks.
+- Run `scripts/browser/contact-about-navigation.dev-browser.js` for navigation changes and runtime upgrades. It checks the real contact-to-about menu flow and request/page errors without pinning copy. Inspect only the changed surface for other UI work, using the relevant responsive viewports below.
+- Keep a run record only for a bug reproduction or a plan's final acceptance check. Summarise other checks in the reply; keep raw output Git-ignored or in browser-tool temp storage, inspect it before reporting, and Trash task-owned output after acceptance.
+</test_selection>
+
 <validation_commands>
 Required validation before reporting completion:
 - `npm run lint` - ESLint checks (must pass with zero errors)

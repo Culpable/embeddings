@@ -55,7 +55,7 @@ Navigation and footer "offer" links point to `/#services`, `/#ecommerce` and `/#
 
 ## Metadata and machine-readable identity
 
-Route titles, descriptions, the organisation description and the AI crawler summary live in `src/lib/site-config.mjs` and `src/lib/public-artifacts.mjs`. The homepage title is "Embeddings: Practical AI for Australian Businesses". Process stage service nodes in `src/lib/structured-data.mjs` mirror the four process stages and link to their anchors (`/process#discover` and so on). Run `npm run generate-public-artifacts` after changing any of these, and keep each route's `expectedMarker` equal to its rendered heading so the static export check passes.
+Route titles, descriptions, the organisation description and the AI crawler summary live in `src/lib/site-config.mjs` and `src/lib/public-artifacts.mjs`. The homepage title is "Embeddings: Practical AI for Australian Businesses". Process stage service nodes in `src/lib/structured-data.mjs` mirror the four process stages and link to their anchors (`/process#discover` and so on). Run `npm run generate-public-artifacts` after changing any of these. The static export check verifies visible content, metadata, canonical URLs and linked structured data without pinning heading wording or prose length. Review messaging against this document on the rendered page.
 
 ## Components kept but not rendered
 

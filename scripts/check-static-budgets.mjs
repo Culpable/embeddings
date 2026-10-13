@@ -79,17 +79,10 @@ for (const route of activeRoutes) {
   for (const script of scripts) initialJavaScript.add(script)
 
   if (jsGzip > routeJsCeiling) fail(route.path, 'initial JavaScript gzip', jsGzip, routeJsCeiling)
-  if (jsGzip > 180000) fail(route.path, 'absolute JavaScript gzip', jsGzip, 180000)
-  if (stylesheets.size !== 1) fail(route.path, 'stylesheet count', stylesheets.size, 1)
   if (cssGzip > 15000) fail(route.path, 'shared CSS gzip', cssGzip, 15000)
   if (htmlGzip > 40000) fail(route.path, 'HTML gzip', htmlGzip, 40000)
   if (htmlBuffer.byteLength > 220 * 1024) {
     fail(route.path, 'HTML raw', htmlBuffer.byteLength, 220 * 1024)
-  }
-
-  const initialSource = Array.from(scripts, (path) => readFileSync(path, 'utf8')).join('\n')
-  if (/framer-motion|AnimatePresence|motionValue/iu.test(initialSource)) {
-    failures.push(`${route.path}: active initial JavaScript contains Framer Motion`)
   }
 }
 

@@ -44,13 +44,9 @@ Use `dev-browser` on `http://localhost:3002` and compare text and badge geometry
 - Optimisation tags: near-zero delta (true geometric centre).
 
 
-## Regression Guard
+## Verification coverage
 
-The file `test/svg-badge-vertical-centering.test.mjs` protects this setup by asserting:
-
-- Enrichment tags use `dominantBaseline="central"`.
-- Enrichment tags keep centred `y` values and include `dy="0.15"`.
-- Optimisation node labels use `dominantBaseline="central"` and keep centred `y`.
+The source geometry tests have been removed. They pinned an alignment technique and exact offsets without measuring rendered text. Verify legibility, clipping and optical alignment in the browser when these components are edited or mounted again. These service visuals are currently unrendered; no retained automated check measures their label alignment.
 
 
 ## Change Discipline

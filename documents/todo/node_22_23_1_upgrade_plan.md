@@ -35,7 +35,7 @@ The repository already enforces an exact Node.js version through a single-source
 - `scripts/check-node-version.mjs` reads `.nvmrc`, normalises an optional leading `v`, and compares it with `process.versions.node`.
 - `predev`, `prebuild`, and `pretest` all call `npm run check:node` before project work begins.
 - `.github/workflows/deploy.yml` configures `actions/setup-node` with `node-version-file: '.nvmrc'` and therefore does not maintain an independent Node.js version.
-- `test/node-runtime-contract.test.mjs` derives the supported version from `.nvmrc` and checks package metadata, documentation, deployment configuration, lifecycle hooks, and supported or unsupported runtime behaviour.
+- `test/node-runtime-contract.test.mjs` derives the supported version from `.nvmrc` and executes supported/unsupported runtime comparison. Review package metadata, documentation, deployment configuration and lifecycle hooks directly; tests no longer pin their text or source shape.
 - `README.md` and `AGENTS.md` explicitly document `22.17.0`.
 
 The project’s current shell resolves Node.js from `/Users/sacino/.nvm/versions/node/v22.17.0/bin`. That NVM installation does not contain `dev-browser`. The same machine has a working `dev-browser` installation under `/Users/sacino/.nvm/versions/node/v22.23.1/bin/dev-browser`, and Bulma Root selects `22.23.1` through its `.nvmrc`. The mismatch is caused by NVM’s per-version global npm package isolation, not by a machine-wide `dev-browser` failure.
@@ -56,7 +56,7 @@ flowchart TD
 
 The application runtime is pinned to Node.js `22.17.0`, while the working `dev-browser` CLI is installed in the separate NVM global package space for Node.js `22.23.1`. As a result, repository commands correctly use `22.17.0`, but browser verification cannot invoke `dev-browser` by name from that environment.
 
-Changing only the active shell or invoking the CLI through an absolute path would leave the tracked runtime contract on `22.17.0`. Changing only `.nvmrc` would make package metadata and documentation drift and would cause `test/node-runtime-contract.test.mjs` to fail. The upgrade must update every mirrored declaration and then validate the application under the new exact runtime.
+Changing only the active shell or invoking the CLI through an absolute path would leave the tracked runtime contract on `22.17.0`. Changing only `.nvmrc` would make package metadata and documentation drift. The upgrade must review and update every mirrored declaration, then execute the preflight and application checks under the new runtime.
 
 ### 2.4 Affected User Scenarios
 
@@ -83,7 +83,7 @@ Changing only the active shell or invoking the CLI through an absolute path woul
 
 - `.nvmrc` for local NVM selection and GitHub Actions setup.
 - `scripts/check-node-version.mjs` for exact runtime enforcement.
-- `test/node-runtime-contract.test.mjs` for cross-file drift and preflight assertions.
+- `test/node-runtime-contract.test.mjs` for executed runtime acceptance/rejection assertions; direct configuration review for cross-file drift.
 - Existing npm lifecycle hooks in `package.json`.
 - `.github/workflows/deploy.yml` with `node-version-file: '.nvmrc'`.
 - Required repository validation commands: `npm run lint`, `npm test`, and `npm run build`.
@@ -103,7 +103,7 @@ Changing only the active shell or invoking the CLI through an absolute path woul
 - **REQ-5 (MUST):** `.github/workflows/deploy.yml` must continue using `node-version-file: '.nvmrc'` and must not contain a `node-version:` property.
 - **REQ-6 (MUST):** Node.js `22.23.1` must pass `npm run check:node`; Node.js `22.17.0` must fail and state that the project requires Node.js `22.23.1`.
 - **REQ-7 (MUST):** `npm ci`, `npm run lint`, `npm test`, and `npm run build` must exit with code `0` under Node.js `22.23.1`.
-- **REQ-8 (MUST):** `npm run build` must generate the expected static export in `out/`, including `out/index.html`, `out/about/index.html`, `out/process/index.html`, and `out/contact/index.html`.
+- **REQ-8 (MUST):** `npm run build` must generate the expected static export in `out/`, including `out/index.html`, `out/about.html`, `out/process.html`, and `out/contact.html`.
 - **REQ-9 (MUST):** `dev-browser` must resolve from the activated Node.js `22.23.1` environment and return help output without an error.
 - **REQ-10 (MUST):** Browser verification must exercise the local application at desktop `1440x900` and mobile `390x900`, report no horizontal overflow, uncaught page errors, or unexpected request failures, and complete the existing 20-iteration contact-to-about navigation regression with `failedIterationCount: 0`.
 - **REQ-11 (MUST NOT):** The runtime upgrade must not alter application dependencies, page content, component behaviour, contact form fields, routes, or animations.
@@ -155,7 +155,7 @@ The upgrade was requested after browser verification in Embeddings reported `zsh
 
 - NVM global packages are scoped to each installed Node.js version. The local machine contains working `dev-browser` executables under Node.js `22.11.0` and `22.23.1`, but not under `22.17.0`.
 - Bulma Root contains `.nvmrc` value `22.23.1`, which explains why the same CLI is available there.
-- The existing runtime-contract architecture should be retained because it already prevents drift across local development, package metadata, documentation, and GitHub Actions.
+- Retain the `.nvmrc`-driven preflight and review mirrored declarations directly. The runtime test verifies acceptance/rejection, not cross-file prose or CI spelling.
 - Invoking `/Users/sacino/.nvm/versions/node/v22.23.1/bin/dev-browser` by absolute path is a diagnostic workaround, not the desired repository state. The project should select `22.23.1` normally through `.nvmrc`.
 - Adding `dev-browser` as an application dependency was rejected because it is agent tooling, not code required by the production static site.
 - Widening the engine requirement was rejected because the repository intentionally uses an exact runtime and tests that contract.
@@ -199,7 +199,7 @@ The upgrade was requested after browser verification in Embeddings reported `zsh
 
 - `rg -n "22\.17\.0" .nvmrc package.json package-lock.json README.md AGENTS.md .github/workflows/deploy.yml scripts test` returns no matches.
 - `rg -n "22\.23\.1" .nvmrc package.json package-lock.json README.md AGENTS.md` reports the authoritative pin and each required mirrored or documented declaration.
-- The documentation assertion in `node --test test/node-runtime-contract.test.mjs` passes and reports no version drift.
+- Directly compare the runtime declarations in `.nvmrc`, package metadata, `README.md` and `AGENTS.md`; confirm they all name the requested version without adding prose-pinning tests.
 - `git diff -- README.md AGENTS.md` contains only the two Node.js version substitutions required by this upgrade.
 
 ### Step 3: Activate Node.js 22.23.1 and verify the runtime guard
@@ -242,7 +242,7 @@ The upgrade was requested after browser verification in Embeddings reported `zsh
 - `npm run lint` exits with code `0` and reports zero ESLint errors.
 - `npm test` exits with code `0` with every `test/*.test.mjs` test passing.
 - `npm run build` exits with code `0` and completes the Next.js static export.
-- `test -f out/index.html && test -f out/about/index.html && test -f out/process/index.html && test -f out/contact/index.html` exits with code `0`.
+- `test -f out/index.html && test -f out/about.html && test -f out/process.html && test -f out/contact.html` exits with code `0`.
 - `git diff -- package-lock.json` remains limited to the root `engines.node` value.
 - `git status --short` confirms no unrelated file was staged, reverted, or newly modified by manual edits during the upgrade.
 
@@ -273,7 +273,7 @@ The upgrade was requested after browser verification in Embeddings reported `zsh
 
 - Check `http://localhost:3002` before browser work. If it is not responding, start `npm run dev` from the repository root and wait for the URL to return HTTP `200`.
 - Run a focused `dev-browser` smoke script against `/`, `/about`, `/process`, and `/contact` using the task-owned browser `embeddings-node-22-23-upgrade`.
-- Assert the route-specific heading text: `Be the brand AI agents recommend first` on `/`, `The team behind Australia’s first agentic commerce consultancy` on `/about`, `How we make catalogues agentic-ready` on `/process`, and `Your AI advantage starts here` on `/contact`.
+- Verify each requested route has visible, non-empty primary content and a canonical URL matching that destination. Inspect its rendered heading against current `documents/site-positioning.md`; do not assert literal heading copy.
 - At `1440x900`, verify the homepage heading, HTTP response, document width, console errors, page errors, and offscreen changed elements; capture a desktop screenshot and record its absolute path.
 - At `390x900`, repeat the homepage and contact-page width and error checks; capture a mobile screenshot and record its absolute path.
 - Run `dev-browser --browser embeddings-node-22-23-upgrade --timeout 120 run scripts/browser/contact-about-navigation.dev-browser.js` and retain the emitted report path from `~/.dev-browser/tmp/` as validation evidence.
@@ -283,12 +283,12 @@ The upgrade was requested after browser verification in Embeddings reported `zsh
 **Success Criteria:**
 
 - `curl --fail --silent --show-error http://localhost:3002/ >/dev/null` exits with code `0` before browser interaction.
-- The browser smoke script receives successful responses for `/`, `/about`, `/process`, and `/contact` and confirms each route-specific heading from the high-level approach is visible.
+- The browser smoke script receives successful responses for `/`, `/about`, `/process`, and `/contact`, and confirms visible primary content and the matching canonical destination.
 - Desktop `1440x900` and mobile `390x900` evaluations both report `document.documentElement.scrollWidth <= window.innerWidth`.
 - Desktop and mobile checks record zero uncaught `pageerror` events and zero unexpected failed requests.
 - Desktop and mobile screenshots are captured, their returned absolute paths exist, and neither screenshot contains secrets or environment values.
 - The existing navigation regression reports `iterationCount: 20`, `failedIterationCount: 0`, `unexpectedRequestFailureCount: 0`, and no page errors.
-- The navigation regression reaches `http://localhost:3002/about`, title `About Us / Embeddings`, and heading `about us - The team behind Australia’s first agentic commerce consultancy` on every iteration.
+- The navigation regression reaches `http://localhost:3002/about`, exposes canonical URL `https://embeddings.au/about`, and renders a visible, non-empty heading on every iteration.
 - The close helper exits with code `0`, and `dev-browser browsers` does not list `embeddings-node-22-23-upgrade`.
 
 ### Step 7: Review the final implementation scope
@@ -324,7 +324,7 @@ The following exact artefacts and environment observations define the regression
   - Current mirrored engine declarations containing `22.17.0`.
   - Post-upgrade expectation: both root declarations contain exactly `22.23.1`; dependency versions and integrity entries remain unchanged.
 - `/Users/sacino/embeddings/test/node-runtime-contract.test.mjs`
-  - Executable source of truth for cross-file runtime consistency, lifecycle hooks, documentation, deployment, and runtime rejection behaviour.
+  - Executed runtime acceptance/rejection check. Review cross-file runtime declarations, lifecycle hooks, documentation and deployment directly rather than restoring source or prose pins.
   - Post-upgrade expectation: passes unchanged under Node.js `22.23.1`.
 - `/Users/sacino/embeddings/scripts/check-node-version.mjs`
   - Executable preflight that reads `.nvmrc` and produced the old runtime contract.
@@ -350,8 +350,8 @@ The following exact artefacts and environment observations define the regression
 
 | Test Case | Location and Framework | Expected Result | Validation Command |
 | --- | --- | --- | --- |
-| Runtime declarations stay aligned | `test/node-runtime-contract.test.mjs`, Node.js test runner | `.nvmrc`, package metadata, lockfile root, README, and AGENTS resolve to `22.23.1` | `node --test test/node-runtime-contract.test.mjs` |
-| Deployment retains one runtime source | `test/node-runtime-contract.test.mjs`, Node.js test runner | Workflow uses `node-version-file: '.nvmrc'` and contains no `node-version:` literal | `node --test test/node-runtime-contract.test.mjs` |
+| Runtime declarations stay aligned | Direct configuration review | `.nvmrc`, package metadata, lockfile root, README, and AGENTS resolve to `22.23.1` | Inspect the scoped configuration diff |
+| Deployment retains one runtime source | Direct workflow review | Workflow consumes `.nvmrc` | Inspect `.github/workflows/deploy.yml` |
 | Exact runtime acceptance | `scripts/check-node-version.mjs` through the contract test | `22.23.1` returns no error | `npm run check:node` under Node.js `22.23.1` |
 | Old runtime rejection | `scripts/check-node-version.mjs` through direct preflight | `22.17.0` exits non-zero and names required version `22.23.1` | Run `npm run check:node` under Node.js `22.17.0` |
 | Full repository regression | All `test/*.test.mjs`, Node.js test runner | Every Node.js test passes | `npm test` |
@@ -371,7 +371,7 @@ The following exact artefacts and environment observations define the regression
 3. Static export build
    - Action: Run `npm run build` under Node.js `22.23.1`.
    - Expected: Next.js completes without errors and writes the homepage, about, process, and contact HTML files under `out/`.
-   - Verify: Run `test -f out/index.html && test -f out/about/index.html && test -f out/process/index.html && test -f out/contact/index.html`.
+   - Verify: Run `test -f out/index.html && test -f out/about.html && test -f out/process.html && test -f out/contact.html`.
 
 4. Local server health
    - Action: Verify port `3002`; if required, start `npm run dev` from `/Users/sacino/embeddings` and wait for the server.
@@ -380,13 +380,13 @@ The following exact artefacts and environment observations define the regression
 
 5. Responsive route smoke test
    - Action: Use `dev-browser --browser embeddings-node-22-23-upgrade` to open `/`, `/about`, `/process`, and `/contact` at desktop `1440x900` and mobile `390x900` where applicable.
-   - Expected: The respective headings `Be the brand AI agents recommend first`, `The team behind Australia’s first agentic commerce consultancy`, `How we make catalogues agentic-ready`, and `Your AI advantage starts here` are visible; there is no horizontal overflow, and there are no page errors or unexpected request failures.
+   - Expected: Each route renders visible primary content and a matching canonical URL; there is no horizontal overflow, and there are no page errors or unexpected request failures. Inspect current heading wording in the rendered page rather than pinning it in assertions.
    - Verify: Record the structured browser output and absolute screenshot paths.
 
 6. Existing navigation regression
    - Action: Run `dev-browser --browser embeddings-node-22-23-upgrade --timeout 120 run scripts/browser/contact-about-navigation.dev-browser.js`.
    - Expected: The report records 20 successful contact-to-about navigations, zero failed iterations, zero unexpected request failures, and no page errors.
-   - Verify: Retain and reference the returned `~/.dev-browser/tmp/contact-about-navigation-regression.json` path.
+   - Verify: Inspect the report path returned by the browser script. Keep a run record only for a bug reproduction or the plan's final acceptance check, with raw output under the tool's temp directory.
 
 7. Browser cleanup
    - Action: Run `node /Users/sacino/.codex/skills/dev-browser/scripts/close-browser.mjs embeddings-node-22-23-upgrade`.

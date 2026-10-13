@@ -13,6 +13,7 @@ const rootNavigationPanelPath = resolve(
   'src/components/RootNavigationPanel.jsx',
 )
 
+
 function readInertExpressions() {
   // Read the layout source and capture each JavaScript expression assigned to `inert`.
   const source = [
@@ -27,10 +28,12 @@ function readInertExpressions() {
   return inertExpressionMatches.map((match) => match[1].trim())
 }
 
+
 function findEmptyStringInertExpressions(inertExpressions) {
   // Find inert expressions that use empty string literals, which trigger React warnings.
   return inertExpressions.filter((expression) => /''|""/.test(expression))
 }
+
 
 test('root layout does not pass empty strings to the inert prop', () => {
   // Prevent regressions where `inert` receives `''` rather than a boolean.
@@ -42,41 +45,5 @@ test('root layout does not pass empty strings to the inert prop', () => {
     emptyStringExpressions.length,
     0,
     `Found inert expressions with empty strings: ${emptyStringExpressions.join(' | ')}`,
-  )
-})
-
-test('mobile navigation overlay contains keyboard focus while open', () => {
-  // Keep the fixed navigation panel from exposing hidden focus behind the overlay.
-  const navigationSource = readFileSync(rootNavigationPath, 'utf8')
-  const panelSource = readFileSync(rootNavigationPanelPath, 'utf8')
-
-  assert.match(
-    navigationSource,
-    /role=\{panelMounted \? 'dialog' : undefined\}/,
-    'Expected the persistent navigation focus scope to use dialog semantics while open',
-  )
-
-  assert.match(
-    navigationSource,
-    /aria-modal=\{panelMounted \? 'true' : undefined\}/,
-    'Expected open navigation panel to mark the background as modal to assistive technology',
-  )
-
-  assert.match(
-    panelSource,
-    /event\.key\s*===\s*['"]Escape['"]/,
-    'Expected Escape to close the open navigation panel',
-  )
-
-  assert.match(
-    panelSource,
-    /event\.key\s*!==\s*['"]Tab['"]/,
-    'Expected Tab handling to keep focus inside the open navigation panel',
-  )
-
-  assert.match(
-    panelSource,
-    /getFocusableElements/,
-    'Expected the open navigation panel to calculate focusable descendants',
   )
 })

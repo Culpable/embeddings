@@ -15,10 +15,9 @@
     "start": "next start",
     "lint": "next lint",
     "pretest": "npm run check:node",
-    "test": "node --test",
+    "test": "node --test test/*.test.mjs",
     "deploy": "npm run build && gh-pages -d out",
-    "generate-public-artifacts": "node src/scripts/generate-public-artifacts.mjs",
-    "measure-static-output": "node scripts/measure-static-output.mjs"
+    "generate-public-artifacts": "node src/scripts/generate-public-artifacts.mjs"
   },
   "browserslist": "defaults, not ie <= 11",
   "dependencies": {

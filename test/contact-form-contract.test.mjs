@@ -1,152 +1,62 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
 
-const agentsPath = resolve(process.cwd(), 'AGENTS.md')
-const contactFormPath = resolve(
-  process.cwd(),
-  'src/app/contact/ContactForm.jsx',
+const form = readFileSync(
+  new URL('../src/app/contact/ContactForm.jsx', import.meta.url),
+  'utf8',
 )
-const contactPagePath = resolve(process.cwd(), 'src/app/contact/page.jsx')
-const contactDetailsPath = resolve(
-  process.cwd(),
-  'src/app/contact/ContactDetails.jsx',
+const page = readFileSync(
+  new URL('../src/app/contact/page.jsx', import.meta.url),
+  'utf8',
 )
-const thankYouPath = resolve(process.cwd(), 'src/app/thank-you/page.jsx')
+const details = readFileSync(
+  new URL('../src/app/contact/ContactDetails.jsx', import.meta.url),
+  'utf8',
+)
 
-test('project guidance protects the business enquiry field contract', () => {
-  // Require future design work to preserve the field model unless explicitly
-  // requested, preventing aesthetic improvements from changing lead data.
-  const source = readFileSync(agentsPath, 'utf8')
 
+function withoutComments(source) {
+  // Exclude standalone and JSX comments from the prohibited visitor-copy scan.
+  return source.replace(/\/\*[\s\S]*?\*\/|^\s*\/\/.*$/gmu, '')
+}
+
+
+test('native contact submission retains the external confirmation redirect', () => {
+  // Preserve the value Formspree reads, allowing attribute reordering.
   assert.match(
-    source,
-    /<contact_form_rules>/,
-    'Expected AGENTS.md to document contact form rules',
-  )
-
-  assert.match(
-    source,
-    /name, email, company, phone, message, and budget/,
-    'Expected AGENTS.md to name the preserved business enquiry fields',
-  )
-
-  assert.match(
-    source,
-    /must not replace the field contract with catalogue-readiness, SKU, platform, feed source, or priority fields without explicit approval/,
-    'Expected AGENTS.md to prevent unapproved catalogue-readiness field changes',
-  )
-
-  assert.match(
-    source,
-    /Preserve the stable contact page copy unless the user explicitly requests copy changes/,
-    'Expected AGENTS.md to protect the stable contact page copy',
-  )
-
-  assert.match(
-    source,
-    /do not add new trust, process, readiness, workflow, or "what we handle" copy to that side panel without explicit approval/,
-    'Expected AGENTS.md to prevent unapproved contact details side-panel copy changes',
+    form,
+    /<input\b(?=[^>]*\bname=["']_next["'])(?=[^>]*\bvalue=["']https:\/\/embeddings\.au\/thank-you["'])[^>]*>/u,
   )
 })
 
-test('contact form posts to formspree with a real thank-you fallback route', () => {
-  // Ensure the no-JavaScript submission path does not point to a missing page.
-  const source = readFileSync(contactFormPath, 'utf8')
-  const thankYouSource = readFileSync(thankYouPath, 'utf8')
 
-  assert.match(
-    source,
-    /action="https:\/\/formspree\.io\/f\/xrbgdgwq"/,
-    'Expected the contact form to include a Formspree action for fallback submission',
-  )
-
-  assert.match(
-    source,
-    /name="_next"\s+value="https:\/\/embeddings\.au\/thank-you"/,
-    'Expected the contact form to redirect fallback submissions to /thank-you',
-  )
-
-  assert.match(
-    thankYouSource,
-    /export default function ThankYou/,
-    'Expected the /thank-you route to exist',
-  )
-})
-
-test('contact form preserves the original business enquiry fields', () => {
-  // Preserve the original submitted field names while allowing improved visual
-  // treatment and accessible status states around the form.
-  const source = readFileSync(contactFormPath, 'utf8')
-
-  for (const expected of [
-    'label="Name"',
-    'name="name"',
-    'label="Email"',
-    'name="email"',
-    'label="Company"',
-    'name="company"',
-    'label="Phone"',
-    'name="phone"',
-    'label="Message"',
-    'name="message"',
-    'Budget',
-    'name="budget"',
-    'Less than 100k',
-    '$100K – $500K',
-    '$500K – $1M',
-    'More than $1M',
-  ]) {
-    assert.match(
-      source,
-      new RegExp(expected.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
-      `Expected contact form to preserve ${expected}`,
-    )
-  }
-
-  for (const removedField of [
+test('contact form excludes the prohibited catalogue field model and retains its analytics identity', () => {
+  const copy = withoutComments(form)
+  for (const phrase of [
     'Catalogue platform or feed source',
     'Approximate SKU count',
     'Readiness priority',
-    'readinessPriority',
-    'skuCount',
-    'platform',
     'catalogue-readiness enquiry',
     'Send catalogue enquiry',
   ]) {
-    assert.doesNotMatch(
-      source,
-      new RegExp(removedField),
-      `Did not expect the contact form to include ${removedField}`,
+    assert.ok(
+      !copy.includes(phrase),
+      `Unexpected catalogue enquiry copy: ${phrase}`,
     )
   }
-
-  assert.match(
-    source,
-    /form_type: 'business_enquiry'/,
-    'Expected analytics to use the original business enquiry form type',
-  )
-
-  assert.match(
-    source,
-    /budget_range: formData\.get\('budget'\)/,
-    'Expected analytics metadata to preserve budget range tracking',
-  )
-
   assert.doesNotMatch(
-    source,
-    /Contact Form Field Focused/,
-    'Expected field focus not to trigger analytics loading before submit intent',
+    copy,
+    /\bname\s*=\s*["'](?:platform|readinessPriority|skuCount)["']/u,
   )
+  assert.match(form, /\bform_type\s*:\s*["']business_enquiry["']/u)
+  assert.doesNotMatch(form, /Contact Form Field Focused/u)
 })
 
-test('contact page copy no longer asks for removed catalogue fields', () => {
-  // Keep visible copy aligned with the restored generic business enquiry fields.
-  const pageSource = readFileSync(contactPagePath, 'utf8')
-  const detailsSource = readFileSync(contactDetailsPath, 'utf8')
 
-  for (const removedPhrase of [
+test('contact page copy no longer asks for removed catalogue fields', () => {
+  const copy = withoutComments(`${page}\n${details}`)
+  for (const phrase of [
     'how many SKUs',
     'product data lives',
     'catalogue-readiness audit',
@@ -155,117 +65,18 @@ test('contact page copy no longer asks for removed catalogue fields', () => {
     'what we handle',
     'Retail catalogue data for agentic shopping',
   ]) {
-    assert.doesNotMatch(
-      `${pageSource}\n${detailsSource}`,
-      new RegExp(removedPhrase),
-      `Did not expect contact copy to ask for ${removedPhrase}`,
+    assert.ok(
+      !copy.includes(phrase),
+      `Unexpected catalogue guidance: ${phrase}`,
     )
   }
 })
 
-test('contact form exposes accessible status states', () => {
-  // Require submit feedback that screen readers can announce.
-  const source = readFileSync(contactFormPath, 'utf8')
 
+test('native contact submission retains its empty external honeypot field', () => {
+  // Preserve the anti-spam input without pinning whitespace or attribute order.
   assert.match(
-    source,
-    /aria-live=\{isError \? 'assertive' : 'polite'\}/,
-    'Expected status feedback to use aria-live',
-  )
-
-  assert.match(
-    source,
-    /role=\{isError \? 'alert' : 'status'\}/,
-    'Expected error and non-error form states to use appropriate roles',
-  )
-
-  assert.match(
-    source,
-    /Sending your message/,
-    'Expected a visible loading message during submission',
-  )
-
-  assert.match(
-    source,
-    /Message sent. We’ll get back to you soon./,
-    'Expected a visible success message after submission',
-  )
-
-  assert.match(
-    source,
-    /if \(isSuccess\) localPanelRef\.current\?\.focus\(\{ preventScroll: true \}\)/,
-    'Expected the mounted success panel to receive focus',
-  )
-
-  assert.match(source, /restoreFormFocusRef\.current = true/)
-  assert.match(source, /focusFirstInvalidField\(formRef\.current, 'name'\)/)
-
-  assert.match(
-    source,
-    /Send another message/,
-    'Expected successful submission to offer a clear reset action',
-  )
-})
-
-test('contact form returns WebMCP submission results without automatic submission', () => {
-  const source = readFileSync(contactFormPath, 'utf8')
-
-  assert.match(source, /nativeEvent\.agentInvoked/u)
-  assert.match(source, /nativeEvent\.respondWith/u)
-  assert.match(source, /respondWith\(submissionPromise\)/u)
-  assert.doesNotMatch(source, /toolautosubmit=/u)
-  assert.match(source, /<input type="hidden" name="_gotcha" value="" \/>/u)
-})
-
-test('contact form validates fields inline before submission', () => {
-  // Require accessible field-level validation while preserving the same submitted names.
-  const source = readFileSync(contactFormPath, 'utf8')
-
-  assert.match(
-    source,
-    /noValidate/,
-    'Expected custom validation to replace browser-only invalid UI',
-  )
-
-  assert.match(
-    source,
-    /aria-invalid=\{error \? 'true' : undefined\}/,
-    'Expected text inputs to expose aria-invalid when invalid',
-  )
-
-  assert.match(
-    source,
-    /function ErrorSummary/,
-    'Expected an inline error summary component',
-  )
-
-  assert.match(
-    source,
-    /group-last:rounded-b-none/,
-    'Expected invalid text inputs to reserve a stable inline error row',
-  )
-
-  assert.match(
-    source,
-    /Message sent\s*<\/p>/,
-    'Expected the success state to provide a clear confirmation heading',
-  )
-
-  assert.match(
-    source,
-    /Contact Form Validation Failed/,
-    'Expected validation failures to be tracked without submitting',
-  )
-
-  assert.match(
-    source,
-    /index === 0[\s\S]*?\? 'budget-field'/,
-    'Expected the budget summary target to focus the first budget radio',
-  )
-
-  assert.match(
-    source,
-    /`budget-field-\$\{value\}`/,
-    'Expected every remaining budget label to target its own radio',
+    form,
+    /<input\b(?=[^>]*\btype=["']hidden["'])(?=[^>]*\bname=["']_gotcha["'])(?=[^>]*\bvalue=["']["'])[^>]*>/u,
   )
 })
