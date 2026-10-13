@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Button from '../components/site/Button.astro'
+---
+<BaseLayout routeKey="testMixpanel">
+  <div class="mx-auto max-w-2xl px-6 py-24">
+    <h1 class="mb-8 text-4xl font-bold">Mixpanel Test Page</h1>
+    <div data-mixpanel-status class="mb-8 rounded-lg border border-red-200 bg-red-50 p-6"><h2 class="mb-2 text-xl font-semibold">Status: ❌ Not Ready</h2><pre data-mixpanel-details class="overflow-auto text-sm" /></div>
+    <div class="space-y-4"><Button data-mixpanel-test>Send Test Event</Button><div class="text-sm text-gray-600"><p>Note: If you see CORS errors in the console, that means you have an ad blocker or privacy extension blocking Mixpanel. This is normal and expected.</p></div></div>
+  </div>
+  <script>
+    const check = () => {
+      const win = window as Window & { mixpanelLoaded?: boolean; mixpanel?: { track?: unknown; get_distinct_id?: () => string } }
+      const ready = Boolean(win.mixpanelLoaded && typeof win.mixpanel?.track === 'function' && win.mixpanel?.get_distinct_id?.())
+      document.querySelector('[data-mixpanel-status] h2')!.textContent = ready ? 'Status: ✅ Ready' : 'Status: ❌ Not Ready'
+      document.querySelector('[data-mixpanel-details]')!.textContent = JSON.stringify({ mixpanelExists: Boolean(win.mixpanel), mixpanelLoaded: win.mixpanelLoaded === true, hasTrackFunction: typeof win.mixpanel?.track === 'function', distinctId: win.mixpanel?.get_distinct_id?.() || 'N/A', timestamp: new Date().toISOString() }, null, 2)
+    }
+    check(); window.setTimeout(check, 2000); window.addEventListener('mixpanel:loaded', check)
+    document.querySelector('[data-mixpanel-test]')?.addEventListener('click', () => {
+      window.dispatchEvent(new CustomEvent('embeddings:analytics-event', { detail: { eventName: 'Test Event from Debug Page', properties: { page: '/test-mixpanel/', timestamp: new Date().toISOString(), userAgent: navigator.userAgent } } }))
+      alert('Test event sent! Check your Mixpanel dashboard.')
+    })
+  </script>
+</BaseLayout>

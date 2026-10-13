@@ -1,10 +1,12 @@
-# Astro and Cloudflare Workers migration plan
+# Astro and Cloudflare Workers migration plan 🔄 **IN PROGRESS**
 
-**Plan status:** Ready for implementation. The blindspot pass is complete and owner choices are integrated: Cloudflare/Resend contact delivery to `solutions@embeddings.au`, Turnstile with an email-link fallback, trailing-slash URLs with redirects from old URLs, and sibling-style Markdown responses. This planning task does not itself authorise migration implementation or external writes.
+**Planning decisions:** Accepted for implementation. The blindspot pass is complete and owner choices are integrated: Cloudflare/Resend contact delivery to `solutions@embeddings.au`, Turnstile with an email-link fallback, trailing-slash URLs with redirects from old URLs, and sibling-style Markdown responses. The owner’s goal request starts implementation; production cutover and source push remain subject to the exact release authority documented below.
 
-**Implementation status:** Not started. All steps below are pending.
+Implementation begins 13 October 2026 in the existing clean checkout. The steps below are the live implementation checklist; required hosted gates remain open until verified.
 
 **Planning validation:** Required sections, step criteria, local reference paths and template hygiene pass. The current Next.js lint, Node tests and static build pass. These results establish the existing-site baseline; they do not establish Astro, browser-parity or Cloudflare deployment acceptance.
+
+**Owner-selected OG image (13 October 2026):** Use the third shortlisted design, the five-capabilities poster headed “AI built into the way you work”, for every retained route. The canonical `og:image` and `twitter:image` must be `https://embeddings.au/images/embeddings-ai-consultancy-1200x630.png`, with MIME type `image/png`, width 1200 and height 630. `src/config/site.ts` owns this selection; `public/images/embeddings-ai-consultancy-1200x630.png` is the reviewed, losslessly optimised asset. This owner decision replaces the old retail social-image baseline without changing route titles or descriptions. The top three and their reproducible sources are retained in `documents/og-image-concepts/2026-10-13-shortlist/`. Step 5 and final acceptance must verify the selected PNG in built HTML and its successful image response after cutover; do not restore or regenerate the catalogue/AI-agent/consumer image.
 
 <critical_warning>
 > **Cutover order:** Prove the Astro build and isolated Cloudflare preview first. Move both IPv4 and IPv6 web traffic, verify the canonical production site, retire GitHub Pages, then make `Culpable/embeddings` private. Making the repository private before cutover can remove the existing GitHub Pages site. Preserve a usable rollback until Cloudflare acceptance passes.
@@ -167,7 +169,7 @@ Turnstile is the only new browser provider script. Load its literal provider URL
 
 ### 4.1 Scope and authority
 
-This task produces a plan. It does not connect repositories, create Workers, upload previews, deploy, push, change DNS, submit search notifications or change repository visibility now. Later execution must resolve authority for each exact external target. The owner has selected private repository visibility after cutover; do not reopen that outcome as a design choice.
+The earlier planning task did not authorise execution. The current goal request authorises local implementation, isolated previews and reversible pre-production preparation for the selected providers. Production source push, DNS/domain cutover, real mail, notifications and visibility changes still require their exact target authority. Later execution must resolve authority for each exact external target. The owner has selected private repository visibility after cutover; do not reopen that outcome as a design choice.
 
 Use the existing checkout. Do not create a worktree or change branches without explicit consent. Preserve other tasks’ worktree and staged changes and apply the project’s whole-file ownership rule for commits. Remove obsolete task-owned files through recoverable Trash. Never delete or recreate `gh-pages`, rewrite Git history or make the repository public again as an automatic rollback.
 
@@ -328,9 +330,31 @@ Current official references support the selected architecture and must be rechec
 
 ## 5. Implementation plan
 
-### Step 1: Resolve the draft and preserve the execution baseline
+Execution checklist:
+
+- [x] Preserve the exact source, published Pages release and visual baseline (Step 1).
+- [x] Prepare meaningful migration and isolated fault checks before code (Step 2).
+- [x] Build the root Astro replacement with locked compatible dependencies (Step 3).
+- [x] Port and verify retained pages, animations, menu and contact states (Step 4).
+- [ ] Finish canonical metadata/social-image serving after local/preview proof (Step 5).
+- [ ] Provision production contact providers and confirm real mail (Step 6).
+- [x] Prove the generated Worker and HTTP/security contract (Step 7).
+- [x] Establish local acceptance and operating documentation (Step 8).
+- [ ] Complete Git-connected production/preview builds after isolated upload proof (Step 9).
+- [x] Complete the exact sender and web DNS rollback packet (Step 10).
+- [ ] Obtain exact authority, push/cut over, and verify canonical delivery (Step 11).
+- [ ] Activate/verify authorised production search notifications (Step 12).
+- [ ] Retire Pages and prove the private repository/build path (Step 13).
+- [ ] Close canonical acceptance after the scoped local milestone commit (Step 14).
+- [x] Close task-owned browsers and foreground servers for this execution run; retain evidence until owner acceptance.
+
+### ~~Step 1: Resolve the draft and preserve the execution baseline~~ ✅ **COMPLETED**
+
+Execution result: Baseline source/export and exact published gh-pages archive are retained. Initial lint/build/23 Node cases and desktop/mobile references pass; strict www TLS failure is preserved.
 
 **Objective:** Start from current evidence, accepted choices and a recoverable old release.
+
+Execution evidence: clean initial checkout; source revision and Pages build saved under `.artifacts/astro_cloudflare_workers_migration/baseline/`; old `out/` preserved there. Lint, build and all 23 baseline Node cases pass. Every retained route has desktop/mobile reference captures under `/Users/sacino/.dev-browser/tmp/embeddings-migration-1013-71a4/`. Strict TLS reproduces the `www` certificate failure. The owned comparison used ports 3002/3003, then the active Astro/Worker used 3002/8794. Animation-phase and interactive comparison passes; all task-owned listeners close at the end of this run.
 
 **Approach:** Preserve the selected decisions and recheck the implementation gates without reopening settled preferences. Read current root/nested instructions, package/lock files, all staged/unstaged changes, route owners and sibling references. Record the current source revision, Pages build/revision, publishing settings and exact current deployment workflow. Keep a copy of the existing static export in ignored task output before any migration build can replace it. Capture source-rendered desktop/mobile views and observable navigation/form/animation states.
 
@@ -341,7 +365,9 @@ Current official references support the selected architecture and must be rechec
 - The baseline distinguishes current local content from hosted content and identifies all out-of-scope collaborative changes.
 - Baseline evidence exists for the scenarios in section 6; raw output is ignored, not in project documents.
 
-### Step 2: Define migration checks before changing their protected behaviour
+### ~~Step 2: Define migration checks before changing their protected behaviour~~ ✅ **COMPLETED**
+
+Execution result: Protocol/metadata/contact/notifier and stable-ID cases are written before their covered implementation/fixes. Final 43 Node cases pass; obsolete hydration/source-only guards have actual browser replacement coverage.
 
 **Objective:** Preserve meaningful coverage across the framework change.
 
@@ -353,7 +379,9 @@ Current official references support the selected architecture and must be rechec
 - New or extended isolated checks are written before the behaviour they cover.
 - No useful unique coverage is silently deleted; section 6 identifies the retained evidence or the explicit gap.
 
-### Step 3: Add the root Astro build alongside the retained Next.js reference
+### ~~Step 3: Add the root Astro build alongside the retained Next.js reference~~ ✅ **COMPLETED**
+
+Execution result: Astro 7.3.8, adapter 14.3.4 and Wrangler 4.150.0 build on Node 22.17.0. The undici compatibility override is locked. Root commands are Astro; exact old source/Pages archives and protected Next/React references remain.
 
 **Objective:** Build the replacement without changing the live host.
 
@@ -366,7 +394,9 @@ Current official references support the selected architecture and must be rechec
 - Current Pages artefacts and the Next.js reference remain available.
 - The candidate server uses the verified owned port/configuration and follows the project lifecycle rules.
 
-### Step 4: Port the shell, pages and browser interactions
+### ~~Step 4: Port the shell, pages and browser interactions~~ ✅ **COMPLETED**
+
+Execution result: All retained routes, modal keyboard/scroll/anchor behaviour, animation phases, native test-challenge submission and enhanced retry/reset states pass on desktop/mobile. Practical spoken screen-reader verification is unavailable and named in acceptance.
 
 **Objective:** Preserve what visitors see and can do.
 
@@ -381,7 +411,9 @@ Create a guarded `src/scripts/site-entry.ts`, `navigation.ts` and `contact-form.
 - Native submission with Turnstile available works without the project enhancement; all-script/challenge failure uses the selected visible email fallback and never bypasses validation.
 - No hidden desktop navigation, dormant section or disabled page becomes a new public feature.
 
-### Step 5: Migrate public facts, metadata and discovery
+### Step 5: Migrate public facts, metadata and discovery 🧪 **PENDING TESTING**
+
+Execution result: One facts/head/graph owner and discovery generator pass local/preview output checks. All eight routes select the owner-reviewed PNG; hosted bytes/hash/MIME pass. Required canonical production image/metadata serving awaits cutover.
 
 **Objective:** Keep human pages and machine-readable output coherent.
 
@@ -392,11 +424,14 @@ Reconcile existing public-artifact generation into one owner per file. Generate 
 **Success Criteria:**
 
 - Generated-output and HTTP scenarios in section 6 establish metadata uniqueness, truth, canonical consistency and exact discovery membership.
+- Every retained route emits the owner-selected capabilities PNG for `og:image` and `twitter:image`, with its declared PNG type, 1200 × 630 dimensions and current descriptive alt text. The public PNG must retain its reviewed artwork and the lossless optimisation; the old retail diagram must not become the default again.
 - Current titles/descriptions and required contact copy remain preserved; intentional protocol/URL updates are traceable to D-2.
 - Discovery files return the intended UTF-8 content types through the Worker runtime, with no preview origin or private output prefix.
 - There is one public-data, graph and file-generation owner; no second SEO package or content collection is introduced.
 
-### Step 6: Port analytics and verify the contact boundary
+### Step 6: Port analytics and verify the contact boundary 🔄 **IN PROGRESS**
+
+Execution result: The bounded handler and private-safe deferred analytics are ported; production-compiled SDK bootstrap and post-ready contact events pass with a local SDK stub and zero live requests. Provider fault/state fixtures pass and preview cannot send mail. The existing Resend administrator and included capacity are verified; the pending sender and restricted key are prepared. Exact DNS payloads are recorded, while DNS/verification, production secret bindings/widget hostname and actual mailbox receipt remain pending.
 
 **Objective:** Retain tracking and enquiry behaviour without exposing private input or polluting production accounts.
 
@@ -411,7 +446,9 @@ Implement the section 3.3 contact contract in `src/pages/api/contact.ts` with `p
 - No provider secret is present in source, public environment fields, generated output or browser network/log captures.
 - Any untested real mail-delivery boundary is named accurately and is not counted as passed.
 
-### Step 7: Add the selected Worker, headers and HTTP contract
+### ~~Step 7: Add the selected Worker, headers and HTTP contract~~ ✅ **COMPLETED**
+
+Execution result: Real generated Wrangler configuration passes 19 local and 19 hosted HTTP cases, plus private/encoded/conditional cases; browser states operate under the actual CSP. No domains are attached and no unnecessary storage/session binding is added.
 
 **Objective:** Prove Cloudflare-specific behaviour locally before hosting changes.
 
@@ -428,7 +465,9 @@ Create one `public/_headers` policy owner for CSP, frame restrictions, MIME safe
 - The browser operates the menu, animations, analytics test sink and enquiry states under the actual CSP without violations.
 - Selector HTML is byte-identical to prerendered output, and private paths remain denied independently of client headers.
 
-### Step 8: Establish local release acceptance and update operating documentation
+### ~~Step 8: Establish local release acceptance and update operating documentation~~ ✅ **COMPLETED**
+
+Execution result: Root operating/instruction/hosting guides match the verified commands and boundaries. Final lint/check/build/43 Node and local/hosted HTTP pass. The Pages publisher is disabled in local source before any push; the published archive remains recoverable.
 
 **Objective:** Make the replacement and its operating rules reviewable before external actions.
 
@@ -445,7 +484,9 @@ Check the retained privacy notice against the new provider boundary. Its current
 - The retained old Pages artefact remains retrievable and no rollback source is deleted before canonical acceptance.
 - Generated output and task evidence remain ignored; intended source/configuration/lockfile changes are reviewed and scoped.
 
-### Step 9: Provision isolated Workers Builds under external authority
+### Step 9: Provision isolated Workers Builds under external authority 🔄 **IN PROGRESS**
+
+Execution result: Isolated embeddings-preview bootstrap and inactive version uploads are verified. Final reviewed version is b27ab615-c71d-4c66-ad83-ee660a4a7634. Cloudflare reads the public GitHub repository; actual production/preview Git-connected triggers/builds and private access are not yet established.
 
 **Objective:** Verify Git-connected Cloudflare delivery without changing the apex domain.
 
@@ -460,7 +501,9 @@ The initial production deploy must not run IndexNow or require the apex to match
 - Hosted read-only scenarios in section 6 pass on the preview, with apex canonical metadata and noindex response policy.
 - Trigger/Worker identity mismatch is a failure, not something bypassed with a name override.
 
-### Step 10: Prepare the exact DNS and rollback packet
+### ~~Step 10: Prepare the exact DNS and rollback packet~~ ✅ **COMPLETED**
+
+Execution result: The refreshed complete web DNS, 13 unchanged mail/identity records, TLS/rules/widgets and restoration payloads are recorded in documents/cloudflare-workers-hosting.md. No DNS writes occur. The pending sender’s four provider-generated records, absent before-state and included capacity are recorded. Production DNS and verification await exact authority.
 
 **Objective:** Make production cutover concrete and recoverable.
 
@@ -477,7 +520,9 @@ Review HTTPS settings against every affected proxied host. Prefer a targeted edg
 - Valid apex/`www` TLS, redirect outcomes and rollback prerequisites are explicit in the packet.
 - No production record, rule, custom domain or setting changes before the concrete cutover authority is resolved.
 
-### Step 11: Cut over and verify the public canonical release
+### Step 11: Cut over and verify the public canonical release 🔄 **IN PROGRESS**
+
+Execution result: No canonical cutover or source push occurs. Production authority, provider setup and mailbox-test authority remain required. Strict TLS/www regression and both address-family acceptance cannot pass on a preview.
 
 **Objective:** Serve the intended Astro revision from Cloudflare without losing enquiries or discovery.
 
@@ -493,7 +538,9 @@ On a failed acceptance condition, restore the recorded pre-cutover web state whi
 - The approved synthetic enquiry reaches the selected mailbox with all six fields and the intended Reply-To; no provider-only result is counted as receipt.
 - No production-private data is generated, logged or sent by acceptance checks.
 
-### Step 12: Activate canonical search notifications when applicable
+### Step 12: Activate canonical search notifications when applicable 🔄 **IN PROGRESS**
+
+Execution result: The bounded npm notifier, public proof file, changed/removed URL handling and fake deployment/transport cases pass. Production wrapper activation and any initial submission await canonical acceptance and notification authority.
 
 **Objective:** Notify actual published migration changes without treating previews or builds as releases.
 
@@ -506,7 +553,9 @@ On a failed acceptance condition, restore the recorded pre-cutover web state whi
 - A failed notification leaves the successful website deployment intact and has a bounded, authorised retry path without an unnecessary redeploy.
 - If nothing public changed or notification authority is absent, the record accurately states the unexecuted scope instead of claiming submission.
 
-### Step 13: Retire GitHub Pages, privatise and prove the private release path
+### Step 13: Retire GitHub Pages, privatise and prove the private release path 🔄 **IN PROGRESS**
+
+Execution result: Pages remains live, the repository remains public, and Next/React/Formspree references/service access stay until canonical/mailbox acceptance. Retirement, exact private visibility operation and an actual private rebuild remain required.
 
 **Objective:** Complete the owner’s requested source privacy without changing public site availability.
 
@@ -521,7 +570,9 @@ Verify that the Cloudflare GitHub App has access to the target repository when i
 - A build actually fetches the private repository and completes its intended release flow, rather than relying on an already-uploaded Worker.
 - Privacy verification records that public forks and earlier copies remain outside this visibility change; obsolete runtime cleanup leaves no unrelated deletion or generated untracked file.
 
-### Step 14: Record final acceptance and close the migration
+### Step 14: Record final acceptance and close the migration 🔄 **IN PROGRESS**
+
+Execution result: Local/preview acceptance is recorded after runs; independent audit findings are reproduced and fixed. Scoped local commit/cleanup close this execution run, while final canonical/private acceptance and full migration closure remain pending.
 
 **Objective:** Leave a self-contained operating system and evidence of the delivered outcome.
 
@@ -569,6 +620,7 @@ Retain sufficient current Node tests unchanged. When moving from JSX to Astro, p
 
 | Isolated exception | Why browser/E2E alone is insufficient | Independent outcome source | Test-first step |
 | --- | --- | --- | --- |
+| Stable SVG identifiers across unchanged builds | Rendered appearance does not expose random identifier churn, but that churn would make unchanged pages appear changed to the release notifier | Fresh document scopes must produce the same identifiers; repeated instances within one document must remain unique | Write the SVG identifier cases before introducing the request-scoped generator |
 | Metadata validation/serialization failures not already covered | Invalid fixture states must fail a build and cannot be safely published to demonstrate rejection | Existing public metadata contracts and safe JSON serialization rules | Step 2, before Step 5 |
 | Contact provider denial/timeout/replay and input boundaries | Real mail, shared live challenges and production logs cannot safely serve as fault fixtures; a UI interception does not prove server enforcement | Section 3.3 six-field schema, HTTP responses, fixed mail identity, Turnstile host/action policy and current Resend retry contract | Step 2 prepares `test/contact-handler.test.mjs` before Step 6; use actual Request parsing and a narrow injected provider fetch, asserting final responses, sent payload/key and redacted log events |
 | Selector private-path/source-fetch failure and media parsing cases absent from the runtime contract | A missing internal response or malformed media boundary requires controlled fault injection; do not damage a deployed asset to test it | HTTP negotiation/private-prefix contract in the skill | Step 2, before Step 7; reuse skill cases before adding any |
@@ -612,3 +664,185 @@ Run the current lint, Node tests and build once before changing application owne
 - Full scoped diff, secret/output review, updated operating documentation and final evidence review.
 
 Repeat only checks invalidated by a later relevant change. Distinguish pre-existing collaborator/harness failures from migration failures; fix only requested in-scope defects and never weaken a failing meaningful check. Unauthorised or unavailable hosted/mail/screen-reader checks remain explicitly unavailable with their residual risk. Local acceptance and canonical acceptance are separate milestones; do not report the whole migration complete until every required authorised milestone passes.
+
+
+## Implemented Solution
+
+- Local/isolated milestone: Astro owns the existing root, static documents and processed browser controllers; approved layouts, copy, fonts, native navigation and protected CSS animation designs remain. Static output, private derivatives and generated request-time code are separated.
+- Contact: retain six business fields, native POST, manual preparation annotations, visible email fallback and safe state/retry behaviour. Validate bounded UTF-8/schema/origin/challenge before the fixed Resend sender/recipient call; redact logs, keep no-store and never send production mail in preview.
+- Analytics: compile the reviewed public flags through an explicit Vite allowlist; flush form events after the deferred client becomes ready. Actual compiled modules and the six-field contact flow pass through a local SDK stub without live events or private-input payloads.
+- Public output: one canonical-origin/facts/head/graph/file-generation boundary retains truthful identity/titles and applies slash canonicals. The independently approved, committed PNG is selected by the active facts owner. Keep query-preserving legacy redirects, private-path denial and byte-identical HTML/Markdown negotiation; isolate representation validators.
+- Release: locked root npm commands and generated Wrangler configuration, isolated inactive previews, explicit headers/CSP/cache policy, stable SVG IDs, bounded production-only IndexNow wrapper and no duplicate Pages publisher. Current Git-connected/canonical/mail/private-release gates remain open.
+- Verification: final lint/check/build and all 43 Node cases pass; 19 local and 19 hosted HTTP cases pass, with additional conditional/private-path cases. Real desktop/mobile pages, animation phases, modal focus/scroll/anchors, material form states, native official-test challenge submission and no-JS fallback pass. Independent contact/Worker audit reports validate; all five reproduced findings are fixed. See the committed acceptance record for commands, raw-output paths, replay and limits.
+- Pending: authorised sender DNS/verification, production secret bindings/shared widget addition, authorised push/actual Git builds, canonical DNS/TLS/mail receipt, notification activation, Pages retirement, private visibility/private rebuild and final migration closure. Practical spoken screen-reader verification is unavailable. No unavailable check is counted as passed.
+- Ownership: the separate e-commerce plan and approved artwork/generator are already committed by their author and remain intact. The mixed migration plan and active facts file include the owner-selected PNG decision under the whole-file majority rule; the migration agent authored more than half their changed lines.
+
+### Files changed for this milestone
+
+- `.eslintrc.json`
+- `.github/workflows/deploy.yml`
+- `.gitignore`
+- `.vscode/launch.json`
+- `AGENTS.md`
+- `README.md`
+- `astro.config.mjs`
+- `documents/AGENTS/agent-readiness.md`
+- `documents/AGENTS/code-standards.md`
+- `documents/AGENTS/metadata.md`
+- `documents/AGENTS/site-configuration.md`
+- `documents/AGENTS/testing.md`
+- `documents/AGENTS/third-party-scripts.md`
+- `documents/cloudflare-workers-hosting.md`
+- `documents/evidence/astro_cloudflare_workers_migration/acceptance.md`
+- `documents/service-section-animations.md`
+- `documents/site-positioning.md`
+- `documents/todo/astro_cloudflare_workers_migration_plan.md`
+- `package-lock.json`
+- `package.json`
+- `public/_headers`
+- `public/favicon.ico`
+- `public/indexnow.txt`
+- `public/llms.txt`
+- `public/sitemap.xml`
+- `scripts/browser/contact-about-navigation.dev-browser.js`
+- `scripts/build-astro-site.mjs`
+- `scripts/check-static-budgets.mjs`
+- `scripts/fixtures/local-worker.mjs`
+- `scripts/generate-agent-markdown.mjs`
+- `scripts/generate-worker-configs.mjs`
+- `scripts/indexnow.config.json`
+- `scripts/indexnow.mjs`
+- `scripts/run-http-contract.mjs`
+- `scripts/validate-static-export.mjs`
+- `scripts/verify-http-contract.mjs`
+- `src/components/head/PageMetadata.astro`
+- `src/components/head/StructuredData.astro`
+- `src/components/scripts/page/Turnstile.astro`
+- `src/components/site/AgentBeat.astro`
+- `src/components/site/AgentConversationShowcase.astro`
+- `src/components/site/AnalyticsTiles.astro`
+- `src/components/site/Block.astro`
+- `src/components/site/Border.astro`
+- `src/components/site/Button.astro`
+- `src/components/site/CapabilityBento.astro`
+- `src/components/site/ContactForm.astro`
+- `src/components/site/ContactSection.astro`
+- `src/components/site/Container.astro`
+- `src/components/site/ControlStrip.astro`
+- `src/components/site/ConversationStoryboard.astro`
+- `src/components/site/CustomerBeat.astro`
+- `src/components/site/DressThumbnail.astro`
+- `src/components/site/EngagementTimeline.astro`
+- `src/components/site/FadeIn.astro`
+- `src/components/site/FadeInStagger.astro`
+- `src/components/site/Footer.astro`
+- `src/components/site/GridList.astro`
+- `src/components/site/GridListItem.astro`
+- `src/components/site/GridPattern.astro`
+- `src/components/site/HeroAssistantConversation.astro`
+- `src/components/site/IconCheck.astro`
+- `src/components/site/IconFileText.astro`
+- `src/components/site/List.astro`
+- `src/components/site/ListItem.astro`
+- `src/components/site/Logo.astro`
+- `src/components/site/Logomark.astro`
+- `src/components/site/Navigation.astro`
+- `src/components/site/NavigationPanel.astro`
+- `src/components/site/NoiseOverlay.astro`
+- `src/components/site/Office.astro`
+- `src/components/site/Offices.astro`
+- `src/components/site/PageIntro.astro`
+- `src/components/site/PaidOrderBadge.astro`
+- `src/components/site/ProductCard.astro`
+- `src/components/site/Reveal.astro`
+- `src/components/site/RootHeader.astro`
+- `src/components/site/SectionIntro.astro`
+- `src/components/site/ShoppaCard.astro`
+- `src/components/site/ShoppaMark.astro`
+- `src/components/site/StylizedImage.astro`
+- `src/components/site/TagList.astro`
+- `src/components/site/TagListItem.astro`
+- `src/components/site/TimeDivider.astro`
+- `src/components/site/about-About.astro`
+- `src/components/site/about-Culture.astro`
+- `src/components/site/about-IntroProofBand.astro`
+- `src/components/site/about-ProofLedger.astro`
+- `src/components/site/app-Ecommerce.astro`
+- `src/components/site/app-Hero.astro`
+- `src/components/site/app-Home.astro`
+- `src/components/site/app-HowWeWork.astro`
+- `src/components/site/app-NotFound.astro`
+- `src/components/site/app-Services.astro`
+- `src/components/site/contact-Contact.astro`
+- `src/components/site/contact-ContactDetails.astro`
+- `src/components/site/process-Build.astro`
+- `src/components/site/process-Deploy.astro`
+- `src/components/site/process-Discover.astro`
+- `src/components/site/process-Operate.astro`
+- `src/components/site/process-OperateIncluded.astro`
+- `src/components/site/process-Process.astro`
+- `src/components/site/process-ProcessImageSignals.astro`
+- `src/components/site/process-Section.astro`
+- `src/components/site/process-Values.astro`
+- `src/components/site/thank-you-ThankYou.astro`
+- `src/config/canonical-origin.mjs`
+- `src/config/site.ts`
+- `src/env.d.ts`
+- `src/instrumentation-client.js`
+- `src/layouts/BaseLayout.astro`
+- `src/lib/accept.ts`
+- `src/lib/agent-readable-http/handler.ts`
+- `src/lib/contact/handler.ts`
+- `src/lib/document-response.ts`
+- `src/lib/headers.ts`
+- `src/lib/internal-path.ts`
+- `src/lib/metadata.ts`
+- `src/lib/public-artifacts.mjs`
+- `src/lib/site-config.mjs`
+- `src/lib/structured-data.mjs`
+- `src/lib/structured-data.ts`
+- `src/lib/svg-id.ts`
+- `src/pages/404.astro`
+- `src/pages/about.astro`
+- `src/pages/api/contact.ts`
+- `src/pages/contact.astro`
+- `src/pages/index.astro`
+- `src/pages/privacy.astro`
+- `src/pages/process.astro`
+- `src/pages/test-mixpanel.astro`
+- `src/pages/thank-you.astro`
+- `src/scripts/contact-form.ts`
+- `src/scripts/navigation.ts`
+- `src/scripts/site-entry.ts`
+- `src/styles/base.css`
+- `src/styles/components.css`
+- `src/worker.ts`
+- `tailwind.config.js`
+- `test/agent-accessibility-contract.test.mjs`
+- `test/astro-metadata.test.mjs`
+- `test/contact-form-contract.test.mjs`
+- `test/contact-handler.test.mjs`
+- `test/edge-state-actions.test.mjs`
+- `test/homepage-owned-agent-positioning.test.mjs`
+- `test/http-contract.json`
+- `test/indexnow.cases.ts`
+- `test/indexnow.test.mjs`
+- `test/layout-body-suppress-hydration-warning.test.mjs`
+- `test/metadata-structured-data.test.mjs`
+- `test/negotiated-conditional.test.mjs`
+- `test/privacy-page-contract.test.mjs`
+- `test/public-artifacts.test.mjs`
+- `test/root-layout-inert-attribute.test.mjs`
+- `test/root-navigation-loading-gap.test.mjs`
+- `test/svg-id.test.mjs`
+- `tsconfig.json`
+- `worker-configuration.d.ts`
+- `wrangler.jsonc`
+
+### Local audit records retained
+
+- `documents/todo/bugs/codex/subagent_bug_sweep_20261013_contact_9c71.xml`
+- `documents/todo/bugs/codex/subagent_bug_sweep_20261013_worker_41af.xml`
+- `documents/todo/bugs/codex/combined_bug_sweep_20261013_42d6c871.xml`
+
+These generated audit records are project-ignored and remain unchanged. Their reproduced lessons and reconciliation are recorded in the committed acceptance document.

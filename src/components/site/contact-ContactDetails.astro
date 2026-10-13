@@ -1,0 +1,43 @@
+---
+import { site } from '../../config/site'
+import Border from '@/components/site/Border.astro'
+
+import FadeIn from '@/components/site/FadeIn.astro'
+
+import Offices from '@/components/site/Offices.astro'
+---
+<FadeIn>
+      <h2 class="font-display text-base font-semibold text-neutral-950">
+        our offices
+      </h2>
+      <p class="mt-6 text-base text-neutral-600">
+        We’re based in Perth and Melbourne, and work with clients all over
+        Australia.
+      </p>
+
+      <Offices className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2" />
+
+      <Border className="mt-16 pt-16">
+        <h2 class="font-display text-base font-semibold text-neutral-950">
+          email us
+        </h2>
+        <dl class="mt-6 grid grid-cols-1 gap-8 text-sm sm:grid-cols-2">
+          {[['business enquiries', site.publicEmail]].map(
+            ([label, email]) => (
+              <div>
+                <dt class="font-semibold text-neutral-950">{label}</dt>
+                <dd>
+                  <a href={`mailto:${email}`} class="inline-flex min-h-11 items-center text-neutral-600 transition-colors hover:text-neutral-950 sm:min-h-10">
+                    {email}
+                  </a>
+                </dd>
+              </div>
+            ),
+          )}
+        </dl>
+      </Border>
+
+      <Border className="mt-16 pt-16">
+
+      </Border>
+    </FadeIn>

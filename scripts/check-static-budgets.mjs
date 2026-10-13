@@ -8,10 +8,10 @@ import {
   processImageSlotWidth,
 } from '../src/lib/process-image-config.mjs'
 import { mixpanelRecorderEnabled } from '../src/lib/analytics-config.mjs'
-import { routes } from '../src/lib/site-config.mjs'
+import { routes, siteConfig } from '../src/lib/site-config.mjs'
 
 const repositoryRoot = resolve(fileURLToPath(new URL('..', import.meta.url)))
-const outputRoot = join(repositoryRoot, 'out')
+const outputRoot = join(repositoryRoot, process.env.SITE_OUTPUT || 'dist')
 const failures = []
 const routeBaseTransfer = new Map()
 const initialJavaScript = new Set()
@@ -71,11 +71,13 @@ for (const route of activeRoutes) {
     /<link\b(?=[^>]*\brel=["']stylesheet["'])[^>]*\bhref=["']([^"']+)["']/gu,
   )
   const jsGzip = gzipTotal(scripts)
-  const cssGzip = gzipTotal(stylesheets)
+  // Count inline CSS once in HTML transfer, while retaining its separate protective ceiling.
+  const inlineCss = Array.from(html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gu), match => match[1]).join('')
+  const cssGzip = gzipTotal(stylesheets) + (inlineCss ? gzipSync(inlineCss).byteLength : 0)
   const htmlGzip = gzipSync(htmlBuffer).byteLength
-  const routeJsCeiling = route.path === '/contact' ? 175000 : 165000
+  const routeJsCeiling = route.path === '/contact/' ? 175000 : 165000
 
-  routeBaseTransfer.set(route.path, htmlGzip + jsGzip + cssGzip)
+  routeBaseTransfer.set(route.path, htmlGzip + jsGzip + gzipTotal(stylesheets))
   for (const script of scripts) initialJavaScript.add(script)
 
   if (jsGzip > routeJsCeiling) fail(route.path, 'initial JavaScript gzip', jsGzip, routeJsCeiling)
@@ -128,7 +130,8 @@ for (const [profileName, profile] of Object.entries(transferProfiles)) {
   }
 }
 
-const socialPath = join(outputRoot, 'images/embeddings-agentic-shopping-1200x630.webp')
+// Check the selected social asset so changing its format cannot bypass the byte budget.
+const socialPath = join(outputRoot, siteConfig.socialImage.path)
 if (statSync(socialPath).size > 300000) fail('social image', 'raw size', statSync(socialPath).size, 300000)
 
 const processHtml = readFileSync(join(outputRoot, routes.process.outputFile), 'utf8')
@@ -136,29 +139,28 @@ if ((processHtml.match(/loading="eager"/gu) ?? []).length !== 1) {
   failures.push('/process: expected exactly one eager process image')
 }
 
-const allJavaScript = readdirSync(join(outputRoot, '_next/static/chunks'), {
+const allJavaScript = readdirSync(join(outputRoot, '_astro'), {
   recursive: true,
   withFileTypes: true,
 })
   .filter((entry) => entry.isFile() && extname(entry.name) === '.js')
   .map((entry) => join(entry.parentPath ?? entry.path, entry.name))
 
-const chunksById = new Map(
-  allJavaScript
-    .map((file) => [file.split('/').at(-1).match(/^(\d+)\./u)?.[1], file])
-    .filter(([id]) => id),
-)
 const activeJavaScript = new Set(initialJavaScript)
 const pendingJavaScript = Array.from(initialJavaScript)
 
-while (pendingJavaScript.length > 0) {
-  const file = pendingJavaScript.pop()
+// Follow the emitted ESM imports instead of the retired Webpack module IDs.
+function scriptDependencies(file) {
   const source = readFileSync(file, 'utf8')
+  return Array.from(source.matchAll(/["'`]([^"'`]+\.js)["'`]/gu), match => {
+    const path = resolve(file, '..', match[1])
+    return allJavaScript.includes(path) ? path : null
+  }).filter(Boolean)
+}
 
-  for (const match of source.matchAll(/\.e\((\d+)\)/gu)) {
-    const dependency = chunksById.get(match[1])
-
-    if (dependency && !activeJavaScript.has(dependency)) {
+while (pendingJavaScript.length > 0) {
+  for (const dependency of scriptDependencies(pendingJavaScript.pop())) {
+    if (!activeJavaScript.has(dependency)) {
       activeJavaScript.add(dependency)
       pendingJavaScript.push(dependency)
     }
@@ -192,40 +194,17 @@ if (selectedMixpanelChunks.length !== 1) {
     `Mixpanel: expected one marked ${selectedMixpanelLabel} chunk; found ${selectedMixpanelChunks.length}`,
   )
 } else {
-  const wrapperSource = readFileSync(selectedMixpanelChunks[0], 'utf8')
-  let payloadChunk
-
-  if (mixpanelRecorderEnabled) {
-    // The full browser package is bundled into its marked dynamic wrapper.
-    payloadChunk = selectedMixpanelChunks[0]
-  } else {
-    const dependencyModuleId = wrapperSource.match(/mixpanel:\w\((\d+)\)/u)?.[1]
-    const payloadChunks = dependencyModuleId
-      ? Array.from(activeJavaScript).filter((file) =>
-          readFileSync(file, 'utf8').includes(`${dependencyModuleId}:`),
-        )
-      : []
-
-    if (payloadChunks.length !== 1) {
-      failures.push(
-        `Mixpanel: expected one core payload for module ${dependencyModuleId ?? 'unknown'}; found ${payloadChunks.length}`,
-      )
-    } else {
-      payloadChunk = payloadChunks[0]
+  // Measure the selected loader and its actual imported payload together.
+  const payload = new Set(selectedMixpanelChunks)
+  const queue = Array.from(payload)
+  while (queue.length) {
+    for (const dependency of scriptDependencies(queue.pop())) {
+      if (!payload.has(dependency)) { payload.add(dependency); queue.push(dependency) }
     }
   }
+  const size = gzipTotal(payload)
+  if (size > selectedMixpanelCeiling) fail('Mixpanel', `${selectedMixpanelLabel} chunk gzip`, size, selectedMixpanelCeiling)
 
-  if (payloadChunk) {
-    const size = gzipSync(readFileSync(payloadChunk)).byteLength
-    if (size > selectedMixpanelCeiling) {
-      fail(
-        'Mixpanel',
-        `${selectedMixpanelLabel} chunk gzip`,
-        size,
-        selectedMixpanelCeiling,
-      )
-    }
-  }
 }
 
 if (failures.length > 0) {

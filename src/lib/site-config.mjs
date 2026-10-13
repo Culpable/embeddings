@@ -1,12 +1,7 @@
-const productionOrigin = 'https://embeddings.au'
+import { canonicalOrigin } from '../config/canonical-origin.mjs'
+import { site } from '../config/site.ts'
 
-const socialImage = {
-  path: '/images/embeddings-agentic-shopping-1200x630.webp',
-  width: 1200,
-  height: 630,
-  mimeType: 'image/webp',
-  alt: 'Embeddings retailer-owned AI shopping agent interface',
-}
+const productionOrigin = new URL(canonicalOrigin).origin
 
 export const crawlerRegistry = [
   {
@@ -74,8 +69,8 @@ export const routes = {
     absoluteTitle: true,
   },
   about: {
-    path: '/about',
-    outputFile: 'about.html',
+    path: '/about/',
+    outputFile: 'about/index.html',
     title: 'About Us',
     description:
       'We combine deep technical expertise with hands-on implementation to help Australian businesses put AI to work.',
@@ -88,8 +83,8 @@ export const routes = {
     includeInLlms: true,
   },
   process: {
-    path: '/process',
-    outputFile: 'process.html',
+    path: '/process/',
+    outputFile: 'process/index.html',
     title: 'Our Process',
     description:
       'How we help Australian businesses put AI to work: find the opportunities, build on your real data, deploy it into production, and keep improving it.',
@@ -102,8 +97,8 @@ export const routes = {
     includeInLlms: true,
   },
   contact: {
-    path: '/contact',
-    outputFile: 'contact.html',
+    path: '/contact/',
+    outputFile: 'contact/index.html',
     title: 'Contact Us',
     description: 'Contact us to learn how we can integrate AI into your business.',
     llmsDescription:
@@ -115,8 +110,8 @@ export const routes = {
     includeInLlms: true,
   },
   privacy: {
-    path: '/privacy',
-    outputFile: 'privacy.html',
+    path: '/privacy/',
+    outputFile: 'privacy/index.html',
     title: 'Privacy',
     description:
       'How the Embeddings marketing site and business enquiries handle personal information.',
@@ -129,8 +124,8 @@ export const routes = {
     includeInLlms: true,
   },
   thankYou: {
-    path: '/thank-you',
-    outputFile: 'thank-you.html',
+    path: '/thank-you/',
+    outputFile: 'thank-you/index.html',
     title: 'Thank You',
     description: 'Confirmation that Embeddings received your business enquiry.',
     pageType: null,
@@ -139,8 +134,8 @@ export const routes = {
     includeInLlms: false,
   },
   testMixpanel: {
-    path: '/test-mixpanel',
-    outputFile: 'test-mixpanel.html',
+    path: '/test-mixpanel/',
+    outputFile: 'test-mixpanel/index.html',
     title: 'Mixpanel Test',
     description: 'Internal Mixpanel integration checks for Embeddings.',
     pageType: null,
@@ -160,30 +155,20 @@ export const routes = {
   },
 }
 
+// Preserve the existing Node validation interface while Astro owns canonical origin.
 export const siteConfig = {
-  name: 'Embeddings',
+  ...site,
   origin: productionOrigin,
-  htmlLang: 'en-AU',
-  openGraphLocale: 'en_AU',
   defaultTitle: routes.home.title,
-  defaultDescription:
-    'We design, build and run AI systems inside your existing software and data, from internal assistants to agents that coordinate work across teams.',
-  socialImage,
-  organisation: {
-    id: `${productionOrigin}/#organisation`,
-    name: 'Embeddings',
-    description:
-      'Australian AI consultancy that designs, builds and runs AI systems inside organisations’ existing software and data, including custom shopping assistants for retailers.',
-    logo: `${productionOrigin}/images/embeddings-logo.png`,
-  },
+  organisation: { ...site.organisation, id: `${productionOrigin}/#organisation`, logo: new URL(site.organisation.logoPath, productionOrigin).href },
   websiteId: `${productionOrigin}/#website`,
-  publicEmail: 'solutions@embeddings.au',
   routes,
   crawlers: crawlerRegistry,
 }
 
+
 export function absoluteUrl(path) {
-  return path === '/' ? productionOrigin : new URL(path, `${productionOrigin}/`).href
+  return new URL(path, `${productionOrigin}/`).href
 }
 
 

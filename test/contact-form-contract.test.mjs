@@ -3,15 +3,15 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 
 const form = readFileSync(
-  new URL('../src/app/contact/ContactForm.jsx', import.meta.url),
+  new URL('../src/components/site/ContactForm.astro', import.meta.url),
   'utf8',
 )
 const page = readFileSync(
-  new URL('../src/app/contact/page.jsx', import.meta.url),
+  new URL('../src/components/site/contact-Contact.astro', import.meta.url),
   'utf8',
 )
 const details = readFileSync(
-  new URL('../src/app/contact/ContactDetails.jsx', import.meta.url),
+  new URL('../src/components/site/contact-ContactDetails.astro', import.meta.url),
   'utf8',
 )
 
@@ -22,12 +22,8 @@ function withoutComments(source) {
 }
 
 
-test('native contact submission retains the external confirmation redirect', () => {
-  // Preserve the value Formspree reads, allowing attribute reordering.
-  assert.match(
-    form,
-    /<input\b(?=[^>]*\bname=["']_next["'])(?=[^>]*\bvalue=["']https:\/\/embeddings\.au\/thank-you["'])[^>]*>/u,
-  )
+test('native contact submission posts to the same-origin handler', () => {
+  assert.match(form, /<form\b(?=[^>]*\baction=["']\/api\/contact\/["'])(?=[^>]*\bmethod=["']post["'])[^>]*>/u)
 })
 
 
@@ -49,7 +45,8 @@ test('contact form excludes the prohibited catalogue field model and retains its
     copy,
     /\bname\s*=\s*["'](?:platform|readinessPriority|skuCount)["']/u,
   )
-  assert.match(form, /\bform_type\s*:\s*["']business_enquiry["']/u)
+  const enhancement = readFileSync(new URL('../src/scripts/contact-form.ts', import.meta.url), 'utf8')
+  assert.match(enhancement, /\bform_type\s*:\s*["']business_enquiry["']/u)
   assert.doesNotMatch(form, /Contact Form Field Focused/u)
 })
 
@@ -73,7 +70,7 @@ test('contact page copy no longer asks for removed catalogue fields', () => {
 })
 
 
-test('native contact submission retains its empty external honeypot field', () => {
+test('native contact submission retains its empty honeypot field', () => {
   // Preserve the anti-spam input without pinning whitespace or attribute order.
   assert.match(
     form,

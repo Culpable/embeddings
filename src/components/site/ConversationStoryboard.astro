@@ -1,0 +1,115 @@
+---
+import PaidOrderBadge from '@/components/site/PaidOrderBadge.astro'
+
+import CustomerBeat from '@/components/site/CustomerBeat.astro'
+
+import AgentBeat from '@/components/site/AgentBeat.astro'
+
+import TimeDivider from '@/components/site/TimeDivider.astro'
+
+import ProductCard from '@/components/site/ProductCard.astro'
+
+const recommendedProducts = [
+  {
+    name: 'Sapphire Blue A-Line Midi Dress',
+    price: '$189',
+    detail: 'size 10 · in stock',
+    gtin: '0614141123456',
+    dress: 'sapphire',
+  },
+  {
+    name: 'Blush Crepe Wrap Midi Dress',
+    price: '$159',
+    detail: 'size 10 · 3 left',
+    gtin: '0614141123791',
+    dress: 'blush',
+  },
+] as const
+
+const BEAT_STEP_MS = 260
+
+function beatDelay(index: number) {
+  // Return the reveal delay for the nth conversation beat.
+  return index * BEAT_STEP_MS
+}
+---
+<div class="surface-elevation-light overflow-hidden rounded-3xl bg-white">
+
+      <div class="flex items-center gap-3 border-b border-neutral-950/10 bg-neutral-50 px-4 py-3" aria-hidden="true">
+        <div class="flex gap-1.5">
+          <span class="h-2.5 w-2.5 rounded-full bg-neutral-950/15" />
+          <span class="h-2.5 w-2.5 rounded-full bg-neutral-950/15" />
+          <span class="h-2.5 w-2.5 rounded-full bg-neutral-950/15" />
+        </div>
+        <span class="truncate rounded-full border border-neutral-950/10 bg-white px-3 py-1 text-[0.65rem] text-neutral-500">
+          yourstore.com.au
+        </span>
+
+        <span class="ml-auto flex items-center gap-1 rounded-full border border-neutral-950/10 bg-white px-2.5 py-1 text-[0.65rem] font-semibold text-neutral-950">
+          <span class="text-[0.6rem]">✦</span>
+          your brand
+        </span>
+      </div>
+
+
+      <div class="space-y-3 p-4 sm:p-6">
+
+        <p class="sr-only">
+          Example conversation showing a customer buying from a retailer’s own
+          shopping agent, then asking about the order three days later.
+        </p>
+
+        <CustomerBeat delay={beatDelay(0)}>
+          I need a dress for a spring wedding, size 10, under $200
+        </CustomerBeat>
+
+        <AgentBeat delay={beatDelay(1)}>
+          <p>
+            Lovely occasion. These two suit an outdoor spring wedding, and both
+            are in your size right now:
+          </p>
+          <div class="mt-3 grid grid-cols-1 gap-2">
+            {recommendedProducts.map((product) => (
+              <ProductCard {...product} />
+            ))}
+          </div>
+        </AgentBeat>
+
+
+        <CustomerBeat delay={beatDelay(2)}>
+          The sapphire one, with express delivery please. Can I pay here?
+        </CustomerBeat>
+
+        <AgentBeat delay={beatDelay(3)}>
+          <p>Of course. Here’s your order:</p>
+          <dl class="mt-3 space-y-1.5 rounded-xl border border-neutral-950/10 bg-white p-3 text-xs">
+            <div class="flex justify-between gap-3">
+              <dt class="text-neutral-500">Sapphire Blue A-Line Midi</dt>
+              <dd class="font-semibold text-neutral-950">$189.00</dd>
+            </div>
+            <div class="flex justify-between gap-3">
+              <dt class="text-neutral-500">Express delivery</dt>
+              <dd class="font-semibold text-neutral-950">$9.95</dd>
+            </div>
+            <div class="flex justify-between gap-3 border-t border-neutral-950/10 pt-1.5">
+              <dt class="font-semibold text-neutral-950">Total</dt>
+              <dd class="font-semibold text-neutral-950">$198.95</dd>
+            </div>
+          </dl>
+
+          <PaidOrderBadge className="mt-3" />
+        </AgentBeat>
+
+
+        <TimeDivider delay={beatDelay(4)}>3 days later</TimeDivider>
+
+        <CustomerBeat delay={beatDelay(5)}>Where’s my order?</CustomerBeat>
+
+        <AgentBeat delay={beatDelay(6)}>
+          <p>
+            Good news. Order #8412 is out for delivery and should be with you
+            today.
+          </p>
+        </AgentBeat>
+      </div>
+    </div>

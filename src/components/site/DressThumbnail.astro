@@ -1,0 +1,51 @@
+---
+import clsx from 'clsx'
+
+const dressVariants = {
+  sapphire: {
+    // Sapphire Blue A-Line Midi Dress — scoop neckline, fitted bodice,
+    // flared A-line skirt. Tailwind blue-500 → indigo-600.
+    backdropClass: 'bg-indigo-50',
+    from: '#3b82f6',
+    to: '#4f46e5',
+    straps: 'M12.4 7.2 L13.2 3.6 M23.6 7.2 L22.8 3.6',
+    body: 'M12 7 Q18 10.5 24 7 L22.5 19 L29 39 Q18 43.5 7 39 L13.5 19 Z',
+    details: ['M13.5 19 Q18 21 22.5 19'],
+  },
+  blush: {
+    // Blush Crepe Wrap Midi Dress — deep V wrap neckline with a crossover
+    // panel and waist sash. Tailwind rose-300 → rose-500.
+    backdropClass: 'bg-rose-50',
+    from: '#fda4af',
+    to: '#f43f5e',
+    straps: 'M12.4 7.2 L13.2 3.6 M23.6 7.2 L22.8 3.6',
+    body: 'M12 6.5 L18 14.5 L24 6.5 L22.5 19 L29 39 Q18 43.5 7 39 L13.5 19 Z',
+    details: ['M12.6 7.2 L20.2 16', 'M13.5 19 Q18 21 22.5 19'],
+  },
+}
+
+interface Props { variant: 'sapphire' | 'blush'; idPrefix: string; className?: string }
+
+const { variant, idPrefix, className } = Astro.props
+
+const dress = dressVariants[variant]
+const gradientId = `${idPrefix}-dress-gradient`
+---
+<span class={clsx('block flex-none', dress.backdropClass, className)} aria-hidden="true">
+      <svg viewBox="0 0 36 44" class="h-full w-full">
+        <defs>
+          <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color={dress.from} />
+            <stop offset="100%" stop-color={dress.to} />
+          </linearGradient>
+        </defs>
+
+        <path d={dress.straps} fill="none" stroke={dress.from} stroke-width="1.5" stroke-linecap="round" />
+
+        <path d={dress.body} fill={`url(#${gradientId})`} />
+
+        {dress.details.map((seam) => (
+          <path d={seam} fill="none" stroke="#fff" stroke-opacity="0.4" stroke-width="1.1" stroke-linecap="round" />
+        ))}
+      </svg>
+    </span>

@@ -1,0 +1,46 @@
+---
+import { site } from '../../config/site'
+import FadeIn from './FadeIn.astro'
+import Button from './Button.astro'
+const fields = [
+  { name: 'name', label: 'Name', type: 'text', autocomplete: 'name', limit: 120, description: 'The name of the person making the enquiry.' },
+  { name: 'email', label: 'Email', type: 'email', autocomplete: 'email', limit: 254, description: 'The email address Embeddings should reply to.' },
+  { name: 'company', label: 'Company', type: 'text', autocomplete: 'organization', limit: 160, description: 'The organisation making the enquiry.' },
+  { name: 'phone', label: 'Phone', type: 'tel', autocomplete: 'tel', limit: 40, description: 'A phone number for the business enquiry.' },
+  { name: 'message', label: 'Message', type: 'textarea', autocomplete: undefined, limit: 4000, description: 'A concise description of the work, the systems involved, and the requested outcome.' },
+] as const
+const budgets = [{label:'Less than 100k',value:'100',tracking:'0-100k'},{label:'$100K – $500K',value:'500',tracking:'100k-500k'},{label:'$500K – $1M',value:'1000',tracking:'500k-1m'},{label:'More than $1M',value:'1500',tracking:'1m+'}]
+const inputClasses = 'peer block w-full border border-neutral-300 bg-transparent px-6 text-base/6 text-neutral-950 ring-4 ring-transparent transition-[border-color,background-color,box-shadow] duration-200 focus:outline-none focus:border-neutral-950 focus:ring-neutral-950/5 group-first:rounded-t-2xl group-last:rounded-b-2xl'
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY
+---
+<FadeIn className="lg:order-last">
+  <form data-contact-form action="/api/contact/" method="post" toolname="prepare_business_enquiry" tooldescription="Prepare a business enquiry for review and manual submission to Embeddings." aria-busy="false" aria-describedby="contact-form-guidance">
+    <h2 class="font-display text-base font-semibold text-neutral-950">business enquiries</h2>
+    <p id="contact-form-guidance" class="mt-4 max-w-xl text-sm leading-6 text-neutral-600">Share the essentials and we’ll respond with the right next step.</p>
+    <input type="hidden" name="_gotcha" value="" />
+    <fieldset data-enquiry-details class="mt-8 transition-opacity disabled:opacity-70">
+      <legend class="sr-only">Business enquiry details</legend>
+      <div id="contact-error-summary" role="alert" hidden class="mb-6 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-700 shadow-sm"><p class="font-semibold text-red-800">Fix these details before sending.</p><ul data-error-list class="mt-3 space-y-1.5" /></div>
+      <div class="isolate -space-y-px rounded-2xl">
+        {fields.map(field=><div class="group relative z-0 focus-within:z-10">
+          {field.type==='textarea' ? <textarea id={`${field.name}-field`} name={field.name} rows="3" required maxlength={field.limit} toolparamdescription={field.description} placeholder=" " class={`${inputClasses} resize-none pt-12 pb-3`} /> : <input id={`${field.name}-field`} type={field.type} name={field.name} autocomplete={field.autocomplete} required maxlength={field.limit} toolparamdescription={field.description} placeholder=" " class={`${inputClasses} pb-4 pt-12`} />}
+          <label for={`${field.name}-field`} class={field.type==='textarea' ? 'pointer-events-none absolute left-6 top-8 origin-left text-base/6 text-neutral-500 transition-[top,transform,color] duration-200 peer-focus:top-2 peer-focus:scale-75 peer-focus:font-semibold peer-focus:text-neutral-950 peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:font-semibold peer-[:not(:placeholder-shown)]:text-neutral-950' : 'pointer-events-none absolute left-6 top-1/2 -mt-3 origin-left text-base/6 text-neutral-500 transition-[transform,color] duration-200 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:font-semibold peer-focus:text-neutral-950 peer-[:not(:placeholder-shown)]:-translate-y-4 peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:font-semibold peer-[:not(:placeholder-shown)]:text-neutral-950'}>{field.label}</label>
+          <p id={`${field.name}-field-error`} data-field-error={field.name} hidden class="-mt-px border-x border-b border-red-300 bg-red-50 px-6 pb-3 pt-2 text-sm font-medium text-red-700 group-last:rounded-b-2xl" />
+        </div>)}
+        <div class="border border-neutral-300 px-6 py-8 first:rounded-t-2xl last:rounded-b-2xl">
+          <fieldset data-budget-group><legend class="text-base/6 text-neutral-500">Budget</legend><p class="mt-2 text-sm leading-6 text-neutral-500">Select the closest planning range.</p><p id="budget-error" data-field-error="budget" hidden class="mt-3 text-sm font-medium text-red-600" />
+            <div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">{budgets.map(({label,value,tracking},index)=><label for={index===0?'budget-field':`budget-field-${value}`} class="flex min-h-14 items-center gap-x-3 rounded-2xl border border-transparent px-3 py-3 transition-[transform,border-color,background-color,box-shadow] duration-200 ease-out hover:bg-neutral-950/[0.03] active:scale-[0.96] has-[:disabled]:scale-100 has-[:disabled]:cursor-not-allowed has-[:checked]:border-neutral-950/20 has-[:checked]:bg-neutral-950/[0.05] has-[:disabled]:opacity-60 has-[:checked]:shadow-sm"><input id={index===0?'budget-field':`budget-field-${value}`} type="radio" name="budget" value={value} data-tracking={tracking} required toolparamdescription={index===0?'The closest available planning budget range.':undefined} class="h-6 w-6 flex-none appearance-none rounded-full border border-neutral-950/20 outline-none transition-[border-width,border-color,box-shadow] duration-200 checked:border-[0.45rem] checked:border-neutral-950 focus-visible:ring-1 focus-visible:ring-neutral-950 focus-visible:ring-offset-2" /><span class="text-base/6 text-neutral-950">{label}</span></label>)}</div>
+          </fieldset>
+        </div>
+      </div>
+      {siteKey && <div class="cf-turnstile mt-6" data-sitekey={siteKey} data-action="contact" />}
+    </fieldset>
+    <div data-contact-status hidden tabindex="-1" role="status" aria-live="polite" class="mt-6 rounded-2xl border border-neutral-950/10 bg-white px-5 py-4 text-sm text-neutral-700 shadow-sm">
+      <div class="flex items-start gap-3"><span data-status-icon aria-hidden="true"><svg data-status-check style="display:none" viewBox="0 0 20 20" class="h-4 w-4" fill="currentColor"><path fill-rule="evenodd" d="M16.704 5.29a1 1 0 0 1 .006 1.414l-7.25 7.31a1 1 0 0 1-1.42 0L3.29 9.225a1 1 0 1 1 1.42-1.408l4.04 4.07 6.54-6.59a1 1 0 0 1 1.414-.006Z" clip-rule="evenodd" /></svg></span><div><p data-status-heading hidden class="font-display text-lg font-semibold tracking-tight text-emerald-950">Message sent</p><p data-status-message /></div></div>
+      <div data-status-progress hidden class="mt-4 h-1 overflow-hidden rounded-full bg-neutral-950/10" aria-hidden="true"><div class="h-full w-1/2 animate-[shimmerBorder_1.5s_ease-in-out_infinite] rounded-full bg-neutral-950" /></div>
+    </div>
+    <Button data-submit type="submit" className="mt-10 min-w-36"><span class="inline-flex items-center gap-2"><span data-submit-spinner hidden aria-hidden="true" class="h-3 w-3 animate-spin rounded-full border-2 border-white/30 border-t-white" /><span data-submit-label>Send message</span></span></Button>
+    <Button data-send-another type="button" className="mt-8" hidden>Send another message</Button>
+    <p class="mt-4 max-w-xl text-sm leading-6 text-neutral-600">If the security check is unavailable, <a href={`mailto:${site.publicEmail}`} class="underline underline-offset-4">email {site.publicEmail}</a>.</p>
+  </form>
+</FadeIn>

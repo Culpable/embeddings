@@ -3,12 +3,12 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/app/**/*.{js,jsx,ts,tsx}',
-    '!./src/app/_disabled_pages/**/*',
-    '!./src/app/test-mixpanel/**/*',
-    './src/components/**/*.{js,jsx,ts,tsx}',
-    './src/lib/**/*.{js,jsx,ts,tsx}',
-    './src/schemas/**/*.{js,jsx,ts,tsx}',
+    './src/pages/**/*.{astro,ts}',
+    './src/layouts/**/*.astro',
+    './src/components/site/**/*.astro',
+    './src/components/head/**/*.astro',
+    './src/components/scripts/**/*.astro',
+    './src/scripts/**/*.ts',
   ],
   theme: {
     fontSize: {

@@ -5,7 +5,7 @@ import { extname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const srcRoot = fileURLToPath(new URL('../src', import.meta.url))
-const textExtensions = new Set(['.js', '.jsx', '.ts', '.tsx', '.mjs', '.css'])
+const textExtensions = new Set(['.js', '.jsx', '.ts', '.tsx', '.mjs', '.css', '.astro'])
 
 
 test('animations do not introduce prohibited reduced-motion gates', () => {
@@ -31,7 +31,7 @@ test('animations do not introduce prohibited reduced-motion gates', () => {
 test('agent showcase description lists put each term before its definition', () => {
   // A <dd> ahead of its <dt> breaks the description-list contract and the
   // term/definition pairing assistive technology relies on.
-  const source = readFileSync(new URL('../src/components/AgentConversationShowcase.jsx', import.meta.url), 'utf8')
+  const source = readFileSync(new URL('../src/components/site/AnalyticsTiles.astro', import.meta.url), 'utf8')
   const lists = source.match(/<dl[\s\S]*?<\/dl>/g) ?? []
 
   assert.ok(lists.length > 0, 'Expected the showcase to render description lists')

@@ -1,0 +1,33 @@
+---
+import {
+  processImageSizes,
+  processImages,
+} from '@/lib/process-image-config.mjs'
+
+import Section from '@/components/site/process-Section.astro'
+---
+<Section id="build" title="Build" output="A working system your team has already tried" image={{
+        image: processImages.laptop,
+        shape: 1,
+        sizes: processImageSizes.standard,
+      }} signals={[
+        { label: 'built on', value: 'your real data' },
+        { label: 'tested by', value: 'the people who use it' },
+      ]}>
+      <div class="space-y-6 text-base text-neutral-600">
+        <p>
+          We build a working version on your real data early, and test it with
+          the people who will use it. You see working software, not a demo
+          deck.
+        </p>
+        <p>
+          We work in short cycles, showing you progress and adjusting as we
+          learn what works for your team.
+        </p>
+        <p>
+          Each client has a dedicated lead who keeps communication clear and
+          works closely with our engineers, so the system fits how your
+          organisation actually works.
+        </p>
+      </div>
+    </Section>

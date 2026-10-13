@@ -1,0 +1,52 @@
+---
+import TagList from '@/components/site/TagList.astro'
+
+import TagListItem from '@/components/site/TagListItem.astro'
+
+import {
+  processImageSizes,
+  processImages,
+} from '@/lib/process-image-config.mjs'
+
+import Section from '@/components/site/process-Section.astro'
+---
+<Section id="discover" title="Discover" output="A short list of opportunities, ranked by value and effort" image={{
+        image: processImages.whiteboard,
+        priority: true,
+        sizes: processImageSizes.whiteboard,
+      }} signals={[
+        { label: 'scope', value: 'people, data and systems' },
+        { label: 'output', value: 'ranked opportunities' },
+      ]}>
+      <div class="space-y-6 text-base text-neutral-600">
+        <p>
+          Through process mapping and data analysis, we identify the{' '}
+          <strong class="font-semibold text-neutral-950">
+            key opportunities
+          </strong>{' '}
+          where AI can take the most work off your team. We look at your
+          knowledge systems, document workflows and the software your people
+          use every day, and we’re clear about where AI won’t help.
+        </p>
+        <p>
+          You then receive an{' '}
+          <strong class="font-semibold text-neutral-950">
+            implementation roadmap
+          </strong>
+          : the specific AI systems we recommend, the data and integrations
+          each one needs, and how we’ll measure its value.
+        </p>
+      </div>
+
+      <h3 class="mt-12 font-display text-base font-semibold text-neutral-950">
+        Included in this phase
+      </h3>
+      <TagList className="mt-4">
+        <TagListItem>Production System Analysis</TagListItem>
+        <TagListItem>Integration Requirements</TagListItem>
+        <TagListItem>Solution Design</TagListItem>
+        <TagListItem>Security Assessment</TagListItem>
+        <TagListItem>Implementation Planning</TagListItem>
+        <TagListItem>Deployment Strategy</TagListItem>
+      </TagList>
+    </Section>

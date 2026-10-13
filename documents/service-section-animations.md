@@ -7,6 +7,8 @@
 
 ## Overview
 
+The Astro migration ports the currently rendered hero and shopping storyboard into `src/components/site/HeroAssistantConversation.astro` and `AgentConversationShowcase.astro` with the existing shared CSS timings, geometry, caret and publish/live states. The dormant JSX service animations below remain preserved and unrendered.
+
 > **Not currently rendered (2026-10-13):** the homepage moved to the broad AI consulting layout, which replaced the catalogue-services section with the capability grid in `CapabilityBento.jsx`. `CatalogueTransformation.jsx`, `ServiceTimelineLeftRail.jsx` and the service animations below are kept unchanged for reuse, but no route renders them. Mount them again before relying on this reference for live behaviour.
 
 The services section pairs the `CatalogueTransformation` before/after visual with a four-step left-rail service timeline that follows it immediately. The timeline now includes an "implementation loop" bridge so the before/after overview and the detailed delivery stages read as one connected services section.

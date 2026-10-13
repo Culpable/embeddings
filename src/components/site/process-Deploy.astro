@@ -1,0 +1,58 @@
+---
+import TagList from '@/components/site/TagList.astro'
+
+import TagListItem from '@/components/site/TagListItem.astro'
+
+import {
+  processImageSizes,
+  processImages,
+} from '@/lib/process-image-config.mjs'
+
+import Section from '@/components/site/process-Section.astro'
+---
+<Section id="deploy" title="Deploy" output="A live system inside the tools your team already uses" image={{
+        image: processImages.meeting,
+        shape: 2,
+        sizes: processImageSizes.standard,
+      }} signals={[
+        { label: 'runs in', value: 'your existing tools' },
+        { label: 'rollout', value: 'staged, with rollback' },
+      ]}>
+      <div class="space-y-6 text-base text-neutral-600">
+        <p>
+          We don’t stop at strategy decks. We focus on the{' '}
+          <strong class="font-semibold text-neutral-950">
+            implementation phase
+          </strong>
+          , where real value is created: systems that work in production, not
+          just in a demo.
+        </p>
+        <p>
+          We connect the system to the software you already run:{' '}
+          <strong class="font-semibold text-neutral-950">
+            ERP, CRM, document systems, project tools and custom-built software
+          </strong>
+          . Guardrails are set with your business, legal and IT teams, so it
+          only does what it should.
+        </p>
+        <p>
+          Our team provides{' '}
+          <strong class="font-semibold text-neutral-950">
+            hands-on support
+          </strong>{' '}
+          through rollout, so your people adopt the system and see results
+          early.
+        </p>
+      </div>
+
+      <h3 class="mt-12 font-display text-base font-semibold text-neutral-950">
+        Included in this phase
+      </h3>
+      <TagList className="mt-4">
+        <TagListItem>Production Deployment</TagListItem>
+        <TagListItem>System Integration</TagListItem>
+        <TagListItem>Access Controls</TagListItem>
+        <TagListItem>Staged Rollout</TagListItem>
+        <TagListItem>Team Training</TagListItem>
+      </TagList>
+    </Section>

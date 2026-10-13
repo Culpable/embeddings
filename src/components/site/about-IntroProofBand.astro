@@ -1,0 +1,28 @@
+---
+const proofSignals = [
+  {
+    label: 'focus',
+    value: 'AI that runs in production',
+  },
+  {
+    label: 'built from',
+    value: 'LLM pipelines + data infrastructure',
+  },
+  {
+    label: 'based in',
+    value: 'Perth + Melbourne',
+  },
+]
+---
+<div class="mt-10 grid max-w-4xl grid-cols-1 gap-3 text-base sm:grid-cols-3">
+      {proofSignals.map(({ label, value }) => (
+        <div class="surface-elevation-light rounded-2xl bg-white/80 px-4 py-4">
+          <p class="text-xs font-semibold uppercase tracking-wider text-neutral-500">
+            {label}
+          </p>
+          <p class="mt-2 font-display text-lg font-medium tracking-tight text-neutral-950">
+            {value}
+          </p>
+        </div>
+      ))}
+    </div>

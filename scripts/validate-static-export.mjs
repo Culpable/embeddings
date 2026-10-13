@@ -16,7 +16,7 @@ import {
 } from './lib/hidden-content.mjs'
 
 const repositoryRoot = resolve(fileURLToPath(new URL('..', import.meta.url)))
-const outputRoot = join(repositoryRoot, 'out')
+const outputRoot = join(repositoryRoot, process.env.SITE_OUTPUT || 'dist')
 const failures = []
 const hiddenInstructionPatterns = [
   /ignore previous instructions/iu,
@@ -244,7 +244,7 @@ function validateRoute(routeKey, route) {
     const formAttrs = attributes(form ?? {})
     if (forms.length !== 1) fail(routePath, 'contact form', `found ${forms.length}`)
     if (
-      formAttrs.action !== 'https://formspree.io/f/xrbgdgwq' ||
+      formAttrs.action !== '/api/contact/' ||
       formAttrs.method?.toLowerCase() !== 'post'
     ) {
       fail(routePath, 'contact form fallback', 'unexpected action or method')

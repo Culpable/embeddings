@@ -1,0 +1,15 @@
+---
+import clsx from 'clsx'
+
+import FadeInStagger from '@/components/site/FadeInStagger.astro'
+
+const { className } = Astro.props
+---
+<FadeInStagger>
+      <ul role="list" class={clsx(
+          'grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3',
+          className,
+        )}>
+        <slot />
+      </ul>
+    </FadeInStagger>

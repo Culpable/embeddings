@@ -1,3 +1,4 @@
+@import './typography.css';
 @tailwind components;
 
 .reveal-item {
@@ -153,5 +154,3 @@
     opacity: 0;
   }
 }
-
-@import './typography.css';

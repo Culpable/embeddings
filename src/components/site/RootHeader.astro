@@ -1,0 +1,29 @@
+---
+import Container from './Container.astro'
+import Button from './Button.astro'
+import Logo from './Logo.astro'
+import Logomark from './Logomark.astro'
+import NavigationPanel from './NavigationPanel.astro'
+---
+<header>
+  <a href="#main-content" class="sr-only fixed left-6 top-6 z-[60] inline-flex min-h-11 items-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-neutral-950 shadow-xl ring-1 ring-neutral-950/10 transition-[background-color,color,box-shadow] focus:not-sr-only focus:outline-none focus:ring-2 focus:ring-neutral-950 sm:min-h-10">Skip to content</a>
+  <div class="absolute left-0 right-0 top-2 z-40 pt-14">
+    <Container>
+      <div class="flex items-center justify-between">
+        <a href="/" aria-label="Home" class="group/logo inline-flex min-h-11 min-w-11 items-center sm:min-h-10 sm:min-w-10"><Logomark className="h-8 sm:hidden" /><Logo className="hidden h-8 sm:block" fillOnHover /></a>
+        <div class="flex items-center gap-x-6 sm:gap-x-8">
+          <Button href="/contact/">Contact us</Button>
+          <div data-navigation-scope class="flex items-center">
+            <button data-menu-toggle type="button" aria-expanded="false" aria-controls="navigation-panel" aria-label="Open navigation" class="relative z-[60] group -m-2.5 rounded-full p-2.5 transition-[transform,background-color,box-shadow] duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-4 active:scale-[0.96] hover:bg-neutral-950/10">
+              <span class="relative block h-6 w-6">
+                <span data-menu-icon class="absolute inset-0 transition-[opacity,transform,filter,visibility] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] visible scale-100 opacity-100 blur-0"><svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 fill-neutral-950"><path d="M2 6h20v2H2zM2 16h20v2H2z" /></svg></span>
+                <span data-close-icon class="absolute inset-0 transition-[opacity,transform,filter,visibility] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] invisible scale-25 opacity-0 blur-[4px]"><svg viewBox="0 0 24 24" aria-hidden="true" class="h-6 w-6 fill-white"><path d="m5.636 4.223 14.142 14.142-1.414 1.414L4.222 5.637z" /><path d="M4.222 18.363 18.364 4.22l1.414 1.414L5.636 19.777z" /></svg></span>
+              </span>
+            </button>
+            <NavigationPanel />
+          </div>
+        </div>
+      </div>
+    </Container>
+  </div>
+</header>

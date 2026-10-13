@@ -1,0 +1,34 @@
+---
+import { site } from '../../config/site'
+import { resolveMetadata, type PageMetadataInput } from '../../lib/metadata.ts'
+import StructuredData from './StructuredData.astro'
+interface Props { metadata: PageMetadataInput; routeKey: string }
+const { metadata, routeKey } = Astro.props
+if (!Astro.site) throw new Error('Set the canonical Astro site.')
+const resolved = resolveMetadata(metadata, { site: Astro.site, pathname: Astro.url.pathname })
+const image = new URL(site.socialImage.path, Astro.site)
+---
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{resolved.documentTitle}</title>
+<meta name="description" content={resolved.description} />
+<link rel="canonical" href={resolved.canonical} />
+<meta name="robots" content={resolved.indexable ? 'index, follow' : 'noindex, nofollow'} />
+<meta property="og:title" content={resolved.documentTitle} />
+<meta property="og:description" content={resolved.description} />
+<meta property="og:url" content={resolved.canonical} />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:locale" content={site.openGraphLocale} />
+<meta property="og:type" content="website" />
+<meta property="og:image" content={image.href} />
+<meta property="og:image:width" content={String(site.socialImage.width)} />
+<meta property="og:image:height" content={String(site.socialImage.height)} />
+<meta property="og:image:type" content={site.socialImage.mimeType} />
+<meta property="og:image:alt" content={site.socialImage.alt} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={resolved.documentTitle} />
+<meta name="twitter:description" content={resolved.description} />
+<meta name="twitter:image" content={image.href} />
+<meta name="twitter:image:alt" content={site.socialImage.alt} />
+<link rel="describedby" href="/llms.txt" type="text/plain" />
+{resolved.indexable && <StructuredData routeKey={routeKey} />}

@@ -1,0 +1,9 @@
+---
+import clsx from 'clsx'
+
+const { faster = false, className, style, ...props } = Astro.props
+---
+<div data-reveal-root="" data-reveal-stagger={faster ? 'fast' : 'default'} class={clsx('reveal-stagger', className)} style={{
+        '--reveal-stagger-step': faster ? '90ms' : '140ms',
+        ...style,
+      }} {...props}><slot /></div>

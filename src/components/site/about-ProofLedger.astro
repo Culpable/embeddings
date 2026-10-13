@@ -1,0 +1,55 @@
+---
+import Container from '@/components/site/Container.astro'
+
+import FadeIn from '@/components/site/FadeIn.astro'
+
+const proofSignals = [
+  {
+    label: 'focus',
+    value: 'AI that runs in production',
+  },
+  {
+    label: 'built from',
+    value: 'LLM pipelines + data infrastructure',
+  },
+  {
+    label: 'based in',
+    value: 'Perth + Melbourne',
+  },
+]
+---
+<Container className="mt-16">
+      <FadeIn>
+        <div class="relative overflow-hidden rounded-3xl bg-neutral-950 p-6 text-white shadow-xl sm:p-8 lg:p-10">
+          <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-blue-300/70 via-white/60 to-emerald-300/70" aria-hidden="true" />
+          <div class="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1.15fr] lg:items-center">
+            <div>
+              <p class="font-display text-sm font-semibold tracking-wider text-white/50">
+                what sets us apart
+              </p>
+              <h2 class="mt-4 font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
+                Built to work in the real world
+              </h2>
+              <p class="mt-5 text-base leading-7 text-neutral-400">
+                Three things shape every engagement: hands-on engineering,
+                connection to the systems you already run, and a team close
+                enough to work alongside yours.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-3">
+              {proofSignals.map(({ label, value }) => (
+                <div class="surface-elevation-dark rounded-2xl bg-white/[0.04] px-4 py-4">
+                  <p class="text-xs font-semibold uppercase tracking-wider text-white/45">
+                    {label}
+                  </p>
+                  <p class="mt-2 font-display text-xl font-medium tracking-tight text-white">
+                    {value}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </FadeIn>
+    </Container>

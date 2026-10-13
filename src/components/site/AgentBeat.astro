@@ -1,0 +1,15 @@
+---
+import Reveal from '@/components/site/Reveal.astro'
+
+const { delay } = Astro.props
+---
+<Reveal delay={delay} className="flex items-end justify-start gap-2">
+
+      <span class="flex h-6 w-6 flex-none items-center justify-center rounded-full bg-neutral-950 text-[0.65rem] text-white" aria-hidden="true">
+        ✦
+      </span>
+      <div class="max-w-[92%] rounded-2xl rounded-bl-sm bg-neutral-100 px-4 py-3 text-sm leading-6 text-neutral-700">
+        <span class="sr-only">Your agent: </span>
+        <slot />
+      </div>
+    </Reveal>

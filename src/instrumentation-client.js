@@ -96,7 +96,9 @@ function handleAnalyticsEvent(event) {
     eventName,
     properties: event.detail?.properties ?? {},
   })
-  requestAnalyticsStart()
+  // Flush later form events immediately once the client is ready, preserving the startup queue.
+  if (analyticsClient?.isMixpanelReady()) flushPendingAnalyticsEvents()
+  else requestAnalyticsStart()
 }
 
 
@@ -226,3 +228,6 @@ if (typeof window !== 'undefined') {
   window.addEventListener('embeddings:analytics-event', handleAnalyticsEvent)
   removeAnalyticsStartTriggers = scheduleAnalyticsStart()
 }
+
+// Mark this guarded browser entry as a module for the Astro import boundary.
+export {}

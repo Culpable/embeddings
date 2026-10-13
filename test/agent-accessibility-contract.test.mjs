@@ -6,7 +6,7 @@ import { readFileSync } from 'node:fs'
 test('process image wrapper is explicitly decorative', () => {
   // Prevent duplicate image announcements and focus on the decorative SVG.
   const image = readFileSync(
-    new URL('../src/components/StylizedImage.jsx', import.meta.url),
+    new URL('../src/components/site/StylizedImage.astro', import.meta.url),
     'utf8',
   )
   assert.match(image, /aria-hidden="true"/u)

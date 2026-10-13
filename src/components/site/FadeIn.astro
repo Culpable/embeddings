@@ -1,0 +1,8 @@
+---
+import clsx from 'clsx'
+
+const { className, variants, ...props } = Astro.props
+
+const revealVariant = variants?.hidden?.scale ? 'scale' : 'slide'
+---
+<div data-reveal-item="" data-reveal-variant={revealVariant} class={clsx('reveal-item', className)} {...props}><slot /></div>

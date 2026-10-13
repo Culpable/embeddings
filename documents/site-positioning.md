@@ -29,19 +29,19 @@ Shoppa ([shoppa.au](https://shoppa.au/)) is a separate, packaged AI shopping age
 - **Embeddings:** bespoke consulting and hands-on implementation, including custom retail builds.
 - **Shoppa:** a ready-made product for retailers who want a product rather than a custom build.
 
-Embeddings mentions Shoppa in exactly one place: the Shoppa-branded card (`ShoppaCard.jsx`) after the shopping demo on the homepage. It uses Shoppa's own mark and colours so visitors see a different brand. Keep its copy to that distinction only: no Shoppa feature, setup or pricing claims on the Embeddings site.
+Embeddings mentions Shoppa in exactly one place: the Shoppa-branded card (`src/components/site/ShoppaCard.astro`) after the shopping demo on the homepage. It uses Shoppa's own mark and colours so visitors see a different brand. Keep its copy to that distinction only: no Shoppa feature, setup or pricing claims on the Embeddings site.
 
 ## Current page structure
 
 | Route | Heading | Structure |
 | --- | --- | --- |
 | `/` | AI that works inside your organisation | Hero with a general assistant conversation (96rem wide on large screens) → what we build (`#services`, five-capability bento grid) → e-commerce (`#ecommerce`, shopping demo + Shoppa card) → how we work (`#how-we-work`, Discover / Build / Deploy / Operate timeline) → closing panel |
-| `/about` | Solutions, not slideshows | Implementation-first intro and founding story → what sets us apart → our expertise (pipeline engineering, data infrastructure, e-commerce expertise) → closing panel |
-| `/process` | How we work | Four stages matching the homepage: Discover, Build, Deploy, Operate, each with a "You get" deliverable → our values → closing panel |
-| `/contact` | Your AI advantage starts here | Contact form (field contract unchanged) and office details |
-| `/thank-you` | We’ll review your enquiry | Broad next-step copy, no catalogue-specific wording |
+| `/about/` | Solutions, not slideshows | Implementation-first intro and founding story → what sets us apart → our expertise (pipeline engineering, data infrastructure, e-commerce expertise) → closing panel |
+| `/process/` | How we work | Four stages matching the homepage: Discover, Build, Deploy, Operate, each with a "You get" deliverable → our values → closing panel |
+| `/contact/` | Your AI advantage starts here | Contact form (field contract unchanged) and office details |
+| `/thank-you/` | We’ll review your enquiry | Broad next-step copy, no catalogue-specific wording |
 
-The closing panel (`ContactSection.jsx`) is shared by the homepage, about and process pages: a light split panel asking "Where could AI take work off your team?" with "Tell us how your team works today. We’ll come back with a practical first step."
+The closing panel (`src/components/site/ContactSection.astro`) is shared by the homepage, about and process pages: a light split panel asking "Where could AI take work off your team?" with "Tell us how your team works today. We’ll come back with a practical first step."
 
 Navigation and footer "offer" links point to `/#services`, `/#ecommerce` and `/#how-we-work`, with lowercase labels.
 
@@ -55,8 +55,12 @@ Navigation and footer "offer" links point to `/#services`, `/#ecommerce` and `/#
 
 ## Metadata and machine-readable identity
 
-Route titles, descriptions, the organisation description and the AI crawler summary live in `src/lib/site-config.mjs` and `src/lib/public-artifacts.mjs`. The homepage title is "Embeddings: Practical AI for Australian Businesses". Process stage service nodes in `src/lib/structured-data.mjs` mirror the four process stages and link to their anchors (`/process#discover` and so on). Run `npm run generate-public-artifacts` after changing any of these. The static export check verifies visible content, metadata, canonical URLs and linked structured data without pinning heading wording or prose length. Review messaging against this document on the rendered page.
+Route titles, descriptions, the organisation description and the AI crawler summary live in `src/lib/site-config.mjs` and `src/lib/public-artifacts.mjs`. The homepage title is "Embeddings: Practical AI for Australian Businesses". Process stage service nodes in `src/lib/structured-data.mjs` mirror the four process stages and link to their anchors (`/process/#discover` and so on). Run `npm run generate-public-artifacts` after changing any of these. Astro renders the head through `src/components/head/PageMetadata.astro`; `src/lib/metadata.ts` owns title composition. The static output check verifies visible content, metadata, canonical URLs and linked structured data without pinning heading wording or prose length. Review messaging against this document on the rendered page.
+
+## Social share image
+
+The owner selected the five-capabilities poster on 13 October 2026: “AI built into the way you work”, with “Australian AI consultancy” in the footer. Use `public/images/embeddings-ai-consultancy-1200x630.png` for site-wide Open Graph and Twitter sharing. `src/config/site.ts` owns its path, PNG type, 1200 × 630 dimensions and descriptive alt text. The reviewed top three, sources and optimisation record are in `documents/og-image-concepts/2026-10-13-shortlist/`. The old retail diagram is superseded and must not be regenerated or selected by the build.
 
 ## Components kept but not rendered
 
-`HeroDataFlow.jsx`, `CatalogueTransformation.jsx`, `ServiceTimelineLeftRail.jsx` and the service animations described in `documents/service-section-animations.md` are no longer rendered by any route. They are kept unchanged for possible reuse in the e-commerce specialism. The `ContactSection.jsx` floating snippets were removed at the owner's request.
+`HeroDataFlow.jsx`, `CatalogueTransformation.jsx`, `ServiceTimelineLeftRail.jsx` and the service animations described in `documents/service-section-animations.md` are no longer rendered by any route. They are kept unchanged for possible reuse in the e-commerce specialism. The `src/components/site/ContactSection.astro` floating snippets were removed at the owner's request.

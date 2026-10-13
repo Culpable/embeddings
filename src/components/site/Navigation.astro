@@ -1,0 +1,68 @@
+---
+
+const navigation = [
+  // ! Work in footer
+  // {
+  //   title: 'work',
+  //   links: [
+  //     { title: 'familyfund', href: '/work/family-fund' },
+  //     { title: 'unseal', href: '/work/unseal' },
+  //     { title: 'phobia', href: '/work/phobia' },
+  //     {
+  //       title: (
+  //         <>
+  //           see all <span aria-hidden="true">&rarr;</span>
+  //         </>
+  //       ),
+  //       href: '/work',
+  //     },
+  //   ],
+  // },
+  {
+    title: 'offer',
+    links: [
+      { title: 'services', href: '/#services' },
+      { title: 'e-commerce', href: '/#ecommerce' },
+      { title: 'how we work', href: '/#how-we-work' },
+    ],
+  },
+  {
+    title: 'company',
+    links: [
+      { title: 'our process', href: '/process/' },
+      { title: 'about us', href: '/about/' },
+      { title: 'contact us', href: '/contact/' },
+      { title: 'privacy', href: '/privacy/' },
+    ],
+  },
+  // ! Social links in footer
+  // {
+  //   title: 'connect',
+  //   links: socialMediaProfiles,
+  // },
+]
+---
+<nav aria-label="Footer navigation">
+      <ul role="list" class="grid grid-cols-2 gap-8 sm:grid-cols-3">
+        {navigation.map((section) => {
+          const headingId = `footer-${section.title}-heading`
+
+          return (
+            <li>
+              <h2 id={headingId} class="font-display text-base font-semibold tracking-wider text-neutral-950">
+                {section.title}
+              </h2>
+              <ul role="list" aria-labelledby={headingId} class="mt-4 flex flex-col gap-1 text-sm text-neutral-700">
+                {section.links.map((link) => (
+                  <li>
+                    <a href={link.href} class="inline-flex min-h-11 min-w-11 items-center transition-colors hover:text-neutral-950 sm:min-h-10 sm:min-w-10">
+                      {link.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          )
+        })}
+      </ul>
+    </nav>

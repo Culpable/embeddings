@@ -1,0 +1,5 @@
+{
+  "origin": "https://embeddings.au",
+  "workerName": "embeddings",
+  "deployArgs": ["exec", "--", "wrangler", "deploy", "--config", ".astro-server/wrangler.json"]
+}

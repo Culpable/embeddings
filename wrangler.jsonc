@@ -1,0 +1,48 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "embeddings",
+  "account_id": "213ab3604485056376263d22fa242742",
+  "compatibility_date": "2026-10-13",
+  "main": "src/worker.ts",
+  "vars": {
+    "CONTACT_MODE": "production"
+  },
+  "secrets": {
+    "required": [
+      "RESEND_API_KEY",
+      "CONTACT_TO_EMAIL",
+      "TURNSTILE_SECRET_KEY"
+    ]
+  },
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "html_handling": "force-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": [
+      "/*",
+      "!/*.avif",
+      "!/*.css",
+      "!/*.gif",
+      "!/*.ico",
+      "!/*.jpg",
+      "!/*.jpeg",
+      "!/*.js",
+      "!/*.json",
+      "!/*.map",
+      "!/*.mjs",
+      "!/*.pdf",
+      "!/*.png",
+      "!/*.svg",
+      "!/*.txt",
+      "!/*.webmanifest",
+      "!/*.webp",
+      "!/*.woff",
+      "!/*.woff2",
+      "!/*.xml"
+    ]
+  },
+  "version_metadata": {
+    "binding": "CF_VERSION_METADATA"
+  }
+}

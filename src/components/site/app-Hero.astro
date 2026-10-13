@@ -1,0 +1,30 @@
+---
+import Button from '@/components/site/Button.astro'
+
+import FadeIn from '@/components/site/FadeIn.astro'
+
+import HeroAssistantConversation from '@/components/site/HeroAssistantConversation.astro'
+---
+<div class="mx-auto mt-12 max-w-screen-2xl px-6 sm:mt-24 md:mt-32 lg:px-8">
+      <div class="mx-auto grid max-w-2xl gap-12 lg:max-w-none lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-16">
+        <FadeIn className="max-w-3xl">
+          <h1 class="font-display text-5xl font-medium tracking-tight text-neutral-950 [text-wrap:balance] sm:text-7xl">
+            AI that works inside your organisation
+          </h1>
+          <p class="mt-6 text-lg text-neutral-600 sm:text-xl">
+            We design, build and run AI systems that plug into your existing
+            software and data, from internal assistants to agents that
+            coordinate work across teams.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3 sm:gap-4">
+            <Button href="/contact/">Contact us</Button>
+            <a href="/process/" class="inline-flex min-h-11 items-center rounded-full px-5 py-2 text-sm font-semibold text-neutral-950 ring-1 ring-neutral-950/10 transition-[transform,background-color,box-shadow] duration-200 ease-out hover:bg-neutral-50 hover:ring-neutral-950/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 active:scale-[0.96]">
+              <span class="relative top-px">See how we work</span>
+            </a>
+          </div>
+        </FadeIn>
+        <FadeIn>
+          <HeroAssistantConversation />
+        </FadeIn>
+      </div>
+    </div>

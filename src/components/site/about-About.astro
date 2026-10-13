@@ -1,0 +1,45 @@
+---
+import ContactSection from '@/components/site/ContactSection.astro'
+
+import PageIntro from '@/components/site/PageIntro.astro'
+
+import IntroProofBand from '@/components/site/about-IntroProofBand.astro'
+
+import ProofLedger from '@/components/site/about-ProofLedger.astro'
+
+import Culture from '@/components/site/about-Culture.astro'
+---
+
+
+      <PageIntro eyebrow="about us" title="Solutions, not slideshows">
+        <p>
+          Our strength is an implementation-first approach. We focus on real,
+          measurable value from AI systems that run in production, inside the
+          software, documents and processes your organisation already uses.
+        </p>
+        <p style={{ marginTop: '1rem' }}>
+          You won&rsquo;t just get a strategy deck and a demo. We specialise in
+          the implementation phase, where the real change happens.
+        </p>
+        <IntroProofBand />
+        <div class="mt-10 max-w-2xl space-y-6 text-base">
+          <p>
+            Embeddings was founded by engineers who spent years building large
+            language model pipelines and enterprise data systems. We saw that
+            while many consultancies talked about AI&rsquo;s potential, few
+            could deliver practical systems that run in production. We started
+            Embeddings to do exactly that.
+          </p>
+          <p>
+            We&rsquo;re more than consultants. We&rsquo;re partners in putting
+            AI to work in your organisation. Our team combines deep technical
+            expertise with hands-on implementation experience, so every system
+            we deliver is robust, secure and built to scale.
+          </p>
+        </div>
+      </PageIntro>
+      <ProofLedger />
+
+      <Culture />
+
+      <ContactSection />

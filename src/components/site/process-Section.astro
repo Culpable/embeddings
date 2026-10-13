@@ -1,0 +1,47 @@
+---
+import Container from '@/components/site/Container.astro'
+
+import FadeIn from '@/components/site/FadeIn.astro'
+
+import StylizedImage from '@/components/site/StylizedImage.astro'
+
+import ProcessImageSignals from '@/components/site/process-ProcessImageSignals.astro'
+
+const { id, title, output, image, signals = [] } = Astro.props
+---
+<Container className="group/section [counter-increment:section]">
+
+      <div id={id} class="scroll-mt-24 lg:flex lg:items-center lg:justify-end lg:gap-x-8 lg:group-even/section:justify-start xl:gap-x-20">
+
+        {image ? (
+          <div class="flex justify-center">
+            <FadeIn className="w-full max-w-[33.75rem] flex-none lg:w-[45rem] lg:max-w-none">
+              <div class="relative">
+                <StylizedImage {...image} className="justify-center lg:justify-end lg:group-even/section:justify-start" />
+                <ProcessImageSignals title={title} signals={signals} />
+              </div>
+            </FadeIn>
+          </div>
+        ) : (
+          <div class="flex justify-center lg:min-w-0 lg:flex-1">
+            <FadeIn className="w-full max-w-[33.75rem] lg:max-w-none">
+              <slot name="aside" />
+            </FadeIn>
+          </div>
+        )}
+        <div class="mt-12 lg:mt-0 lg:w-[37rem] lg:flex-none lg:group-even/section:order-first">
+          <FadeIn>
+            <div class="font-display text-base font-semibold before:text-neutral-300 before:content-['/_'] after:text-neutral-950 after:content-[counter(section,decimal-leading-zero)]" aria-hidden="true" />
+            <h2 class="mt-2 font-display text-3xl font-medium tracking-tight text-neutral-950 sm:text-4xl">
+              {title}
+            </h2>
+            {output ? (
+              <p class="mt-4 inline-flex rounded-full bg-neutral-100 px-3 py-1 text-sm font-medium text-neutral-700">
+                You get: {output}
+              </p>
+            ) : null}
+            <div class="mt-6"><slot /></div>
+          </FadeIn>
+        </div>
+      </div>
+    </Container>

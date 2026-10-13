@@ -19,7 +19,7 @@ test('llms and sitemap retain canonical public links and exclude internal destin
 
   // Preserve promised destinations while allowing new routes and revised prose.
   for (const links of [llmsLinks, sitemapLinks]) {
-    for (const route of ['', '/about', '/process', '/contact', '/privacy']) {
+    for (const route of ['/', '/about/', '/process/', '/contact/', '/privacy/']) {
       assert.ok(links.includes(`https://embeddings.au${route}`), route || '/')
     }
     for (const link of links) {

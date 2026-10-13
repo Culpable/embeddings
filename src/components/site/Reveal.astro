@@ -1,0 +1,8 @@
+---
+import clsx from 'clsx'
+
+const { delay, className } = Astro.props
+---
+<div class={clsx('agent-beat', className)} style={{ '--agent-beat-delay': `${delay}ms` }}>
+      <slot />
+    </div>

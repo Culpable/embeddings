@@ -100,3 +100,8 @@
     filter: blur(4px);
   }
 }
+
+/* Preserve semantic hidden states even when utility display rules are present. */
+[hidden] {
+  display: none !important;
+}

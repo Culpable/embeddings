@@ -31,3 +31,14 @@ documents/todo/bugs/codex/*
 .artifacts/
 # Old screenshot folder: anything that recreates it, such as a replayed pre-move capture, stays local.
 /artifacts/
+# Astro and isolated Worker output
+dist/
+.astro/
+.astro-server/
+.wrangler/
+.dev.vars*
+
+# Generated Next.js reference declarations
+next-env.d.ts
+
+.astro-local/

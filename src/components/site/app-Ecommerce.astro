@@ -1,0 +1,23 @@
+---
+import AgentConversationShowcase from '@/components/site/AgentConversationShowcase.astro'
+
+import Container from '@/components/site/Container.astro'
+
+import SectionIntro from '@/components/site/SectionIntro.astro'
+
+import ShoppaCard from '@/components/site/ShoppaCard.astro'
+---
+<section id="ecommerce" class="scroll-mt-24">
+      <SectionIntro eyebrow="e-commerce" title="Custom shopping assistants, built on your catalogue" className="mt-24 sm:mt-32 lg:mt-40">
+        <p>
+          E-commerce is one of our specialisms. For retailers, we build
+          assistants that answer from your catalogue, take customers to
+          checkout and help after the sale, connected to the systems you
+          already run.
+        </p>
+      </SectionIntro>
+      <Container className="mt-16">
+        <AgentConversationShowcase />
+        <ShoppaCard />
+      </Container>
+    </section>

@@ -1,0 +1,24 @@
+---
+import List from '@/components/site/List.astro'
+
+import ListItem from '@/components/site/ListItem.astro'
+---
+<div class="surface-elevation-light rounded-3xl bg-white p-8 sm:p-10">
+      <h3 class="font-display text-base font-semibold text-neutral-950">
+        Included in this phase
+      </h3>
+      <List className="mt-8">
+        <ListItem title="Production Support">
+          We monitor usage, errors and answer quality, and fix problems before
+          your team has to report them.
+        </ListItem>
+        <ListItem title="Regular Improvements">
+          We extend and refine the system as you learn what works, from new
+          questions it should answer to new tasks it can take on.
+        </ListItem>
+        <ListItem title="Handover and Control">
+          We document the system and its controls, so your team can change
+          everyday settings directly, with review and rollback behind them.
+        </ListItem>
+      </List>
+    </div>

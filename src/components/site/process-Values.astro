@@ -1,0 +1,53 @@
+---
+import Container from '@/components/site/Container.astro'
+
+import GridList from '@/components/site/GridList.astro'
+
+import GridListItem from '@/components/site/GridListItem.astro'
+
+import GridPattern from '@/components/site/GridPattern.astro'
+
+import SectionIntro from '@/components/site/SectionIntro.astro'
+---
+<div class="relative mt-24 pt-24 sm:mt-32 sm:pt-32 lg:mt-40 lg:pt-40">
+      <div class="absolute inset-x-0 top-0 -z-10 h-[884px] overflow-hidden rounded-t-4xl bg-gradient-to-b from-neutral-50">
+        <GridPattern className="absolute inset-0 h-full w-full fill-neutral-100 stroke-neutral-950/5 [mask-image:linear-gradient(to_bottom_left,white_40%,transparent_50%)]" yOffset={-270} />
+      </div>
+
+      <SectionIntro eyebrow="our values" title="AI that earns its place in your business">
+        <p>
+          We combine deep technical expertise with practical business sense.
+          Everything we build has to do real work for your team, and we measure
+          it that way.
+        </p>
+      </SectionIntro>
+
+      <Container className="mt-24">
+        <GridList>
+          <GridListItem title="Technical Excellence">
+            Our team stays at the forefront of AI, so you get current, proven
+            techniques rather than last year’s approach.
+          </GridListItem>
+          <GridListItem title="Measurable Impact">
+            We measure success by the work a system takes off your team and
+            the time it gives back.
+          </GridListItem>
+          <GridListItem title="Practical Solutions">
+            We turn complex AI capabilities into systems that solve real
+            operational problems, inside the tools your team already uses.
+          </GridListItem>
+          <GridListItem title="Clear Communication">
+            We keep you informed at every step, with plain answers about what
+            AI can and can’t do for you.
+          </GridListItem>
+          <GridListItem title="Safe by Design">
+            Access controls, review steps, privacy safeguards and traceability
+            are built in from the start.
+          </GridListItem>
+          <GridListItem title="Lasting Partnership">
+            We stay on after launch, supporting and extending your systems as
+            your organisation grows.
+          </GridListItem>
+        </GridList>
+      </Container>
+    </div>

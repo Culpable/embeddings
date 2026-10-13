@@ -1,0 +1,16 @@
+---
+import clsx from 'clsx'
+
+const { name, invert = false } = Astro.props
+---
+<address class={clsx(
+        'text-sm not-italic',
+        invert ? 'text-neutral-300' : 'text-neutral-600'
+      )}>
+      <strong class={clsx(
+          'font-semibold',
+          invert ? 'text-white' : 'text-neutral-950'
+        )}>
+        {name}
+      </strong>
+    </address>

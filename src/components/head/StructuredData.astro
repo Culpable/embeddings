@@ -1,0 +1,6 @@
+---
+import { buildStructuredData, serialiseStructuredData } from '../../lib/structured-data.ts'
+interface Props { routeKey: string }
+const { routeKey } = Astro.props
+---
+<script is:inline type="application/ld+json" set:html={serialiseStructuredData(buildStructuredData(routeKey))} />

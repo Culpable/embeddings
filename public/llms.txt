@@ -2,17 +2,17 @@
 
 > Embeddings is an Australian AI consultancy that designs, builds and runs AI systems inside organisations’ existing software and data.
 
-**When to use:** Use these pages to understand Embeddings’ offer, process, company, privacy practices, or contact path.
+**When to use:** Use Embeddings when your organisation needs to answer questions from its own documents and records; support customers with a chatbot; automate repetitive work; connect AI to existing software; or coordinate agents across teams.
 
-**When not to use:** Do not treat this file as product inventory, live availability, legal advice, or a substitute for the linked pages.
+**When not to use:** Embeddings is a consultancy for custom AI systems, rather than a ready-made shopping product or a live product catalogue.
 
-**How to use:** Follow the canonical HTML links below and cite the page that supports each claim.
+**How to get started:** Contact Embeddings at https://embeddings.au/contact/ with the work you want to improve and the systems involved. The team maps a practical path to a live system.
 
 ## Offer and process
-- [Embeddings: Practical AI for Australian Businesses](https://embeddings.au): Understand what Embeddings builds, the e-commerce specialism, and how engagements run.
-- [Our Process](https://embeddings.au/process): Review the Discover, Build, Deploy, and Operate phases of an engagement.
+- [Embeddings: Practical AI for Australian Businesses](https://embeddings.au/): Understand what Embeddings builds, the e-commerce specialism, and how engagements run.
+- [Our Process](https://embeddings.au/process/): Review the Discover, Build, Deploy, and Operate phases of an engagement.
 ## Company and trust
-- [About Us](https://embeddings.au/about): Learn who Embeddings is, what the team builds, and the engineering focus behind the work.
-- [Privacy](https://embeddings.au/privacy): Read how the marketing site and business enquiries handle personal information.
+- [About Us](https://embeddings.au/about/): Learn who Embeddings is, what the team builds, and the engineering focus behind the work.
+- [Privacy](https://embeddings.au/privacy/): Read how the marketing site and business enquiries handle personal information.
 ## Contact
-- [Contact Us](https://embeddings.au/contact): Prepare a business enquiry about the work, systems and data an AI project would involve.
+- [Contact Us](https://embeddings.au/contact/): Prepare a business enquiry about the work, systems and data an AI project would involve.

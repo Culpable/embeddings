@@ -1,0 +1,9 @@
+---
+import Office from '@/components/site/Office.astro'
+
+const { invert = false, className, ...props } = Astro.props
+---
+<div class={className} {...props}>
+      <Office name="perth" invert={invert} />
+      <Office name="melbourne" invert={invert} />
+    </div>

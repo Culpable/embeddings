@@ -17,7 +17,7 @@ These rules apply specifically to this repository and should be used for all cod
 </content_rules>
 
 <navigation_rules>
-- The global header is intentionally minimal on every viewport: logo, Contact us CTA, and menu trigger only. Do not add inline desktop navigation unless explicitly requested; route discovery belongs in `src/components/RootNavigationPanel.jsx` and `src/components/Footer.jsx`, keeping first-viewport hero chrome focused.
+- The global header is intentionally minimal on every viewport: logo, Contact us CTA, and menu trigger only. Do not add inline desktop navigation unless explicitly requested; route discovery belongs in `src/components/site/NavigationPanel.astro` and `src/components/site/Footer.astro`, keeping first-viewport hero chrome focused.
 </navigation_rules>
 
 <contact_form_rules>
@@ -27,14 +27,14 @@ These rules apply specifically to this repository and should be used for all cod
 - Keep the contact route and contact form helper copy broad and concise. Do not add catalogue-readiness-specific form guidance or contact side-panel "what happens next" workflow content unless the user explicitly requests that messaging change.
 - Preserve the stable contact page copy unless the user explicitly requests copy changes. The contact metadata description must stay "Contact us to learn how we can integrate AI into your business.", the contact PageIntro title must stay "Your AI advantage starts here", and the PageIntro body must stay "Ready to put AI to work in your business? Tell us about the work and the systems behind it, and we’ll map a practical path to a live system."
 - Preserve the existing contact details side panel copy and structure unless the user explicitly requests copy changes. Keep "our offices", "We’re based in Perth and Melbourne, and work with clients all over Australia.", "email us", and "business enquiries"; do not add new trust, process, readiness, workflow, or "what we handle" copy to that side panel without explicit approval.
-- Preserve the intentionally empty trailing `Border` placeholder in `src/app/contact/ContactDetails.jsx` unless the user explicitly requests its removal.
+- Preserve the intentionally empty trailing `Border` placeholder in `src/components/site/contact-ContactDetails.astro` unless the user explicitly requests its removal.
 </contact_form_rules>
 
 <code_standards>
 - Give fully coded solutions to each problem without skipping lines.
 - You must separate distinct functions and classes by two new lines.
 - Database identifiers (tables, columns, indexes, constraints, enums) MUST be camelCase; never introduce snake_case/underscores, even in migrations or raw SQL literals.
-- All new React and Next.js work MUST follow the `vercel-react-best-practices` skill. Read this before writing any such code.
+- Any retained React/Next.js reference edits MUST follow the `vercel-react-best-practices` skill. Read this before writing any such code.
 
 <animation_standards>
 **NEVER add `prefers-reduced-motion` checks or similar accessibility media query conditionals to animation code.** Animations must work consistently for all users, so do not gate/short-circuit IntersectionObserver setup with accessibility or timing conditionals (including `requestAnimationFrame` wrappers).
@@ -106,50 +106,40 @@ src/app/_disabled_pages/
 </key_templates>
 
 <technical_requirements>
-- Next.js 15.5.10 with App Router
+- Astro 7.3.8 with prerendered documents and the narrow Cloudflare contact endpoint
 - Tailwind CSS for styling
 - Node.js v22.17.0 required
-- Automatic deployment via GitHub Actions on push to main branch
-- Static site deployment to GitHub Pages:
-  - Builds to `/out` directory
-  - Deploys to `gh-pages` branch
-  - Custom domain: embeddings.au
-  - No server-side functionality available
-  - All API endpoints must be external services
+- Cloudflare Workers Builds is the selected sole release controller; hosted setup and cutover remain pending acceptance.
+- Static documents build to `dist/`; the request-time bundle stays outside public assets in `.astro-server/`.
+- Deploy only the adapter-generated `.astro-server/wrangler.json`, with isolated inactive previews from `.astro-server/wrangler.preview.json`.
+- The Worker owns `/api/contact/`, old no-slash redirects, and selection between prebuilt HTML/Markdown; no document is server-rendered.
+- The old Pages artefact and Next source remain as rollback references until canonical and mailbox acceptance. Never republish Pages from the migrated root commands.
 - Image Handling:
   - Featured image must be in public/images/ for direct URL mapping
   - All other images must be in src/images/ for optimization
   - Featured image configuration in src/lib/images.ts
   - Image paths must use forward slashes (/)
-- Component Architecture:
-  - Use Server Components by default (no 'use client' directive)
-  - Only use Client Components when needed for:
-    - React hooks (useState, useEffect, etc.)
-    - Browser APIs
-    - Interactive features
-    - Event listeners
-  - Split interactive components into separate files
-  - Mark Client Components with 'use client' directive
+- Component architecture: use Astro markup and native controls; processed TypeScript owns the menu, contact state and guarded analytics. Do not add a hydrated application shell.
+- Read `documents/AGENTS/code-standards.md`, `metadata.md`, `site-configuration.md`, `third-party-scripts.md`, `agent-readiness.md` and `testing.md` when changing their corresponding owners.
+
 </technical_requirements>
 
 <environments>
-- Development: Next.js App Router via `npm run dev` on the default local port `3002` (loads `.env.local`)
-  - Dev URL: `http://localhost:3002` (for `dev-browser` and `agent-browser`)
-  - Runtime: Local Next.js server only (no internal database or backend service)
-  - Build output: `npm run build` generates the static export in `out/`
-- Production: GitHub Pages deployment at `embeddings.au`, built from pushes to `main`
-  - Hosting: GitHub Actions workflow `/.github/workflows/deploy.yml`
-  - Publish target: `out/` deployed to `gh-pages` using `peaceiris/actions-gh-pages`
-  - Domain: `embeddings.au` (configured via workflow `cname`)
-  - Runtime: Static export only (no server-side runtime)
+- Development: `npm run dev` starts foreground Astro at `http://localhost:3002`. Verify listener ownership first. `--ignore-lock` prevents automatic agent backgrounding; stop only the foreground process you start.
+- Candidate comparison: `npm run dev:astro` at explicit free port `3003`.
+- Production-shaped local review: `npm run build`, then foreground `npm run worker:dev` at `http://127.0.0.1:8794`. Its `.astro-local/` provider fixtures are isolated from hosted configs and cannot send real mail.
+- Selected production: Cloudflare Workers `embeddings`, account `213ab3604485056376263d22fa242742`, domain `embeddings.au`; setup and DNS cutover require the recorded acceptance/authority gates.
+- Current live production remains GitHub Pages until cutover acceptance. Read `documents/cloudflare-workers-hosting.md` for actual identities, before-state and rollback.
 </environments>
 
 System architecture documentation (IMPORTANT):
 <system_architecture_documentation>
 
-These are the only system documentation files for this repository. Read the relevant file when working in that area.
+Read the relevant system or operating guide before changing its area.
 
 - `documents/service-section-animations.md`: Technical reference for how the service section animations work (timing, triggers, and implementation behaviour).
+- `documents/cloudflare-workers-hosting.md`: Worker routing, contact providers, release controls, DNS snapshots and rollback.
+- `documents/AGENTS/`: Astro owner and lifecycle guidance routed above.
 - `documents/site-positioning.md`: Current marketing positioning, page-by-page structure, Shoppa boundary and messaging rules.
 - `documents/agentic-shopping-positioning.md`: Superseded owned-shopping-agent positioning, kept as history only.
 
@@ -175,8 +165,10 @@ Documentation update rules:
 
 <validation_commands>
 Required validation before reporting completion:
-- `npm run lint` - ESLint checks (must pass with zero errors)
-- `npm run build` - static export build (must complete without errors)
+- `npm run lint` - Astro/TypeScript ESLint checks (must pass with zero errors)
+- `npm run build` - Astro static output, Worker packaging and byte budgets (must complete without errors)
+- `npm run check` - generated Worker bindings and Astro/type checks
+- `npm run test:http -- http://127.0.0.1:8794` - actual Worker HTTP contract
 - `npm test` - all Node.js tests in `test/*.test.mjs`
 - `node --test test/<file>.test.mjs` - run a specific test file
 </validation_commands>
@@ -185,7 +177,7 @@ Required validation before reporting completion:
 LOCAL DEV SERVER POLICY (CRITICAL):
 - Assume the app is already running on `http://localhost:3002`.
 - Always verify port `3002` before any `dev-browser`, `agent-browser`, or manual browser testing.
-- If it is not running, start it exactly like `.vscode/launch.json`: run `npm run dev` from the repo root.
+- If it is not running, start it exactly like `.vscode/launch.json`: run `npm --prefix /Users/sacino/embeddings run dev`; stop only its owned foreground process.
 - Wait for `http://localhost:3002` to respond, then proceed.
 - For frontend UI verification, use `dev-browser` by default. Use Playwright only if browser automation is explicitly requested.
 </dev_server_policy>
@@ -211,3 +203,7 @@ IMPORTANT:
 </testing_rules>
 
 </project_details>
+
+## Migration ownership
+
+The active application is `src/pages/`, `src/layouts/`, `src/components/site/` and `src/scripts/`. The earlier `src/app/` and root JSX components are temporary rollback/reference owners, except protected dormant animations which stay preserved. The existing `<key_templates>` tree above describes that retained reference; consult the active Astro paths for implementation. Preserve all current product, contact-copy, lowercase-label and animation requirements during either framework’s maintenance.

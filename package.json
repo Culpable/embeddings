@@ -9,24 +9,37 @@
   "scripts": {
     "check:node": "node scripts/check-node-version.mjs",
     "predev": "npm run check:node",
-    "dev": "next dev -p 3002",
+    "dev": "astro dev --port 3002 --ignore-lock",
     "prebuild": "npm run check:node",
-    "build": "node scripts/build-static-site.mjs",
-    "start": "next start",
-    "lint": "next lint",
+    "build": "node scripts/build-astro-site.mjs",
+    "lint": "eslint src/pages src/layouts src/components/site src/components/head src/components/scripts src/scripts/*.ts src/lib/contact src/lib/agent-readable-http src/lib/{accept,headers,document-response,internal-path,metadata,structured-data,svg-id}.ts src/config src/worker.ts src/instrumentation-client.js --ext .js,.ts,.astro",
     "pretest": "npm run check:node",
-    "test": "node --test test/*.test.mjs",
-    "deploy": "npm run build && gh-pages -d out",
-    "generate-public-artifacts": "node src/scripts/generate-public-artifacts.mjs"
+    "test": "node --import tsx --test test/*.test.mjs",
+    "deploy": "node scripts/indexnow.mjs",
+    "generate-public-artifacts": "node --import tsx src/scripts/generate-public-artifacts.mjs",
+    "dev:astro": "astro dev --port 3003 --ignore-lock",
+    "check:astro": "astro check",
+    "build:astro": "node scripts/build-astro-site.mjs",
+    "worker:types": "wrangler types --include-runtime false --strict-vars false",
+    "worker:dev": "wrangler dev --config .astro-local/wrangler.json --port 8794",
+    "test:http": "node scripts/run-http-contract.mjs",
+    "dev:stop": "astro dev stop",
+    "dev:status": "astro dev status",
+    "check": "npm run worker:types && astro check",
+    "deploy:initial": "wrangler deploy --config .astro-server/wrangler.json",
+    "deploy:preview": "wrangler versions upload --config .astro-server/wrangler.preview.json",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "browserslist": "defaults, not ie <= 11",
   "dependencies": {
+    "@astrojs/cloudflare": "14.3.4",
     "@leafac/rehype-shiki": "^2.2.1",
     "@mdx-js/loader": "^3.0.0",
     "@mdx-js/react": "^3.0.0",
     "@next/mdx": "15.5.10",
     "acorn": "^8.10.0",
     "acorn-jsx": "^5.3.2",
+    "astro": "7.3.8",
     "autoprefixer": "^10.4.7",
     "clsx": "^2.1.0",
     "escape-string-regexp": "^5.0.0",
@@ -46,12 +59,26 @@
     "unified-conditional": "0.0.2"
   },
   "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@cloudflare/workers-types": "5.20261013.1",
+    "@typescript-eslint/eslint-plugin": "8.71.2",
+    "@typescript-eslint/parser": "8.71.2",
+    "axe-core": "4.14.0",
     "eslint": "8.57.1",
     "eslint-config-next": "15.5.10",
+    "eslint-plugin-astro": "1.7.0",
     "gh-pages": "^6.2.0",
-    "prettier": "^3.3.2",
     "parse5": "7.3.0",
+    "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
-    "sharp": "0.33.1"
+    "sharp": "0.33.1",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "wrangler": "4.150.0"
+  },
+  "overrides": {
+    "unifont": {
+      "undici": "7.29.1"
+    }
   }
 }

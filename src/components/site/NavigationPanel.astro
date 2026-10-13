@@ -1,0 +1,20 @@
+---
+import Container from './Container.astro'
+import Button from './Button.astro'
+import Logo from './Logo.astro'
+import Logomark from './Logomark.astro'
+import Offices from './Offices.astro'
+const rows = [[{href:'/#services',label:'services'},{href:'/#ecommerce',label:'e-commerce'}],[{href:'/#how-we-work',label:'how we work'},{href:'/process/',label:'our process'}],[{href:'/about/',label:'about us'},{href:'/contact/',label:'contact us'}]]
+---
+<div id="navigation-panel" data-navigation-panel hidden class="fixed inset-x-0 top-0 z-50 max-h-screen overflow-y-auto overflow-x-hidden bg-neutral-950 pt-2 transition-[opacity,transform] -translate-y-3 opacity-0 duration-150 ease-in">
+  <div class="bg-neutral-800">
+    <div class="bg-neutral-950 pb-16 pt-14"><Container><div class="flex items-center justify-between">
+      <a href="/" aria-label="Home" class="group/logo inline-flex min-h-11 min-w-11 items-center sm:min-h-10 sm:min-w-10"><Logomark className="h-8 sm:hidden" invert /><Logo className="hidden h-8 sm:block" invert fillOnHover /></a>
+      <div class="flex items-center gap-x-6 sm:gap-x-8"><Button href="/contact/" invert>Contact us</Button><span class="block h-6 w-6" aria-hidden="true" /></div>
+    </div></Container></div>
+    <nav aria-label="Primary navigation" class="mt-px font-display text-4xl font-medium tracking-tight text-white sm:text-5xl">
+      {rows.map(row=><div class="mt-px first:mt-0 sm:bg-neutral-950"><Container><div class="grid grid-cols-1 sm:grid-cols-2">{row.map(({href,label})=><a href={href} aria-current={Astro.url.pathname===href?'page':undefined} class="group relative isolate -mx-6 bg-neutral-950 px-6 py-8 even:mt-px sm:mx-0 sm:px-0 sm:py-12 sm:odd:pr-16 sm:even:mt-0 sm:even:border-l sm:even:border-neutral-800 sm:even:pl-16"><span class="relative z-10">{label}</span>{Astro.url.pathname===href&&<span class="relative z-10 ml-4 inline-flex align-middle text-xs font-semibold uppercase tracking-wider text-white/45">current</span>}<span class:list={['absolute inset-y-0 left-0 -z-10 w-1 bg-white transition-opacity duration-300 sm:left-auto sm:right-0',Astro.url.pathname===href?'opacity-100':'opacity-0']} aria-hidden="true" /><span class="absolute inset-y-0 -z-10 w-screen bg-neutral-900 opacity-0 transition-opacity duration-300 group-odd:right-0 group-even:left-0 group-hover:opacity-100" /></a>)}</div></Container></div>)}
+    </nav>
+    <div class="relative bg-neutral-950 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-neutral-800"><Container><div class="grid grid-cols-1 gap-y-10 pb-16 pt-10 sm:grid-cols-2 sm:pt-16"><div><h2 class="font-display text-base font-semibold text-white">our offices</h2><Offices invert className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2" /></div><div class="sm:border-l sm:border-transparent sm:pl-16"><p class="max-w-sm text-sm leading-6 text-neutral-400">Jump straight to the agent, the proof, the process, or a conversation about building your own.</p></div></div></Container></div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 const iterationCount = 20
-const expectedUrl = 'http://localhost:3002/about'
-const expectedCanonical = 'https://embeddings.au/about'
+const expectedUrl = 'http://localhost:3002/about/'
+const expectedCanonical = 'https://embeddings.au/about/'
 const results = []
 const pageName = 'contact-about-navigation-regression'
 
@@ -34,7 +34,7 @@ try {
     }
 
     try {
-      await page.goto('http://localhost:3002/contact', {
+      await page.goto('http://localhost:3002/contact/', {
         // Finish the initial page load before exercising client navigation so the
         // report does not misclassify intentionally cancelled page-load assets.
         waitUntil: 'networkidle',
@@ -52,11 +52,11 @@ try {
         page.waitForURL(expectedUrl),
         page
           .getByRole('dialog', { name: 'Site navigation' })
-          .locator('a[href="/about"]')
+          .locator('a[href="/about/"]')
           .click(),
       ])
 
-      const heading = page.locator('h1')
+      const heading = page.locator('main h1')
       await heading.waitFor({ state: 'visible' })
 
       const h1 = (await heading.innerText()).replace(/\s+/g, ' ').trim()

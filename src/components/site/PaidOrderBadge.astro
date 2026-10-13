@@ -1,0 +1,18 @@
+---
+import clsx from 'clsx'
+
+const { className } = Astro.props
+---
+<span class={clsx(
+        'inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700',
+        'supports-[text-box-trim:trim-both]:py-[0.5em]',
+        className,
+      )}>
+      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" class="h-[1em] w-[1em] flex-none self-baseline translate-y-[0.136em] supports-[text-box-trim:trim-both]:translate-y-0 supports-[text-box-trim:trim-both]:self-center" aria-hidden="true">
+        <path d="M2.5 6 5 8.5l4.5-5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+
+      <span class="supports-[text-box-trim:trim-both]:[text-box:trim-both_cap_alphabetic]">
+        Paid · order confirmed
+      </span>
+    </span>

@@ -1,0 +1,25 @@
+---
+import Container from '@/components/site/Container.astro'
+
+import PageIntro from '@/components/site/PageIntro.astro'
+
+import ContactForm from '@/components/site/ContactForm.astro'
+
+import ContactDetails from '@/components/site/contact-ContactDetails.astro'
+---
+
+
+      <PageIntro eyebrow="contact us" title="Your AI advantage starts here">
+        <p>
+          Ready to put AI to work in your business? Tell us about the work and
+          the systems behind it, and we&rsquo;ll map a practical path to a live
+          system.
+        </p>
+      </PageIntro>
+
+      <Container className="mt-24 sm:mt-32 lg:mt-40">
+        <div class="grid grid-cols-1 gap-x-8 gap-y-24 lg:grid-cols-2">
+          <ContactForm />
+          <ContactDetails />
+        </div>
+      </Container>

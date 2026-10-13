@@ -1,0 +1,43 @@
+---
+import { site } from '../../config/site'
+import Button from '@/components/site/Button.astro'
+
+import Container from '@/components/site/Container.astro'
+
+import FadeIn from '@/components/site/FadeIn.astro'
+
+import PageIntro from '@/components/site/PageIntro.astro'
+---
+
+      <PageIntro eyebrow="message received" title="We’ll review your enquiry">
+        <p>
+          Thanks for getting in touch. We’ll look at your context and respond
+          with the most useful next step.
+        </p>
+      </PageIntro>
+
+      <Container className="mt-16">
+        <FadeIn>
+          <div class="surface-elevation-light max-w-2xl rounded-3xl bg-white p-8 sm:p-10">
+            <h2 class="font-display text-xl font-semibold tracking-tight text-neutral-950">
+              What to expect
+            </h2>
+            <div class="mt-6 space-y-4 text-base leading-7 text-neutral-600">
+              <p>
+                We’ll check whether a discovery session, a small first build,
+                or a review of a system you already run is the best first move.
+              </p>
+              <p>
+                If anything is urgent, email {site.publicEmail} directly
+                and include the company name from your enquiry.
+              </p>
+            </div>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <Button href="/">Back to home</Button>
+              <a href="/#services" class="inline-flex min-h-11 items-center rounded-full px-5 py-2 text-sm font-semibold text-neutral-950 ring-1 ring-neutral-950/10 transition-[transform,background-color,box-shadow] duration-200 ease-out hover:bg-neutral-50 hover:ring-neutral-950/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 active:scale-[0.96]">
+                <span class="relative top-px">Review services</span>
+              </a>
+            </div>
+          </div>
+        </FadeIn>
+      </Container>

@@ -1,0 +1,17 @@
+---
+interface Props { title: string; signals: { label: string; value: string }[] }
+
+const { title, signals } = Astro.props
+---
+<ul role="list" aria-label={`${title} visual signals`} class="pointer-events-none static z-10 mt-3 grid w-full gap-2 sm:absolute sm:bottom-6 sm:right-6 sm:mt-0 sm:w-[min(28rem,calc(100%-3rem))] sm:grid-cols-2">
+      {signals.map(({ label, value }) => (
+        <li class="rounded-xl border border-white/45 bg-white/90 px-3 py-2 shadow-[0_8px_24px_rgba(23,23,23,0.12)] backdrop-blur">
+          <p class="text-[0.65rem] font-semibold uppercase tracking-widest text-neutral-500">
+            {label}
+          </p>
+          <p class="mt-1 font-display text-sm font-semibold tracking-tight text-neutral-950">
+            {value}
+          </p>
+        </li>
+      ))}
+    </ul>

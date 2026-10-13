@@ -23,7 +23,7 @@ test('structured data retains required organisation, website and page types', ()
     ['contact', 'ContactPage'],
   ]) {
     const page = buildStructuredData(routeKey)['@graph'].find(
-      (node) => node['@id'] === `https://embeddings.au/${routeKey}#webpage`,
+      (node) => node['@id'] === `https://embeddings.au/${routeKey}/#webpage`,
     )
     assert.equal(page?.['@type'], pageType)
   }

@@ -1,0 +1,35 @@
+---
+import PageMetadata from '../components/head/PageMetadata.astro'
+import RootHeader from '../components/site/RootHeader.astro'
+import Footer from '../components/site/Footer.astro'
+import GridPattern from '../components/site/GridPattern.astro'
+import { site } from '../config/site'
+import { getRoute } from '../lib/site-config.mjs'
+import '../styles/tailwind.css'
+interface Props { routeKey: string }
+const { routeKey } = Astro.props
+const route = getRoute(routeKey)
+const metadata = { title: routeKey === 'home' ? route.title.replace(/^Embeddings: /, '') : route.title, titleMode: routeKey === 'home' ? 'prefixed' as const : 'composed' as const, description: route.description, indexable: route.indexable }
+---
+<!doctype html>
+<html lang={site.language} class="h-full bg-neutral-950 text-base antialiased">
+  <head>
+    <PageMetadata metadata={metadata} routeKey={routeKey} />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preload" href="/fonts/Mona-Sans-display-latin.var.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    {routeKey !== 'home' && <link rel="preload" href="/fonts/Mona-Sans-body-latin.var.woff2" as="font" type="font/woff2" crossorigin="anonymous" />}
+    <slot name="page-head-scripts" />
+  </head>
+  <body class="flex min-h-full flex-col overflow-x-hidden">
+    <RootHeader />
+    <div data-page-shell class="relative flex flex-auto overflow-hidden rounded-t-[2.5rem] bg-white pt-14">
+      <div class="relative isolate flex w-full flex-col pt-9">
+        <GridPattern className="absolute inset-x-0 -top-14 -z-10 h-[1000px] w-full fill-neutral-50 stroke-neutral-950/5 [mask-image:linear-gradient(to_bottom_left,white_40%,transparent_50%)]" yOffset={-96} />
+        <main id="main-content" tabindex="-1" class="w-full flex-auto"><slot /></main>
+        <Footer />
+      </div>
+    </div>
+    <script>import '../scripts/site-entry'</script>
+    <slot name="page-body-end-scripts" />
+  </body>
+</html>
