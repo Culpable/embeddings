@@ -64,15 +64,6 @@
     11px 11px;
 }
 
-.floating-catalogue-snippet {
-  left: var(--snippet-x);
-  bottom: -2rem;
-  opacity: var(--snippet-opacity);
-  transform: translate3d(0, 0, 0);
-  animation: floatingCatalogueSnippet var(--snippet-duration)
-    var(--snippet-delay) linear infinite;
-}
-
 .service-timeline-step {
   content-visibility: auto;
   contain-intrinsic-size: 52rem;
@@ -160,16 +151,6 @@
 
   100% {
     opacity: 0;
-  }
-}
-
-@keyframes floatingCatalogueSnippet {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-
-  100% {
-    transform: translate3d(0, -120vh, 0);
   }
 }
 

@@ -32,7 +32,7 @@ These rules apply specifically to this repository and should be used for all cod
 
 <animation_standards>
 **NEVER add `prefers-reduced-motion` checks or similar accessibility media query conditionals to animation code.** Animations must work consistently for all users, so do not gate/short-circuit IntersectionObserver setup with accessibility or timing conditionals (including `requestAnimationFrame` wrappers).
-**Do not replace, simplify, remove, or rewrite existing frontpage animations unless the user explicitly asks for that exact animation change.** This includes `HeroDataFlow.jsx`, `CatalogueTransformation.jsx`, the service timeline animations, `AgentConversationShowcase.jsx` (staggered conversation reveal, edit caret, and publish/live crossfade), and `ContactSection.jsx` floating snippets. These animations are essential to the site experience; performance work must preserve the existing animation design.
+**Do not replace, simplify, remove, or rewrite existing frontpage animations unless the user explicitly asks for that exact animation change.** This includes `HeroAssistantConversation.jsx` (staggered reveal), `AgentConversationShowcase.jsx` (staggered conversation reveal, edit caret, and publish/live crossfade), and the unrendered `HeroDataFlow.jsx`, `CatalogueTransformation.jsx` and service timeline animations. The `ContactSection.jsx` floating snippets were removed at the owner’s request in October 2026. These animations are essential to the site experience; performance work must preserve the existing animation design.
 </animation_standards>
 
 Read the below only when asked to create git commit messages:
@@ -59,10 +59,14 @@ src/
 │   ├── RootLayout.jsx: Main navigation and site structure
 │   │   └── Navigation(): Main nav items
 │   │   └── Header(): Minimal logo, Contact us CTA, and menu trigger; no inline desktop nav by design
-│   ├── HeroDataFlow.jsx: Animated SVG showing catalogue → your agent → your customer flow (retailer-owned)
-│   ├── AgentConversationShowcase.jsx: Owned-agent showcase — branded conversation storyboard (discovery → checkout → order status), self-service control strip, analytics tiles, and capability chips
-│   ├── CatalogueTransformation.jsx: Before/after catalogue cards with a four-step service pipeline
-│   ├── ContactSection.jsx: Homepage call-to-action section with floating catalogue data snippets
+│   ├── HeroAssistantConversation.jsx: Homepage hero visual — a general assistant answering from business systems, then completing follow-up work (CSS-only staggered reveal)
+│   ├── CapabilityBento.jsx: Homepage "what we build" grid of the five AI capabilities
+│   ├── EngagementTimeline.jsx: Homepage "how we work" timeline (Discover, Build, Deploy, Operate)
+│   ├── ShoppaCard.jsx: Shoppa-branded pointer to shoppa.au for retailers who want a ready-made product
+│   ├── HeroDataFlow.jsx: Animated SVG showing catalogue → your agent → your customer flow (not currently rendered; kept for reuse)
+│   ├── AgentConversationShowcase.jsx: Shopping demo in the homepage e-commerce section — branded conversation storyboard (discovery → checkout → order status), self-service control strip, analytics tiles, and capability chips
+│   ├── CatalogueTransformation.jsx: Before/after catalogue cards with a four-step service pipeline (not currently rendered; kept for reuse)
+│   ├── ContactSection.jsx: Closing call to action shared by the homepage, about and process pages — light split panel asking "Where could AI take work off your team?"
 │   ├── Testimonial.jsx: Testimonial section with light and dark variants
 │   ├── Footer.jsx: Footer structure and links
 │   │   └── navigation[]: Footer sections and links
@@ -72,7 +76,7 @@ src/
 ├── lib/
 │   └── images.ts: Featured image configuration for social sharing/meta tags
 ├── app/
-│   ├── page.jsx: Homepage with hero flow, agent showcase (`#agent`), timeline, shift, proof, service transformation, and CTA sections
+│   ├── page.jsx: Homepage for broad AI consulting: hero with assistant conversation, what we build (`#services`), e-commerce specialism with the shopping demo and Shoppa card (`#ecommerce`), how we work (`#how-we-work`), and CTA
 │   ├── about/
 │   │   └── page.jsx: About page content and team info
 │   ├── process/

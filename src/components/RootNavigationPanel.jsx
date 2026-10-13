@@ -13,11 +13,11 @@ import { Offices } from '@/components/Offices'
 
 const navigationRows = [
   [
-    { href: '/#agent', label: 'the agent' },
     { href: '/#services', label: 'services' },
+    { href: '/#ecommerce', label: 'e-commerce' },
   ],
   [
-    { href: '/#proof', label: 'proof' },
+    { href: '/#how-we-work', label: 'how we work' },
     { href: '/process', label: 'our process' },
   ],
   [

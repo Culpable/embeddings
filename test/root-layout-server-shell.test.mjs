@@ -78,9 +78,9 @@ test('root header intentionally keeps route links in the menu panel', () => {
   )
 
   for (const expectedLink of [
-    { href: '/#agent', label: 'the agent' },
     { href: '/#services', label: 'services' },
-    { href: '/#proof', label: 'proof' },
+    { href: '/#ecommerce', label: 'e-commerce' },
+    { href: '/#how-we-work', label: 'how we work' },
     { href: '/process', label: 'our process' },
   ]) {
     assert.doesNotMatch(

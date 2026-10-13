@@ -68,7 +68,7 @@ export const routes = {
       'Understand the retailer-owned shopping agent offer, commercial context, proof, and services.',
     llmsGroup: 'Offer and process',
     pageType: 'WebPage',
-    expectedMarker: 'The shopping agent that’s actually yours',
+    expectedMarker: 'AI that works inside your organisation',
     indexable: true,
     includeInSitemap: true,
     includeInLlms: true,

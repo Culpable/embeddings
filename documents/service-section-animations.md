@@ -7,7 +7,9 @@
 
 ## Overview
 
-The home page features the existing `CatalogueTransformation` before/after visual followed immediately by a four-step left-rail service timeline. The timeline now includes an "implementation loop" bridge so the before/after overview and the detailed delivery stages read as one connected services section.
+> **Not currently rendered (2026-10-13):** the homepage moved to the broad AI consulting layout, which replaced the catalogue-services section with the capability grid in `CapabilityBento.jsx`. `CatalogueTransformation.jsx`, `ServiceTimelineLeftRail.jsx` and the service animations below are kept unchanged for reuse, but no route renders them. Mount them again before relying on this reference for live behaviour.
+
+The services section pairs the `CatalogueTransformation` before/after visual with a four-step left-rail service timeline that follows it immediately. The timeline now includes an "implementation loop" bridge so the before/after overview and the detailed delivery stages read as one connected services section.
 
 On desktop and tablet, each timeline item has service copy and one bespoke animated SVG. The SVGs are loaded through `ResponsiveServiceAnimation.jsx::ResponsiveServiceAnimation`, which only imports the desktop/tablet animation components once the viewport is at least `640px`; this keeps mobile HTML from carrying hidden desktop SVG markup. On mobile, the bespoke SVGs are replaced by `MobileServiceStoryboard` cards in `ServiceTimelineLeftRail.jsx`; this keeps the service meaning readable at 390px without shrinking SVG text into decorative detail.
 

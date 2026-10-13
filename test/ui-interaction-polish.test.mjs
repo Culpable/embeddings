@@ -12,7 +12,6 @@ const rootNavigationPanelSource = readSource(
   'src/components/RootNavigationPanel.jsx',
 )
 const contactFormSource = readSource('src/app/contact/ContactForm.jsx')
-const homePageSource = readSource('src/app/page.jsx')
 const stylesSource = readSource('src/styles/components.css')
 const stylizedImageSource = readSource('src/components/StylizedImage.jsx')
 
@@ -65,7 +64,6 @@ test('compact links and logo wrappers provide minimum responsive hit areas', () 
   // Guard the sampled targets from regressing below 44 pixels on mobile and 40
   // pixels on larger viewports while retaining their existing visible labels.
   for (const path of [
-    'src/app/page.jsx',
     'src/components/StatList.jsx',
     'src/components/Footer.jsx',
     'src/app/contact/ContactDetails.jsx',
@@ -105,8 +103,8 @@ test('changed UI files avoid broad transition utilities', () => {
   }
 })
 
-test('shared surfaces and the hero proof group use the planned geometry', () => {
-  // Require reusable elevation treatments and exact concentric mobile radii.
+test('shared surfaces use the planned geometry', () => {
+  // Require reusable elevation treatments.
   for (const token of [
     '.surface-elevation-light',
     '.surface-elevation-light-hover',
@@ -116,28 +114,10 @@ test('shared surfaces and the hero proof group use the planned geometry', () => 
     assert.match(stylesSource, new RegExp(token.replace('.', '\\.')))
   }
 
-  // The hero proof group carries no wrapper chrome on mobile: the list is a bare
-  // grid and each pill supplies its own radius, so no outer border, background,
-  // padding or radius may reappear around the group.
-  const heroProofList = homePageSource.match(
-    /<ul\s+role="list"\s+className="([^"]*)"\s+aria-label="Your shopping agent at a glance"/,
-  )
-  assert.ok(heroProofList, 'Expected to find the hero proof list element')
-  assert.doesNotMatch(
-    heroProofList[1],
-    /rounded-|border|bg-|shadow-|\bp-/,
-    'Expected the hero proof list to stay a bare grid with no wrapper chrome',
-  )
-
-  // Pills keep their own concentric radii across the mobile/desktop switch.
-  assert.match(homePageSource, /rounded-xl[\s\S]*?sm:rounded-2xl/)
 })
 
-test('source arrows and process images use exact optical edge treatment', () => {
-  // Keep external arrows two pixels tighter on their trailing side and clip the
-  // process-image stroke so the visible edge remains inset-equivalent.
-  assert.match(homePageSource, /pl-3 pr-2\.5/)
-  assert.match(homePageSource, /inline-flex[\s\S]*?items-center[\s\S]*?↗/)
+test('process images use exact optical edge treatment', () => {
+  // Clip the process-image stroke so the visible edge remains inset-equivalent.
   assert.match(stylizedImageSource, /strokeWidth="1"/)
   assert.match(stylizedImageSource, /stroke-black\/10/)
   assert.match(stylizedImageSource, /group-hover:scale-105/)

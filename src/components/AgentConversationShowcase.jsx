@@ -24,8 +24,8 @@ import { PaidOrderBadge } from '@/components/PaidOrderBadge'
 
 // ---------------------------------------------------------------------------
 // Demo data — kept consistent with the catalogue demo product used by
-// CatalogueTransformation and the ContactSection floating snippets so the
-// site's fictional product universe stays coherent.
+// CatalogueTransformation so the site's fictional product universe stays
+// coherent.
 // ---------------------------------------------------------------------------
 
 // Card prices drop the trailing .00 to keep the subtext light; the order
