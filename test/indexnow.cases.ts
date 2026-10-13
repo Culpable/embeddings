@@ -1,6 +1,5 @@
 import assert from 'node:assert/strict';
-import { spawnSync } from 'node:child_process';
-import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, renameSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { after, test } from 'node:test';
@@ -15,8 +14,8 @@ const html = (body: string, noindex = false) => `<html><head>${noindex ? '<meta 
 const sitemap = (paths: string[]) => `<urlset>${paths.map((path) => `<url><loc>${origin}${path}</loc></url>`).join('')}</urlset>`;
 
 after(() => {
-  const result = spawnSync('trash', [directory], { encoding: 'utf8' });
-  assert.equal(result.status, 0, result.stderr);
+  // Retain fixtures recoverably without requiring a macOS-only cleanup command in Linux builds.
+  renameSync(directory, `${directory}-retained`);
 });
 
 

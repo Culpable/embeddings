@@ -2,12 +2,14 @@
 
 ## Current state, 13 October 2026
 
-The local Astro replacement and the isolated hosted preview pass the recorded local/preview acceptance checks. Production cutover is not authorised or executed. The repository remains public, GitHub Pages serves the previous release, and all 22 DNS records match the execution baseline. A pending, unverified sender domain is prepared; no sender DNS, Worker runtime secret, Git-connected build trigger, search notification or repository-visibility change has been made.
+Production release authority: the owner approves the remaining end-to-end release on 13 October 2026: “All is approved; proceed with the rest of it end to end. Then test the live site on completion and ensure it works properly.” This covers the prepared source push, production/preview builds, sender DNS and verification, shared widget hostname addition, runtime secrets, web DNS/domain/redirect cutover, one synthetic enquiry, search notification, Pages retirement and private repository rebuild. The immediate pre-write refresh confirms all 22 DNS records exactly match the complete before-state below. The production Worker remains absent and the pending sender remains unverified at that refresh. Raw refresh evidence is ignored under `.artifacts/astro_cloudflare_workers_migration/release/`.
+
+The local Astro replacement and isolated hosted preview pass their recorded acceptance checks. Production release is now authorised and in progress. The repository remains public and Pages serves the previous release. All 22 original DNS records are unchanged; four sender records are added and Resend verifies the domain. Production runtime secrets and separate Git-connected build triggers are configured. Domain cutover, search notification, Pages retirement and repository privacy remain pending successful release checks.
 
 - Account: `213ab3604485056376263d22fa242742`.
 - Zone: `embeddings.au`, `9148c362fcb1400590f7a5eb923f75fc`.
 - Repository: `Culpable/embeddings`, GitHub repository ID `897801182`, owner ID `31677655`, branch `main`.
-- Selected production Worker: `embeddings`; it does not exist yet.
+- Selected production Worker: `embeddings`; provisioned with runtime secrets, no domain yet.
 - Isolated Worker: `embeddings-preview`, with no custom domains or production mail secrets.
 - Active preview bootstrap version: `020ca849-9c6c-4a73-b29a-31b601a87d64`.
 - Reviewed inactive preview version: `b27ab615-c71d-4c66-ad83-ee660a4a7634`.
@@ -24,11 +26,11 @@ Use Node `22.17.0` and locked npm installation. Root commands belong to Astro. S
 
 `npm run deploy:initial` deploys the generated production configuration without IndexNow. `npm run deploy:preview` uploads an inactive preview version. `npm run deploy` is the production-only notifier and must remain inactive until canonical acceptance. The source Wrangler configuration is not a deployable substitute for generated adapter output.
 
-The former push-triggered Pages publisher is replaced in source by a manual validation workflow. It does not publish. No source push has occurred, so the existing remote workflow is still the old publisher. Before any authorised source push, verify the commit includes this replacement. The old live Pages artefact remains available without rebuilding.
+The former push-triggered Pages publisher is replaced in source by a manual validation workflow. It does not publish. The migration source is pushed; the remote workflow now contains this validation-only replacement. The old live Pages artefact remains available without rebuilding.
 
 ## Proposed Workers Builds settings
 
-No build triggers have been created. Cloudflare's repository autofill API successfully reads `Culpable/embeddings` on `main`; that proves current public read access, not private access or an actual build. The earlier request without the required `branch` query returned an invalid-query error, not an access denial.
+Separate production and preview build triggers are created; see approved execution below. Cloudflare's repository autofill API successfully reads `Culpable/embeddings` on `main`; that proves current public read access, not private access or an actual build. The earlier request without the required `branch` query returned an invalid-query error, not an access denial.
 
 | Setting | Production | Preview |
 |---|---|---|
@@ -50,11 +52,11 @@ The form retains name, email, company, phone, message and budget. Both native PO
 
 Production requires separately scoped `RESEND_API_KEY`, `CONTACT_TO_EMAIL` and `TURNSTILE_SECRET_KEY`. No secret value belongs in this document, repository, command history or browser evidence. Preview refuses live mail even if incorrectly supplied a recipient.
 
-Current Resend administrative reads succeed using an existing authorised local credential without copying it. The earlier 403 is not treated as proof of permanent access denial. The shared account contains verified `notifications.taxgenie.com.au` and `auth.propva.com.au`, both in `ap-northeast-1`. No Embeddings domain exists. The account Usage API confirms domains used 2 / limit 3, monthly email limit 3,000 and daily limit 100. Adding the selected sender uses the last included domain slot; no paid upgrade is needed or authorised. Safe account/domain/usage metadata is retained in ignored cutover evidence; no key value is persisted.
+Current Resend administrative reads succeed using an existing authorised local credential without copying it. The earlier 403 is not treated as proof of permanent access denial. The shared account contains verified `notifications.taxgenie.com.au` and `auth.propva.com.au`, both in `ap-northeast-1`. The previously absent Embeddings domain is now provisioned and verified; see the sender record below. The account Usage API confirms domains used 2 / limit 3, monthly email limit 3,000 and daily limit 100. Adding the selected sender uses the last included domain slot; no paid upgrade is needed or authorised. Safe account/domain/usage metadata is retained in ignored cutover evidence; no key value is persisted.
 
 Before provider-domain provisioning, the complete refreshed zone inventory above contains no `notifications.embeddings.au` record, no descendant of that hostname and no wildcard DNS record. Record count remains 22. The selected pending sender is `notifications.embeddings.au` in the existing account's `ap-northeast-1` region, sending only with inbound receiving disabled. Its provider-generated DNS will be recorded here before any DNS writes. Creating this pending verification resource does not send mail, alter DNS or change the live website. Existing Microsoft MX/SPF/DKIM remains untouched.
 
-Reuse managed widget `Genie sites contact form`, site key `0x4AAAAAAEcl2dZMyeEwZapo`, only after authorising the exact hostname addition. Its complete public before-state is recorded below; preserve all existing hosts/settings. The widget secret is excluded. `embeddings.au` is not currently an allowed host. No widget changes have been made.
+Reuse managed widget `Genie sites contact form`, site key `0x4AAAAAAEcl2dZMyeEwZapo`, only after authorising the exact hostname addition. Its complete public before-state is recorded below; preserve all existing hosts/settings. The widget secret is excluded. `embeddings.au` is now appended to its allowed hosts; all previous hosts and settings are preserved.
 
 Widget public before-state:
 
@@ -84,7 +86,7 @@ Widget public before-state:
 
 ## Exact sender DNS packet
 
-The pending Resend domain is `notifications.embeddings.au`, ID `4f0f6e02-4fc5-4ba1-a603-fdb7972a3ac2`, region `ap-northeast-1`, sending enabled and receiving disabled. Its status is `not_started`; open/click tracking is disabled. This uses the existing account's third and last included domain slot without a paid upgrade. No verification mail or DNS write has occurred.
+The pending Resend domain is `notifications.embeddings.au`, ID `4f0f6e02-4fc5-4ba1-a603-fdb7972a3ac2`, region `ap-northeast-1`, sending enabled and receiving disabled. Its status is now `verified`; open/click tracking is disabled. This uses the existing account's third and last included domain slot without a paid upgrade. Only the four approved sender DNS additions have occurred; no enquiry has yet been sent.
 
 A fresh zone read after provider preparation matches the original 22 records exactly. All four required owner names below are absent, with no wildcard record. Each before-state is therefore the empty list. These provider-generated public DNS values are not credentials. Under exact production sender authority, create only these records, unproxied, TTL 1 (Auto). Keep all Microsoft inbound records unchanged. After verification, keep these sender additions in subsequent cutover comparisons. Rollback of a sender record requires separate consent for deleting that exact newly created record; no old record is overwritten.
 
@@ -674,7 +676,7 @@ Attach-domain API body after the production Worker exists:
 {"hostname":"embeddings.au","service":"embeddings","enabled":true,"previews_enabled":false,"zone_id":"9148c362fcb1400590f7a5eb923f75fc","zone_name":"embeddings.au"}
 ```
 
-Targeted redirect action: `redirect`, parameters `from_value.status_code=301`, `from_value.target_url.expression=concat("https://embeddings.au", http.request.uri.path)`, `from_value.preserve_query_string=true`; expression `(http.host eq "www.embeddings.au") or (http.host eq "embeddings.au" and not ssl)`. Refresh the complete existing entrypoint before adding this rule. Confirm no conflicting rule exists and preserve all existing rules if the state changes.
+Targeted redirect action: `redirect`, parameters `from_value.status_code=301`, `from_value.target_url.expression=concat("https://embeddings.au", raw.http.request.uri.path)`, `from_value.preserve_query_string=true`; expression `(http.host eq "www.embeddings.au") or (http.host eq "embeddings.au" and not ssl)`. Refresh the complete existing entrypoint before adding this rule. Confirm no conflicting rule exists and preserve all existing rules if the state changes.
 
 Expected DNS: managed Cloudflare apex delivery, proxied `www` CNAME, no old Pages apex A/AAAA records, and unchanged mail/identity/verification records plus only authorised sender additions. Exact managed record IDs and edge answers are allocated at execution and must be recorded then.
 
@@ -693,3 +695,18 @@ Local/preview evidence is recorded in `documents/evidence/astro_cloudflare_worke
 Sources: [Workers domain API](https://developers.cloudflare.com/api/resources/workers/subresources/domains/methods/update/), [Workers Builds configuration](https://developers.cloudflare.com/workers/ci-cd/builds/configuration/), [repository access API](https://developers.cloudflare.com/api/resources/workers_builds/subresources/repos/subresources/config_autofill/methods/get/).
 
 Additional sources: [Resend domain creation](https://resend.com/docs/api-reference/domains/create-domain), [Resend account usage](https://resend.com/changelog/account-usage-api), [domain-scoped key request contract](https://raw.githubusercontent.com/resend/resend-node/main/src/api-keys/interfaces/create-api-key-options.interface.ts).
+
+
+## Approved release execution
+
+- Source `ec929d248e05117eff70da1d2fad87bdfb223e63` is pushed to `main` and `codex/astro-cloudflare-preview`; no local branch change occurs. The pushed Pages workflow is validation-only.
+- The pending sender has four new unproxied DNS records. Every original DNS record remains field-for-field unchanged. Shared Turnstile settings and existing hostnames remain unchanged; only `embeddings.au` is added (the provider sorts the returned hostname list).
+- Production `embeddings` exists without a domain and has only its three required runtime secrets. No secret values are retained in evidence.
+- Repository connection: `985acff4-f35e-4150-b501-fc588d720f5c`. Dedicated build token: `8c03ab8d-1586-40d0-888b-2e69954cb931`, restricted to Workers/account access in the selected account and route/zone access in the selected zone. It is stored in Cloudflare Builds, never repository files.
+- Production Worker tag `dfb28812bd7944dfb3ceba5722c20680`, trigger `275132f3-3deb-4145-8796-c3081bfad070`, main only, initial non-notifying deploy. Preview tag `61f442b5aaaf4d3e995a9c0e75304095`, trigger `adb7142c-7008-418a-8aa5-3864c344831c`, excludes main and uploads inactive versions only. Both use root `/`, locked npm install, Node 22.17.0 and the ordered lint/check/build/test gate. Build values contain no mail secrets; preview uses the official test site key.
+- Started exact-revision builds: production `32d0568c-92e3-4deb-9d20-9693811a392d`, preview `0e5fb71f-f44d-4b79-9974-d54c2cc62cdb`. They fail in a fixture cleanup hook before deployment; corrected builds remain required.
+- Use `raw.http.request.uri.path` for the scoped redirect target, with `preserve_query_string=true`, to preserve the original path through zone normalization. This is confirmed against [Cloudflare’s raw path field](https://developers.cloudflare.com/ruleset-engine/rules-language/fields/reference/raw.http.request.uri.path/); real encoded-path outcomes remain a cutover check.
+- Spark inbox inspection is currently unavailable because its Desktop IPC is not accessible. Do not treat a provider’s accepted/delivered event as proof of the required mailbox content/Reply-To inspection; receipt must be confirmed through an accessible inbox or by the owner.
+
+
+The sender is now `verified`. Initial Git builds pass lint/check/build and the 43 substantive Node cases but fail in a macOS-only fixture cleanup hook before deployment. A reproduced portable recovery fix retains fixtures by renaming them, without changing product assertions. Corrected-revision builds are required before domain cutover.

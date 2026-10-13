@@ -4,6 +4,8 @@
 
 Implementation begins 13 October 2026 in the existing clean checkout. The steps below are the live implementation checklist; required hosted gates remain open until verified.
 
+Production release approval, 13 October 2026: the owner states “All is approved; proceed with the rest of it end to end. Then test the live site on completion and ensure it works properly.” Execute the exact prepared release targets and preserve the recorded rollback; verify canonical delivery, actual enquiry receipt and private Git-connected builds before closing the goal.
+
 **Planning validation:** Required sections, step criteria, local reference paths and template hygiene pass. The current Next.js lint, Node tests and static build pass. These results establish the existing-site baseline; they do not establish Astro, browser-parity or Cloudflare deployment acceptance.
 
 **Owner-selected OG image (13 October 2026):** Use the third shortlisted design, the five-capabilities poster headed “AI built into the way you work”, for every retained route. The canonical `og:image` and `twitter:image` must be `https://embeddings.au/images/embeddings-ai-consultancy-1200x630.png`, with MIME type `image/png`, width 1200 and height 630. `src/config/site.ts` owns this selection; `public/images/embeddings-ai-consultancy-1200x630.png` is the reviewed, losslessly optimised asset. This owner decision replaces the old retail social-image baseline without changing route titles or descriptions. The top three and their reproducible sources are retained in `documents/og-image-concepts/2026-10-13-shortlist/`. Step 5 and final acceptance must verify the selected PNG in built HTML and its successful image response after cutover; do not restore or regenerate the catalogue/AI-agent/consumer image.
@@ -846,3 +848,10 @@ Repeat only checks invalidated by a later relevant change. Distinguish pre-exist
 - `documents/todo/bugs/codex/combined_bug_sweep_20261013_42d6c871.xml`
 
 These generated audit records are project-ignored and remain unchanged. Their reproduced lessons and reconciliation are recorded in the committed acceptance document.
+
+
+### Approved production release progress
+
+- Owner approval covers all prepared release operations and final live checks. Source is pushed, the four sender records are created, Resend verifies the domain, and the shared widget permits only the additional `embeddings.au` hostname. All original DNS records remain identical.
+- Production runtime secrets and two distinct Git build triggers are configured. Initial Linux builds expose a macOS-only fixture cleanup hook; the existing reproduction fails before and passes after portable recoverable fixture retention. No product assertion changes. Rebuild the corrected revision before domain cutover.
+- Production traffic remains on Pages until successful builds. Canonical/mailbox acceptance, notifications, retirement, private access/build and final live checks remain required.
