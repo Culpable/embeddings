@@ -26,7 +26,7 @@ npm --prefix /Users/sacino/embeddings run test:http -- http://127.0.0.1:8794
 
 ## Publishing
 
-Cloudflare Workers Builds is the selected release controller. The migration has not cut over production yet; the existing GitHub Pages artefact remains live. The old Actions publisher is disabled in the migration source before any push.
+Cloudflare Workers Builds publishes the Astro site at https://embeddings.au. The source is pushed and the Actions publisher is disabled. The preserved Pages artefact remains available for rollback until live contact delivery is accepted. Repository privacy and automatic/private-build verification remain pending that acceptance and GitHub App access.
 
 Production uses `.astro-server/wrangler.json`; isolated version previews use `.astro-server/wrangler.preview.json`. Never deploy the source Wrangler configuration. `deploy:initial` publishes without search notifications before cutover; `deploy` verifies canonical publication before notifying IndexNow. Both require exact external release authority.
 

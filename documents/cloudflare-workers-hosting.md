@@ -4,12 +4,12 @@
 
 Production release authority: the owner approves the remaining end-to-end release on 13 October 2026: “All is approved; proceed with the rest of it end to end. Then test the live site on completion and ensure it works properly.” This covers the prepared source push, production/preview builds, sender DNS and verification, shared widget hostname addition, runtime secrets, web DNS/domain/redirect cutover, one synthetic enquiry, search notification, Pages retirement and private repository rebuild. The immediate pre-write refresh confirms all 22 DNS records exactly match the complete before-state below. The production Worker remains absent and the pending sender remains unverified at that refresh. Raw refresh evidence is ignored under `.artifacts/astro_cloudflare_workers_migration/release/`.
 
-The local Astro replacement and isolated hosted preview pass their recorded acceptance checks. Production release is now authorised and in progress. The repository remains public and Pages serves the previous release. All 22 original DNS records are unchanged; four sender records are added and Resend verifies the domain. Production runtime secrets and separate Git-connected build triggers are configured. Domain cutover, search notification, Pages retirement and repository privacy remain pending successful release checks.
+The local Astro replacement and isolated hosted preview pass their recorded acceptance checks. Production release is now authorised and in progress. The repository remains public; Cloudflare serves the Astro release, while the old Pages artefact is preserved for rollback. All 13 original mail/identity/verification records are unchanged; four sender records are added and Resend verifies the domain. The eight old web address records are replaced by managed Cloudflare delivery, and www is proxied. Production runtime secrets and separate Git-connected build triggers are configured. Domain cutover and live HTTP/page/navigation checks pass. Actual mailbox receipt, automatic/private-build access, search notification, Pages retirement and repository privacy remain pending.
 
 - Account: `213ab3604485056376263d22fa242742`.
 - Zone: `embeddings.au`, `9148c362fcb1400590f7a5eb923f75fc`.
 - Repository: `Culpable/embeddings`, GitHub repository ID `897801182`, owner ID `31677655`, branch `main`.
-- Selected production Worker: `embeddings`; provisioned with runtime secrets, no domain yet.
+- Production Worker: `embeddings`, live on the approved apex custom domain, serving version `5f294061-00a7-46b7-8d38-b5384f32da43` from `a08cea4`.
 - Isolated Worker: `embeddings-preview`, with no custom domains or production mail secrets.
 - Active preview bootstrap version: `020ca849-9c6c-4a73-b29a-31b601a87d64`.
 - Reviewed inactive preview version: `b27ab615-c71d-4c66-ad83-ee660a4a7634`.
@@ -710,3 +710,118 @@ Additional sources: [Resend domain creation](https://resend.com/docs/api-referen
 
 
 The sender is now `verified`. Initial Git builds pass lint/check/build and the 43 substantive Node cases but fail in a macOS-only fixture cleanup hook before deployment. A reproduced portable recovery fix retains fixtures by renaming them, without changing product assertions. Corrected-revision builds are required before domain cutover.
+
+
+### Sender additions preserved at web cutover
+
+The immediate pre-cutover read matches all 26 records. The nine complete web records above are unchanged. The original 13 mail/identity records are unchanged. The four complete new sender records below must be preserved. No zone-owned dynamic redirect exists. Production build passes its complete gate before these prepared web writes.
+
+```json
+[
+  {
+    "id": "a14706f4b593a260c4acacf0593e8d54",
+    "name": "resend._domainkey.notifications.embeddings.au",
+    "type": "TXT",
+    "content": "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCwKXolUHpr4MBrfBHAka4TDYCGcMrAgnr9kE34nJ4biC32YOMyauDNiyINI9ZSgKhaqolsUv4XbgRt5S7JjgvKAQWrBjeVGo18S9uGrNkZztyIv0MfwB7WOFNfMLqFbbY/fKSOLATuZpq1iHn77XHQmiHgcuktYfHeXhCd5StukwIDAQAB",
+    "proxiable": false,
+    "proxied": false,
+    "ttl": 1,
+    "settings": {},
+    "meta": {},
+    "comment": null,
+    "tags": [],
+    "created_on": "2026-10-13T14:51:49.179646Z",
+    "modified_on": "2026-10-13T14:51:49.179646Z"
+  },
+  {
+    "id": "2662bc6e90b5b9b9a10d85add42101ec",
+    "name": "send.notifications.embeddings.au",
+    "type": "MX",
+    "content": "feedback-smtp.ap-northeast-1.amazonses.com",
+    "priority": 10,
+    "proxiable": false,
+    "proxied": false,
+    "ttl": 1,
+    "settings": {},
+    "meta": {},
+    "comment": null,
+    "tags": [],
+    "created_on": "2026-10-13T14:51:49.534743Z",
+    "modified_on": "2026-10-13T14:51:49.534743Z"
+  },
+  {
+    "id": "52cf075ab4e4e6b62672b9a623f75f52",
+    "name": "send.notifications.embeddings.au",
+    "type": "TXT",
+    "content": "v=spf1 include:amazonses.com ~all",
+    "proxiable": false,
+    "proxied": false,
+    "ttl": 1,
+    "settings": {},
+    "meta": {},
+    "comment": null,
+    "tags": [],
+    "created_on": "2026-10-13T14:51:49.861679Z",
+    "modified_on": "2026-10-13T14:51:49.861679Z"
+  },
+  {
+    "id": "fedbb13f1cca2090111c6f66c08da660",
+    "name": "rsend.notifications.embeddings.au",
+    "type": "CNAME",
+    "content": "send.forge.rmta.net",
+    "proxiable": true,
+    "proxied": false,
+    "ttl": 1,
+    "settings": {
+      "flatten_cname": false
+    },
+    "meta": {},
+    "comment": null,
+    "tags": [],
+    "created_on": "2026-10-13T14:51:50.224296Z",
+    "modified_on": "2026-10-13T14:51:50.224296Z"
+  }
+]
+```
+
+
+### Exact approved redirect payload
+
+Immediately before creation, the dynamic-redirect entrypoint is absent. Create only the following zone entrypoint; no other host or existing managed ruleset is modified. The complete www before-state is recorded above. Change only its proxy flag.
+
+```json
+{
+  "name": "Embeddings canonical web redirects",
+  "kind": "zone",
+  "phase": "http_request_dynamic_redirect",
+  "rules": [
+    {
+      "action": "redirect",
+      "description": "Canonical HTTPS apex for Embeddings web hosts",
+      "enabled": true,
+      "expression": "(http.host eq \"www.embeddings.au\") or (http.host eq \"embeddings.au\" and not ssl)",
+      "action_parameters": {
+        "from_value": {
+          "status_code": 301,
+          "target_url": {
+            "expression": "concat(\"https://embeddings.au\", raw.http.request.uri.path)"
+          },
+          "preserve_query_string": true
+        }
+      }
+    }
+  ]
+}
+```
+
+
+### Executed canonical cutover and current gates
+
+- Corrected production build `7a4e85fc-ae44-430d-99e9-9d7036d56ad2` and preview build `b9c34fc9-e789-4355-88e4-e5eeb1bd56e7` pass lint, check, build and all 43 Node tests. They install Node 22.17.0 with locked npm. Production serves version `5f294061-00a7-46b7-8d38-b5384f32da43`; inactive Git-built preview `15a31362-c522-4de7-a359-8f4f9b688411` passes the 19-case HTTP contract without promoting its bootstrap.
+- After recording the refreshed state, remove only the eight old apex A/AAAA records. Attach managed custom domain `f6b01bcb95afeb42ffd42572430167d8a617c473`, certificate identity `dd71f35b-fafa-414e-8f2d-9db8d950c97f`, to the production Worker. Managed proxied apex AAAA record `2800d077e4ccda139334e4af3d32bd43` contains `100::`; public DNS resolves both Cloudflare address families.
+- Create redirect ruleset `18d5ad2aacf14bc89ad95f0aa9390897` with the exact payload above through `POST /zones/{zoneId}/rulesets`. The attempted phase PUT rejects creation-only fields without making a change. Change only www record `804a54ceade29898335c9c9bc30fdd92` to proxied. All 17 other mail/identity/sender records remain field-for-field unchanged. No old Pages address remains; zone TLS settings stay unchanged.
+- Real IPv4 and IPv6 HTTPS requests return the Astro page. The formerly failing strict-TLS www request now finishes at `https://embeddings.au/about/?migration=check`. Apex HTTP and www HTTP/HTTPS redirect correctly. The initial raw encoded-path redirect preserves its path/query; subsequent canonical asset normalization may decode a slash in a missing path.
+- Canonical 19-case HTTP checks pass, all eight live HTML documents exactly match the build, and the reviewed PNG’s MIME/bytes/hash match. Eight routes at both required viewports have no page errors, overflow, missing images or canonical 33-rule violations after lazy images are scrolled into view. Modal focus containment, Escape/restoration and contact-to-about navigation pass at both widths.
+- Source Wrangler now explicitly owns the approved custom domain; generated preview still has no routes. Its final local lint/check/build/43 tests pass. Publish this configuration through the production build controller.
+- The real managed challenge displays but rejects the automated browser. Classify this as a verification environment mismatch, not a proven customer defect; no test token, bypass or shared widget alteration is introduced. The prepared synthetic enquiry is never submitted. [Cloudflare documents this automated-browser limitation](https://developers.cloudflare.com/turnstile/troubleshooting/testing/). A normal-browser submission and actual mailbox receipt remain required before Pages retirement/privacy.
+- GitHub App installation `155220779` is present, but its settings require GitHub sudo re-authentication. Ego Lite task space 73 is handed to the owner at that prompt. Automatic push builds and private repository access remain unverified; successful manual Git-connected public builds do not prove either.

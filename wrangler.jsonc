@@ -3,6 +3,14 @@
   "name": "embeddings",
   "account_id": "213ab3604485056376263d22fa242742",
   "compatibility_date": "2026-10-13",
+  // Preserve the approved apex attachment in every generated production deployment.
+  "routes": [
+    {
+      "pattern": "embeddings.au",
+      "custom_domain": true,
+      "zone_id": "9148c362fcb1400590f7a5eb923f75fc"
+    }
+  ],
   "main": "src/worker.ts",
   "vars": {
     "CONTACT_MODE": "production"

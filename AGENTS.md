@@ -109,7 +109,7 @@ src/app/_disabled_pages/
 - Astro 7.3.8 with prerendered documents and the narrow Cloudflare contact endpoint
 - Tailwind CSS for styling
 - Node.js v22.17.0 required
-- Cloudflare Workers Builds is the selected sole release controller; hosted setup and cutover remain pending acceptance.
+- Cloudflare Workers Builds is the sole release controller; the live Astro site is on Cloudflare. Actual mailbox receipt, automatic publishing and private-build acceptance remain pending.
 - Static documents build to `dist/`; the request-time bundle stays outside public assets in `.astro-server/`.
 - Deploy only the adapter-generated `.astro-server/wrangler.json`, with isolated inactive previews from `.astro-server/wrangler.preview.json`.
 - The Worker owns `/api/contact/`, old no-slash redirects, and selection between prebuilt HTML/Markdown; no document is server-rendered.
@@ -128,8 +128,8 @@ src/app/_disabled_pages/
 - Development: `npm run dev` starts foreground Astro at `http://localhost:3002`. Verify listener ownership first. `--ignore-lock` prevents automatic agent backgrounding; stop only the foreground process you start.
 - Candidate comparison: `npm run dev:astro` at explicit free port `3003`.
 - Production-shaped local review: `npm run build`, then foreground `npm run worker:dev` at `http://127.0.0.1:8794`. Its `.astro-local/` provider fixtures are isolated from hosted configs and cannot send real mail.
-- Selected production: Cloudflare Workers `embeddings`, account `213ab3604485056376263d22fa242742`, domain `embeddings.au`; setup and DNS cutover require the recorded acceptance/authority gates.
-- Current live production remains GitHub Pages until cutover acceptance. Read `documents/cloudflare-workers-hosting.md` for actual identities, before-state and rollback.
+- Selected production: Cloudflare Workers `embeddings`, account `213ab3604485056376263d22fa242742`, domain `embeddings.au`; the approved DNS cutover is executed, with mailbox and private-build acceptance still pending.
+- Current live production is Cloudflare. Preserve the Pages rollback artefact until mailbox acceptance, then retire Pages and verify the private repository build. Read `documents/cloudflare-workers-hosting.md` for actual identities, before-state and rollback.
 </environments>
 
 System architecture documentation (IMPORTANT):

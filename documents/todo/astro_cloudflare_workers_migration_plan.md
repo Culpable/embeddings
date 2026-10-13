@@ -338,7 +338,7 @@ Execution checklist:
 - [x] Prepare meaningful migration and isolated fault checks before code (Step 2).
 - [x] Build the root Astro replacement with locked compatible dependencies (Step 3).
 - [x] Port and verify retained pages, animations, menu and contact states (Step 4).
-- [ ] Finish canonical metadata/social-image serving after local/preview proof (Step 5).
+- [x] Finish canonical metadata/social-image serving after local/preview proof (Step 5).
 - [ ] Provision production contact providers and confirm real mail (Step 6).
 - [x] Prove the generated Worker and HTTP/security contract (Step 7).
 - [x] Establish local acceptance and operating documentation (Step 8).
@@ -348,7 +348,7 @@ Execution checklist:
 - [ ] Activate/verify authorised production search notifications (Step 12).
 - [ ] Retire Pages and prove the private repository/build path (Step 13).
 - [ ] Close canonical acceptance after the scoped local milestone commit (Step 14).
-- [x] Close task-owned browsers and foreground servers for this execution run; retain evidence until owner acceptance.
+- [x] Close task-owned development browsers and foreground servers for this execution run; retain evidence and the owner-held GitHub authentication page.
 
 ### ~~Step 1: Resolve the draft and preserve the execution baseline~~ ✅ **COMPLETED**
 
@@ -413,9 +413,9 @@ Create a guarded `src/scripts/site-entry.ts`, `navigation.ts` and `contact-form.
 - Native submission with Turnstile available works without the project enhancement; all-script/challenge failure uses the selected visible email fallback and never bypasses validation.
 - No hidden desktop navigation, dormant section or disabled page becomes a new public feature.
 
-### Step 5: Migrate public facts, metadata and discovery 🧪 **PENDING TESTING**
+### ~~Step 5: Migrate public facts, metadata and discovery~~ ✅ **COMPLETED**
 
-Execution result: One facts/head/graph owner and discovery generator pass local/preview output checks. All eight routes select the owner-reviewed PNG; hosted bytes/hash/MIME pass. Required canonical production image/metadata serving awaits cutover.
+Execution result: All eight canonical production documents match the built HTML bytes and select the owner-reviewed PNG. Its live response is 200 image/png, 43,992 bytes, with the exact reviewed SHA-256. Canonical discovery and the 19-case HTTP contract pass after cutover.
 
 **Objective:** Keep human pages and machine-readable output coherent.
 
@@ -433,7 +433,7 @@ Reconcile existing public-artifact generation into one owner per file. Generate 
 
 ### Step 6: Port analytics and verify the contact boundary 🔄 **IN PROGRESS**
 
-Execution result: The bounded handler and private-safe deferred analytics are ported; production-compiled SDK bootstrap and post-ready contact events pass with a local SDK stub and zero live requests. Provider fault/state fixtures pass and preview cannot send mail. The existing Resend administrator and included capacity are verified; the pending sender and restricted key are prepared. Exact DNS payloads are recorded, while DNS/verification, production secret bindings/widget hostname and actual mailbox receipt remain pending.
+Execution result: The bounded handler and private-safe deferred analytics pass controlled tests. Resend sender DNS is created and verified; the domain-restricted key and required production runtime secrets are bound. Shared widget membership adds only embeddings.au. Canonical challenge refusal/error recovery passes without mail; the automated browser cannot solve the managed challenge. A normal-browser enquiry and actual mailbox receipt remain pending.
 
 **Objective:** Retain tracking and enquiry behaviour without exposing private input or polluting production accounts.
 
@@ -488,7 +488,7 @@ Check the retained privacy notice against the new provider boundary. Its current
 
 ### Step 9: Provision isolated Workers Builds under external authority 🔄 **IN PROGRESS**
 
-Execution result: Isolated embeddings-preview bootstrap and inactive version uploads are verified. Final reviewed version is b27ab615-c71d-4c66-ad83-ee660a4a7634. Cloudflare reads the public GitHub repository; actual production/preview Git-connected triggers/builds and private access are not yet established.
+Execution result: Separate exact-revision Git builds on a08cea4 pass lint/check/build/all 43 Node cases and publish the production Worker/inactive preview. Production version is 5f294061-00a7-46b7-8d38-b5384f32da43; Git-built preview is 15a31362-c522-4de7-a359-8f4f9b688411, whose 19-case HTTP contract passes. GitHub App installation 155220779 requires user re-authentication before repository scope can be inspected; automatic push/private access remains unproven.
 
 **Objective:** Verify Git-connected Cloudflare delivery without changing the apex domain.
 
@@ -524,7 +524,7 @@ Review HTTPS settings against every affected proxied host. Prefer a targeted edg
 
 ### Step 11: Cut over and verify the public canonical release 🔄 **IN PROGRESS**
 
-Execution result: No canonical cutover or source push occurs. Production authority, provider setup and mailbox-test authority remain required. Strict TLS/www regression and both address-family acceptance cannot pass on a preview.
+Execution result: Approved source push and apex/www cutover are executed. Canonical 19-case HTTP, eight-document byte/metadata parity, reviewed PNG, strict www query regression and real IPv4/IPv6 HTTPS requests pass. Desktop/mobile pages and modal navigation pass. Live challenge rejects the automated browser; no synthetic enquiry is sent. Actual contact submission/mailbox receipt remains pending, so Pages retirement/privacy are held.
 
 **Objective:** Serve the intended Astro revision from Cloudflare without losing enquiries or discovery.
 
@@ -542,7 +542,7 @@ On a failed acceptance condition, restore the recorded pre-cutover web state whi
 
 ### Step 12: Activate canonical search notifications when applicable 🔄 **IN PROGRESS**
 
-Execution result: The bounded npm notifier, public proof file, changed/removed URL handling and fake deployment/transport cases pass. Production wrapper activation and any initial submission await canonical acceptance and notification authority.
+Execution result: The bounded npm notifier, public proof file, changed/removed URL handling and fake deployment/transport cases pass. Production wrapper activation and the approved initial submission await canonical mailbox acceptance.
 
 **Objective:** Notify actual published migration changes without treating previews or builds as releases.
 
@@ -557,7 +557,7 @@ Execution result: The bounded npm notifier, public proof file, changed/removed U
 
 ### Step 13: Retire GitHub Pages, privatise and prove the private release path 🔄 **IN PROGRESS**
 
-Execution result: Pages remains live, the repository remains public, and Next/React/Formspree references/service access stay until canonical/mailbox acceptance. Retirement, exact private visibility operation and an actual private rebuild remain required.
+Execution result: Pages remains live, the repository remains public, and Next/React/Formspree references/service access stay until canonical/mailbox acceptance. Retirement, the approved private visibility operation and an actual private rebuild remain required after mailbox acceptance.
 
 **Objective:** Complete the owner’s requested source privacy without changing public site availability.
 
