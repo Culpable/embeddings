@@ -1,0 +1,23 @@
+{
+  "selectedConcept": "03-five-capabilities",
+  "selectionPosition": 3,
+  "topThree": [
+    "05-brand-poster",
+    "01-systems-hub",
+    "03-five-capabilities"
+  ],
+  "publicPath": "/images/embeddings-ai-consultancy-1200x630.png",
+  "mimeType": "image/png",
+  "width": 1200,
+  "height": 630,
+  "sourceBytes": 72567,
+  "optimisedBytes": 43992,
+  "savedPercent": 39.38,
+  "sourceSha256": "74c515463d248cafa3bf4617dc18553f7910292cd2b355319eb86674a6d442e7",
+  "optimisedSha256": "3a6a8f77d70517c0bd0e48ec7d01e1f99c84962d35dad61cdb4c69900c1e7970",
+  "optimiser": "OxiPNG -o 4 --strip safe",
+  "decodedPixelsIdentical": true,
+  "sRGBProfilePreserved": true,
+  "opaque": true,
+  "publication": "Selected locally; not pushed or deployed."
+}

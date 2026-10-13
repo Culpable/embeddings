@@ -29,14 +29,6 @@ for (const image of Object.values(processImages)) {
   }
 }
 
-await sharp(resolve(repositoryRoot, 'public/images/embeddings-agentic-shopping.png'))
-  .resize(1200, 630, { fit: 'cover', position: 'centre' })
-  .webp({ quality: 82, effort: 6, smartSubsample: true })
-  .toFile(
-    resolve(
-      repositoryRoot,
-      'public/images/embeddings-agentic-shopping-1200x630.webp',
-    ),
-  )
-
-console.log('Generated responsive process images and the social image.')
+// Keep the owner-selected, losslessly optimised social PNG as a reviewed public asset.
+// Generate only responsive process imagery; do not recreate the superseded retail image.
+console.log('Generated responsive process images.')

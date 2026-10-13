@@ -1,0 +1,32 @@
+{
+  "method": "Opened each final PNG at native 1200x630 and its 300px preview.",
+  "images": [
+    {
+      "path": "dark/01-systems-hub.png",
+      "sha256": "578cd2737144b6f3089dfc7d0760854110ec0eeeb7cb732329d4d3ce398ee6f3",
+      "fullSizeInspected": true,
+      "preview300Inspected": true,
+      "preview300Path": "dark/previews/01-systems-hub-300.png",
+      "preview300Sha256": "1b70cfe5d5a21e1619987aae0c00dcf3986795dd2b7a5535a5fd8902fe20e567",
+      "headlineReadableAt300": true
+    },
+    {
+      "path": "dark/03-five-capabilities.png",
+      "sha256": "74c515463d248cafa3bf4617dc18553f7910292cd2b355319eb86674a6d442e7",
+      "fullSizeInspected": true,
+      "preview300Inspected": true,
+      "preview300Path": "dark/previews/03-five-capabilities-300.png",
+      "preview300Sha256": "e94116b4c55d3a3d787e89c37c943769baef07c3c8502bcb839a54b627faf290",
+      "headlineReadableAt300": true
+    },
+    {
+      "path": "dark/05-brand-poster.png",
+      "sha256": "a45c4013af5ba0716058b08c34e9a509b7918e2d57f1a5d8fe856b844885a19c",
+      "fullSizeInspected": true,
+      "preview300Inspected": true,
+      "preview300Path": "dark/previews/05-brand-poster-300.png",
+      "preview300Sha256": "ab51afb920df53f18cc656338fbffe7ffa5db1e0e034f78db0df8774eb2105b2",
+      "headlineReadableAt300": true
+    }
+  ]
+}

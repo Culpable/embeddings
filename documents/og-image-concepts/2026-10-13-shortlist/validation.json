@@ -1,0 +1,1170 @@
+{
+  "generatedAt": "2026-10-13T10:53:18.708Z",
+  "status": "passed",
+  "renderer": {
+    "node": "v22.17.0",
+    "chromium": "headless; --force-color-profile=srgb",
+    "playwright": "1.62.1",
+    "sharp": "0.33.1",
+    "viewport": {
+      "width": 1200,
+      "height": 630
+    },
+    "deviceScaleFactor": 2,
+    "downsample": "Lanczos3 to 1x",
+    "networkRequests": [],
+    "installedPackages": false
+  },
+  "safeMargins": {
+    "horizontal": 42,
+    "vertical": 36
+  },
+  "sourceHashes": {
+    "src/components/Logo.jsx": "2cd32d8ba84c6a5d5f8007343a8a585fa478b8822c7de40fdc876a5205f44120",
+    "src/components/HeroAssistantConversation.jsx": "de1084236769e458333f5c3572d103265d122081d0dcd68f918d0033941bb1c5",
+    "src/components/CapabilityBento.jsx": "0f93a68d9da7d8f949edb830a7a9e8388b8e01dcdb4ebf87eaf225aafcf85cfb",
+    "src/styles/base.css": "23b2fb93b84607479c81baf90276d226a64b15ca0956e3ebdd7c58dba02de0c0",
+    "tailwind.config.js": "d100729312a8058833b6ed3ca43931e393425de0f219c28a47e8b36f817bbe4b",
+    "public/fonts/Mona-Sans-display-latin.var.woff2": "bc725efc04ed93f0898d293f06a1b3bea6fc89669e10dc3155a02e1a4f691e15",
+    "public/fonts/Mona-Sans-body-latin.var.woff2": "7d9a47227cd452ed33d03939afa9c0a23cec300047f9ba92ffe9c319a6b9eea7",
+    "documents/site-positioning.md": "db501c16f2ab957799e714f863fa646187cda7f5ed30c7f465769830dc07cba3"
+  },
+  "productionSelection": {
+    "unchanged": true,
+    "before": {
+      "src/lib/site-config.mjs": "c4de7bf728f43beba1a0b44394ef67f567589262aa877837683f0539acc4dc23",
+      "public/images/embeddings-agentic-shopping-1200x630.webp": "28d6934a492ac201195909508d4ec8336786ceadee7790096299c3a3baa59183"
+    },
+    "after": {
+      "src/lib/site-config.mjs": "c4de7bf728f43beba1a0b44394ef67f567589262aa877837683f0539acc4dc23",
+      "public/images/embeddings-agentic-shopping-1200x630.webp": "28d6934a492ac201195909508d4ec8336786ceadee7790096299c3a3baa59183"
+    }
+  },
+  "candidates": [
+    {
+      "id": "01-systems-hub",
+      "name": "Systems hub",
+      "theme": "dark",
+      "path": "dark/01-systems-hub.png",
+      "width": 1200,
+      "height": 630,
+      "bytes": 91663,
+      "sha256": "578cd2737144b6f3089dfc7d0760854110ec0eeeb7cb732329d4d3ce398ee6f3",
+      "colourSpace": "srgb",
+      "opaque": true,
+      "iccProfileSha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+      "sourceHtmlSha256": "df86797127ea42bc08171ed6c5750291d9d90b56ab5bbde6964981f723ebb54b",
+      "sourceHtml": "dark/sources/01-systems-hub.html",
+      "previews": [
+        {
+          "path": "dark/previews/01-systems-hub-600.png",
+          "width": 600,
+          "height": 315,
+          "bytes": 38869,
+          "sha256": "65f4fa32d934e4b5f35f6424979b3cab65a6aba5d8419006707f0ad3e1a2c98a",
+          "colourSpace": "srgb",
+          "opaque": true,
+          "iccProfileSha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+        },
+        {
+          "path": "dark/previews/01-systems-hub-300.png",
+          "width": 300,
+          "height": 158,
+          "bytes": 15148,
+          "sha256": "1b70cfe5d5a21e1619987aae0c00dcf3986795dd2b7a5535a5fd8902fe20e567",
+          "colourSpace": "srgb",
+          "opaque": true,
+          "iccProfileSha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+        }
+      ],
+      "layout": {
+        "width": 1200,
+        "height": 630,
+        "fontFaces": [
+          {
+            "family": "MonaDisplay",
+            "status": "loaded",
+            "weight": "400 700",
+            "stretch": "125%"
+          },
+          {
+            "family": "MonaBody",
+            "status": "loaded",
+            "weight": "400 700",
+            "stretch": "100%"
+          }
+        ],
+        "displayFontLoaded": true,
+        "bodyFontLoaded": true,
+        "missingImages": [],
+        "footer": {
+          "x": 64,
+          "y": 561,
+          "width": 1072,
+          "height": 26
+        },
+        "textBounds": [
+          {
+            "text": "AI that works",
+            "bounds": [
+              {
+                "x": 64,
+                "y": 171,
+                "width": 370.625,
+                "height": 57
+              }
+            ],
+            "element": {
+              "x": 64,
+              "y": 168,
+              "width": 545,
+              "height": 191.15625
+            },
+            "panel": null,
+            "horizontalOverflow": false,
+            "fontFamily": "MonaDisplay, sans-serif",
+            "fontSize": "59px",
+            "fontWeight": "500",
+            "fontStretch": "125%",
+            "fontVariationSettings": "\"wdth\" 125",
+            "colour": "rgb(255, 255, 255)"
+          },
+          {
+            "text": "inside your",
+            "bounds": [
+              {
+                "x": 64,
+                "y": 234.71875,
+                "width": 303.421875,
+                "height": 57
+              }
+            ],
+            "element": {
+              "x": 64,
+              "y": 168,
+              "width": 545,
+              "height": 191.15625
+            },
+            "panel": null,
+            "horizontalOverflow": false,
+            "fontFamily": "MonaDisplay, sans-serif",
+            "fontSize": "59px",
+            "fontWeight": "500",
+            "fontStretch": "125%",
+            "fontVariationSettings": "\"wdth\" 125",
+            "colour": "rgb(255, 255, 255)"
+          },
+          {
+            "text": "organisation.",
+            "bounds": [
+              {
+                "x": 64,
+                "y": 298.4375,
+                "width": 367.8125,
+                "height": 57
+              }
+            ],
+            "element": {
+              "x": 64,
+              "y": 168,
+              "width": 545,
+              "height": 191.15625
+            },
+            "panel": null,
+            "horizontalOverflow": false,
+            "fontFamily": "MonaDisplay, sans-serif",
+            "fontSize": "59px",
+            "fontWeight": "500",
+            "fontStretch": "125%",
+            "fontVariationSettings": "\"wdth\" 125",
+            "colour": "rgb(255, 255, 255)"
+          },
+          {
+            "text": "We connect AI to your documents, systems and inbox, then keep it running.",
+            "bounds": [
+              {
+                "x": 64,
+                "y": 391.15625,
+                "width": 457.09375,
+                "height": 22
+              },
+              {
+                "x": 64,
+                "y": 424.5,
+                "width": 331.921875,
+                "height": 22
+              }
+            ],
+            "element": {
+              "x": 64,
+              "y": 386.15625,
+              "width": 476,
+              "height": 66.6875
+            },
+            "panel": null,
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "23px",
+            "fontWeight": "400",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(163, 163, 163)"
+          },
+          {
+            "text": "Documents",
+            "bounds": [
+              {
+                "x": 713,
+                "y": 166,
+                "width": 116.375,
+                "height": 21
+              }
+            ],
+            "element": {
+              "x": 713,
+              "y": 164,
+              "width": 116.375,
+              "height": 25
+            },
+            "panel": {
+              "x": 660,
+              "y": 145,
+              "width": 216,
+              "height": 96
+            },
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "21px",
+            "fontWeight": "500",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(255, 255, 255)"
+          },
+          {
+            "text": "Answer with source",
+            "bounds": [
+              {
+                "x": 706,
+                "y": 201,
+                "width": 133.796875,
+                "height": 15
+              }
+            ],
+            "element": {
+              "x": 706,
+              "y": 200,
+              "width": 133.796875,
+              "height": 18
+            },
+            "panel": {
+              "x": 660,
+              "y": 145,
+              "width": 216,
+              "height": 96
+            },
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": "400",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(163, 163, 163)"
+          },
+          {
+            "text": "CRM",
+            "bounds": [
+              {
+                "x": 965,
+                "y": 166,
+                "width": 50.578125,
+                "height": 21
+              }
+            ],
+            "element": {
+              "x": 965,
+              "y": 164,
+              "width": 50.578125,
+              "height": 25
+            },
+            "panel": {
+              "x": 912,
+              "y": 145,
+              "width": 216,
+              "height": 96
+            },
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "21px",
+            "fontWeight": "500",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(255, 255, 255)"
+          },
+          {
+            "text": "Record updated",
+            "bounds": [
+              {
+                "x": 958,
+                "y": 201,
+                "width": 112.78125,
+                "height": 15
+              }
+            ],
+            "element": {
+              "x": 958,
+              "y": 200,
+              "width": 112.78125,
+              "height": 18
+            },
+            "panel": {
+              "x": 912,
+              "y": 145,
+              "width": 216,
+              "height": 96
+            },
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": "400",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(163, 163, 163)"
+          },
+          {
+            "text": "Shared inbox",
+            "bounds": [
+              {
+                "x": 661,
+                "y": 312,
+                "width": 118.71875,
+                "height": 18
+              }
+            ],
+            "element": {
+              "x": 661,
+              "y": 310,
+              "width": 118.71875,
+              "height": 22
+            },
+            "panel": {
+              "x": 608,
+              "y": 291,
+              "width": 202,
+              "height": 96
+            },
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "19px",
+            "fontWeight": "500",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(255, 255, 255)"
+          },
+          {
+            "text": "Reply drafted",
+            "bounds": [
+              {
+                "x": 654,
+                "y": 347,
+                "width": 93.15625,
+                "height": 15
+              }
+            ],
+            "element": {
+              "x": 654,
+              "y": 346,
+              "width": 93.15625,
+              "height": 18
+            },
+            "panel": {
+              "x": 608,
+              "y": 291,
+              "width": 202,
+              "height": 96
+            },
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": "400",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(163, 163, 163)"
+          },
+          {
+            "text": "ERP",
+            "bounds": [
+              {
+                "x": 1013,
+                "y": 312,
+                "width": 42.71875,
+                "height": 21
+              }
+            ],
+            "element": {
+              "x": 1013,
+              "y": 310,
+              "width": 42.71875,
+              "height": 25
+            },
+            "panel": {
+              "x": 960,
+              "y": 291,
+              "width": 176,
+              "height": 96
+            },
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "21px",
+            "fontWeight": "500",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(255, 255, 255)"
+          },
+          {
+            "text": "Report updated",
+            "bounds": [
+              {
+                "x": 1006,
+                "y": 347,
+                "width": 110.25,
+                "height": 15
+              }
+            ],
+            "element": {
+              "x": 1006,
+              "y": 346,
+              "width": 110.25,
+              "height": 18
+            },
+            "panel": {
+              "x": 960,
+              "y": 291,
+              "width": 176,
+              "height": 96
+            },
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": "400",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(163, 163, 163)"
+          },
+          {
+            "text": "Project tools",
+            "bounds": [
+              {
+                "x": 845,
+                "y": 457,
+                "width": 123.09375,
+                "height": 21
+              }
+            ],
+            "element": {
+              "x": 845,
+              "y": 455,
+              "width": 123.09375,
+              "height": 25
+            },
+            "panel": {
+              "x": 792,
+              "y": 436,
+              "width": 244,
+              "height": 96
+            },
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "21px",
+            "fontWeight": "500",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(255, 255, 255)"
+          },
+          {
+            "text": "Task updated",
+            "bounds": [
+              {
+                "x": 838,
+                "y": 492,
+                "width": 94.5,
+                "height": 15
+              }
+            ],
+            "element": {
+              "x": 838,
+              "y": 491,
+              "width": 94.5,
+              "height": 18
+            },
+            "panel": {
+              "x": 792,
+              "y": 436,
+              "width": 244,
+              "height": 96
+            },
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": "400",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(163, 163, 163)"
+          },
+          {
+            "text": "Australian AI consultancy",
+            "bounds": [
+              {
+                "x": 64,
+                "y": 565,
+                "width": 211.53125,
+                "height": 17
+              }
+            ],
+            "element": {
+              "x": 64,
+              "y": 561,
+              "width": 211.53125,
+              "height": 26
+            },
+            "panel": null,
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "18px",
+            "fontWeight": "400",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(163, 163, 163)"
+          },
+          {
+            "text": "embeddings.au",
+            "bounds": [
+              {
+                "x": 1005.5,
+                "y": 565,
+                "width": 130.5,
+                "height": 17
+              }
+            ],
+            "element": {
+              "x": 1005.5,
+              "y": 561,
+              "width": 130.5,
+              "height": 26
+            },
+            "panel": null,
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "18px",
+            "fontWeight": "400",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(255, 255, 255)"
+          }
+        ],
+        "artworkBounds": [
+          {
+            "className": "brand",
+            "bounds": {
+              "x": 64,
+              "y": 48,
+              "width": 262,
+              "height": 43
+            }
+          },
+          {
+            "className": "hub panel",
+            "bounds": {
+              "x": 835,
+              "y": 294,
+              "width": 86,
+              "height": 86
+            }
+          },
+          {
+            "className": "system panel documents",
+            "bounds": {
+              "x": 660,
+              "y": 145,
+              "width": 216,
+              "height": 96
+            }
+          },
+          {
+            "className": "system panel crm",
+            "bounds": {
+              "x": 912,
+              "y": 145,
+              "width": 216,
+              "height": 96
+            }
+          },
+          {
+            "className": "system panel inbox",
+            "bounds": {
+              "x": 608,
+              "y": 291,
+              "width": 202,
+              "height": 96
+            }
+          },
+          {
+            "className": "system panel erp",
+            "bounds": {
+              "x": 960,
+              "y": 291,
+              "width": 176,
+              "height": 96
+            }
+          },
+          {
+            "className": "system panel project",
+            "bounds": {
+              "x": 792,
+              "y": 436,
+              "width": 244,
+              "height": 96
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "03-five-capabilities",
+      "name": "Five capabilities poster",
+      "theme": "dark",
+      "path": "dark/03-five-capabilities.png",
+      "width": 1200,
+      "height": 630,
+      "bytes": 72567,
+      "sha256": "74c515463d248cafa3bf4617dc18553f7910292cd2b355319eb86674a6d442e7",
+      "colourSpace": "srgb",
+      "opaque": true,
+      "iccProfileSha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+      "sourceHtmlSha256": "1cac64fabeab971ead2ebabd506feb09a67e88ff5b7ed0d14a89ac4ec9ec49c2",
+      "sourceHtml": "dark/sources/03-five-capabilities.html",
+      "previews": [
+        {
+          "path": "dark/previews/03-five-capabilities-600.png",
+          "width": 600,
+          "height": 315,
+          "bytes": 33453,
+          "sha256": "0662fbed702b175ad78f0c256a91bae8a283e9fc62d2a7669eee0ac08e83a8b1",
+          "colourSpace": "srgb",
+          "opaque": true,
+          "iccProfileSha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+        },
+        {
+          "path": "dark/previews/03-five-capabilities-300.png",
+          "width": 300,
+          "height": 158,
+          "bytes": 12901,
+          "sha256": "e94116b4c55d3a3d787e89c37c943769baef07c3c8502bcb839a54b627faf290",
+          "colourSpace": "srgb",
+          "opaque": true,
+          "iccProfileSha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+        }
+      ],
+      "layout": {
+        "width": 1200,
+        "height": 630,
+        "fontFaces": [
+          {
+            "family": "MonaDisplay",
+            "status": "loaded",
+            "weight": "400 700",
+            "stretch": "125%"
+          },
+          {
+            "family": "MonaBody",
+            "status": "loaded",
+            "weight": "400 700",
+            "stretch": "100%"
+          }
+        ],
+        "displayFontLoaded": true,
+        "bodyFontLoaded": true,
+        "missingImages": [],
+        "footer": {
+          "x": 64,
+          "y": 561,
+          "width": 1072,
+          "height": 26
+        },
+        "textBounds": [
+          {
+            "text": "AI built into",
+            "bounds": [
+              {
+                "x": 385.734375,
+                "y": 160,
+                "width": 428.515625,
+                "height": 80
+              }
+            ],
+            "element": {
+              "x": 64,
+              "y": 157,
+              "width": 1072,
+              "height": 172.625
+            },
+            "panel": null,
+            "horizontalOverflow": false,
+            "fontFamily": "MonaDisplay, sans-serif",
+            "fontSize": "83px",
+            "fontWeight": "500",
+            "fontStretch": "125%",
+            "fontVariationSettings": "\"wdth\" 125",
+            "colour": "rgb(255, 255, 255)"
+          },
+          {
+            "text": "the way you work",
+            "bounds": [
+              {
+                "x": 251.40625,
+                "y": 246.3125,
+                "width": 697.171875,
+                "height": 80
+              }
+            ],
+            "element": {
+              "x": 64,
+              "y": 157,
+              "width": 1072,
+              "height": 172.625
+            },
+            "panel": null,
+            "horizontalOverflow": false,
+            "fontFamily": "MonaDisplay, sans-serif",
+            "fontSize": "83px",
+            "fontWeight": "500",
+            "fontStretch": "125%",
+            "fontVariationSettings": "\"wdth\" 125",
+            "colour": "rgb(255, 255, 255)"
+          },
+          {
+            "text": "Knowledge assistants",
+            "bounds": [
+              {
+                "x": 177.0625,
+                "y": 401.5,
+                "width": 236.625,
+                "height": 22
+              }
+            ],
+            "element": {
+              "x": 177.0625,
+              "y": 399.5,
+              "width": 236.625,
+              "height": 27
+            },
+            "panel": {
+              "x": 117.0625,
+              "y": 381,
+              "width": 320.625,
+              "height": 64
+            },
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "23px",
+            "fontWeight": "500",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(255, 255, 255)"
+          },
+          {
+            "text": "Customer chatbots",
+            "bounds": [
+              {
+                "x": 513.6875,
+                "y": 401.5,
+                "width": 211.421875,
+                "height": 22
+              }
+            ],
+            "element": {
+              "x": 513.6875,
+              "y": 399.5,
+              "width": 211.421875,
+              "height": 27
+            },
+            "panel": {
+              "x": 453.6875,
+              "y": 381,
+              "width": 295.421875,
+              "height": 64
+            },
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "23px",
+            "fontWeight": "500",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(255, 255, 255)"
+          },
+          {
+            "text": "Workflow automation",
+            "bounds": [
+              {
+                "x": 825.109375,
+                "y": 401.5,
+                "width": 233.8125,
+                "height": 22
+              }
+            ],
+            "element": {
+              "x": 825.109375,
+              "y": 399.5,
+              "width": 233.8125,
+              "height": 27
+            },
+            "panel": {
+              "x": 765.109375,
+              "y": 381,
+              "width": 317.8125,
+              "height": 64
+            },
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "23px",
+            "fontWeight": "500",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(255, 255, 255)"
+          },
+          {
+            "text": "System integration",
+            "bounds": [
+              {
+                "x": 357.640625,
+                "y": 479.5,
+                "width": 205.34375,
+                "height": 22
+              }
+            ],
+            "element": {
+              "x": 357.640625,
+              "y": 477.5,
+              "width": 205.34375,
+              "height": 27
+            },
+            "panel": {
+              "x": 297.640625,
+              "y": 459,
+              "width": 289.34375,
+              "height": 64
+            },
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "23px",
+            "fontWeight": "500",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(255, 255, 255)"
+          },
+          {
+            "text": "Agent orchestration",
+            "bounds": [
+              {
+                "x": 662.984375,
+                "y": 479.5,
+                "width": 215.375,
+                "height": 22
+              }
+            ],
+            "element": {
+              "x": 662.984375,
+              "y": 477.5,
+              "width": 215.375,
+              "height": 27
+            },
+            "panel": {
+              "x": 602.984375,
+              "y": 459,
+              "width": 299.375,
+              "height": 64
+            },
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "23px",
+            "fontWeight": "500",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(255, 255, 255)"
+          },
+          {
+            "text": "Australian AI consultancy",
+            "bounds": [
+              {
+                "x": 64,
+                "y": 565,
+                "width": 211.53125,
+                "height": 17
+              }
+            ],
+            "element": {
+              "x": 64,
+              "y": 561,
+              "width": 211.53125,
+              "height": 26
+            },
+            "panel": null,
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "18px",
+            "fontWeight": "400",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(163, 163, 163)"
+          },
+          {
+            "text": "embeddings.au",
+            "bounds": [
+              {
+                "x": 1005.5,
+                "y": 565,
+                "width": 130.5,
+                "height": 17
+              }
+            ],
+            "element": {
+              "x": 1005.5,
+              "y": 561,
+              "width": 130.5,
+              "height": 26
+            },
+            "panel": null,
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "18px",
+            "fontWeight": "400",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(255, 255, 255)"
+          }
+        ],
+        "artworkBounds": [
+          {
+            "className": "brand centred",
+            "bounds": {
+              "x": 469,
+              "y": 48,
+              "width": 262,
+              "height": 43
+            }
+          },
+          {
+            "className": "capability panel",
+            "bounds": {
+              "x": 117.0625,
+              "y": 381,
+              "width": 320.625,
+              "height": 64
+            }
+          },
+          {
+            "className": "capability panel",
+            "bounds": {
+              "x": 453.6875,
+              "y": 381,
+              "width": 295.421875,
+              "height": 64
+            }
+          },
+          {
+            "className": "capability panel",
+            "bounds": {
+              "x": 765.109375,
+              "y": 381,
+              "width": 317.8125,
+              "height": 64
+            }
+          },
+          {
+            "className": "capability panel",
+            "bounds": {
+              "x": 297.640625,
+              "y": 459,
+              "width": 289.34375,
+              "height": 64
+            }
+          },
+          {
+            "className": "capability panel",
+            "bounds": {
+              "x": 602.984375,
+              "y": 459,
+              "width": 299.375,
+              "height": 64
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "05-brand-poster",
+      "name": "Brand poster",
+      "theme": "dark",
+      "path": "dark/05-brand-poster.png",
+      "width": 1200,
+      "height": 630,
+      "bytes": 55621,
+      "sha256": "a45c4013af5ba0716058b08c34e9a509b7918e2d57f1a5d8fe856b844885a19c",
+      "colourSpace": "srgb",
+      "opaque": true,
+      "iccProfileSha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+      "sourceHtmlSha256": "9c98ff91887af343fd68fb751d2ce3af04bcbc7f0d0a623c02fea31c471aa578",
+      "sourceHtml": "dark/sources/05-brand-poster.html",
+      "previews": [
+        {
+          "path": "dark/previews/05-brand-poster-600.png",
+          "width": 600,
+          "height": 315,
+          "bytes": 24927,
+          "sha256": "1818b97a3d8c052766ee7621776b3aef8a9ec5b6930228782fadff0c02cd0935",
+          "colourSpace": "srgb",
+          "opaque": true,
+          "iccProfileSha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+        },
+        {
+          "path": "dark/previews/05-brand-poster-300.png",
+          "width": 300,
+          "height": 158,
+          "bytes": 11187,
+          "sha256": "ab51afb920df53f18cc656338fbffe7ffa5db1e0e034f78db0df8774eb2105b2",
+          "colourSpace": "srgb",
+          "opaque": true,
+          "iccProfileSha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+        }
+      ],
+      "layout": {
+        "width": 1200,
+        "height": 630,
+        "fontFaces": [
+          {
+            "family": "MonaDisplay",
+            "status": "loaded",
+            "weight": "400 700",
+            "stretch": "125%"
+          },
+          {
+            "family": "MonaBody",
+            "status": "loaded",
+            "weight": "400 700",
+            "stretch": "100%"
+          }
+        ],
+        "displayFontLoaded": true,
+        "bodyFontLoaded": true,
+        "missingImages": [],
+        "footer": {
+          "x": 64,
+          "y": 561,
+          "width": 1072,
+          "height": 26
+        },
+        "textBounds": [
+          {
+            "text": "AI built into the way you work",
+            "bounds": [
+              {
+                "x": 252.1875,
+                "y": 401,
+                "width": 695.625,
+                "height": 47
+              }
+            ],
+            "element": {
+              "x": 64,
+              "y": 397,
+              "width": 1072,
+              "height": 56.34375
+            },
+            "panel": null,
+            "horizontalOverflow": false,
+            "fontFamily": "MonaDisplay, sans-serif",
+            "fontSize": "49px",
+            "fontWeight": "500",
+            "fontStretch": "125%",
+            "fontVariationSettings": "\"wdth\" 125",
+            "colour": "rgb(255, 255, 255)"
+          },
+          {
+            "text": "Australian AI consultancy",
+            "bounds": [
+              {
+                "x": 64,
+                "y": 565,
+                "width": 211.53125,
+                "height": 17
+              }
+            ],
+            "element": {
+              "x": 64,
+              "y": 561,
+              "width": 211.53125,
+              "height": 26
+            },
+            "panel": null,
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "18px",
+            "fontWeight": "400",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(163, 163, 163)"
+          },
+          {
+            "text": "embeddings.au",
+            "bounds": [
+              {
+                "x": 1005.5,
+                "y": 565,
+                "width": 130.5,
+                "height": 17
+              }
+            ],
+            "element": {
+              "x": 1005.5,
+              "y": 561,
+              "width": 130.5,
+              "height": 26
+            },
+            "panel": null,
+            "horizontalOverflow": false,
+            "fontFamily": "MonaBody, sans-serif",
+            "fontSize": "18px",
+            "fontWeight": "400",
+            "fontStretch": "100%",
+            "fontVariationSettings": "normal",
+            "colour": "rgb(255, 255, 255)"
+          }
+        ],
+        "artworkBounds": [
+          {
+            "className": "oversized-brand",
+            "bounds": {
+              "x": 64,
+              "y": 187,
+              "width": 1072,
+              "height": 151
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "contactSheets": [
+    {
+      "path": "00-dark-contact-sheet.png",
+      "width": 1320,
+      "height": 930,
+      "bytes": 122888,
+      "sha256": "b71c30492f44b85296fbbd18bb00c45e6685dc8e684164677b92f7ba3ca7f701",
+      "colourSpace": "srgb",
+      "opaque": true,
+      "iccProfileSha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": []
+}
