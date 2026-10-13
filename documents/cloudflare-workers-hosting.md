@@ -9,7 +9,7 @@ The local Astro replacement and isolated hosted preview pass their recorded acce
 - Account: `213ab3604485056376263d22fa242742`.
 - Zone: `embeddings.au`, `9148c362fcb1400590f7a5eb923f75fc`.
 - Repository: `Culpable/embeddings`, GitHub repository ID `897801182`, owner ID `31677655`, branch `main`.
-- Production Worker: `embeddings`, live on the approved apex custom domain, serving version `5f294061-00a7-46b7-8d38-b5384f32da43` from `a08cea4`.
+- Production Worker: `embeddings`, live on the approved apex custom domain, serving version `e6c63c7e-1abb-46af-8ef9-edaf902919ce` from `ee97c25`. Reviewed prior production rollback version: `5f294061-00a7-46b7-8d38-b5384f32da43`.
 - Isolated Worker: `embeddings-preview`, with no custom domains or production mail secrets.
 - Active preview bootstrap version: `020ca849-9c6c-4a73-b29a-31b601a87d64`.
 - Reviewed inactive preview version: `b27ab615-c71d-4c66-ad83-ee660a4a7634`.
@@ -825,3 +825,8 @@ Immediately before creation, the dynamic-redirect entrypoint is absent. Create o
 - Source Wrangler now explicitly owns the approved custom domain; generated preview still has no routes. Its final local lint/check/build/43 tests pass. Publish this configuration through the production build controller.
 - The real managed challenge displays but rejects the automated browser. Classify this as a verification environment mismatch, not a proven customer defect; no test token, bypass or shared widget alteration is introduced. The prepared synthetic enquiry is never submitted. [Cloudflare documents this automated-browser limitation](https://developers.cloudflare.com/turnstile/troubleshooting/testing/). A normal-browser submission and actual mailbox receipt remain required before Pages retirement/privacy.
 - GitHub App installation `155220779` is present, but its settings require GitHub sudo re-authentication. Ego Lite task space 73 is handed to the owner at that prompt. Automatic push builds and private repository access remain unverified; successful manual Git-connected public builds do not prove either.
+
+
+### Final domain-owner build
+
+Production build `c47e9d1b-727b-4f1e-a29e-cc4a83746e70` and preview build `879c472f-e4be-4c8f-b46a-c3888a12de14` fetch `ee97c25` and pass their complete lint/check/build/43-test gate. Production version `e6c63c7e-1abb-46af-8ef9-edaf902919ce` serves 100%; inactive preview version `18bd7d87-4ee7-45f8-aca7-4a3a2c093ec5` retains isolated configuration. All eight canonical HTML documents still match the inspected build bytes, and all 19 DNS records are identical after deployment. The earlier production version remains the reviewed rollback. No notification or mail is sent by these builds. Automatic builds still do not start on the recorded pushes. The owner-held GitHub sign-in and canonical mailbox acceptance remain open.

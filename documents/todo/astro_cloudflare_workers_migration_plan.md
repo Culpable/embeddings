@@ -488,7 +488,7 @@ Check the retained privacy notice against the new provider boundary. Its current
 
 ### Step 9: Provision isolated Workers Builds under external authority 🔄 **IN PROGRESS**
 
-Execution result: Separate exact-revision Git builds on a08cea4 pass lint/check/build/all 43 Node cases and publish the production Worker/inactive preview. Production version is 5f294061-00a7-46b7-8d38-b5384f32da43; Git-built preview is 15a31362-c522-4de7-a359-8f4f9b688411, whose 19-case HTTP contract passes. GitHub App installation 155220779 requires user re-authentication before repository scope can be inspected; automatic push/private access remains unproven.
+Execution result: Separate exact-revision Git builds pass lint/check/build/all 43 Node cases and publish the production Worker/inactive preview. Final source ee97c25 serves production version e6c63c7e-1abb-46af-8ef9-edaf902919ce; inactive Git-built preview is 18bd7d87-4ee7-45f8-aca7-4a3a2c093ec5. The preceding Git-built preview’s 19-case HTTP contract passes; runtime/output code is unchanged by the domain-owner configuration update. GitHub App installation 155220779 requires user re-authentication before repository scope can be inspected; automatic push/private access remains unproven.
 
 **Objective:** Verify Git-connected Cloudflare delivery without changing the apex domain.
 
@@ -505,7 +505,7 @@ The initial production deploy must not run IndexNow or require the apex to match
 
 ### ~~Step 10: Prepare the exact DNS and rollback packet~~ ✅ **COMPLETED**
 
-Execution result: The refreshed complete web DNS, 13 unchanged mail/identity records, TLS/rules/widgets and restoration payloads are recorded in documents/cloudflare-workers-hosting.md. No DNS writes occur. The pending sender’s four provider-generated records, absent before-state and included capacity are recorded. Production DNS and verification await exact authority.
+Execution result: The refreshed complete web DNS, original mail/identity records, TLS/rules/widgets and restoration payloads are recorded before writes in documents/cloudflare-workers-hosting.md. The sender’s four provider-generated records, absent before-state and included capacity are recorded. Subsequent approved writes and exact after-state are recorded in Step 11 and the hosting guide; all unrelated records are preserved.
 
 **Objective:** Make production cutover concrete and recoverable.
 
@@ -855,3 +855,10 @@ These generated audit records are project-ignored and remain unchanged. Their re
 - Owner approval covers all prepared release operations and final live checks. Source is pushed, the four sender records are created, Resend verifies the domain, and the shared widget permits only the additional `embeddings.au` hostname. All original DNS records remain identical.
 - Production runtime secrets and two distinct Git build triggers are configured. Initial Linux builds expose a macOS-only fixture cleanup hook; the existing reproduction fails before and passes after portable recoverable fixture retention. No product assertion changes. Rebuild the corrected revision before domain cutover.
 - Production traffic remains on Pages until successful builds. Canonical/mailbox acceptance, notifications, retirement, private access/build and final live checks remain required.
+
+
+### Current release at this handoff
+
+- Approved canonical production serves `e6c63c7e-1abb-46af-8ef9-edaf902919ce` from `ee97c25`; separate inactive Git-built preview is `18bd7d87-4ee7-45f8-aca7-4a3a2c093ec5`. Both final builds pass lint/check/build/43 tests. The prior production version is retained for rollback. Post-deploy all eight canonical document bytes and the complete DNS after-state remain correct.
+- Metadata serving is complete. Live desktop/mobile pages, modal keyboard/navigation, protected animations, no-JavaScript email fallback, strict apex/www HTTPS through IPv4/IPv6 and actual contact refusal pass. The failed managed challenge prevents an automated live enquiry; normal-browser success and actual inbox receipt remain pending.
+- Automatic builds do not start on pushes. GitHub App settings are handed to the owner for fresh sign-in and repository-scope verification. Keep source public and Pages recoverable until contact acceptance; then finish notification/retirement/private access and a private rebuild. A 17-file/21-dependency retirement candidate is prepared in ignored release evidence, not executed; protected references and disabled pages remain untouched.
