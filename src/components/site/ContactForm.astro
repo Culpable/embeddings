@@ -33,7 +33,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY
           </fieldset>
         </div>
       </div>
-      {siteKey && <div class="cf-turnstile mt-6" data-sitekey={siteKey} data-action="contact" />}
+      {siteKey && <div class="cf-turnstile" data-sitekey={siteKey} data-action="contact" />}
     </fieldset>
     <div data-contact-status hidden tabindex="-1" role="status" aria-live="polite" class="mt-6 rounded-2xl border border-neutral-950/10 bg-white px-5 py-4 text-sm text-neutral-700 shadow-sm">
       <div class="flex items-start gap-3"><span data-status-icon aria-hidden="true"><svg data-status-check style="display:none" viewBox="0 0 20 20" class="h-4 w-4" fill="currentColor"><path fill-rule="evenodd" d="M16.704 5.29a1 1 0 0 1 .006 1.414l-7.25 7.31a1 1 0 0 1-1.42 0L3.29 9.225a1 1 0 1 1 1.42-1.408l4.04 4.07 6.54-6.59a1 1 0 0 1 1.414-.006Z" clip-rule="evenodd" /></svg></span><div><p data-status-heading hidden class="font-display text-lg font-semibold tracking-tight text-emerald-950">Message sent</p><p data-status-message /></div></div>

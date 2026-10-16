@@ -56,7 +56,7 @@ Current Resend administrative reads succeed using an existing authorised local c
 
 Before provider-domain provisioning, the complete refreshed zone inventory above contains no `notifications.embeddings.au` record, no descendant of that hostname and no wildcard DNS record. Record count remains 22. The selected pending sender is `notifications.embeddings.au` in the existing account's `ap-northeast-1` region, sending only with inbound receiving disabled. Its provider-generated DNS will be recorded here before any DNS writes. Creating this pending verification resource does not send mail, alter DNS or change the live website. Existing Microsoft MX/SPF/DKIM remains untouched.
 
-Reuse managed widget `Genie sites contact form`, site key `0x4AAAAAAEcl2dZMyeEwZapo`, only after authorising the exact hostname addition. Its complete public before-state is recorded below; preserve all existing hosts/settings. The widget secret is excluded. `embeddings.au` is now appended to its allowed hosts; all previous hosts and settings are preserved.
+Reuse managed widget `Genie sites contact form`, site key `0x4AAAAAAEcl2dZMyeEwZapo`, only after authorising the exact hostname addition. Its complete public before-state is recorded below; preserve all existing hosts/settings. The widget secret is excluded. `embeddings.au` is now appended to its allowed hosts; all previous hosts and settings are preserved. On 2026-10-16 the owner approved switching the widget's mode from `managed` to `invisible` for every site that shares it; no other setting changed, and the rollback is recorded in Track My Trail's `documents/migration/infrastructure-state.md`. The widget never draws anything, so the contact form reserves no space for it.
 
 Widget public before-state:
 
